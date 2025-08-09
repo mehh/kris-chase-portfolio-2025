@@ -9,42 +9,42 @@ interface WorkExperience {
 
 const workExperience: WorkExperience[] = [
   {
-    title: "Engineering Manager",
-    company: "GigaSavvy",
-    timeframe: "2020 - Present",
-    description: "Leading cross-functional engineering teams to deliver award-winning digital experiences. Mentoring developers, architecting scalable solutions, and driving technical strategy for Fortune 500 clients including Virgin Orbit, PetIQ, and Sugarfina."
+    title: "Fractional CTO",
+    company: "Various Companies",
+    timeframe: "June 2023 - Present",
+    description: "Led technical strategy and execution across startups in MarTech, Creator Tools, and Marketplaces, resulting in a 65% increase in development efficiency (measured through Story Points, Bugs/Defect Ratio, TTD). Built and managed technical teams, integrating AI into workflows for automation, content moderation, and analytics, enhancing system performance by 50%. Spearheaded MVP builds using Next.js, Supabase, Firebase, and Vercel, successfully launching AI-driven features and improving customer satisfaction rates."
   },
   {
-    title: "Senior Full Stack Developer",
-    company: "GigaSavvy",
-    timeframe: "2018 - 2020",
-    description: "Built high-performance web applications and mobile solutions using React, Node.js, and modern frameworks. Specialized in e-commerce platforms, IoT integrations, and real-time data visualization systems."
+    title: "VP, Software Engineering",
+    company: "Talent Systems (SaaS Application)",
+    timeframe: "Sep. 2022 - Nov. 2024",
+    description: "Directed global team of 60+ web, mobile, and QA engineers across 8 lines of business. Launched 3 new mobile apps (iOS/Android) supporting subscription monetization and live video features. Scaled DevOps with Kubernetes, ArgoCD, Istio, and Terraform on GCP and AWS. Cut delivery cost per feature by 30% through architectural refactoring and agile process improvements. Built a collaborative pod structure with team captains and functional leaders across web, mobile, QA. Integrated acquired platforms post-M&A, aligning roadmaps and technology strategy with co-CEOs."
   },
   {
-    title: "Lead Developer",
-    company: "Digital Agency",
-    timeframe: "2016 - 2018",
-    description: "Led development teams in creating custom web applications and digital marketing solutions. Implemented CI/CD pipelines, optimized performance, and established coding standards across multiple projects."
+    title: "VP of Engineering",
+    company: "PublicSq. (SaaS Application)",
+    timeframe: "Sep. 2022 - Nov. 2024",
+    description: "Scaled engineering team from 4 to 24 in less than a year. Owned development of e-commerce marketplace on web and mobile (NextJS, CapacitorJS, Firebase). Established SCRUM, Jira, OKRs, and engineering hiring pipeline from scratch. Shipped apps to App Store and Play Store, launched marketing site and internal tools. Acted as technical co-founder, architect, and hands-on contributor where needed."
   },
   {
-    title: "Full Stack Developer",
-    company: "Tech Startup",
-    timeframe: "2014 - 2016",
-    description: "Developed MVP products from concept to launch using agile methodologies. Built responsive web applications, RESTful APIs, and integrated third-party services for rapid product iteration."
+    title: "Vice President, Technology",
+    company: "Envoy (Innovation Partner)",
+    timeframe: "Oct. 2018 - Nov. 2021",
+    description: "Led 24+ engineers across web, mobile, QA, DevOps, and IT for high-profile client solutions. Delivered IoT-connected product experiences and enterprise CMS platforms (AWS IoT, React, Shopify, Contentful, Strapi, Google Cloud, GatsbyJS, NextJS). Oversaw eCommerce, custom mobile/web builds, and creative technology R&D for Fortune 500 brands. Established QA, CI/CD, and production launch standards across all engineering teams."
   },
   {
-    title: "Frontend Developer",
-    company: "Creative Studio",
-    timeframe: "2012 - 2014",
-    description: "Created engaging user interfaces and interactive experiences for brand campaigns. Specialized in CSS animations, JavaScript interactions, and cross-browser compatibility for high-traffic websites."
+    title: "Director of Engineering",
+    company: "Gigasavvy (Creative Agency)",
+    timeframe: "Jun. 2013 - Oct. 2018",
+    description: "Built and led dev team launching 100+ websites and custom SaaS Web applications for brands and startups. Owned technical architecture, dev process, and hiring across web, API, and CMS projects. Supported BD with technical scoping, vendor evaluation, and strategic planning. Contributed hands-on to React, PHP/Laravel, WordPress, and JavaScript projects with complex integrations."
   }
 ];
 
 export default function WorkHistory() {
   return (
-    <section id="work" className="py-16 lg:py-24">
+    <section id="work" className="py-16 lg:py-24 bg-background">
       <div className="container mx-auto px-4 pl-20 md:pl-24">
-        <h2 className="text-3xl md:text-4xl font-bold font-heading mb-12 text-black">
+        <h2 className="text-3xl md:text-4xl font-bold font-heading mb-12 text-foreground">
           Work Experience
         </h2>
         
@@ -52,24 +52,24 @@ export default function WorkHistory() {
           {workExperience.map((job, index) => (
             <div
               key={index}
-              className="group block py-8 border-t border-black/10 transition-all duration-500 ease-out hover:bg-black/5"
+              className="group block py-8 border-t border-border transition-all duration-500 ease-out hover:bg-accent/10"
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-black/80 group-hover:text-black transition-colors duration-500 ease-out">
+                  <h3 className="text-xl font-semibold text-foreground/80 group-hover:text-foreground transition-colors duration-500 ease-out">
                     {job.title}
                   </h3>
-                  <div className="text-lg text-black/60 group-hover:text-black/80 transition-colors duration-500 ease-out">
+                  <div className="text-lg text-muted-foreground group-hover:text-foreground/80 transition-colors duration-500 ease-out">
                     {job.company}
                   </div>
                 </div>
-                <div className="text-base text-black/60 font-medium">
+                <div className="text-base text-muted-foreground font-medium">
                   {job.timeframe}
                 </div>
               </div>
               
               <div className="max-h-0 overflow-hidden group-hover:max-h-32 transition-all duration-500 ease-out">
-                <p className="text-black/70 max-w-4xl pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 ease-out leading-relaxed">
+                <p className="text-foreground/70 max-w-4xl pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 ease-out leading-relaxed">
                   {job.description}
                 </p>
               </div>
@@ -77,7 +77,7 @@ export default function WorkHistory() {
           ))}
           
           {/* Bottom border */}
-          <div className="border-t border-black/10 mt-0"></div>
+          <div className="border-t border-border mt-0"></div>
         </div>
       </div>
     </section>

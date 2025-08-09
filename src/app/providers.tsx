@@ -3,6 +3,8 @@
 import { PostHogProvider } from "@posthog/react";
 import posthog from "posthog-js";
 import { useEffect } from "react";
+import { ThemeProvider } from "../components/ThemeProvider";
+import { SmoothScrollProvider } from "../components/SmoothScrollProvider";
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
@@ -19,8 +21,18 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!POSTHOG_KEY) {
-    return <>{children}</>;
+    return (
+      <ThemeProvider>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </ThemeProvider>
+    );
   }
 
-  return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
+  return (
+    <PostHogProvider client={posthog}>
+      <ThemeProvider>
+        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+      </ThemeProvider>
+    </PostHogProvider>
+  );
 }

@@ -35,13 +35,13 @@ export default function ThreeUp() {
         <div className="container mx-auto px-4 pl-20 md:pl-24">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12">
             <div className="headline mb-8 lg:mb-0">
-              <p className="text-xl font-heading uppercase text-base-content/90">Leading teams to success</p>
+              <p className="text-xl font-heading uppercase text-secondary-foreground/90">Leading teams to success</p>
             </div>
             <div className="title flex flex-col">
               {Array.from({ length: 5 }, (_, index) => (
                 <p 
                   key={index}
-                  className={`outline text-4xl font-heading uppercase transition-opacity duration-500 ${
+                  className={`outline text-4xl font-heading uppercase transition-opacity duration-500 text-secondary-foreground ${
                     showOutlines[index] ? 'opacity-100' : 'opacity-20'
                   }`}
                 >
@@ -66,7 +66,7 @@ export default function ThreeUp() {
                   </div>
                 </a>
               </div>
-              <div className="title text-2xl font-heading uppercase mb-2">
+              <div className="title text-2xl font-heading uppercase mb-2 text-secondary-foreground">
                 Plan your mission, goals and objectives
               </div>
             </div>
@@ -85,7 +85,7 @@ export default function ThreeUp() {
                   </div>
                 </a>
               </div>
-              <div className="title text-2xl font-heading uppercase mb-2">
+              <div className="title text-2xl font-heading uppercase mb-2 text-secondary-foreground">
                 Analyze industry positioning
               </div>
             </div>
@@ -104,7 +104,7 @@ export default function ThreeUp() {
                   </div>
                 </a>
               </div>
-              <div className="title text-2xl font-heading uppercase mb-2">
+              <div className="title text-2xl font-heading uppercase mb-2 text-secondary-foreground">
                 Evaluate, modify, repeat
               </div>
             </div>

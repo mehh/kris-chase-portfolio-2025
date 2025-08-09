@@ -4,6 +4,7 @@ import "./globals.css";
 import Providers from "./providers";
 import LeftSidebar from "../components/Header";
 import Footer from "../components/Footer";
+import ThemeToggle from "../components/ThemeToggle";
 
 const chakra = Chakra_Petch({
   variable: "--font-chakra",
@@ -33,6 +34,7 @@ export default function RootLayout({
         <div id="__app-root">
           <Providers>
             <LeftSidebar />
+            <ThemeToggle />
             <main className="">
               {children}
             </main>
