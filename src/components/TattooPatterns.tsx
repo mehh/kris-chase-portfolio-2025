@@ -18,7 +18,7 @@ export default function TattooPatterns() {
       
       {/* Accent pattern overlay */}
       <div className="absolute inset-0 opacity-10">
-        <FlowerOfLifeWallpaper size={54} strokeWidth={1.25} stroke="#ffff00" bg="transparent" opacity={0.9} />
+        <FlowerOfLifeWallpaper size={54} strokeWidth={1.25} stroke="#96442e" bg="transparent" opacity={0.9} />
       </div>
       
       {/* Subtle node pattern */}

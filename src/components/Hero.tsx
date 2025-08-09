@@ -40,7 +40,7 @@ export default function Hero() {
   return (
     <section className="home min-h-screen relative overflow-hidden">
       {/* Tattoo Patterns Background - Full Screen */}
-      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-neutral via-base-100 to-neutral">
+      <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-white via-neutral-100 to-white">
         <div className="hover-plane w-full h-full">
           <TattooPatterns />
         </div>
@@ -49,7 +49,7 @@ export default function Hero() {
       {/* Text Content - Centered Over Background */}
       <div className="relative z-10 min-h-screen flex items-center justify-center">
         <div className="container mx-auto px-4 pl-20 md:pl-24">
-          <h1 className="h-main-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold font-heading leading-[0.85] tracking-tight text-center text-white drop-shadow-2xl">
+          <h1 className="h-main-text text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold font-heading leading-[0.85] tracking-tight text-center text-black drop-shadow-2xl">
             I AM <br />
             KRIS CHASE <br />
             I <span className="text-primary transition-all duration-300">{randomText1}</span> <br />
