@@ -1,15 +1,18 @@
 @import "tailwindcss";
 
+/* DaisyUI plugin for Tailwind v4 */
+@plugin "daisyui";
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #161616;
+  --foreground: #ffffff;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-questrial);
+  --font-heading: var(--font-chakra);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +25,119 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-questrial), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-chakra), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 20s linear infinite;
+}
+
+/* Custom Cursor Styles */
+.zoom_rand2 {
+  transform: scale(2);
+}
+
+.theBall {
+  transition: transform 0.15s ease-out;
+}
+
+/* Hide default cursor on desktop */
+@media (min-width: 1024px) {
+  * {
+    cursor: none !important;
+  }
+}
+
+/* WebGL Fallback */
+.no-curtains .hover-plane {
+  transition: transform 0.3s ease;
+}
+
+.no-curtains .hover-plane:hover {
+  transform: scale(1.05);
+}
+
+/* Left Sidebar Styles */
+.left-menu {
+  background-color: transparent !important;
+  mix-blend-mode: difference;
+}
+
+.left-menu * {
+  color: white !important;
+}
+
+.left-menu a:hover {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Mobile Responsive Sidebar */
+@media (max-width: 768px) {
+  .left-menu {
+    width: 3rem !important;
+    padding: 1rem 0.5rem !important;
+  }
+  
+  .left-menu .social-icon-area {
+    gap: 0.75rem !important;
+  }
+  
+  .left-menu .c-navigation-email {
+    font-size: 0.625rem !important;
+  }
+  
+  /* No margin adjustments - sidebar overlays content */
+  
+  /* Hero text responsive scaling */
+  .h-main-text {
+    font-size: 2rem !important;
+    line-height: 0.9 !important;
+  }
+  
+  /* Hide custom cursor on mobile */
+  .theBall {
+    display: none !important;
+  }
+  
+  /* Ensure patterns scale properly */
+  .tattoo-patterns {
+    transform: scale(0.8);
+  }
+}
+
+/* Vertical Email */
+.c-navigation-email {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+/* Remove pink/default DaisyUI colors */
+.btn-primary {
+  background-color: #b46633 !important;
+  border-color: #b46633 !important;
+}
+
+.text-primary {
+  color: #b46633 !important;
+}
+
+.text-accent {
+  color: #ffff00 !important;
 }
