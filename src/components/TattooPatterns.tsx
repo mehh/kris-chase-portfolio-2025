@@ -143,7 +143,7 @@ export function AsanohaWallpaper({
 function asanohaCell(x: number, y: number, s: number) {
   // Draw the classic 6-pointed star from 6 isosceles triangles in a hex arrangement
   const r = s; // radius
-  const lines: JSX.Element[] = [];
+  const lines: React.ReactElement[] = [];
   for (let i = 0; i < 6; i++) {
     const a1 = (Math.PI / 3) * i;
     const a2 = a1 + Math.PI / 3;

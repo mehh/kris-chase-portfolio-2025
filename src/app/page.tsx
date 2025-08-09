@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import Intro from "../components/Intro";
 import Ticker from "../components/Ticker";
-import Experience from "../components/Experience";
+import WorkHistory from "../components/WorkHistory";
 import ThreeUp from "../components/ThreeUp";
 import Brands from "../components/Brands";
 import LogoScroll from "../components/LogoScroll";
@@ -23,7 +23,7 @@ export default function Home() {
         <Intro />
         <Ticker />
         <ThreeUp />
-        <Experience />
+        <WorkHistory />
         <Brands />
         <LogoScroll />
       </div>

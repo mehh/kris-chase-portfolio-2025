@@ -6,8 +6,8 @@ export default function Intro() {
           <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-base-content/90">
             With more than a decade of experience,
             I have become a leader in building teams and award winning digital
-            experiences, through web development, IoT and apps. That's not a
-            brag, it's a promise: to deliver tomorrow's technology
+            experiences, through web development, IoT and apps. That&apos;s not a
+            brag, it&apos;s a promise: to deliver tomorrow&apos;s technology
             solutions — today.
           </p>
         </div>
