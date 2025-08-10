@@ -9,6 +9,7 @@ import LogoScroll from "../components/LogoScroll";
 import Cursor from "../components/Cursor";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
 import Saver from "../components/Saver";
+import Footer from "../components/Footer";
 import { SectionTransition } from "../components/SmoothScrollProvider";
 
 export default function Home() {
@@ -54,6 +55,9 @@ export default function Home() {
           </section>
         </SectionTransition>
       </div>
+      
+      {/* Footer with Cubes Animation */}
+      <Footer />
     </>
   );
 }

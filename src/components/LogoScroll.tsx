@@ -38,10 +38,8 @@ export default function LogoScroll() {
   }, []);
 
   return (
-    <div className="logo-scroll-container flex justify-center items-center py-8">
-      <div ref={containerRef} className="w-48 h-48 flex items-center justify-center">
-        {/* Lottie animation will be inserted here */}
-      </div>
+    <div ref={containerRef} className="w-48 h-48 flex items-center justify-center">
+      {/* Lottie animation will be inserted here */}
     </div>
   );
 }

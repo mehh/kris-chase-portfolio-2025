@@ -52,12 +52,12 @@ export default function Cursor() {
   }, []);
 
   return (
-    <span className="cursor-container">
-      <div className="theBall fixed pointer-events-none z-[9999] w-4 h-4 bg-accent rounded-full mix-blend-difference transition-transform duration-150">
+    <>
+      <div className="theBall">
         <span />
       </div>
-      <div className="theBall theBall-1 fixed pointer-events-none z-[9998] w-3 h-3 bg-primary rounded-full mix-blend-difference opacity-70" />
-      <div className="theBall theBall-2 fixed pointer-events-none z-[9997] w-2 h-2 bg-secondary rounded-full mix-blend-difference opacity-50" />
-    </span>
+      <div className="theBall theBall-1" />
+      <div className="theBall theBall-2" />
+    </>
   );
 }

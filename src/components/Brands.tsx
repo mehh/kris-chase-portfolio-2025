@@ -69,6 +69,52 @@ export default function BrandsGrid() {
   const cols = 6; // lg:grid-cols-6
   const rows = Math.ceil(brands.length / cols);
 
+  // Helper function to get adjacent cell indices with direction info
+  const getAdjacentCells = (index: number) => {
+    const row = Math.floor(index / cols);
+    const col = index % cols;
+    const adjacent = [];
+
+    // Top
+    if (row > 0) adjacent.push({ index: index - cols, direction: 'top' });
+    // Bottom
+    if (row < rows - 1) adjacent.push({ index: index + cols, direction: 'bottom' });
+    // Left
+    if (col > 0) adjacent.push({ index: index - 1, direction: 'left' });
+    // Right
+    if (col < cols - 1) adjacent.push({ index: index + 1, direction: 'right' });
+    // Top-left
+    if (row > 0 && col > 0) adjacent.push({ index: index - cols - 1, direction: 'top-left' });
+    // Top-right
+    if (row > 0 && col < cols - 1) adjacent.push({ index: index - cols + 1, direction: 'top-right' });
+    // Bottom-left
+    if (row < rows - 1 && col > 0) adjacent.push({ index: index + cols - 1, direction: 'bottom-left' });
+    // Bottom-right
+    if (row < rows - 1 && col < cols - 1) adjacent.push({ index: index + cols + 1, direction: 'bottom-right' });
+
+    return adjacent.filter(item => item.index >= 0 && item.index < brands.length);
+  };
+
+  // Helper function to get which border should animate for an adjacent cell
+  const getBorderDirection = (hoveredIndex: number, adjacentIndex: number) => {
+    const hoveredRow = Math.floor(hoveredIndex / cols);
+    const hoveredCol = hoveredIndex % cols;
+    const adjacentRow = Math.floor(adjacentIndex / cols);
+    const adjacentCol = adjacentIndex % cols;
+
+    // Determine which border of the adjacent cell should animate
+    if (adjacentRow < hoveredRow && adjacentCol === hoveredCol) return 'bottom'; // Adjacent is above
+    if (adjacentRow > hoveredRow && adjacentCol === hoveredCol) return 'top'; // Adjacent is below
+    if (adjacentRow === hoveredRow && adjacentCol < hoveredCol) return 'right'; // Adjacent is left
+    if (adjacentRow === hoveredRow && adjacentCol > hoveredCol) return 'left'; // Adjacent is right
+    if (adjacentRow < hoveredRow && adjacentCol < hoveredCol) return 'bottom-right'; // Adjacent is top-left
+    if (adjacentRow < hoveredRow && adjacentCol > hoveredCol) return 'bottom-left'; // Adjacent is top-right
+    if (adjacentRow > hoveredRow && adjacentCol < hoveredCol) return 'top-right'; // Adjacent is bottom-left
+    if (adjacentRow > hoveredRow && adjacentCol > hoveredCol) return 'top-left'; // Adjacent is bottom-right
+    
+    return null;
+  };
+
   // Generate crosshair positions at grid intersections
   useEffect(() => {
     const crosshairPositions: Array<{ id: number; row: number; col: number; delay: number }> = [];
@@ -128,14 +174,18 @@ export default function BrandsGrid() {
             {/* Logo cells */}
             {brands.map((brand, index) => {
               const isHovered = hoveredIndex === index;
+              const adjacentCells = hoveredIndex !== null ? getAdjacentCells(hoveredIndex) : [];
+              const adjacentCell = adjacentCells.find(cell => cell.index === index);
+              const isAdjacent = adjacentCell !== undefined;
+              const borderDirection = hoveredIndex !== null && isAdjacent ? getBorderDirection(hoveredIndex, index) : null;
               
               return (
                 <motion.div
                   key={brand.file}
                   className="relative aspect-square border border-border/30 flex items-center justify-center p-6 cursor-pointer overflow-hidden group"
                   style={{
-                    backgroundColor: isHovered ? '#FFC10715' : 'transparent',
-                    borderColor: isHovered ? '#FFC107' : undefined,
+                    backgroundColor: isHovered ? '#96442e15' : 'transparent',
+                    borderColor: isHovered ? '#96442e' : undefined,
                     borderWidth: isHovered ? '2px' : '1px',
                   }}
                   onMouseEnter={() => setHoveredIndex(index)}
@@ -143,41 +193,223 @@ export default function BrandsGrid() {
                   whileHover={{ scale: 1.02 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
                 >
-                  {/* Hover border effect extending to adjacent cells */}
-                  {isHovered && (
+
+                  
+                  {/* Directional border animation for adjacent cells */}
+                  {isAdjacent && borderDirection && (
                     <>
-                      {/* Top border extension */}
-                      <motion.div
-                        className="absolute -top-px left-1/2 w-1/2 h-px z-20"
-                        style={{ backgroundColor: '#FFC107' }}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      />
-                      {/* Right border extension */}
-                      <motion.div
-                        className="absolute -right-px top-1/2 w-px h-1/2 z-20"
-                        style={{ backgroundColor: '#FFC107' }}
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: 1 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      />
-                      {/* Bottom border extension */}
-                      <motion.div
-                        className="absolute -bottom-px left-1/2 w-1/2 h-px z-20"
-                        style={{ backgroundColor: '#FFC107' }}
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      />
-                      {/* Left border extension */}
-                      <motion.div
-                        className="absolute -left-px top-1/2 w-px h-1/2 z-20"
-                        style={{ backgroundColor: '#FFC107' }}
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: 1 }}
-                        transition={{ duration: 0.3, ease: "easeOut" }}
-                      />
+                      {/* Top border - draws upward from hovered cell, full color at connection */}
+                      {borderDirection === 'top' && (
+                        <motion.div
+                          className="absolute top-0 left-1/2 h-px z-10"
+                          style={{
+                            background: 'linear-gradient(to left, #96442e, rgba(150, 68, 46, 0))'
+                          }}
+                          initial={{ width: 0, x: '0%', transformOrigin: 'left' }}
+                          animate={{ width: '50%', x: '0%' }}
+                          exit={{ width: 0, x: '0%' }}
+                          transition={{ 
+                            duration: 0.25, 
+                            ease: [0.25, 0.46, 0.45, 0.94],
+                            delay: 0.05 
+                          }}
+                        />
+                      )}
+                      
+                      {/* Bottom border - draws downward from hovered cell, full color at connection */}
+                      {borderDirection === 'bottom' && (
+                        <motion.div
+                          className="absolute bottom-0 left-1/2 h-px z-10"
+                          style={{
+                            background: 'linear-gradient(to right, #96442e, rgba(150, 68, 46, 0))'
+                          }}
+                          initial={{ width: 0, x: '-50%', transformOrigin: 'right' }}
+                          animate={{ width: '50%', x: '-50%' }}
+                          exit={{ width: 0, x: '-50%' }}
+                          transition={{ 
+                            duration: 0.25, 
+                            ease: [0.25, 0.46, 0.45, 0.94],
+                            delay: 0.05 
+                          }}
+                        />
+                      )}
+                      
+                      {/* Left border - draws leftward from hovered cell, full color at connection */}
+                      {borderDirection === 'left' && (
+                        <motion.div
+                          className="absolute left-0 top-1/2 w-px z-10"
+                          style={{
+                            background: 'linear-gradient(to top, #96442e, rgba(150, 68, 46, 0))'
+                          }}
+                          initial={{ height: 0, y: '0%', transformOrigin: 'top' }}
+                          animate={{ height: '50%', y: '0%' }}
+                          exit={{ height: 0, y: '0%' }}
+                          transition={{ 
+                            duration: 0.25, 
+                            ease: [0.25, 0.46, 0.45, 0.94],
+                            delay: 0.05 
+                          }}
+                        />
+                      )}
+                      
+                      {/* Right border - draws rightward from hovered cell, full color at connection */}
+                      {borderDirection === 'right' && (
+                        <motion.div
+                          className="absolute right-0 top-1/2 w-px z-10"
+                          style={{
+                            background: 'linear-gradient(to bottom, #96442e, rgba(150, 68, 46, 0))'
+                          }}
+                          initial={{ height: 0, y: '-50%', transformOrigin: 'bottom' }}
+                          animate={{ height: '50%', y: '-50%' }}
+                          exit={{ height: 0, y: '-50%' }}
+                          transition={{ 
+                            duration: 0.25, 
+                            ease: [0.25, 0.46, 0.45, 0.94],
+                            delay: 0.05 
+                          }}
+                        />
+                      )}
+                      
+                      {/* Corner borders for diagonal adjacency - draw outward from connection */}
+                      {borderDirection === 'bottom-right' && (
+                        <>
+                          {/* Bottom border - connects to hovered cell above, full color at connection */}
+                          <motion.div
+                            className="absolute bottom-0 left-1/2 h-px z-10"
+                            style={{
+                              background: 'linear-gradient(to left, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ width: 0, x: '0%', transformOrigin: 'left' }}
+                            animate={{ width: '50%', x: '0%' }}
+                            exit={{ width: 0, x: '0%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.05 
+                            }}
+                          />
+                          {/* Right border - connects to hovered cell to the left, full color at connection */}
+                          <motion.div
+                            className="absolute right-0 top-1/2 w-px z-10"
+                            style={{
+                              background: 'linear-gradient(to top, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ height: 0, y: '0%', transformOrigin: 'top' }}
+                            animate={{ height: '50%', y: '0%' }}
+                            exit={{ height: 0, y: '0%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.1 
+                            }}
+                          />
+                        </>
+                      )}
+                      
+                      {borderDirection === 'bottom-left' && (
+                        <>
+                          {/* Bottom border - connects to hovered cell above, full color at connection */}
+                          <motion.div
+                            className="absolute bottom-0 left-1/2 h-px z-10"
+                            style={{
+                              background: 'linear-gradient(to right, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ width: 0, x: '-50%', transformOrigin: 'right' }}
+                            animate={{ width: '50%', x: '-50%' }}
+                            exit={{ width: 0, x: '-50%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.05 
+                            }}
+                          />
+                          {/* Left border - connects to hovered cell to the right, full color at connection */}
+                          <motion.div
+                            className="absolute left-0 top-1/2 w-px z-10"
+                            style={{
+                              background: 'linear-gradient(to top, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ height: 0, y: '0%', transformOrigin: 'top' }}
+                            animate={{ height: '50%', y: '0%' }}
+                            exit={{ height: 0, y: '0%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.1 
+                            }}
+                          />
+                        </>
+                      )}
+                      
+                      {borderDirection === 'top-right' && (
+                        <>
+                          {/* Top border - connects to hovered cell below, full color at connection */}
+                          <motion.div
+                            className="absolute top-0 left-1/2 h-px z-10"
+                            style={{
+                              background: 'linear-gradient(to left, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ width: 0, x: '0%', transformOrigin: 'left' }}
+                            animate={{ width: '50%', x: '0%' }}
+                            exit={{ width: 0, x: '0%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.05 
+                            }}
+                          />
+                          {/* Right border - connects to hovered cell to the left, full color at connection */}
+                          <motion.div
+                            className="absolute right-0 top-1/2 w-px z-10"
+                            style={{
+                              background: 'linear-gradient(to bottom, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ height: 0, y: '-50%', transformOrigin: 'bottom' }}
+                            animate={{ height: '50%', y: '-50%' }}
+                            exit={{ height: 0, y: '-50%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.1 
+                            }}
+                          />
+                        </>
+                      )}
+                      
+                      {borderDirection === 'top-left' && (
+                        <>
+                          {/* Top border - connects to hovered cell below, full color at connection */}
+                          <motion.div
+                            className="absolute top-0 left-1/2 h-px z-10"
+                            style={{
+                              background: 'linear-gradient(to right, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ width: 0, x: '-50%', transformOrigin: 'right' }}
+                            animate={{ width: '50%', x: '-50%' }}
+                            exit={{ width: 0, x: '-50%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.05 
+                            }}
+                          />
+                          {/* Left border - connects to hovered cell to the right, full color at connection */}
+                          <motion.div
+                            className="absolute left-0 top-1/2 w-px z-10"
+                            style={{
+                              background: 'linear-gradient(to bottom, #96442e, rgba(150, 68, 46, 0))'
+                            }}
+                            initial={{ height: 0, y: '-50%', transformOrigin: 'bottom' }}
+                            animate={{ height: '50%', y: '-50%' }}
+                            exit={{ height: 0, y: '-50%' }}
+                            transition={{ 
+                              duration: 0.25, 
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                              delay: 0.1 
+                            }}
+                          />
+                        </>
+                      )}
                     </>
                   )}
                   
@@ -199,7 +431,7 @@ export default function BrandsGrid() {
                     <motion.div
                       className="absolute inset-0 pointer-events-none"
                       style={{
-                        background: `radial-gradient(circle at center, #FFC10710 0%, transparent 70%)`,
+                        background: `radial-gradient(circle at center, #96442e10 0%, transparent 70%)`,
                       }}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
