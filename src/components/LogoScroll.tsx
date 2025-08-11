@@ -11,12 +11,14 @@ export default function LogoScroll() {
       try {
         const Lottie = (await import("lottie-react")).default;
         
-        // For now, we'll create a simple animated placeholder
+        // For now, we'll create a simple static placeholder
         // The original used a JSON animation file that we'd need to recreate
         if (containerRef.current) {
           containerRef.current.innerHTML = `
             <div class="logo-scroll-placeholder">
-              <div class="animate-spin w-32 h-32 border-4 border-primary border-t-transparent rounded-full"></div>
+              <div class="w-32 h-32 bg-primary/10 rounded-lg flex items-center justify-center">
+                <span class="text-primary font-heading text-sm">LOGOS</span>
+              </div>
             </div>
           `;
         }
@@ -38,7 +40,7 @@ export default function LogoScroll() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-48 h-48 flex items-center justify-center">
+    <div ref={containerRef}>
       {/* Lottie animation will be inserted here */}
     </div>
   );

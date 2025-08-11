@@ -240,7 +240,7 @@ const Cubes = ({
 
   return (
     <div
-      className="relative w-1/2 max-md:w-11/12 aspect-square"
+      className="relative w-full h-full"
       style={wrapperStyle}
     >
       <div ref={sceneRef} className="grid w-full h-full" style={sceneStyle}>
@@ -252,7 +252,6 @@ const Cubes = ({
               data-row={r}
               data-col={c}
             >
-              <span className="absolute pointer-events-none -inset-9" />
 
               <div
                 className="cube-face absolute inset-0 flex items-center justify-center"

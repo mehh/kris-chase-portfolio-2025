@@ -5,7 +5,6 @@ import WorkHistory from "../components/WorkHistory";
 import BoardExperience from "../components/BoardExperience";
 import ThreeUp from "../components/ThreeUp";
 import Brands from "../components/Brands";
-import LogoScroll from "../components/LogoScroll";
 import Cursor from "../components/Cursor";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
 import Saver from "../components/Saver";
@@ -21,7 +20,7 @@ export default function Home() {
       <Saver />
       
       {/* Page Content */}
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-black relative z-10">
         <SectionTransition id="hero">
           <section id="hero">
             <Hero />
@@ -51,13 +50,9 @@ export default function Home() {
         <SectionTransition id="across-the-web">
           <section id="across-the-web">
             <Brands />
-            <LogoScroll />
           </section>
         </SectionTransition>
       </div>
-      
-      {/* Footer with Cubes Animation */}
-      <Footer />
     </>
   );
 }

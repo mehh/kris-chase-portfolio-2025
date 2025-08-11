@@ -34,45 +34,47 @@ export default function Footer() {
   return (
     <footer 
       ref={footerRef}
-      className="relative w-full min-h-screen footer-container overflow-hidden"
+      className="relative w-full h-96 footer-container overflow-hidden"
     >
       {/* Cubes Background */}
-      <div className="absolute inset-0 z-0 flex items-center justify-center">
+      <div className="absolute inset-0 z-0">
         <Cubes
           gridSize={12}
           cubeSize={undefined}
-          maxAngle={25}
-          borderStyle="1px solid rgba(150, 68, 46, 0.3)"
+          maxAngle={45}
+          radius={3}
+          borderStyle="1px dotted white"
           faceColor="#0a0a0a"
-          autoAnimate={true}
+          autoAnimate={false}
           rippleOnClick={true}
           rippleColor="#96442e"
-          cellGap={2}
+          cellGap={20}
         />
       </div>
 
-      {/* Footer Content */}
-      <div className="relative z-10 flex items-end justify-center min-h-screen">
-        <div className="w-full bg-black/80 backdrop-blur-sm border-t border-[#96442e]/30">
-          <div className="container mx-auto px-4 py-12">
-            {/* Main Footer Content */}
-            <div className="text-center mb-8">
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">
-                Let&apos;s Build Something
-              </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                Ready to bring your vision to life?
-              </p>
-              <a 
-                href="mailto:kris@krischase.com"
-                className="inline-block bg-[#96442e] hover:bg-[#b8553a] text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300"
-              >
-                Get In Touch
-              </a>
-            </div>
+      {/* Footer Content - Centered over the grid */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+        <div className="text-center pointer-events-auto">
+          <h2 className="text-4xl md:text-6xl font-bold text-white mb-4 drop-shadow-lg">
+            Let&apos;s Build Something
+          </h2>
+          <p className="text-xl text-gray-300 mb-8 drop-shadow-md">
+            Ready to bring your vision to life?
+          </p>
+          <a 
+            href="mailto:kris@krischase.com"
+            className="inline-block bg-[#96442e] hover:bg-[#b8553a] text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg"
+          >
+            Get In Touch
+          </a>
+        </div>
+      </div>
 
-            {/* Footer Links & Copyright */}
-            <div className="border-t border-gray-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* Footer Bottom Content */}
+      <div className="absolute bottom-0 left-0 right-0 z-10">
+        <div className="w-full bg-black/80 backdrop-blur-sm border-t border-[#96442e]/30">
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-sm text-gray-400">
                 © {new Date().getFullYear()} Kris Chase. All rights reserved.
               </p>

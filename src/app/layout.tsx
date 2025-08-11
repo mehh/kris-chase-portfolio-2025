@@ -35,7 +35,7 @@ export default function RootLayout({
           <Providers>
             <LeftSidebar />
             <ThemeToggle />
-            <main className="">
+            <main className="relative z-10 min-h-screen">
               {children}
             </main>
             <Footer />

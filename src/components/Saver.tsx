@@ -24,7 +24,7 @@ export default function Saver() {
       
       timeoutRef.current = setTimeout(() => {
         startSaver();
-      }, 5 * 1000); // 2 minutes of inactivity
+      }, 30 * 1000); // 30 seconds of inactivity
       
       // Hide screensaver and clear canvas
       const saverElement = saverRef.current;
