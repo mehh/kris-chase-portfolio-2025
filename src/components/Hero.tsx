@@ -84,7 +84,7 @@ export default function Hero() {
                 onFocus={() => schedule(i)}     // keyboard
                 onBlur={cancel}
                 onClick={() => { setIdx(i); setPaused(true); }}
-                aria-selected={i === idx}
+                data-selected={i === idx}
                 className={`rounded-full border px-2.5 sm:px-3 py-1 text-xs sm:text-sm backdrop-blur-sm min-h-[44px] flex items-center justify-center
                   ${i === idx ? 'border-[#96442e]/80 text-[#96442e]' : 'border-foreground/20 text-foreground/80 hover:text-[#b8553a]'}`}
               >

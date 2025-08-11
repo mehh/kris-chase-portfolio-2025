@@ -195,7 +195,6 @@ export function FlowerOfLifeWallpaper({
 
 function flowerTile(r: number) {
   const dx = r * Math.sqrt(3);
-  const dy = r * 1.5;
   const centers = [
     [dx * 0.5, r * 0.5],
     [dx * 1.5, r * 0.5],

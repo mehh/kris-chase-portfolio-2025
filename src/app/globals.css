@@ -211,6 +211,7 @@ html * {
 
 /* Left Sidebar Styles */
 .left-menu {
+  background: none !important;
   background-color: transparent !important;
   mix-blend-mode: difference;
 }

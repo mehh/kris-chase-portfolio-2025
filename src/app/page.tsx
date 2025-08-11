@@ -8,7 +8,7 @@ import Brands from "../components/Brands";
 import Cursor from "../components/Cursor";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
 import Saver from "../components/Saver";
-import Footer from "../components/Footer";
+
 import { SectionTransition } from "../components/SmoothScrollProvider";
 
 export default function Home() {
