@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import AnimatedHexBackground from './AnimatedHexBackground';
 // … import your TattooPatterns / VerticalCutReveal
 
 const PERSONAS = [
@@ -64,10 +65,13 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-background">
+      {/* Animated hex pattern background */}
+      <AnimatedHexBackground />
+      
       {/* background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
+      <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-background/30 to-muted/5 z-10" />
 
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4">
+      <div className="relative z-20 min-h-screen flex items-center justify-center px-4">
         <div className="max-w-4xl text-center text-foreground">
 
           {/* persona pills */}
