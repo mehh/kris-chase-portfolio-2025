@@ -113,14 +113,14 @@ export default function BrandsGrid() {
   }, [rows, cols]);
 
   return (
-    <section className="w-full py-10 bg-background">
-      <div className="container mx-auto px-4 pl-20 md:pl-24">
-        <h2 className="text-2xl font-bold font-heading text-foreground mb-6">Brands</h2>
+    <section className="py-12 sm:py-16 lg:py-24 bg-background">
+      <div className="container mx-auto px-4 sm:pl-8 md:pl-12">
+        <h2 className="text-xl sm:text-2xl font-bold font-heading text-foreground mb-4 sm:mb-6">Brands</h2>
         
         {/* Grid container with relative positioning for crosshairs */}
         <div className="relative">
           {/* Logo grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-0 border border-border/30 relative">
+          <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-0 border border-border/30 relative">
             {/* Crosshairs at grid intersections */}
             {crosshairs.map((crosshair) => (
               <div
@@ -144,7 +144,7 @@ export default function BrandsGrid() {
               return (
                 <motion.div
                   key={brand.name}
-                  className="relative aspect-square border border-border/30 flex items-center justify-center p-6 cursor-pointer overflow-hidden group"
+                  className="relative aspect-square border border-border/30 flex items-center justify-center p-3 sm:p-4 md:p-6 cursor-pointer overflow-hidden group"
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
                   animate={{

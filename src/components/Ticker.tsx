@@ -106,7 +106,7 @@ export default function Ticker({
   };
 
   return (
-    <div className={`ticker bg-accent text-neutral py-4 overflow-hidden ${className}`}>
+    <div className={`ticker bg-accent text-neutral py-3 sm:py-4 overflow-hidden ${className}`}>
       <div className="marquee flex">
         <div 
           ref={marqueeRef}

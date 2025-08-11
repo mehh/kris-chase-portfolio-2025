@@ -22,9 +22,9 @@ const questrial = Questrial({
 });
 
 export const metadata: Metadata = {
-  title: "Kris Chase | Technical Leadership & Engineering Excellence",
-  description: "I take startups from prototype to dependable product—and the team that ships it. Technical leadership, platform modernization, and delivery optimization for CTOs, founders, and engineering teams.",
-  keywords: ["Technical Leadership", "CTO", "Engineering", "Startups", "Platform Architecture", "Team Building", "Delivery Optimization", "CI/CD", "Scale", "Innovation"],
+  title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
+  description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, and align product roadmaps. 60+ engineers led, 100+ launches, 30% delivery cost reduction.",
+  keywords: ["Technical Leadership", "CTO Consultant", "Engineering Excellence", "Startup CTO", "Platform Modernization", "Delivery Optimization", "CI/CD", "Team Scaling", "Technical Diligence", "90-Day Turnarounds"],
   authors: [{ name: "Kris Chase" }],
   creator: "Kris Chase",
   publisher: "Kris Chase",
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: "Kris Chase | Technical Leadership & Engineering Excellence",
-    description: "I take startups from prototype to dependable product—and the team that ships it. Technical leadership, platform modernization, and delivery optimization.",
+    title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
+    description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, align roadmaps. 60+ engineers led, 100+ launches.",
     url: 'https://krischase.com',
     siteName: 'Kris Chase Portfolio',
     images: [
@@ -55,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Kris Chase | Technical Leadership & Engineering Excellence",
-    description: "I take startups from prototype to dependable product—and the team that ships it. Technical leadership, platform modernization, and delivery optimization.",
+    title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
+    description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, align roadmaps. 60+ engineers led, 100+ launches.",
     images: ['/api/og-image'],
     creator: '@krischase',
   },

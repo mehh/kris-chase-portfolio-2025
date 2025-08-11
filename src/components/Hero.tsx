@@ -71,11 +71,11 @@ export default function Hero() {
       {/* background gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-background/30 to-muted/5 z-10" />
 
-      <div className="relative z-20 min-h-screen flex items-center justify-center px-4">
-        <div className="max-w-4xl text-center text-foreground">
+      <div className="relative z-20 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl text-center text-foreground w-full">
 
           {/* persona pills */}
-          <div className="mb-5 flex flex-wrap justify-center gap-2">
+          <div className="mb-4 sm:mb-5 flex flex-wrap justify-center gap-1.5 sm:gap-2">
             {PERSONAS.map((x, i) => (
               <button
                 key={x.id}
@@ -85,17 +85,17 @@ export default function Hero() {
                 onBlur={cancel}
                 onClick={() => { setIdx(i); setPaused(true); }}
                 aria-selected={i === idx}
-                className={`rounded-full border px-3 py-1 text-xs backdrop-blur-sm
+                className={`rounded-full border px-2.5 sm:px-3 py-1 text-xs sm:text-sm backdrop-blur-sm min-h-[44px] flex items-center justify-center
                   ${i === idx ? 'border-[#96442e]/80 text-[#96442e]' : 'border-foreground/20 text-foreground/80 hover:text-[#b8553a]'}`}
               >
-                {x.label}
+                <span className="text-center leading-tight">{x.label}</span>
               </button>
             ))}
           </div>
 
           {/* availability pill */}
-          <div className="mb-6">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-foreground/10 border border-foreground/20 text-sm text-foreground">
+          <div className="mb-6 sm:mb-8">
+            <span className="inline-flex items-center px-3 sm:px-4 py-1.5 rounded-full bg-foreground/10 border border-foreground/20 text-xs sm:text-sm text-foreground">
               ✨ Available for new opportunities
             </span>
           </div>
@@ -108,7 +108,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.35 }}
-              className="mb-4 text-4xl sm:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.06] tracking-tight text-balance"
+              className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0"
             >
               {p.h1}
             </motion.h1>
@@ -122,16 +122,16 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.3 }}
-              className="mb-7 text-lg sm:text-xl text-foreground/85"
+              className="mb-6 sm:mb-7 text-base sm:text-lg md:text-xl text-foreground/85 px-2 sm:px-0 max-w-3xl mx-auto"
             >
               {p.sub}
             </motion.p>
           </AnimatePresence>
 
           {/* CTAs */}
-          <div className="mb-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4 sm:px-0">
             <a href={p.primary.href}
-               className="inline-flex items-center px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-[#96442e] to-[#b8553a] shadow-[0_0_20px_rgba(150,68,46,.25)]">
+               className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 sm:py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-[#96442e] to-[#b8553a] shadow-[0_0_20px_rgba(150,68,46,.25)] min-h-[48px] text-sm sm:text-base">
               {p.primary.label}
             </a>
             {/* <a href="#work" className="inline-flex items-center px-6 py-3 rounded-lg border border-amber-400/50 text-amber-200 hover:bg-amber-400/10">
@@ -140,7 +140,7 @@ export default function Hero() {
           </div>
 
           {/* proof strip */}
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-foreground/70">
+          <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-foreground/70 px-2 sm:px-0">
             {PROOF.map((m) => <span key={m} className="whitespace-nowrap">{m}</span>)}
           </div>
         </div>

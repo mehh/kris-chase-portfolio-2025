@@ -20,7 +20,7 @@ export default function Home() {
       <Saver />
       
       {/* Page Content */}
-      <div className="min-h-screen bg-black relative z-10">
+      <div className="min-h-screen bg-black relative z-10 pl-12 sm:pl-16">
         <SectionTransition id="hero">
           <section id="hero">
             <Hero />
