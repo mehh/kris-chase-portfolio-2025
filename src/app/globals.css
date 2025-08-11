@@ -1,15 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-/* Footer Reveal Animation */
-.footer-container {
-  transform: translateY(100vh);
-  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-.footer-container.footer-revealed {
-  transform: translateY(0);
-}
+/* Footer styles removed - using normal document flow */
 
 /* Smooth scroll behavior */
 html {

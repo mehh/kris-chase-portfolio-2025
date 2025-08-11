@@ -63,11 +63,12 @@ export default function Hero() {
   const p = PERSONAS[idx];
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
-      {/* background … */}
+    <section className="relative min-h-screen overflow-hidden bg-background">
+      {/* background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
 
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4">
-        <div className="max-w-4xl text-center text-white">
+        <div className="max-w-4xl text-center text-foreground">
 
           {/* persona pills */}
           <div className="mb-5 flex flex-wrap justify-center gap-2">
@@ -81,7 +82,7 @@ export default function Hero() {
                 onClick={() => { setIdx(i); setPaused(true); }}
                 aria-selected={i === idx}
                 className={`rounded-full border px-3 py-1 text-xs backdrop-blur-sm
-                  ${i === idx ? 'border-amber-400/80 text-amber-300' : 'border-white/20 text-white/80 hover:text-amber-200'}`}
+                  ${i === idx ? 'border-[#96442e]/80 text-[#96442e]' : 'border-foreground/20 text-foreground/80 hover:text-[#b8553a]'}`}
               >
                 {x.label}
               </button>
@@ -90,7 +91,7 @@ export default function Hero() {
 
           {/* availability pill */}
           <div className="mb-6">
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm">
+            <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-foreground/10 border border-foreground/20 text-sm text-foreground">
               ✨ Available for new opportunities
             </span>
           </div>
@@ -117,7 +118,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.3 }}
-              className="mb-7 text-lg sm:text-xl text-white/85"
+              className="mb-7 text-lg sm:text-xl text-foreground/85"
             >
               {p.sub}
             </motion.p>
@@ -126,16 +127,16 @@ export default function Hero() {
           {/* CTAs */}
           <div className="mb-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <a href={p.primary.href}
-               className="inline-flex items-center px-6 py-3 rounded-lg font-semibold text-black bg-gradient-to-r from-amber-400 to-yellow-500 shadow-[0_0_20px_rgba(212,175,55,.25)]">
+               className="inline-flex items-center px-6 py-3 rounded-lg font-semibold text-white bg-gradient-to-r from-[#96442e] to-[#b8553a] shadow-[0_0_20px_rgba(150,68,46,.25)]">
               {p.primary.label}
             </a>
-            <a href="#work" className="inline-flex items-center px-6 py-3 rounded-lg border border-amber-400/50 text-amber-200 hover:bg-amber-400/10">
+            {/* <a href="#work" className="inline-flex items-center px-6 py-3 rounded-lg border border-amber-400/50 text-amber-200 hover:bg-amber-400/10">
               See case studies
-            </a>
+            </a> */}
           </div>
 
           {/* proof strip */}
-          <div className="flex flex-wrap justify-center gap-6 text-sm text-white/70">
+          <div className="flex flex-wrap justify-center gap-6 text-sm text-foreground/70">
             {PROOF.map((m) => <span key={m} className="whitespace-nowrap">{m}</span>)}
           </div>
         </div>
