@@ -66,14 +66,14 @@ export default function HowIOperatePage() {
         <p className="mt-2 text-sm text-muted-foreground max-w-3xl">
           Philosophy-first. These are lenses on impact, not a menu. We tailor based on outcomes.
         </p>
-        <ul className="mt-6 grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-6 lg:gap-4 xl:grid-rows-3">
+        <ul className="mt-6 grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:grid-rows-2">
           <GridItem
             area="md:[grid-area:1/1/2/7] xl:[grid-area:1/1/2/5]"
             icon={<Settings className="h-4 w-4" />}
             title="Fractional CTO"
             description={
-              <>Strategy to execution. Org design, platform choices, reliability, and metrics
-              that drive learning and revenue.</>
+              <>From strategy to execution: org design, platform choices, reliability habits, and the
+              metrics that turn learning into durable revenue growth.</>
             }
           />
           <GridItem
@@ -81,8 +81,8 @@ export default function HowIOperatePage() {
             icon={<Box className="h-4 w-4" />}
             title="For CEOs & Founders"
             description={
-              <>Clarify priorities, translate vision to an executable plan, and de-risk the
-              path to launch and scale.</>
+              <>Clarify priorities, translate vision into an executable plan, de‑risk launches, and keep
+              the team focused on the few moves that matter.</>
             }
           />
           <GridItem
@@ -90,8 +90,8 @@ export default function HowIOperatePage() {
             icon={<Lock className="h-4 w-4" />}
             title="For CTOs & VPs of Eng"
             description={
-              <>Roadmap/ops refactor without stalling. Guardrails, standards, and coaching to lift
-              reliability and velocity.</>
+              <>Refactor roadmap and ops without stalling; set guardrails and standards, coach leaders,
+              and raise reliability and velocity together.</>
             }
           />
           <GridItem
@@ -99,10 +99,8 @@ export default function HowIOperatePage() {
             icon={<Rocket className="h-4 w-4" />}
             title="For Founders"
             description={
-              <>Zero-to-one acceleration: ruthless scope to ship learning faster, runway discipline,
-              first 10 hires and org shape, MVP guardrails with a weekly learning cadence, GTM
-              alignment with pricing experiments, and a fundraising narrative with milestones and
-              metrics that matter.</>
+              <>Zero‑to‑one acceleration: ruthless scope and runway discipline, first‑ten hiring and org
+              shape, MVP guardrails, GTM alignment, and milestone‑driven fundraising.</>
             }
           />
           <GridItem
@@ -110,8 +108,8 @@ export default function HowIOperatePage() {
             icon={<Sparkles className="h-4 w-4" />}
             title="For Product Leaders"
             description={
-              <>Outcome-oriented roadmaps, discovery→delivery loops, instrumentation, and sensible
-              AI build vs buy.</>
+              <>Outcome‑oriented roadmaps, tight discovery‑to‑delivery loops, clear instrumentation for
+              learning velocity, and pragmatic AI build‑versus‑buy decisions.</>
             }
           />
           <GridItem
@@ -119,8 +117,8 @@ export default function HowIOperatePage() {
             icon={<Search className="h-4 w-4" />}
             title="For Investors & Boards"
             description={
-              <>Diligence, execution risk assessment, leadership depth, and value creation
-              checkpoints.</>
+              <>Technical and execution diligence, leadership depth assessment, risk‑mitigation plans,
+              and value‑creation checkpoints tied to evidence, not narratives.</>
             }
           />
           

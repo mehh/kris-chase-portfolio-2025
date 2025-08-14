@@ -10,28 +10,28 @@ const PERSONAS = [
     label: 'For CEOs & founders',
     h1: 'I take startups from prototype to dependable product—and the team that ships it.',
     sub: 'Zero-to-one to scale without burning down the roadmap.',
-    primary: { label: 'Book a 20-min intro', href: '#contact' },
+    primary: { label: 'Book a 20-min intro', href: '/contact' },
   },
   {
     id: 'cto',
     label: 'For CTOs & VPs of Eng',
     h1: 'I unblock delivery and modernize platforms so your dates stop slipping.',
     sub: 'Org design, CI/CD, observability, and architecture that cut cycle time.',
-    primary: { label: 'Start a technical audit', href: '#contact' },
+    primary: { label: 'Start a technical audit', href: '/contact' },
   },
   {
     id: 'product',
     label: 'For product leaders',
     h1: 'I align product, platform, and people so the roadmap ships.',
     sub: 'Roadmaps tied to KPIs; AI-enabled workflows to move faster with less.',
-    primary: { label: 'See case studies', href: '#work' },
+    primary: { label: 'Reach Out', href: '/contact' },
   },
   {
     id: 'investor',
     label: 'For investors & portcos',
     h1: 'I run technical diligence and 90-day turnarounds that stick.',
     sub: 'Clear readouts, stabilization plans, and hands-on leadership parachute.',
-    primary: { label: 'Request availability', href: '#contact' },
+    primary: { label: 'Request availability', href: '/contact' },
   },
 ];
 

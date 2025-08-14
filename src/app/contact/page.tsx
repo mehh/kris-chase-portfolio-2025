@@ -8,7 +8,8 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget as HTMLFormElement; // capture before await (React pools events)
+    const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     try {
       const res = await fetch('/api/contact', {
@@ -16,14 +17,20 @@ export default function ContactPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      let json: any = null;
-      try { json = await res.json(); } catch (_) { /* ignore parse issues */ }
-      if (!res.ok) throw new Error(json?.error || `Failed (${res.status})`);
+      let json: unknown = null;
+      try { json = await res.json(); } catch { /* ignore parse issues */ }
+      const apiError =
+        json && typeof json === 'object' && json !== null && 'error' in json
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (json as any).error
+          : undefined;
+      if (!res.ok) throw new Error(apiError || `Failed (${res.status})`);
       setStatus('Thanks! I’ll get back to you shortly.');
-      e.currentTarget.reset();
-    } catch (err: any) {
+      form.reset();
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Unknown error';
       setStatus(`Something went wrong. Please email me directly: kris@krischase.com`);
-      console.error('Contact submit error:', err);
+      console.error('Contact submit error:', message);
     }
   };
 

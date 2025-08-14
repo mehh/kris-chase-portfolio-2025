@@ -52,17 +52,17 @@ const GlowingEffect = memo(
     const animationFrameRef = useRef<number>(0);
 
     const handleMove = useCallback(
-      (e?: MouseEvent | { x: number; y: number }) => {
+      (pos?: { x: number; y: number }) => {
         if (!containerRef.current) return;
         if (animationFrameRef.current) cancelAnimationFrame(animationFrameRef.current);
 
         animationFrameRef.current = requestAnimationFrame(() => {
           const element = containerRef.current!;
           const { left, top, width, height } = element.getBoundingClientRect();
-          const mouseX = (e as any)?.x ?? lastPosition.current.x;
-          const mouseY = (e as any)?.y ?? lastPosition.current.y;
+          const mouseX = pos?.x ?? lastPosition.current.x;
+          const mouseY = pos?.y ?? lastPosition.current.y;
 
-          if (e) lastPosition.current = { x: mouseX, y: mouseY };
+          if (pos) lastPosition.current = { x: mouseX, y: mouseY };
 
           const center = [left + width * 0.5, top + height * 0.5];
           const distanceFromCenter = Math.hypot(mouseX - center[0], mouseY - center[1]);
@@ -83,7 +83,7 @@ const GlowingEffect = memo(
           if (!isActive) return;
 
           const currentAngle = parseFloat(element.style.getPropertyValue("--start")) || 0;
-          let targetAngle =
+          const targetAngle =
             (180 * Math.atan2(mouseY - center[1], mouseX - center[0])) / Math.PI + 90;
 
           const angleDiff = ((targetAngle - currentAngle + 180) % 360) - 180;
@@ -104,7 +104,8 @@ const GlowingEffect = memo(
       if (disabled) return;
 
       const handleScroll = () => handleMove();
-      const handlePointerMove = (e: PointerEvent) => handleMove(e);
+      const handlePointerMove = (e: PointerEvent) =>
+        handleMove({ x: e.clientX, y: e.clientY });
 
       window.addEventListener("scroll", handleScroll, { passive: true });
       document.body.addEventListener("pointermove", handlePointerMove, { passive: true });
@@ -131,7 +132,7 @@ const GlowingEffect = memo(
           style={
             {
               "--blur": `${blur}px`,
-              "--spread": spread as any,
+              "--spread": String(spread),
               "--start": "0",
               "--active": "0",
               "--glowingeffect-border-width": `${borderWidth}px`,

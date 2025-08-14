@@ -24,15 +24,21 @@ export default function PartnersRegistrationPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      let json: any = null;
+      let json: unknown = null;
       try { json = await res.json(); } catch { /* ignore parse issues */ }
-      if (!res.ok) throw new Error(json?.error || `Failed (${res.status})`);
+      const apiError =
+        json && typeof json === 'object' && json !== null && 'error' in json
+          ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (json as any).error
+          : undefined;
+      if (!res.ok) throw new Error(apiError || `Failed (${res.status})`);
       setStatus('Thanks! You’ve been added to my collaboration list.');
       form.reset();
       setTypes([]);
-    } catch (err: any) {
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Unknown error';
       setStatus('Something went wrong. Please email me: kris@krischase.com');
-      console.error('Partners submit error:', err);
+      console.error('Partners submit error:', message);
     }
   };
 
