@@ -12,23 +12,26 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  // Force dark mode - light mode temporarily disabled
+  const [theme, setTheme] = useState<Theme>("dark");
 
   useEffect(() => {
-    // Check for saved theme preference or default to system preference
-    const savedTheme = localStorage.getItem("theme") as Theme;
-    const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    const initialTheme = savedTheme || systemTheme;
+    // Force dark mode for now - commented out light mode logic for future re-enablement
+    // const savedTheme = localStorage.getItem("theme") as Theme;
+    // const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    // const initialTheme = savedTheme || systemTheme;
     
-    setTheme(initialTheme);
-    document.documentElement.classList.toggle("dark", initialTheme === "dark");
+    setTheme("dark");
+    document.documentElement.classList.add("dark");
   }, []);
 
+  // Disabled toggle functionality - kept for future re-enablement
   const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
+    // const newTheme = theme === "light" ? "dark" : "light";
+    // setTheme(newTheme);
+    // localStorage.setItem("theme", newTheme);
+    // document.documentElement.classList.toggle("dark", newTheme === "dark");
+    console.log("Theme toggle disabled - dark mode forced");
   };
 
   return (

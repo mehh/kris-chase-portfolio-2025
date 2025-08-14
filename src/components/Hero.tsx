@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import AnimatedHexBackground from './AnimatedHexBackground';
-// … import your TattooPatterns / VerticalCutReveal
+import VerticalCutReveal from '../fancy/components/text/vertical-cut-reveal';
 
 const PERSONAS = [
   {
@@ -64,12 +64,9 @@ export default function Hero() {
   const p = PERSONAS[idx];
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background">
+    <section className="relative min-h-screen overflow-hidden">
       {/* Animated hex pattern background */}
       <AnimatedHexBackground />
-      
-      {/* background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background/20 via-background/30 to-muted/5 z-10" />
 
       <div className="relative z-20 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl text-center text-foreground w-full">
@@ -104,13 +101,25 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.h1
               key={p.id + '-h1'}
-              initial={{ opacity: 0, y: 6 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.35 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
               className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0"
             >
-              {p.h1}
+              <VerticalCutReveal
+                splitBy="words"
+                staggerDuration={0.08}
+                staggerFrom="first"
+                transition={{
+                  type: "spring",
+                  stiffness: 150,
+                  damping: 20,
+                  delay: 0.1
+                }}
+              >
+                {p.h1}
+              </VerticalCutReveal>
             </motion.h1>
           </AnimatePresence>
 

@@ -42,7 +42,7 @@ const workExperience: WorkExperience[] = [
 
 export default function WorkHistory() {
   return (
-    <section id="work" className="py-16 lg:py-24 bg-background">
+    <section id="work" className="py-16 lg:py-24">
       <div className="container mx-auto px-4 pl-20 md:pl-24">
         <h2 className="text-3xl md:text-4xl font-bold font-heading mb-12 text-foreground">
           Work Experience

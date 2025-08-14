@@ -1,6 +1,6 @@
 export default function Intro() {
   return (
-    <section className="intro py-12 sm:py-16 lg:py-24 bg-background">
+    <section className="intro py-12 sm:py-16 lg:py-24">
       <div className="container mx-auto px-4 sm:pl-8 md:pl-12">
         <div className="max-w-4xl mx-auto">
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl leading-relaxed text-foreground/90">

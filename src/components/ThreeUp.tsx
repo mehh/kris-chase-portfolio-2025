@@ -31,7 +31,7 @@ export default function ThreeUp() {
 
   return (
     <div id="shopify-section-home-second-menu" className="shopify-section threeUp">
-      <section className="second-menu bg-secondary py-12 sm:py-16 lg:py-24">
+      <section className="second-menu py-12 sm:py-16 lg:py-24">
         <div className="container mx-auto px-4 sm:pl-8 md:pl-12">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-8 sm:mb-12">
             <div className="headline mb-6 sm:mb-8 lg:mb-0">

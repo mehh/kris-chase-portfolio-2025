@@ -113,7 +113,7 @@ export default function BrandsGrid() {
   }, [rows, cols]);
 
   return (
-    <section className="py-12 sm:py-16 lg:py-24 bg-background">
+    <section className="py-12 sm:py-16 lg:py-24">
       <div className="container mx-auto px-4 sm:pl-8 md:pl-12">
         <h2 className="text-xl sm:text-2xl font-bold font-heading text-foreground mb-4 sm:mb-6">Brands</h2>
         

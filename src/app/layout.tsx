@@ -3,7 +3,7 @@ import { Chakra_Petch, Questrial } from "next/font/google";
 import "./globals.css";
 import Providers from './providers';
 import LeftSidebar from '../components/Header';
-import ThemeToggle from '../components/ThemeToggle';
+// import ThemeToggle from '../components/ThemeToggle'; // Temporarily disabled
 import Footer from '../components/Footer';
 import Saver from '../components/Saver';
 import { JsonLd } from '../components/JsonLd';
@@ -99,7 +99,7 @@ export default function RootLayout({
         <div id="__app-root">
           <Providers>
             <LeftSidebar />
-            <ThemeToggle />
+            {/* <ThemeToggle /> */}
             <main className="relative z-10 min-h-screen">
               {children}
             </main>
