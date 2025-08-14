@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 
 interface BoardExperience {
   title: string;
@@ -29,9 +30,15 @@ const boardExperience: BoardExperience[] = [
 ];
 
 export default function BoardExperience() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const toggle = (index: number) => {
+    setActiveIndex((prev) => (prev === index ? null : index));
+  };
+
   return (
     <section id="board" className="py-16 lg:py-24">
-      <div className="container mx-auto px-4 pl-20 md:pl-24">
+      <div className="container mx-auto px-4 md:pl-24">
         <h2 className="text-3xl md:text-4xl font-bold font-heading mb-12 text-foreground">
           Board & Advisory Experience
         </h2>
@@ -40,24 +47,36 @@ export default function BoardExperience() {
           {boardExperience.map((board, index) => (
             <div
               key={index}
-              className="group block py-8 border-t border-border transition-all duration-500 ease-out hover:bg-accent/10"
+              className="group block border-t border-border transition-colors duration-300 ease-out hover:bg-accent/10"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-foreground/80 group-hover:text-foreground transition-colors duration-500 ease-out">
-                    {board.title}
-                  </h3>
-                  <div className="text-lg text-muted-foreground group-hover:text-foreground/80 transition-colors duration-500 ease-out">
-                    {board.company}
+              <button
+                type="button"
+                onClick={() => toggle(index)}
+                aria-expanded={activeIndex === index}
+                aria-controls={`board-desc-${index}`}
+                className="w-full text-left py-6 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <div className="flex-1">
+                    <h3 className="text-xl font-semibold text-foreground/80 group-hover:text-foreground transition-colors duration-300 ease-out">
+                      {board.title}
+                    </h3>
+                    <div className="text-lg text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300 ease-out">
+                      {board.company}
+                    </div>
+                  </div>
+                  <div className="text-base text-muted-foreground font-medium shrink-0">
+                    {board.timeframe}
                   </div>
                 </div>
-                <div className="text-base text-muted-foreground font-medium">
-                  {board.timeframe}
-                </div>
-              </div>
-              
-              <div className="max-h-0 overflow-hidden group-hover:max-h-32 transition-all duration-500 ease-out">
-                <p className="text-foreground/70 max-w-4xl pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 ease-out leading-relaxed">
+              </button>
+              <div
+                id={`board-desc-${index}`}
+                className={`overflow-hidden transition-all duration-500 ease-out ${activeIndex === index ? "max-h-96" : "max-h-0 md:group-hover:max-h-32"}`}
+              >
+                <p
+                  className={`text-foreground/70 max-w-4xl pb-6 pt-0 md:pt-4 transition-opacity duration-500 ease-out ${activeIndex === index ? "opacity-100" : "opacity-0 md:group-hover:opacity-100 md:delay-100"}`}
+                >
                   {board.description}
                 </p>
               </div>

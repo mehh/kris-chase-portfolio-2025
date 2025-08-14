@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useCallback, useMemo } from "react";
+import React, { useEffect, useRef, useCallback, useMemo, useState } from "react";
 import { gsap } from "gsap";
 
 export type TargetCursorProps = {
@@ -14,6 +14,21 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
   spinDuration = 2,
   hideDefaultCursor = true,
 }) => {
+  // Detect touch/mobile devices and disable custom cursor for them
+  const [isTouch, setIsTouch] = useState(true); // default true to avoid flash on mobile
+
+  useEffect(() => {
+    const mql = window.matchMedia("(pointer: coarse)");
+    const update = () => setIsTouch(mql.matches || window.innerWidth < 1024);
+    update();
+    mql.addEventListener("change", update);
+    window.addEventListener("resize", update);
+    return () => {
+      mql.removeEventListener("change", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const cornersRef = useRef<NodeListOf<Element> | null>(null);
   const spinTl = useRef<gsap.core.Timeline | null>(null);
@@ -38,10 +53,10 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
   }, []);
 
   useEffect(() => {
-    if (!cursorRef.current) return;
+    if (isTouch || !cursorRef.current) return;
 
     const originalCursor = document.body.style.cursor;
-    if (hideDefaultCursor) {
+    if (!isTouch && hideDefaultCursor) {
       document.body.style.cursor = 'none';
     }
 
@@ -316,10 +331,10 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
       spinTl.current?.kill();
       document.body.style.cursor = originalCursor;
     };
-  }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor]);
+  }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor, isTouch]);
 
   useEffect(() => {
-    if (!cursorRef.current || !spinTl.current) return;
+    if (isTouch || !cursorRef.current || !spinTl.current) return;
 
     if (spinTl.current.isActive()) {
       spinTl.current.kill();
@@ -327,9 +342,11 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
         .timeline({ repeat: -1 })
         .to(cursorRef.current, { rotation: "+=360", duration: spinDuration, ease: "none" });
     }
-  }, [spinDuration]);
+  }, [spinDuration, isTouch]);
 
   return (
+    // Do not render on touch/mobile devices
+    isTouch ? null : (
     <div
       ref={cursorRef}
       className="fixed top-0 left-0 w-0 h-0 pointer-events-none z-[9999] mix-blend-difference transform -translate-x-1/2 -translate-y-1/2"
@@ -357,6 +374,7 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
         style={{ willChange: 'transform' }}
       />
     </div>
+    )
   );
 };
 
