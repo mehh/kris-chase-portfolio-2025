@@ -99,16 +99,10 @@ export default function HowIOperatePage() {
             icon={<Rocket className="h-4 w-4" />}
             title="For Founders"
             description={
-              <>
-                <p>Zero-to-one acceleration and disciplined execution:</p>
-                <ul className="mt-2 list-disc pl-5 space-y-1">
-                  <li>Focus and runway discipline; ruthless scope to ship learning faster</li>
-                  <li>First 10 hires and org shape; hands-on recruiting help</li>
-                  <li>MVP definition, guardrails, and weekly learning cadence</li>
-                  <li>GTM alignment with product and pricing experiments</li>
-                  <li>Fundraising narrative, milestones, and metrics that matter</li>
-                </ul>
-              </>
+              <>Zero-to-one acceleration: ruthless scope to ship learning faster, runway discipline,
+              first 10 hires and org shape, MVP guardrails with a weekly learning cadence, GTM
+              alignment with pricing experiments, and a fundraising narrative with milestones and
+              metrics that matter.</>
             }
           />
           <GridItem
