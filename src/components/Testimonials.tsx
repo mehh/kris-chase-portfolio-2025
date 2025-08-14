@@ -3,12 +3,33 @@
 import { TestimonialsColumn } from "./blocks/testimonials-columns-1";
 import { motion } from "motion/react";
 import { testimonials } from "../data/testimonials";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 const firstColumn = testimonials.slice(0, 3);
 const secondColumn = testimonials.slice(3, 6);
 const thirdColumn = testimonials.slice(6, 9);
 
 const Testimonials = () => {
+  // Register homepage testimonials preview for Machine View
+  useMachineSlice({
+    type: "testimonial",
+    title: "Homepage Testimonials",
+    path: "/",
+    order: 60,
+    content: [
+      "### Summary",
+      "What colleagues say — preview section with marquee columns.",
+      "",
+      "### People (preview)",
+      ...[...firstColumn, ...secondColumn, ...thirdColumn].map(
+        (t) => `- ${t.name} — ${t.role}`
+      ),
+      "",
+      "### CTA",
+      "[View All Testimonials](/testimonials)",
+    ].join("\n"),
+  }, []);
+
   return (
     <section className="my-20 relative">
       <div className="container z-10 mx-auto px-4">

@@ -4,8 +4,26 @@ import { motion } from "motion/react";
 import { testimonials } from "../../data/testimonials";
 import SimpleHoverEffect from "../../components/SimpleHoverEffect";
 import { SectionTransition } from "../../components/SmoothScrollProvider";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function TestimonialsPage() {
+  // Register page content for Machine View
+  useMachineSlice({
+    type: "page",
+    title: "Testimonials",
+    path: "/testimonials",
+    order: 50,
+    content: [
+      "### Summary",
+      "Voices from the Field — curated LinkedIn reviews.",
+      "",
+      "### People",
+      ...testimonials.map((t) => `- ${t.name} — ${t.role}`),
+      "",
+      "### CTA",
+      "[Get In Touch](/contact)",
+    ].join("\n"),
+  }, []);
 
   return (
     <>

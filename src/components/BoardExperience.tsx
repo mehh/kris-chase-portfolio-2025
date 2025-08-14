@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+
 interface BoardExperience {
   title: string;
   company: string;
@@ -35,6 +37,28 @@ export default function BoardExperience() {
   const toggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
+
+  // Register Board & Advisory Experience for Machine View
+  useMachineSlice(
+    {
+      type: "section",
+      title: "Board & Advisory Experience",
+      path: "/",
+      order: 40,
+      content: [
+        "### Roles",
+        ...boardExperience.map(
+          (b) => `- ${b.title} — ${b.company} (${b.timeframe})`
+        ),
+        "",
+        "### Details",
+        ...boardExperience.map(
+          (b) => `- ${b.title}: ${b.description}`
+        ),
+      ].join("\n"),
+    },
+    []
+  );
 
   return (
     <section id="board" className="py-16 lg:py-24">

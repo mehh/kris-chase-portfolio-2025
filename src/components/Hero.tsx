@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import AnimatedHexBackground from './AnimatedHexBackground';
 import VerticalCutReveal from '../fancy/components/text/vertical-cut-reveal';
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 const PERSONAS = [
   {
@@ -62,6 +63,30 @@ export default function Hero() {
   };
 
   const p = PERSONAS[idx];
+
+  // Register Hero content for Machine View
+  useMachineSlice({
+    type: "hero",
+    title: "Homepage Hero",
+    path: "/",
+    order: 20,
+    content: [
+      "### Personas",
+      ...PERSONAS.map((x) => `- ${x.label}`),
+      "",
+      "### Headlines",
+      ...PERSONAS.map((x) => `- ${x.label}: ${x.h1}`),
+      "",
+      "### Subheads",
+      ...PERSONAS.map((x) => `- ${x.label}: ${x.sub}`),
+      "",
+      "### Primary CTAs",
+      ...PERSONAS.map((x) => `- ${x.label}: [${x.primary.label}](${x.primary.href})`),
+      "",
+      "### Proof Points",
+      ...PROOF.map((m) => `- ${m}`),
+    ].join("\n"),
+  }, []);
 
   return (
     <section className="relative min-h-screen overflow-hidden">
