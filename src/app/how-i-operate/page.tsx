@@ -1,6 +1,9 @@
 "use client";
 
 import React from "react";
+import { Box, Lock, Search, Settings, Sparkles } from "lucide-react";
+import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { cn } from "@/lib/utils";
 
 export default function HowIOperatePage() {
   return (
@@ -45,65 +48,59 @@ export default function HowIOperatePage() {
         </div>
       </section>
 
-      {/* Audiences / Offerings (pricing-style layout, philosophy-first) */}
+      {/* Audiences / Offerings (glowing grid) */}
       <section className="mb-12 md:mb-16">
         <h2 className="text-2xl md:text-3xl font-semibold text-foreground">Where I Help</h2>
         <p className="mt-2 text-sm text-muted-foreground max-w-3xl">
-          Not a menu—more like lenses on impact. Think of these as entry points; we tailor based on
-          outcomes, not deliverables.
+          Philosophy-first. These are lenses on impact, not a menu. We tailor based on outcomes.
         </p>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {/* Fractional CTO */}
-          <div className="rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-            <h3 className="text-xl font-semibold">Fractional CTO</h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>• Product and platform strategy</li>
-              <li>• Org design, hiring bar, and rituals</li>
-              <li>• Architecture, reliability, and velocity</li>
-              <li>• Metrics that drive learning and revenue</li>
-            </ul>
-          </div>
-          {/* CEOs & Founders */}
-          <div className="rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-            <h3 className="text-xl font-semibold">For CEOs & Founders</h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>• Clarify strategy and ruthless prioritization</li>
-              <li>• Translate vision to an executable plan</li>
-              <li>• Build the first-principles dashboard</li>
-              <li>• De-risk launches and partner decisions</li>
-            </ul>
-          </div>
-          {/* CTOs & VPEs */}
-          <div className="rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-            <h3 className="text-xl font-semibold">For CTOs & VPs of Eng</h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>• Org/roadmap refactor without losing momentum</li>
-              <li>• Platform choices, standards, and guardrails</li>
-              <li>• Incident → insight: reliability as a habit</li>
-              <li>• Coaching rising leaders</li>
-            </ul>
-          </div>
-          {/* Product leaders */}
-          <div className="rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-            <h3 className="text-xl font-semibold">For Product Leaders</h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>• Outcome-oriented roadmaps</li>
-              <li>• Discovery → delivery feedback loops</li>
-              <li>• Instrumentation for learning velocity</li>
-              <li>• AI strategy: where to build vs. buy</li>
-            </ul>
-          </div>
-          {/* Investors & Boards */}
-          <div className="rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-            <h3 className="text-xl font-semibold">For Investors & Boards</h3>
-            <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-              <li>• Pre/post-investment technical diligence</li>
-              <li>• Execution risk assessment and mitigation</li>
-              <li>• Org maturity and leadership depth</li>
-              <li>• Value creation plan and checkpoints</li>
-            </ul>
-          </div>
-        </div>
+        <ul className="mt-6 grid grid-cols-1 grid-rows-none gap-4 md:grid-cols-12 md:grid-rows-3 lg:gap-4 xl:max-h-[34rem] xl:grid-rows-2">
+          <GridItem
+            area="md:[grid-area:1/1/2/7] xl:[grid-area:1/1/2/5]"
+            icon={<Settings className="h-4 w-4" />}
+            title="Fractional CTO"
+            description={
+              <>Strategy to execution. Org design, platform choices, reliability, and metrics
+              that drive learning and revenue.</>
+            }
+          />
+          <GridItem
+            area="md:[grid-area:1/7/2/13] xl:[grid-area:2/1/3/5]"
+            icon={<Box className="h-4 w-4" />}
+            title="For CEOs & Founders"
+            description={
+              <>Clarify priorities, translate vision to an executable plan, and de-risk the
+              path to launch and scale.</>
+            }
+          />
+          <GridItem
+            area="md:[grid-area:2/1/3/7] xl:[grid-area:1/5/3/8]"
+            icon={<Lock className="h-4 w-4" />}
+            title="For CTOs & VPs of Eng"
+            description={
+              <>Roadmap/ops refactor without stalling. Guardrails, standards, and coaching to lift
+              reliability and velocity.</>
+            }
+          />
+          <GridItem
+            area="md:[grid-area:2/7/3/13] xl:[grid-area:1/8/2/13]"
+            icon={<Sparkles className="h-4 w-4" />}
+            title="For Product Leaders"
+            description={
+              <>Outcome-oriented roadmaps, discovery→delivery loops, instrumentation, and sensible
+              AI build vs buy.</>
+            }
+          />
+          <GridItem
+            area="md:[grid-area:3/1/4/13] xl:[grid-area:2/8/3/13]"
+            icon={<Search className="h-4 w-4" />}
+            title="For Investors & Boards"
+            description={
+              <>Diligence, execution risk assessment, leadership depth, and value creation
+              checkpoints.</>
+            }
+          />
+        </ul>
       </section>
 
       {/* Philosophy */}
@@ -149,3 +146,40 @@ export default function HowIOperatePage() {
     </main>
   );
 }
+
+interface GridItemProps {
+  area: string;
+  icon: React.ReactNode;
+  title: string;
+  description: React.ReactNode;
+}
+
+const GridItem = ({ area, icon, title, description }: GridItemProps) => {
+  return (
+    <li className={cn("min-h-[14rem] list-none", area)}>
+      <div className="relative h-full rounded-[1.25rem] border-[0.75px] border-border p-2 md:rounded-[1.5rem] md:p-3">
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={3}
+        />
+        <div className="relative flex h-full flex-col justify-between gap-6 overflow-hidden rounded-xl border-[0.75px] bg-background p-6 shadow-sm dark:shadow-[0px_0px_27px_0px_rgba(45,45,45,0.3)] md:p-6">
+          <div className="relative flex flex-1 flex-col justify-between gap-3">
+            <div className="w-fit rounded-lg border-[0.75px] border-border bg-muted p-2">{icon}</div>
+            <div className="space-y-3">
+              <h3 className="pt-0.5 text-xl leading-[1.375rem] font-semibold font-sans tracking-[-0.04em] md:text-2xl md:leading-[1.875rem] text-balance text-foreground">
+                {title}
+              </h3>
+              <h2 className="[&_b]:md:font-semibold [&_strong]:md:font-semibold font-sans text-sm leading-[1.125rem] md:text-base md:leading-[1.375rem] text-muted-foreground">
+                {description}
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
