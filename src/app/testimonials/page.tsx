@@ -13,11 +13,11 @@ export default function TestimonialsPage() {
       <SimpleHoverEffect />
       
       {/* Page Content with site structure */}
-      <div className="min-h-screen bg-white dark:bg-black relative z-10 pl-12 sm:pl-16">
+      <div className="min-h-screen bg-white dark:bg-black relative z-10 pl-20 sm:pl-16">
         {/* Hero Section */}
         <SectionTransition id="testimonials-hero">
           <section id="testimonials-hero" className="pt-20 pb-16">
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-6 sm:px-8">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -52,7 +52,7 @@ export default function TestimonialsPage() {
         {/* Bento Box Testimonials Grid */}
         <SectionTransition id="testimonials-grid">
           <section id="testimonials-grid" className="pb-20">
-            <div className="container mx-auto px-4">
+            <div className="container mx-auto px-6 sm:px-8">
               {/* Staggered Bento Box Grid */}
               <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
                 {testimonials.map((testimonial, index) => (
