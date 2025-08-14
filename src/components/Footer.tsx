@@ -86,6 +86,12 @@ export default function Footer() {
                 >
                   Email
                 </a>
+                <a 
+                  href="/partners" 
+                  className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
+                >
+                  Partners
+                </a>
               </nav>
             </div>
           </div>

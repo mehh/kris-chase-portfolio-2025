@@ -12,16 +12,26 @@ export default function PartnersRegistrationPage() {
     );
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    // Add classification types explicitly
     formData.set("classifications", types.join(","));
     const data = Object.fromEntries(formData.entries());
-    console.log("Partners registration submitted:", data);
-    setStatus("Thanks! You’ve been added to my collaboration list.");
-    e.currentTarget.reset();
-    setTypes([]);
+    try {
+      const res = await fetch('/api/partners', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok || !json?.ok) throw new Error(json?.error || 'Failed to submit');
+      setStatus('Thanks! You’ve been added to my collaboration list.');
+      e.currentTarget.reset();
+      setTypes([]);
+    } catch (err: any) {
+      setStatus('Something went wrong. Please email me: kris@krischase.com');
+      console.error('Partners submit error:', err);
+    }
   };
 
   return (

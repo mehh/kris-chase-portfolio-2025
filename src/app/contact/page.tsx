@@ -6,13 +6,24 @@ export default function ContactPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [reason, setReason] = useState<string>("job");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
-    console.log("Contact form submitted:", data);
-    setStatus("Thanks! I’ll get back to you shortly.");
-    e.currentTarget.reset();
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok || !json?.ok) throw new Error(json?.error || 'Failed to submit');
+      setStatus('Thanks! I’ll get back to you shortly.');
+      e.currentTarget.reset();
+    } catch (err: any) {
+      setStatus(`Something went wrong. Please email me directly: kris@krischase.com`);
+      console.error('Contact submit error:', err);
+    }
   };
 
   return (
