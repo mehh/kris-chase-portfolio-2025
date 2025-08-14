@@ -8,7 +8,7 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="mb-12 md:mb-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-          How I Work
+          How I Operate
         </h1>
         <p className="mt-4 max-w-3xl text-base sm:text-lg leading-relaxed text-muted-foreground">
           I help leaders ship outcomes: clarify strategy, build the right product, scale teams, and
