@@ -108,9 +108,11 @@ export default function Hero() {
               className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0"
             >
               <VerticalCutReveal
+                key={p.id}
                 splitBy="words"
                 staggerDuration={0.08}
                 staggerFrom="first"
+                inViewOnScroll={false}
                 transition={{
                   type: "spring",
                   stiffness: 150,

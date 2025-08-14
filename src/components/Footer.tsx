@@ -2,9 +2,34 @@
 
 import React, { useEffect, useRef } from 'react';
 import Cubes from '../animations/Cubes/Cubes';
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
+
+  // Register footer content for Machine View
+  useMachineSlice({
+    type: "footer",
+    title: "Footer",
+    path: "global",
+    order: 900,
+    content: [
+      "### CTA",
+      "Let's Build Something",
+      "Ready to bring your vision to life?",
+      "",
+      "### Primary Action",
+      "[Get In Touch](/contact)",
+      "",
+      "### Links",
+      "- [GitHub](https://github.com/mehh)",
+      "- [LinkedIn](https://www.linkedin.com/in/krisrchase/)",
+      "- [Email](mailto:kris@krischase.com)",
+      "- [Partners](/partners)",
+      "",
+      `© ${new Date().getFullYear()} Kris Chase. All rights reserved.`,
+    ].join("\n"),
+  }, []);
 
   useEffect(() => {
     const footer = footerRef.current;
@@ -47,7 +72,7 @@ export default function Footer() {
             Ready to bring your vision to life?
           </p>
           <a 
-            href="mailto:kris@krischase.com"
+            href="/contact"
             className="inline-flex items-center justify-center bg-[#96442e] hover:bg-[#b8553a] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-sm sm:text-base min-h-[48px]"
           >
             Get In Touch

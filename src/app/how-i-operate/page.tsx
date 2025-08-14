@@ -4,8 +4,17 @@ import React from "react";
 import { Box, Lock, Search, Settings, Sparkles, Rocket } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { cn } from "@/lib/utils";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function HowIOperatePage() {
+  // Register page content for Machine View
+  useMachineSlice({
+    type: "page",
+    title: "How I Operate",
+    path: "/how-i-operate",
+    order: 10,
+    content: `### Summary\n\nI help leaders ship outcomes: clarify strategy, build the right product, scale teams, and reduce execution risk. My approach combines clear communication, pragmatic systems thinking, and a bias for measurable results.\n\n### Process\n\n1. **Diagnose** — Listen first. Clarify the problem, constraints, and desired outcomes. Align on truth and surface what matters most.\n2. **Design** — Define a plan that is minimal yet sufficient: clear priorities, crisp ownership, and checkpoints that measure learning.\n3. **Deliver** — Execute with momentum and transparency. Turn incidents into insights. Iterate based on evidence, not hope.`,
+  }, []);
   return (
     <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-20">
       {/* Hero */}
@@ -168,14 +177,6 @@ export default function HowIOperatePage() {
           velocity. I mentor leaders, unblock teams, and build the mechanisms that make good
           decisions the default.
         </p>
-        <div className="mt-8">
-          <a
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-lg bg-[#96442e] hover:bg-[#b8553a] text-white px-5 py-3 font-semibold transition-colors duration-200"
-          >
-            Discuss an engagement
-          </a>
-        </div>
       </section>
     </main>
   );

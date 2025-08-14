@@ -10,6 +10,8 @@ import Saver from '../components/Saver';
 import { JsonLd } from '../components/JsonLd';
 import TargetCursor from '../components/TargetCursor';
 import GridScrollBackground from '../components/GridScrollBackground';
+import MachineOverlay from '../components/machine/MachineOverlay';
+import MachineToggle from '../components/machine/MachineToggle';
 
 const chakra = Chakra_Petch({
   variable: "--font-chakra",
@@ -109,6 +111,9 @@ export default function RootLayout({
               {children}
             </main>
             <Footer />
+            {/* Machine View */}
+            <MachineOverlay />
+            <MachineToggle />
           </Providers>
           <Saver />
           {/* Target Cursor */}

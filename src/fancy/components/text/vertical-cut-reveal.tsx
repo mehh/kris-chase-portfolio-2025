@@ -11,6 +11,10 @@ interface VerticalCutRevealProps {
   reverse?: boolean;
   transition?: Transition;
   className?: string;
+  inViewOnScroll?: boolean;
+  viewportOnce?: boolean;
+  viewportAmount?: number;
+  viewportMargin?: string;
 }
 
 export default function VerticalCutReveal({
@@ -25,6 +29,10 @@ export default function VerticalCutReveal({
     damping: 21,
   },
   className = "",
+  inViewOnScroll = true,
+  viewportOnce = true,
+  viewportAmount = 0.2,
+  viewportMargin = "0px 0px -10% 0px",
 }: VerticalCutRevealProps) {
   const elements = useMemo(() => {
     let parts: string[] = [];
@@ -70,14 +78,24 @@ export default function VerticalCutReveal({
       {elements.map((element, index) => (
         <motion.span
           key={index}
-          initial={{ 
+          initial={{
             clipPath: "inset(100% 0% 0% 0%)",
-            opacity: 0
+            opacity: 0,
           }}
-          animate={{ 
-            clipPath: "inset(0% 0% 0% 0%)",
-            opacity: 1
-          }}
+          {...(inViewOnScroll
+            ? {
+                whileInView: {
+                  clipPath: "inset(0% 0% 0% 0%)",
+                  opacity: 1,
+                },
+                viewport: { once: viewportOnce, amount: viewportAmount, margin: viewportMargin },
+              }
+            : {
+                animate: {
+                  clipPath: "inset(0% 0% 0% 0%)",
+                  opacity: 1,
+                },
+              })}
           transition={{
             ...transition,
             delay: (transition.delay || 0) + getDelay(index),

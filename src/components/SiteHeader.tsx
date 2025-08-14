@@ -1,9 +1,32 @@
 "use client";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { useMachineSlice } from "./machine/MachineViewProvider";
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  // Register navigation for Machine View (markdown-friendly)
+  useMachineSlice({
+    type: "nav",
+    title: "Navigation",
+    path: "global",
+    order: 5,
+    content: [
+      { label: "Home", href: "/" },
+      { label: "How I Operate", href: "/how-i-operate" },
+      { label: "Testimonials", href: "/testimonials" },
+      { label: "Listen to Resume", href: "/listen" },
+      { label: "Download Resume", href: "/files/Kris Chase Resume.pdf" },
+      { label: "Get in Touch", href: "/contact" },
+      { label: "System", href: "/system" },
+      { label: "About", href: "/about" },
+      { label: "Press", href: "/press" },
+      { label: "Careers", href: "/careers" },
+      { label: "Book Call", href: "/contact" },
+    ]
+      .map((i) => `- [${i.label}](${i.href})`)
+      .join("\n"),
+  });
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {

@@ -116,7 +116,7 @@ export default function TestimonialsPage() {
                   Let&apos;s discuss how I can help lead your engineering team to success.
                 </p>
                 <a 
-                  href="mailto:kris@krischase.com"
+                  href="/contact"
                   className="inline-flex items-center justify-center bg-[#96442e] hover:bg-[#b8553a] text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-lg"
                 >
                   Get In Touch
