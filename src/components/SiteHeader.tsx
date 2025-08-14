@@ -32,13 +32,10 @@ export default function SiteHeader() {
           <div className="inner" data-v-6b95401f>
             <nav className="nav | font-nav" data-v-6b95401f>
               <ul data-v-6b95401f>
-                <li data-v-6b95401f><Link aria-current="page" href="/" className="router-link-active router-link-exact-active" data-v-6b95401f>Home</Link></li>
-                {/* <li data-v-6b95401f><Link href="/system" className="" data-v-6b95401f>System</Link></li>
-                <li data-v-6b95401f><Link href="/about" className="" data-v-6b95401f>About</Link></li>
-                <li data-v-6b95401f><Link href="/portfolio" className="" data-v-6b95401f>Portfolio</Link></li> */}
                 <li data-v-6b95401f><Link href="/testimonials" className="" data-v-6b95401f>Testimonials</Link></li>
-                <li data-v-6b95401f><Link href="/listen" className="" data-v-6b95401f>Listen</Link></li>
-                <li data-v-6b95401f><Link href="/files/Kris Chase Resume.pdf" className="" data-v-6b95401f>Resume</Link></li>
+                <li data-v-6b95401f><Link href="/listen" className="" data-v-6b95401f>Listen to Resume</Link></li>
+                <li data-v-6b95401f><Link href="/contact" className="" data-v-6b95401f>Contact</Link></li>
+                <li data-v-6b95401f><Link href="/files/Kris Chase Resume.pdf" className="" data-v-6b95401f>Download Resume</Link></li>
                 <li data-v-6b95401f>
                   <Link href="https://booking.akiflow.com/kris" className="cta-link" data-v-6b95401f>
                     Book Call
