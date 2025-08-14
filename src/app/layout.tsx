@@ -7,7 +7,7 @@ import LeftSidebar from '../components/Header';
 import Footer from '../components/Footer';
 import Saver from '../components/Saver';
 import { JsonLd } from '../components/JsonLd';
-import PixelTrail from '../components/fancy/background/pixel-trail';
+import TargetCursor from '../components/TargetCursor';
 
 const chakra = Chakra_Petch({
   variable: "--font-chakra",
@@ -106,18 +106,12 @@ export default function RootLayout({
             <Footer />
           </Providers>
           <Saver />
-          {/* Pixel Trail Cursor Effect */}
-          <div 
-            className="fixed inset-0 pointer-events-none z-40"
-            style={{ mixBlendMode: 'difference' }}
-          >
-            <PixelTrail
-              pixelSize={16}
-              fadeDuration={800}
-              pixelClassName="bg-white"
-              className="pointer-events-none"
-            />
-          </div>
+          {/* Target Cursor */}
+          <TargetCursor 
+            targetSelector={"a, button, .cursor-target, [role='button']"}
+            spinDuration={2}
+            hideDefaultCursor={true}
+          />
         </div>
       </body>
     </html>

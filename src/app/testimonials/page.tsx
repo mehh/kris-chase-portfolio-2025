@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { testimonials } from "../../data/testimonials";
-import Cursor from "../../components/Cursor";
 import SimpleHoverEffect from "../../components/SimpleHoverEffect";
 import { SectionTransition } from "../../components/SmoothScrollProvider";
 
@@ -11,7 +10,6 @@ export default function TestimonialsPage() {
   return (
     <>
       {/* Global Components */}
-      <Cursor />
       <SimpleHoverEffect />
       
       {/* Page Content with site structure */}

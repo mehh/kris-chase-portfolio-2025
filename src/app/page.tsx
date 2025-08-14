@@ -6,7 +6,6 @@ import BoardExperience from "../components/BoardExperience";
 import ThreeUp from "../components/ThreeUp";
 import Brands from "../components/Brands";
 import Testimonials from "../components/Testimonials";
-import Cursor from "../components/Cursor";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
 import Saver from "../components/Saver";
 
@@ -16,7 +15,6 @@ export default function Home() {
   return (
     <>
       {/* Global Components */}
-      <Cursor />
       <SimpleHoverEffect />
       <Saver />
       
