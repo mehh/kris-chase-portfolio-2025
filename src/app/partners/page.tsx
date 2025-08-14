@@ -23,8 +23,9 @@ export default function PartnersRegistrationPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-      const json = await res.json();
-      if (!res.ok || !json?.ok) throw new Error(json?.error || 'Failed to submit');
+      let json: any = null;
+      try { json = await res.json(); } catch { /* ignore parse issues */ }
+      if (!res.ok) throw new Error(json?.error || `Failed (${res.status})`);
       setStatus('Thanks! You’ve been added to my collaboration list.');
       e.currentTarget.reset();
       setTypes([]);
