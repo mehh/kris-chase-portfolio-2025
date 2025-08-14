@@ -8,6 +8,7 @@ import Footer from '../components/Footer';
 import Saver from '../components/Saver';
 import { JsonLd } from '../components/JsonLd';
 import TargetCursor from '../components/TargetCursor';
+import GridScrollBackground from '../components/GridScrollBackground';
 
 const chakra = Chakra_Petch({
   variable: "--font-chakra",
@@ -96,6 +97,8 @@ export default function RootLayout({
     <html lang="en" data-theme="kris">
       <body className={`${chakra.variable} ${questrial.variable} antialiased`}>
         <JsonLd />
+        {/* Global animated grid background */}
+        <GridScrollBackground />
         <div id="__app-root">
           <Providers>
             <LeftSidebar />

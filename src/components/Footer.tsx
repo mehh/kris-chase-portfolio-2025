@@ -36,21 +36,6 @@ export default function Footer() {
       ref={footerRef}
       className="relative w-full h-80 sm:h-96 footer-container overflow-hidden"
     >
-      {/* Cubes Background */}
-      <div className="absolute inset-0 z-0">
-        <Cubes
-          gridSize={8}
-          cubeSize={undefined}
-          maxAngle={45}
-          radius={3}
-          borderStyle="1px dotted white"
-          faceColor="#0a0a0a"
-          autoAnimate={false}
-          rippleOnClick={true}
-          rippleColor="#96442e"
-          cellGap={15}
-        />
-      </div>
 
       {/* Footer Content - Centered over the grid */}
       <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none px-4 sm:px-6">
@@ -80,7 +65,7 @@ export default function Footer() {
               </p>
               <nav className="flex gap-6">
                 <a 
-                  href="https://github.com/krischase" 
+                  href="https://github.com/mehh" 
                   target="_blank" 
                   rel="noreferrer" 
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
@@ -88,7 +73,7 @@ export default function Footer() {
                   GitHub
                 </a>
                 <a 
-                  href="https://www.linkedin.com/in/krischase/" 
+                  href="https://www.linkedin.com/in/krisrchase/" 
                   target="_blank" 
                   rel="noreferrer" 
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"

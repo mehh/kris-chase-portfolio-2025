@@ -66,7 +66,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen overflow-hidden">
       {/* Animated hex pattern background */}
-      <AnimatedHexBackground />
+      {/* <AnimatedHexBackground /> */}
 
       <div className="relative z-20 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl text-center text-foreground w-full">
