@@ -33,12 +33,12 @@ export default function SiteHeader() {
             <nav className="nav | font-nav" data-v-6b95401f>
               <ul data-v-6b95401f>
                 <li data-v-6b95401f><Link href="/testimonials" className="" data-v-6b95401f>Testimonials</Link></li>
+                <li data-v-6b95401f><Link href="/services" className="" data-v-6b95401f>How I Work</Link></li>
                 <li data-v-6b95401f><Link href="/listen" className="" data-v-6b95401f>Listen to Resume</Link></li>
-                <li data-v-6b95401f><Link href="/contact" className="" data-v-6b95401f>Contact</Link></li>
                 <li data-v-6b95401f><Link href="/files/Kris Chase Resume.pdf" className="" data-v-6b95401f>Download Resume</Link></li>
                 <li data-v-6b95401f>
-                  <Link href="https://booking.akiflow.com/kris" className="cta-link" data-v-6b95401f>
-                    Book Call
+                  <Link href="/contact" className="cta-link" data-v-6b95401f>
+                    Get in Touch
                   </Link>
                 </li>
               </ul>
