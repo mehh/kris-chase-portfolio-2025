@@ -37,6 +37,7 @@ export default function SiteHeader() {
                 <li data-v-6b95401f><Link href="/about" className="" data-v-6b95401f>About</Link></li>
                 <li data-v-6b95401f><Link href="/portfolio" className="" data-v-6b95401f>Portfolio</Link></li> */}
                 <li data-v-6b95401f><Link href="/testimonials" className="" data-v-6b95401f>Testimonials</Link></li>
+                <li data-v-6b95401f><Link href="/listen" className="" data-v-6b95401f>Listen</Link></li>
                 <li data-v-6b95401f><Link href="/files/Kris Chase Resume.pdf" className="" data-v-6b95401f>Resume</Link></li>
                 <li data-v-6b95401f>
                   <Link href="https://booking.akiflow.com/kris" className="cta-link" data-v-6b95401f>
@@ -74,6 +75,11 @@ export default function SiteHeader() {
                 <li data-v-6b95401f aria-label="Home">
                   <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
                     <Link onClick={closeMobile} aria-current="page" href="/" className="router-link-active router-link-exact-active" data-v-6b95401f>Home</Link>
+                  </div>
+                </li>
+                <li data-v-6b95401f aria-label="Listen">
+                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
+                    <Link onClick={closeMobile} href="/listen" data-v-6b95401f>Listen</Link>
                   </div>
                 </li>
                 <li data-v-6b95401f aria-label="System">
