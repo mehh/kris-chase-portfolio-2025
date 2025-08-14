@@ -32,8 +32,8 @@ export default function SiteHeader() {
           <div className="inner" data-v-6b95401f>
             <nav className="nav | font-nav" data-v-6b95401f>
               <ul data-v-6b95401f>
+                <li data-v-6b95401f><Link href="/how-i-operate" className="" data-v-6b95401f>How I Operate</Link></li>
                 <li data-v-6b95401f><Link href="/testimonials" className="" data-v-6b95401f>Testimonials</Link></li>
-                <li data-v-6b95401f><Link href="/services" className="" data-v-6b95401f>How I Operate</Link></li>
                 <li data-v-6b95401f><Link href="/listen" className="" data-v-6b95401f>Listen to Resume</Link></li>
                 <li data-v-6b95401f><Link href="/files/Kris Chase Resume.pdf" className="" data-v-6b95401f>Download Resume</Link></li>
                 <li data-v-6b95401f>
