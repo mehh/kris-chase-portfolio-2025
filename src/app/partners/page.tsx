@@ -14,7 +14,8 @@ export default function PartnersRegistrationPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget as HTMLFormElement; // capture before await (React pools events)
+    const formData = new FormData(form);
     formData.set("classifications", types.join(","));
     const data = Object.fromEntries(formData.entries());
     try {
@@ -27,7 +28,7 @@ export default function PartnersRegistrationPage() {
       try { json = await res.json(); } catch { /* ignore parse issues */ }
       if (!res.ok) throw new Error(json?.error || `Failed (${res.status})`);
       setStatus('Thanks! You’ve been added to my collaboration list.');
-      e.currentTarget.reset();
+      form.reset();
       setTypes([]);
     } catch (err: any) {
       setStatus('Something went wrong. Please email me: kris@krischase.com');
