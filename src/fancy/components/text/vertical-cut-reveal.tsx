@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, Transition } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, Fragment } from "react";
 
 interface VerticalCutRevealProps {
   children: string;
@@ -31,7 +31,7 @@ export default function VerticalCutReveal({
   className = "",
   inViewOnScroll = true,
   viewportOnce = true,
-  viewportAmount = 0.2,
+  viewportAmount = 0.15,
   viewportMargin = "0px 0px -10% 0px",
 }: VerticalCutRevealProps) {
   const elements = useMemo(() => {
@@ -54,59 +54,53 @@ export default function VerticalCutReveal({
     return parts;
   }, [children, splitBy]);
 
-  const getDelay = (index: number) => {
-    const totalElements = elements.length;
-    let delayIndex = index;
-    
-    switch (staggerFrom) {
-      case "last":
-        delayIndex = totalElements - 1 - index;
-        break;
-      case "center":
-        const center = Math.floor(totalElements / 2);
-        delayIndex = Math.abs(index - center);
-        break;
-      default:
-        delayIndex = index;
-    }
-    
-    return reverse ? (totalElements - 1 - delayIndex) * staggerDuration : delayIndex * staggerDuration;
-  };
+  // Parent-controlled in-view with staggered children variants for robustness
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: staggerDuration > 0 ? staggerDuration : 0.01,
+      },
+    },
+  } as const;
+
+  const itemVariants = {
+    hidden: {
+      clipPath: "inset(100% 0% 0% 0%)",
+      opacity: 0,
+    },
+    visible: {
+      clipPath: "inset(0% 0% 0% 0%)",
+      opacity: 1,
+    },
+  } as const;
 
   return (
-    <span className={className}>
+    <motion.div
+      className={className}
+      variants={containerVariants}
+      initial="hidden"
+      {...(inViewOnScroll
+        ? {
+            whileInView: "visible" as const,
+            viewport: { once: viewportOnce, amount: viewportAmount, margin: viewportMargin },
+          }
+        : { animate: "visible" as const })}
+      style={{ display: "block", width: "fit-content" }}
+    >
       {elements.map((element, index) => (
-        <motion.span
-          key={index}
-          initial={{
-            clipPath: "inset(100% 0% 0% 0%)",
-            opacity: 0,
-          }}
-          {...(inViewOnScroll
-            ? {
-                whileInView: {
-                  clipPath: "inset(0% 0% 0% 0%)",
-                  opacity: 1,
-                },
-                viewport: { once: viewportOnce, amount: viewportAmount, margin: viewportMargin },
-              }
-            : {
-                animate: {
-                  clipPath: "inset(0% 0% 0% 0%)",
-                  opacity: 1,
-                },
-              })}
-          transition={{
-            ...transition,
-            delay: (transition.delay || 0) + getDelay(index),
-          }}
-          style={{ display: "inline-block", whiteSpace: splitBy === "words" ? "nowrap" : "normal" }}
-        >
-          {element === " " ? "\u00A0" : element}
-          {splitBy === "words" && index < elements.length - 1 && "\u00A0"}
-          {splitBy === "lines" && index < elements.length - 1 && <br />}
-        </motion.span>
+        <Fragment key={`frag-${index}`}>
+          <motion.span
+            variants={itemVariants}
+            transition={transition}
+            style={{ display: "inline-block", whiteSpace: "normal" }}
+          >
+            {splitBy === "words" ? element : element === " " ? "\u00A0" : element}
+            {splitBy === "lines" && index < elements.length - 1 && <br />}
+          </motion.span>
+          {splitBy === "words" && index < elements.length - 1 && " "}
+        </Fragment>
       ))}
-    </span>
+    </motion.div>
   );
 }

@@ -5,8 +5,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
-        source: "/listen",
-        destination: "/resume",
+        source: "/services",
+        destination: "/how-i-operate",
         permanent: true,
       },
     ];

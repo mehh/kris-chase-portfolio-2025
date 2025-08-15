@@ -23,8 +23,9 @@ export default function Intro() {
             staggerDuration={0.04}
             className="text-base sm:text-lg md:text-xl lg:text-4xl leading-relaxed text-foreground/90"
             inViewOnScroll
-            viewportOnce
-            viewportAmount={0.2}
+            viewportOnce={false}
+            viewportAmount={0}
+            viewportMargin="0px 0px 0px 0px"
           >
             {copy}
           </VerticalCutReveal>

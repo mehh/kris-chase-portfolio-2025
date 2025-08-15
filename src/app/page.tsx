@@ -48,7 +48,7 @@ export default function Home() {
                 inactiveZone={0.01}
                 borderWidth={3}
               />
-              <div className="relative rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm p-4 sm:p-6">
+              <div className="relative rounded-2xl">
                 <WorkHistory />
               </div>
             </div>
@@ -65,7 +65,7 @@ export default function Home() {
                 inactiveZone={0.01}
                 borderWidth={3}
               />
-              <div className="relative rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm p-4 sm:p-6">
+              <div className="relative rounded-2xl">
                 <BoardExperience />
               </div>
             </div>
