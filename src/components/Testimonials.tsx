@@ -25,6 +25,11 @@ const Testimonials = () => {
         (t) => `- ${t.name} — ${t.role}`
       ),
       "",
+      "### Quotes (preview)",
+      ...[...firstColumn, ...secondColumn, ...thirdColumn].map(
+        (t) => `- "${t.text}" — ${t.name}, ${t.role}`
+      ),
+      "",
       "### CTA",
       "[View All Testimonials](/testimonials)",
     ].join("\n"),

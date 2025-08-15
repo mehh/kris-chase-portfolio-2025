@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 type Brand = { 
   file: string; 
@@ -69,6 +70,18 @@ export default function BrandsGrid() {
   // Calculate grid dimensions
   const cols = 6; // lg:grid-cols-6
   const rows = Math.ceil(brands.length / cols);
+
+  // Register Brands for Machine View
+  useMachineSlice({
+    type: "section",
+    title: "Brands",
+    path: "/",
+    order: 50,
+    content: [
+      "### Brand List",
+      ...brands.map((b) => `- ${b.name}`),
+    ].join("\n"),
+  }, []);
 
   const handleMouseEnter = (index: number) => {
     setPreviousHoveredIndex(hoveredIndex);

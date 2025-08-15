@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 interface WorkExperience {
   title: string;
@@ -47,6 +48,26 @@ export default function WorkHistory() {
   const toggle = (index: number) => {
     setActiveIndex((prev) => (prev === index ? null : index));
   };
+
+  // Register Work Experience for Machine View
+  useMachineSlice(
+    {
+      type: "section",
+      title: "Work Experience",
+      path: "/",
+      order: 30,
+      content: [
+        "### Roles",
+        ...workExperience.map(
+          (j) => `- ${j.title} — ${j.company} (${j.timeframe})`
+        ),
+        "",
+        "### Details",
+        ...workExperience.map((j) => `- ${j.title}: ${j.description}`),
+      ].join("\n"),
+    },
+    []
+  );
 
   return (
     <section id="work" className="py-16 lg:py-24">

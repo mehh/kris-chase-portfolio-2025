@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function ThreeUp() {
   const [showOutlines, setShowOutlines] = useState([false, false, false, false, false]);
@@ -27,6 +28,23 @@ export default function ThreeUp() {
     }, 6000);
 
     return () => clearInterval(interval);
+  }, []);
+
+  // Register ThreeUp content for Machine View
+  useMachineSlice({
+    type: "section",
+    title: "Three Up",
+    path: "/",
+    order: 28,
+    content: [
+      "### Heading",
+      "Leading teams to success",
+      "",
+      "### Themes",
+      "- Plan your mission, goals and objectives",
+      "- Analyze industry positioning",
+      "- Evaluate, modify, repeat",
+    ].join("\n"),
   }, []);
 
   return (

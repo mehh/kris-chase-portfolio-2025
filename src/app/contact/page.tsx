@@ -1,10 +1,39 @@
 "use client";
 
 import React, { useState } from "react";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [reason, setReason] = useState<string>("job");
+
+  // Register Contact page for Machine View
+  useMachineSlice({
+    type: "page",
+    title: "Contact",
+    path: "/contact",
+    order: 70,
+    content: [
+      "### Summary",
+      "Get in Touch — roles, contract, or board advisory.",
+      "",
+      "### Fields",
+      "- Reason: job | contract | advisory | other",
+      "- Name",
+      "- Email",
+      "- Company (optional)",
+      "- Budget (if contract)",
+      "- Target start date (if contract)",
+      "- Role type (if job)",
+      "- Compensation range (if job)",
+      "- Advisory focus (if advisory)",
+      "- Message",
+      "",
+      "### CTA",
+      "[Book a Call](https://booking.akiflow.com/kris)",
+      "or email: kris@krischase.com",
+    ].join("\n"),
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

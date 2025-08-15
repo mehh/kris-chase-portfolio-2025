@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from 'react';
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 interface TickerProps {
   items?: string[];
@@ -19,6 +20,18 @@ export default function Ticker({
   const lastScrollY = useRef(0);
   const animationId = useRef<number | null>(null);
   const translateX = useRef(0);
+
+  // Register Ticker items for Machine View
+  useMachineSlice({
+    type: "section",
+    title: "Ticker",
+    path: "/",
+    order: 22,
+    content: [
+      "### Ticker Items",
+      ...items.map((i) => `- ${i}`),
+    ].join("\n"),
+  }, []);
 
   useEffect(() => {
     let ticking = false;
