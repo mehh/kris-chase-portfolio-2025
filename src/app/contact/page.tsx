@@ -1,11 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import posthog from "posthog-js";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [reason, setReason] = useState<string>("job");
+  const [started, setStarted] = useState<boolean>(false);
 
   // Register Contact page for Machine View
   useMachineSlice({
@@ -35,15 +37,43 @@ export default function ContactPage() {
     ].join("\n"),
   }, []);
 
+  useEffect(() => {
+    try {
+      posthog.capture("contact_viewed");
+    } catch {}
+  }, []);
+
+  const onFormFocus = () => {
+    if (started) return;
+    setStarted(true);
+    try {
+      posthog.capture("contact_form_started", { reason });
+    } catch {}
+  };
+
+  async function hashEmail(email: string): Promise<string> {
+    try {
+      const data = new TextEncoder().encode(email.trim().toLowerCase());
+      const digest = await crypto.subtle.digest("SHA-256", data);
+      const bytes = Array.from(new Uint8Array(digest));
+      return bytes.map((b) => b.toString(16).padStart(2, "0")).join("");
+    } catch {
+      return email.trim().toLowerCase();
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement; // capture before await (React pools events)
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     try {
+      posthog.capture("contact_submit_attempted", { reason: data.reason });
+    } catch {}
+    try {
       const res = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-PostHog-Distinct-Id': posthog.get_distinct_id?.() || '' },
         body: JSON.stringify(data),
       });
       let json: unknown = null;
@@ -56,10 +86,24 @@ export default function ContactPage() {
       if (!res.ok) throw new Error(apiError || `Failed (${res.status})`);
       setStatus('Thanks! I’ll get back to you shortly.');
       form.reset();
+
+      // Identify by hashed email and set person properties
+      const email = typeof data.email === 'string' ? data.email : '';
+      const name = typeof data.name === 'string' ? data.name : '';
+      const distinctId = email ? await hashEmail(email) : undefined;
+      try {
+        if (distinctId) {
+          posthog.identify(distinctId, { $email: email, name });
+        }
+        posthog.capture("contact_submit_succeeded", { reason: data.reason });
+      } catch {}
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Unknown error';
       setStatus(`Something went wrong. Please email me directly: kris@krischase.com`);
       console.error('Contact submit error:', message);
+      try {
+        posthog.capture("contact_submit_failed", { reason, message });
+      } catch {}
     }
   };
 
@@ -82,7 +126,7 @@ export default function ContactPage() {
         {/* Form */}
         <div className="lg:col-span-3">
           <div className="rounded-xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm shadow-sm p-5 sm:p-6">
-            <form onSubmit={handleSubmit} className="space-y-5">
+            <form onFocus={onFormFocus} onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label htmlFor="reason" className="block text-sm font-medium text-muted-foreground mb-1">Reason</label>
                 <select

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../lib/supabase/admin';
+import { sendPartnerAlert } from '../../../lib/notifications/email';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -28,6 +29,11 @@ export async function POST(req: Request) {
       console.error('Supabase insert error:', error);
       return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
     }
+
+    // Fire-and-forget partner alert email
+    sendPartnerAlert(payload).catch((e) => {
+      console.error('Partner alert email failed:', e);
+    });
 
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {

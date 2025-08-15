@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import posthog from "posthog-js";
 
 type ChatSource = { title: string; url: string };
 type Msg = { id: string; role: "user" | "assistant"; content: string };
@@ -12,6 +13,15 @@ export default function ChatWidget() {
   const [error, setError] = useState<string | null>(null);
   const [sourcesById, setSourcesById] = useState<Record<string, ChatSource[]>>({});
   const lastQuestionRef = useRef<string>("");
+
+  useEffect(() => {
+    // Track when chat widget is viewed/opened
+    try {
+      posthog.capture("chat_opened", { path: typeof window !== "undefined" ? window.location.pathname : undefined });
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,6 +35,11 @@ export default function ChatWidget() {
     setMessages((m) => [...m, { id: userId, role: "user", content: q }]);
     setInput("");
 
+    // Track chat message send
+    try {
+      posthog.capture("chat_message_sent", { length: q.length });
+    } catch {}
+
     // create placeholder assistant message for streaming
     const assistantId = `a_${Date.now()}`;
     setMessages((m) => [...m, { id: assistantId, role: "assistant", content: "" }]);
@@ -33,7 +48,10 @@ export default function ChatWidget() {
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "X-PostHog-Distinct-Id": posthog.get_distinct_id?.() || "",
+        },
         body: JSON.stringify({ message: q }),
       });
       if (!res.ok || !res.body) {
@@ -59,22 +77,35 @@ export default function ChatWidget() {
         }
       }
 
+      try {
+        posthog.capture("chat_response_stream_complete", { question_length: q.length });
+      } catch {}
+
       // fetch sources after streaming completes
       try {
         const sres = await fetch("/api/chat/sources", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "X-PostHog-Distinct-Id": posthog.get_distinct_id?.() || "",
+          },
           body: JSON.stringify({ message: q }),
         });
         const json = await sres.json();
         const sources: ChatSource[] = Array.isArray(json?.sources) ? json.sources : [];
         setSourcesById((m) => ({ ...m, [assistantId]: sources }));
+        try {
+          posthog.capture("chat_sources_fetched", { count: sources.length });
+        } catch {}
       } catch {
         // ignore
       }
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Something went wrong";
       setError(msg);
+      try {
+        posthog.capture("chat_error", { message: String(msg) });
+      } catch {}
     } finally {
       setIsLoading(false);
     }

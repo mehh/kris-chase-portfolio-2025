@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { retrieve, addFAQDocs, addFAQMarkdownDoc, indexSite } from "@/lib/ragStore";
+import { captureServer } from "@/lib/posthog/server";
 
 export const runtime = "nodejs";
 
@@ -10,6 +11,9 @@ export async function POST(req: Request) {
     if (!userMessage) {
       return NextResponse.json({ error: "Missing message" }, { status: 400 });
     }
+
+    const distinctId = req.headers.get("x-posthog-distinct-id") || undefined;
+    captureServer("chat_sources_request", { length: userMessage.length, path: "/api/chat/sources" }, distinctId);
 
     // Warm-up (idempotent)
     await addFAQDocs();
@@ -28,9 +32,13 @@ export async function POST(req: Request) {
     ]);
 
     const docs = await retrieve(userMessage, 4);
+    captureServer("chat_sources_returned", { count: docs.length }, distinctId);
     return NextResponse.json({ sources: docs.map((d) => ({ title: d.title, url: d.url })) });
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Unknown error";
+    const distinctId = req.headers.get("x-posthog-distinct-id") || undefined;
+    captureServer("chat_sources_error", { message }, distinctId);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
+

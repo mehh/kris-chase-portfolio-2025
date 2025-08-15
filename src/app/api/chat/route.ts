@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { retrieve, addFAQDocs, indexSite, addFAQMarkdownDoc } from "@/lib/ragStore";
 import { streamText } from "ai";
 import { createOpenAI } from "@ai-sdk/openai";
+import { captureServer } from "@/lib/posthog/server";
 
 export const runtime = "nodejs";
 
@@ -19,6 +20,10 @@ export async function POST(req: Request) {
     if (!apiKey) {
       return NextResponse.json({ error: "OPENAI_API_KEY is not set" }, { status: 500 });
     }
+
+    // Capture server-side chat request
+    const distinctId = req.headers.get("x-posthog-distinct-id") || undefined;
+    captureServer("chat_api_request", { length: userMessage.length, path: "/api/chat" }, distinctId);
 
     // Warm RAG once per runtime: add FAQs and crawl key routes
     if (!warmed) {
@@ -64,6 +69,8 @@ export async function POST(req: Request) {
     return result.toTextStreamResponse();
   } catch (e: unknown) {
     const message = e instanceof Error ? e.message : "Unknown error";
+    const distinctId = req.headers.get("x-posthog-distinct-id") || undefined;
+    captureServer("chat_api_error", { message }, distinctId);
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }

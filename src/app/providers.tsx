@@ -21,6 +21,29 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  // Persist UTM params and initial referrer as super properties
+  useEffect(() => {
+    if (!POSTHOG_KEY) return;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const utm: Record<string, string> = {};
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((k) => {
+        const v = params.get(k);
+        if (v) utm[k] = v;
+      });
+      const initialRef = document.referrer || "direct";
+      const firstTouchSet = window.localStorage.getItem("ph_utm_set");
+      if (!firstTouchSet) {
+        posthog.register({ ...utm, initial_referrer: initialRef });
+        window.localStorage.setItem("ph_utm_set", "1");
+      } else if (Object.keys(utm).length > 0) {
+        posthog.register(utm);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
   if (!POSTHOG_KEY) {
     return (
       <MachineViewProvider>
@@ -41,3 +64,4 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     </PostHogProvider>
   );
 }
+

@@ -5,6 +5,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import { Download } from "lucide-react";
 import ChatWidget from "@/components/ChatWidget";
+import posthog from "posthog-js";
 
 export default function ResumePage() {
   // Register page content for Machine View
@@ -86,6 +87,11 @@ export default function ResumePage() {
                 <a
                   href="/files/Kris Chase Resume.pdf"
                   download
+                  onClick={() => {
+                    try {
+                      posthog.capture("resume_download_clicked", { href: "/files/Kris Chase Resume.pdf" });
+                    } catch {}
+                  }}
                   className="inline-flex items-center gap-2 rounded-lg border border-gray-200/70 dark:border-gray-800 bg-white dark:bg-black px-4 py-2 text-sm font-medium hover:bg-white/80 dark:hover:bg-black/80 transition-colors"
                 >
                   <Download className="h-4 w-4" />

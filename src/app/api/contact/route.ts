@@ -1,5 +1,10 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../lib/supabase/admin';
+import { sendContactAlert } from '../../../lib/notifications/email';
+import { captureServer } from '@/lib/posthog/server';
+
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
   try {
@@ -22,19 +27,34 @@ export async function POST(req: Request) {
       created_at: new Date().toISOString(),
     };
 
+    const distinctId = req.headers.get('x-posthog-distinct-id') || undefined;
+    // Fire-and-forget server capture for received submission
+    captureServer('contact_submit_received', { reason: payload.reason }, distinctId);
+
     const { error } = await supabaseAdmin
       .from('contact_submissions')
       .insert(payload);
 
     if (error) {
       console.error('Supabase insert error:', error);
+      captureServer('contact_submit_store_failed', { reason: payload.reason, error: error.message }, distinctId);
       return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
     }
+
+    captureServer('contact_submit_stored', { reason: payload.reason }, distinctId);
+
+    // Fire-and-forget email alert; do not block user response
+    // and do not fail the request if the email fails.
+    sendContactAlert(payload).catch((e) => {
+      console.error('Contact alert email failed:', e);
+    });
 
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     console.error('Contact POST error:', err);
+    const distinctId = req.headers.get('x-posthog-distinct-id') || undefined;
+    captureServer('contact_submit_server_error', { message }, distinctId);
     return NextResponse.json({ ok: false, error: message }, { status: 500 });
   }
 }
