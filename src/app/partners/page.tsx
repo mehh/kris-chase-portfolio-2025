@@ -1,10 +1,39 @@
 "use client";
 
 import React, { useState } from "react";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function PartnersRegistrationPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [types, setTypes] = useState<string[]>([]);
+
+  // Register Partners page for Machine View
+  useMachineSlice({
+    type: "page",
+    title: "Partners & Freelancers",
+    path: "/partners",
+    order: 65,
+    content: [
+      "### Summary",
+      "Partner & Freelancer Registration — join my collaboration list.",
+      "",
+      "### Fields",
+      "- Name",
+      "- Email",
+      "- Phone",
+      "- Website",
+      "- Service offering",
+      "- Classification: nearshore | offshore | freelance | contract | agency | staff-aug",
+      "- Notes (optional)",
+      "",
+      "### What I’m Looking For",
+      "- AI, product/platform, full‑stack, data, technical leadership",
+      "- Nearshore and offshore welcome",
+      "",
+      "### CTA",
+      "Join Collaboration List",
+    ].join("\n"),
+  }, []);
 
   const toggleType = (value: string) => {
     setTypes((prev) =>

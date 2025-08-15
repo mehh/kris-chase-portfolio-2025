@@ -1,8 +1,27 @@
 "use client";
 
 import React from "react";
+import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function Page() {
+  // Register Listen page for Machine View
+  useMachineSlice({
+    type: "page",
+    title: "Listen",
+    path: "/listen",
+    order: 60,
+    content: [
+      "### Summary",
+      "Podcast-style audio resume with ElevenLabs voice clone and an LLM-generated narrative from the PDF resume.",
+      "",
+      "### Player",
+      "Embed: https://kris.jellypod.ai/embed?episode=8fecc861-5ddf-4fb7-948b-49702d6405f4",
+      "",
+      "### Tips",
+      "- Wear headphones for the best experience",
+      "- Refresh if the player doesn’t load",
+    ].join("\n"),
+  }, []);
   return (
     <main className="relative mx-auto w-full max-w-5xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
       {/* Hero */}
