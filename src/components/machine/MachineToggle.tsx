@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useMachineView } from "./MachineViewProvider";
+import { User, Bot } from "lucide-react";
 
 export default function MachineToggle() {
   const { mode, setMode } = useMachineView();
@@ -18,10 +19,11 @@ export default function MachineToggle() {
           type="button"
           onClick={() => setMode("human")}
           aria-pressed={isHuman}
-          className={`px-3 py-1.5 text-xs font-medium transition ${
+          className={`px-3 py-1.5 text-xs font-medium transition inline-flex items-center gap-1.5 ${
             isHuman ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
+          <User className="h-4 w-4" />
           Human
         </button>
         <div className="h-5 w-px bg-border/70" />
@@ -29,10 +31,11 @@ export default function MachineToggle() {
           type="button"
           onClick={() => setMode("machine")}
           aria-pressed={isMachine}
-          className={`px-3 py-1.5 text-xs font-medium transition ${
+          className={`px-3 py-1.5 text-xs font-medium transition inline-flex items-center gap-1.5 ${
             isMachine ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
+          <Bot className="h-4 w-4" />
           Machine
         </button>
       </div>

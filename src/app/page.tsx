@@ -9,6 +9,7 @@ import Testimonials from "../components/Testimonials";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
 import Saver from "../components/Saver";
 
+import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SectionTransition } from "../components/SmoothScrollProvider";
 
 export default function Home() {
@@ -34,17 +35,42 @@ export default function Home() {
           </section>
         </SectionTransition>
         
-        <SectionTransition id="work">
-          <section id="work">
-            <WorkHistory />
-          </section>
-        </SectionTransition>
-        
-        <SectionTransition id="board">
-          <section id="board">
-            <BoardExperience />
-          </section>
-        </SectionTransition>
+        {/* Experience: Work + Board side-by-side on desktop */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Work Experience */}
+          <SectionTransition id="work">
+            <div className="relative rounded-2xl p-2">
+              <GlowingEffect
+                spread={40}
+                glow
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                borderWidth={3}
+              />
+              <div className="relative rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm p-4 sm:p-6">
+                <WorkHistory />
+              </div>
+            </div>
+          </SectionTransition>
+
+          {/* Board & Advisory Experience */}
+          <SectionTransition id="board">
+            <div className="relative rounded-2xl p-2">
+              <GlowingEffect
+                spread={40}
+                glow
+                disabled={false}
+                proximity={64}
+                inactiveZone={0.01}
+                borderWidth={3}
+              />
+              <div className="relative rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm p-4 sm:p-6">
+                <BoardExperience />
+              </div>
+            </div>
+          </SectionTransition>
+        </div>
         
         <SectionTransition id="across-the-web">
           <section id="across-the-web">

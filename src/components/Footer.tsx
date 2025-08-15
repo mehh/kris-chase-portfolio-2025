@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
-import Cubes from '../animations/Cubes/Cubes';
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function Footer() {

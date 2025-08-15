@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useId, useMemo, useState } from "react";
 import { usePathname } from "next/navigation";
 
 export type MachineMode = "human" | "machine";
@@ -21,7 +21,7 @@ export interface MachineSlice {
   content: string; // markdown-friendly text
   order?: number; // smaller first
   path?: string; // route association or "global"
-  meta?: Record<string, any>;
+  meta?: Record<string, unknown>;
 }
 
 interface MachineViewContextValue {
@@ -56,7 +56,7 @@ export function MachineViewProvider({ children }: { children: React.ReactNode })
     }
   }, []);
 
-  const toggle = useCallback(() => setMode(prev => (prev === "human" ? "machine" : "human")), [setMode]);
+  const toggle = useCallback(() => setMode(mode === "human" ? "machine" : "human"), [mode, setMode]);
 
   const registerSlice = useCallback((slice: MachineSlice) => {
     setSlices(prev => ({ ...prev, [slice.id]: slice }));

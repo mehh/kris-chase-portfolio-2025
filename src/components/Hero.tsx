@@ -1,7 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import AnimatedHexBackground from './AnimatedHexBackground';
 import VerticalCutReveal from '../fancy/components/text/vertical-cut-reveal';
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
