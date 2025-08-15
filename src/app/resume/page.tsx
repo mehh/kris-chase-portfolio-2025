@@ -65,7 +65,7 @@ export default function ResumePage() {
             <div className="relative rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm p-6">
               <h2 className="text-xl md:text-2xl font-semibold text-foreground">Chat with my AI</h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Coming soon: a Vercel AI SDK chat widget that can talk with my website content, resume, and LinkedIn data using OpenAI/OpenRouter.
+                Streaming answers via the Vercel AI SDK with a lightweight server-side RAG layer. We embed and rank chunks from my site, resume PDF, and interview FAQ using cosine similarity, then constrain the prompt to the top matches. Tokens stream in real time with verifiable sources; no user data is persisted. Roadmap: move embeddings from in-memory to pgvector, add evals/observability, and support multi-turn tool use.
               </p>
               <div className="mt-4">
                 <ChatWidget />
