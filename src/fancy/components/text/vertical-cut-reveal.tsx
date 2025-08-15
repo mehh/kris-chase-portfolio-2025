@@ -21,8 +21,8 @@ export default function VerticalCutReveal({
   children,
   splitBy = "characters",
   staggerDuration = 0.025,
-  staggerFrom = "first",
-  reverse = false,
+  staggerFrom: _staggerFrom = "first",
+  reverse: _reverse = false,
   transition = {
     type: "spring",
     stiffness: 200,
@@ -53,6 +53,10 @@ export default function VerticalCutReveal({
     
     return parts;
   }, [children, splitBy]);
+
+  // Silence unused props while keeping API surface stable
+  void _staggerFrom;
+  void _reverse;
 
   // Parent-controlled in-view with staggered children variants for robustness
   const containerVariants = {

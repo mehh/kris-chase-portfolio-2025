@@ -5,6 +5,7 @@ import { testimonials } from "../../data/testimonials";
 import SimpleHoverEffect from "../../components/SimpleHoverEffect";
 import { SectionTransition } from "../../components/SmoothScrollProvider";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import Image from "next/image";
 
 export default function TestimonialsPage() {
   // Register page content for Machine View
@@ -104,11 +105,12 @@ export default function TestimonialsPage() {
 
                     {/* Author */}
                     <div className="flex items-center gap-3 mt-auto">
-                      <img
+                      <Image
                         src={testimonial.image}
                         alt={testimonial.name}
-                        className="w-10 h-10 rounded-full border-2 border-[#96442e]/20"
-                        loading="lazy"
+                        width={40}
+                        height={40}
+                        className="w-10 h-10 rounded-full border-2 border-[#96442e]/20 object-cover"
                       />
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-black dark:text-white text-sm truncate">

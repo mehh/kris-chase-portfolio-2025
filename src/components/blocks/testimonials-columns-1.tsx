@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 import { motion } from "motion/react";
 
 interface Testimonial {
@@ -35,13 +36,12 @@ export const TestimonialsColumn = (props: {
                 <div className="p-8 rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 backdrop-blur-sm shadow-lg max-w-xs w-full hover:border-[#96442e]/30 transition-all duration-300" key={i}>
                   <div className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm mb-6">{text}</div>
                   <div className="flex items-center gap-3 mt-5">
-                    <img
+                    <Image
                       width={40}
                       height={40}
                       src={image}
                       alt={name}
-                      className="h-10 w-10 rounded-full border-2 border-[#96442e]/20"
-                      loading="lazy"
+                      className="h-10 w-10 rounded-full border-2 border-[#96442e]/20 object-cover"
                     />
                     <div className="flex flex-col">
                       <div className="font-semibold tracking-tight leading-5 text-black dark:text-white">{name}</div>
