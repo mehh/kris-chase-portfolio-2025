@@ -154,7 +154,7 @@ export default function PartnersRegistrationPage() {
 
               <div className="flex items-center justify-between gap-4">
                 <p className="text-sm text-muted-foreground">I’ll only reach out if there’s a strong fit for an opportunity.</p>
-                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-[#96442e] hover:bg-[#b8553a] text-white px-5 py-3 font-semibold transition-colors duration-200">
+                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-white text-black hover:bg-black hover:text-white border border-black px-5 py-3 font-semibold transition-colors duration-200">
                   Join Collaboration List
                 </button>
               </div>

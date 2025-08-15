@@ -6,7 +6,7 @@ export function JsonLd() {
     "@type": "Person",
     name: "Kris Chase",
     url: "https://krischase.com",
-    image: "https://krischase.com/api/og-image",
+    image: "https://krischase.com/images/KrisChase-OG.png",
     jobTitle: "CTO Consultant & Technical Leader",
     description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, and align product roadmaps. 60+ engineers led, 100+ launches, 30% delivery cost reduction.",
     knowsAbout: [

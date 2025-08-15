@@ -13,8 +13,8 @@ export default function MachineToggle() {
   if (isMachine) return null;
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-[999] -translate-x-1/2">
-      <div className="inline-flex items-center overflow-hidden rounded-full border border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm">
+    <div className="fixed bottom-[46px] left-1/2 z-[999] -translate-x-1/2">
+      <div className="inline-flex items-center overflow-hidden rounded-full border border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm ring-1 ring-lime-300/30 hover:ring-lime-400/40 transition-transform duration-300 will-change-transform hover:scale-[1.03]">
         <button
           type="button"
           onClick={() => setMode("human")}

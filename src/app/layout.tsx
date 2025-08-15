@@ -49,14 +49,7 @@ export const metadata: Metadata = {
     description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, align roadmaps. 60+ engineers led, 100+ launches.",
     url: 'https://krischase.com',
     siteName: 'Kris Chase Portfolio',
-    images: [
-      {
-        url: '/api/og-image',
-        width: 1200,
-        height: 630,
-        alt: 'Kris Chase - Technical Leadership & Engineering Excellence',
-      },
-    ],
+    images: ['/images/KrisChase-OG.png'],
     locale: 'en_US',
     type: 'website',
   },
@@ -64,7 +57,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
     description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, align roadmaps. 60+ engineers led, 100+ launches.",
-    images: ['/api/og-image'],
+    images: ['/images/KrisChase-OG.png'],
     creator: '@krischase',
   },
   robots: {
@@ -129,7 +122,7 @@ export default function RootLayout({
             <SiteHeader />
             <LeftSidebar />
             {/* <ThemeToggle /> */}
-            <main className="relative z-10 min-h-[100dvh]">
+            <main className="relative z-10 min-h-[100dvh] pl-12 sm:pl-16 md:pl-20 lg:pl-0">
               {children}
             </main>
             <Footer />

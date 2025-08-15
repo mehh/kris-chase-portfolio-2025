@@ -166,7 +166,7 @@ export default function ContactPage() {
 
               <div className="flex items-center justify-between gap-4">
                 <p className="text-sm text-muted-foreground">Prefer email? Write me at <a className="underline hover:opacity-80" href="mailto:kris@krischase.com">kris@krischase.com</a>.</p>
-                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-[#96442e] hover:bg-[#b8553a] text-white px-5 py-3 font-semibold transition-colors duration-200">
+                <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-white text-black hover:bg-black hover:text-white border border-black px-5 py-3 font-semibold transition-colors duration-200">
                   Send Message
                 </button>
               </div>
@@ -189,7 +189,7 @@ export default function ContactPage() {
               href="https://booking.akiflow.com/kris"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-5 inline-flex items-center justify-center rounded-lg bg-[#96442e] hover:bg-[#b8553a] text-white px-5 py-3 font-semibold transition-colors duration-200"
+              className="mt-5 inline-flex items-center justify-center rounded-lg bg-white text-black hover:bg-black hover:text-white border border-black px-5 py-3 font-semibold transition-colors duration-200"
             >
               Book a Call
               <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

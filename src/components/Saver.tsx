@@ -113,7 +113,7 @@ export default function Saver() {
           context.lineWidth = 2; // Thinner for trail
           context.strokeStyle = trailPos.color;
           context.strokeText(text, trailPos.x, trailPos.y);
-        });
+      });
         
         // Draw current position on top (thicker, with glow)
         if (trailPositions.length > 0) {

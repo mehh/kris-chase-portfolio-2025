@@ -1,7 +1,9 @@
 "use client";
 
 import { motion, useAnimationControls } from "motion/react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import Image from "next/image";
+import { TestimonialsColumn } from "./blocks/testimonials-columns-1";
 import { testimonials } from "../data/testimonials";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
@@ -14,9 +16,18 @@ function TestimonialCard({ t }: { t: (typeof testimonials)[number] }) {
         <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
       </svg>
       <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed line-clamp-6">{t.text}</p>
-      <div className="mt-4">
-        <p className="text-sm font-semibold text-black dark:text-white">{t.name}</p>
-        <p className="text-xs text-gray-500 dark:text-gray-400">{t.role}</p>
+      <div className="mt-4 flex items-center gap-3">
+        <Image
+          src={t.image}
+          alt={`${t.name} headshot`}
+          width={40}
+          height={40}
+          className="rounded-full object-cover w-10 h-10"
+        />
+        <div>
+          <p className="text-sm font-semibold text-black dark:text-white">{t.name}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">{t.role}</p>
+        </div>
       </div>
     </div>
   );
@@ -48,7 +59,6 @@ const Testimonials = () => {
   const items = useMemo(() => [...testimonials, ...testimonials], []);
   const controls = useAnimationControls();
   const [paused, setPaused] = useState(false);
-  const startedRef = useRef(false);
 
   useEffect(() => {
     if (paused) {
@@ -56,8 +66,10 @@ const Testimonials = () => {
       return;
     }
     // start once, then restart when unpausing
-    controls.start({ x: ["0%", "-50%"] }, { duration: 30, repeat: Infinity, ease: "linear" });
-    startedRef.current = true;
+    controls.start({
+      x: ["0%", "-50%"],
+      transition: { duration: 30, repeat: Infinity, ease: "linear" },
+    });
   }, [controls, paused]);
 
   return (
@@ -78,15 +90,15 @@ const Testimonials = () => {
           </p>
         </div>
 
-        {/* Horizontal marquee */}
+        {/* Mobile: single-row horizontal marquee */}
         <div
-          className="relative mt-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]"
+          className="relative mt-8 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] md:hidden"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
           <motion.div
             animate={controls}
-            className="flex gap-4 sm:gap-6 md:gap-8 w-[200%]"
+            className="flex gap-4 sm:gap-6 w-[200%]"
             style={{ willChange: "transform" }}
           >
             {items.map((t, i) => (
@@ -95,10 +107,26 @@ const Testimonials = () => {
           </motion.div>
         </div>
 
+        {/* Desktop: 3-column vertical scroll (original) */}
+        <div className="hidden md:flex justify-center gap-6 mt-10 [mask-image:linear-gradient(to_bottom,transparent,black_25%,black_75%,transparent)] max-h-none md:max-h-[740px] overflow-visible md:overflow-hidden">
+          {(() => {
+            const firstColumn = testimonials.slice(0, Math.ceil(testimonials.length / 3));
+            const secondColumn = testimonials.slice(Math.ceil(testimonials.length / 3), Math.ceil((2 * testimonials.length) / 3));
+            const thirdColumn = testimonials.slice(Math.ceil((2 * testimonials.length) / 3));
+            return (
+              <>
+                <TestimonialsColumn testimonials={firstColumn} duration={28} />
+                <TestimonialsColumn testimonials={secondColumn} className="hidden md:block" duration={34} />
+                <TestimonialsColumn testimonials={thirdColumn} className="hidden lg:block" duration={30} />
+              </>
+            );
+          })()}
+        </div>
+
         <div className="text-center mt-12">
           <a
             href="/testimonials"
-            className="inline-flex items-center justify-center bg-[#96442e] hover:bg-[#b8553a] text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-base"
+            className="inline-flex items-center justify-center bg-white text-black hover:bg-black hover:text-white border border-black px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-base"
           >
             View All Testimonials
             <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -26,7 +26,7 @@ export default function ResumePage() {
       <section className="mb-8 md:mb-12">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">Resume</h1>
         <p className="mt-4 max-w-3xl text-base sm:text-lg leading-relaxed text-muted-foreground">
-          Listen, chat (soon), or download a copy. Built with an ElevenLabs voice clone, an LLM
+          Listen, chat, or download a copy. Built with an ElevenLabs voice clone, an LLM
           generated script, and a responsive PDF viewer.
         </p>
       </section>

@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useAnimationControls } from "motion/react";
 
 interface Testimonial {
   text: string;
@@ -15,18 +15,36 @@ export const TestimonialsColumn = (props: {
   testimonials: Testimonial[];
   duration?: number;
 }) => {
+  const controls = useAnimationControls();
+
+  useEffect(() => {
+    controls.start({
+      translateY: ["0%", "-50%"],
+      transition: {
+        duration: props.duration || 10,
+        repeat: Infinity,
+        ease: "linear",
+      },
+    });
+  }, [controls, props.duration]);
+
+  const handleEnter = () => controls.stop();
+  const handleLeave = () =>
+    controls.start({
+      translateY: ["0%", "-50%"],
+      transition: {
+        duration: props.duration || 10,
+        repeat: Infinity,
+        ease: "linear",
+      },
+    });
+
   return (
     <div className={props.className}>
       <motion.div
-        animate={{
-          translateY: "-50%",
-        }}
-        transition={{
-          duration: props.duration || 10,
-          repeat: Infinity,
-          ease: "linear",
-          repeatType: "loop",
-        }}
+        animate={controls}
+        onMouseEnter={handleEnter}
+        onMouseLeave={handleLeave}
         className="flex flex-col gap-6 pb-6 bg-background"
       >
         {[

@@ -8,21 +8,14 @@ export const metadata: Metadata = {
     title: 'FAQ | Kris Chase',
     description: 'Answers to common questions about how I work, engagement models, and outcomes.',
     url: 'https://krischase.com/faq',
-    images: [
-      {
-        url: '/api/og-image?title=FAQ&subtitle=How%20I%20Work&persona=default',
-        width: 1200,
-        height: 630,
-        alt: 'FAQ – Kris Chase',
-      },
-    ],
+    images: ['/images/KrisChase-OG.png'],
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'FAQ | Kris Chase',
     description: 'Answers to common questions about how I work, engagement models, and outcomes.',
-    images: ['/api/og-image?title=FAQ&subtitle=How%20I%20Work&persona=default'],
+    images: ['/images/KrisChase-OG.png'],
   },
 };
 

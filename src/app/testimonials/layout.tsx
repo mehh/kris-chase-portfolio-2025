@@ -3,29 +3,22 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Testimonials | Kris Chase',
   description:
-    'Real feedback from founders, CTOs, and peers about technical leadership, delivery, and scaling teams.',
+    'Real quotes from colleagues and leaders about my impact shipping faster, scaling safely, and aligning teams.',
   alternates: { canonical: '/testimonials' },
   openGraph: {
     title: 'Testimonials | Kris Chase',
     description:
-      'Real feedback from founders, CTOs, and peers about technical leadership, delivery, and scaling teams.',
+      'Real quotes from colleagues and leaders about my impact shipping faster, scaling safely, and aligning teams.',
     url: 'https://krischase.com/testimonials',
-    images: [
-      {
-        url: '/api/og-image?title=Testimonials&subtitle=Voices%20from%20the%20Field&persona=investor',
-        width: 1200,
-        height: 630,
-        alt: 'Testimonials – Kris Chase',
-      },
-    ],
+    images: ['/images/KrisChase-OG.png'],
     type: 'article',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Testimonials | Kris Chase',
     description:
-      'Real feedback from founders, CTOs, and peers about technical leadership, delivery, and scaling teams.',
-    images: ['/api/og-image?title=Testimonials&subtitle=Voices%20from%20the%20Field&persona=investor'],
+      'Real quotes from colleagues and leaders about my impact shipping faster, scaling safely, and aligning teams.',
+    images: ['/images/KrisChase-OG.png'],
   },
 };
 

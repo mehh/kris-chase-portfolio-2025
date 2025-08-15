@@ -140,7 +140,7 @@ export default function TestimonialsPage() {
                 </p>
                 <a 
                   href="/contact"
-                  className="inline-flex items-center justify-center bg-[#96442e] hover:bg-[#b8553a] text-white px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-lg"
+                  className="inline-flex items-center justify-center bg-white text-black hover:bg-black hover:text-white border border-black px-8 py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-lg"
                 >
                   Get In Touch
                   <svg className="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

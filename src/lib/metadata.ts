@@ -72,14 +72,7 @@ export function generatePersonaMetadata(persona: PersonaType = 'default'): Metad
       description: config.ogDescription,
       url: 'https://krischase.com',
       siteName: 'Kris Chase Portfolio',
-      images: [
-        {
-          url: `/api/og-image?persona=${persona}&title=${encodeURIComponent(config.ogTitle)}&subtitle=${encodeURIComponent(config.ogDescription)}`,
-          width: 1200,
-          height: 630,
-          alt: `Kris Chase - ${config.ogTitle}`,
-        },
-      ],
+      images: ['/images/KrisChase-OG.png'],
       locale: 'en_US',
       type: 'website',
     },
@@ -87,7 +80,7 @@ export function generatePersonaMetadata(persona: PersonaType = 'default'): Metad
       card: 'summary_large_image',
       title: config.ogTitle,
       description: config.ogDescription,
-      images: [`/api/og-image?persona=${persona}&title=${encodeURIComponent(config.ogTitle)}&subtitle=${encodeURIComponent(config.ogDescription)}`],
+      images: ['/images/KrisChase-OG.png'],
       creator: '@krischase',
     },
     robots: {

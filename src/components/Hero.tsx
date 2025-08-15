@@ -30,7 +30,7 @@ const PERSONAS = [
   },
   {
     id: 'investor',
-    label: 'For investors & portcos',
+    label: 'For investors & Boards',
     h1: 'I run technical diligence and 90-day turnarounds that stick.',
     sub: 'Clear readouts, stabilization plans, and hands-on leadership parachute.',
     primary: { label: 'Request availability', href: '/contact' },
@@ -125,7 +125,7 @@ export default function Hero() {
                 onClick={() => { setIdx(i); setPaused(true); }}
                 data-selected={i === idx}
                 className={`rounded-full border px-2.5 sm:px-3 py-1 text-xs sm:text-sm backdrop-blur-sm min-h-[44px] flex items-center justify-center
-                  ${i === idx ? 'border-[#96442e]/80 text-[#96442e]' : 'border-foreground/20 text-foreground/80 hover:text-[#b8553a]'}`}
+                  ${i === idx ? 'bg-[#FFF]/80 text-[#000]' : 'border-foreground/20 text-foreground/80 hover:text-[#000] hover:bg-[#FFF]/80'}`}
               >
                 <span className="text-center leading-tight">{x.label}</span>
               </button>

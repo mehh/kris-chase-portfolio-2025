@@ -12,7 +12,7 @@ interface WorkExperience {
 const workExperience: WorkExperience[] = [
   {
     title: "Fractional CTO",
-    company: "Various Companies",
+    company: "Various Companies (Healthcare, Agency, SaaS, Entertainment)",
     timeframe: "June 2023 - Present",
     description: "Led technical strategy and execution across startups in MarTech, Creator Tools, and Marketplaces, resulting in a 65% increase in development efficiency (measured through Story Points, Bugs/Defect Ratio, TTD). Built and managed technical teams, integrating AI into workflows for automation, content moderation, and analytics, enhancing system performance by 50%. Spearheaded MVP builds using Next.js, Supabase, Firebase, and Vercel, successfully launching AI-driven features and improving customer satisfaction rates."
   },

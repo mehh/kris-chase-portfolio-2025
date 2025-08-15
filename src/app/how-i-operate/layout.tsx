@@ -10,14 +10,7 @@ export const metadata: Metadata = {
     description:
       'My operating model for technical leadership: clarify strategy, design minimal-but-sufficient plans, and deliver outcomes transparently.',
     url: 'https://krischase.com/how-i-operate',
-    images: [
-      {
-        url: '/api/og-image?title=How%20I%20Operate&subtitle=Diagnose%E2%80%A2Design%E2%80%A2Deliver&persona=cto',
-        width: 1200,
-        height: 630,
-        alt: 'How I Operate – Kris Chase',
-      },
-    ],
+    images: ['/images/KrisChase-OG.png'],
     type: 'article',
   },
   twitter: {
@@ -25,7 +18,7 @@ export const metadata: Metadata = {
     title: 'How I Operate | Kris Chase',
     description:
       'My operating model for technical leadership: clarify strategy, design minimal-but-sufficient plans, and deliver outcomes transparently.',
-    images: ['/api/og-image?title=How%20I%20Operate&subtitle=Diagnose%E2%80%A2Design%E2%80%A2Deliver&persona=cto'],
+    images: ['/images/KrisChase-OG.png'],
   },
 };
 

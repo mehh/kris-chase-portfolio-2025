@@ -62,7 +62,7 @@ export default function Footer() {
     >
 
       {/* Footer Content - Centered over the grid */}
-      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none px-4 sm:px-6">
+      <div className="relative inset-0 z-20 flex items-center justify-center pointer-events-none px-4 sm:px-6">
         <div className="text-center pointer-events-auto max-w-lg">
           <h2 className="text-2xl sm:text-4xl md:text-6xl font-bold text-white mb-3 sm:mb-4 drop-shadow-lg">
             Let&apos;s Build Something
@@ -72,7 +72,7 @@ export default function Footer() {
           </p>
           <a 
             href="/contact"
-            className="inline-flex items-center justify-center bg-[#96442e] hover:bg-[#b8553a] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-sm sm:text-base min-h-[48px]"
+            className="inline-flex items-center justify-center bg-white text-black hover:bg-black hover:text-white border border-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-sm sm:text-base min-h-[48px]"
           >
             Get In Touch
           </a>
