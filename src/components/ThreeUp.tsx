@@ -1,8 +1,57 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { Suspense, useEffect, useRef, useState } from "react";
+import { Canvas, useFrame, type RootState } from "@react-three/fiber";
+import type * as THREE from "three";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+
+function RotatingBox({ position }: { position: [number, number, number] }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  useFrame((state: RootState) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.getElapsedTime();
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.5;
+    }
+  });
+  return (
+    <mesh ref={meshRef} position={position}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshBasicMaterial color="#ffffff" wireframe />
+    </mesh>
+  );
+}
+
+function RotatingSphere({ position }: { position: [number, number, number] }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  useFrame((state: RootState) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.5;
+      meshRef.current.rotation.y = state.clock.getElapsedTime();
+    }
+  });
+  return (
+    <mesh ref={meshRef} position={position}>
+      <sphereGeometry args={[1]} />
+      <meshBasicMaterial color="#ffffff" wireframe />
+    </mesh>
+  );
+}
+
+function RotatingTorus({ position }: { position: [number, number, number] }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  useFrame((state: RootState) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.3;
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.7;
+    }
+  });
+  return (
+    <mesh ref={meshRef} position={position}>
+      <torusGeometry args={[1, 0.3]} />
+      <meshBasicMaterial color="#ffffff" wireframe />
+    </mesh>
+  );
+}
 
 export default function ThreeUp() {
   const [showOutlines, setShowOutlines] = useState([false, false, false, false, false]);
@@ -74,18 +123,19 @@ export default function ThreeUp() {
               <div className="plane-wrapper mb-4">
                 <a href="https://krischase.com" className="plane-inner block">
                   <div className="hover-plane image relative overflow-hidden rounded-lg">
-                    <Image
-                      src="/images/g_website.045.jpg"
-                      alt="Plan your mission, goals and objectives"
-                      width={400}
-                      height={300}
-                      className="object-cover w-full h-64 transition-transform duration-300 hover:scale-105"
-                    />
+                    <div className="h-64 relative">
+                      <Canvas camera={{ position: [0, 0, 3] }}>
+                        <Suspense fallback={null}>
+                          <RotatingBox position={[0, 0, 0]} />
+                          <ambientLight intensity={0.5} />
+                        </Suspense>
+                      </Canvas>
+                    </div>
                   </div>
                 </a>
               </div>
               <div className="title text-2xl font-heading uppercase mb-2 text-secondary-foreground">
-                Plan your mission, goals and objectives
+                Build a better future for your business
               </div>
             </div>
 
@@ -93,18 +143,19 @@ export default function ThreeUp() {
               <div className="plane-wrapper mb-4">
                 <a href="https://krischase.com" className="plane-inner block">
                   <div className="hover-plane image relative overflow-hidden rounded-lg">
-                    <Image
-                      src="/images/g_website.209.jpg"
-                      alt="Analyze industry positioning"
-                      width={400}
-                      height={300}
-                      className="object-cover w-full h-64 transition-transform duration-300 hover:scale-105"
-                    />
+                    <div className="h-64 relative">
+                      <Canvas camera={{ position: [0, 0, 3] }}>
+                        <Suspense fallback={null}>
+                          <RotatingSphere position={[0, 0, 0]} />
+                          <ambientLight intensity={0.5} />
+                        </Suspense>
+                      </Canvas>
+                    </div>
                   </div>
                 </a>
               </div>
               <div className="title text-2xl font-heading uppercase mb-2 text-secondary-foreground">
-                Analyze industry positioning
+                Unlock the full potential of your team
               </div>
             </div>
 
@@ -112,18 +163,19 @@ export default function ThreeUp() {
               <div className="plane-wrapper mb-4">
                 <a href="https://krischase.com" className="plane-inner block">
                   <div className="hover-plane image relative overflow-hidden rounded-lg">
-                    <Image
-                      src="/images/g_website.203.jpg"
-                      alt="Evaluate, modify, repeat"
-                      width={400}
-                      height={300}
-                      className="object-cover w-full h-64 transition-transform duration-300 hover:scale-105"
-                    />
+                    <div className="h-64 relative">
+                      <Canvas camera={{ position: [0, 0, 3] }}>
+                        <Suspense fallback={null}>
+                          <RotatingTorus position={[0, 0, 0]} />
+                          <ambientLight intensity={0.5} />
+                        </Suspense>
+                      </Canvas>
+                    </div>
                   </div>
                 </a>
               </div>
               <div className="title text-2xl font-heading uppercase mb-2 text-secondary-foreground">
-                Evaluate, modify, repeat
+                Succeed in a rapidly changing world
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import React from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import { Download } from "lucide-react";
+import ChatWidget from "@/components/ChatWidget";
 
 export default function ResumePage() {
   // Register page content for Machine View
@@ -66,8 +67,8 @@ export default function ResumePage() {
               <p className="mt-2 text-sm text-muted-foreground">
                 Coming soon: a Vercel AI SDK chat widget that can talk with my website content, resume, and LinkedIn data using OpenAI/OpenRouter.
               </p>
-              <div className="mt-4 rounded-lg border border-dashed border-gray-300 dark:border-gray-800 bg-muted/30 p-6 text-sm text-muted-foreground min-h-[220px] flex items-center justify-center text-center">
-                Placeholder — drop-in chat component will appear here.
+              <div className="mt-4">
+                <ChatWidget />
               </div>
             </div>
           </div>

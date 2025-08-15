@@ -54,6 +54,7 @@ export default function SiteHeader() {
           <div className="inner" data-v-6b95401f>
             <nav className="nav | font-nav" data-v-6b95401f>
               <ul data-v-6b95401f>
+                <li data-v-6b95401f><Link href="/" className="" data-v-6b95401f>Home</Link></li>
                 <li data-v-6b95401f><Link href="/how-i-operate" className="" data-v-6b95401f>How I Operate</Link></li>
                 <li data-v-6b95401f><Link href="/testimonials" className="" data-v-6b95401f>Testimonials</Link></li>
                 <li data-v-6b95401f><Link href="/resume" className="" data-v-6b95401f>Resume</Link></li>

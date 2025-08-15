@@ -77,13 +77,9 @@ export function MachineViewProvider({ children }: { children: React.ReactNode })
 
   const getSlices = useCallback(() => Object.values(slices), [slices]);
 
-  // Keyboard shortcut: press "m" to toggle
+  // Keyboard shortcut: only handle Escape to exit machine mode
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key.toLowerCase() === "m" && !e.metaKey && !e.ctrlKey && !e.altKey) {
-        e.preventDefault();
-        toggle();
-      }
       if (e.key === "Escape" && mode === "machine") {
         setMode("human");
       }

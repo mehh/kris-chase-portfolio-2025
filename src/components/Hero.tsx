@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import VerticalCutReveal from '../fancy/components/text/vertical-cut-reveal';
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import CountUp from "./CountUp";
 
 const PERSONAS = [
   {
@@ -35,7 +36,23 @@ const PERSONAS = [
   },
 ];
 
-const PROOF = ['60+ engineers led','100+ launches','30% delivery cost ↓','65% dev efficiency ↑'];
+type Proof = {
+  id: string;
+  label: string;
+  to: number;
+  suffix?: string;
+  prefix?: string;
+  separator?: string;
+  duration?: number;
+  note?: string;
+};
+
+const PROOF: Proof[] = [
+  { id: 'eng', label: 'engineers led', to: 60, suffix: '+', prefix: '', separator: ',', duration: 1.2 },
+  { id: 'launches', label: 'launches', to: 100, suffix: '+', prefix: '', separator: ',', duration: 1.2 },
+  { id: 'cost', label: 'delivery cost', to: 30, suffix: '%', prefix: '', separator: ',', duration: 1.2, note: '↓' },
+  { id: 'efficiency', label: 'dev efficiency', to: 65, suffix: '%', prefix: '', separator: ',', duration: 1.2, note: '↑' },
+];
 
 export default function Hero() {
   const [idx, setIdx] = useState(0);
@@ -83,7 +100,7 @@ export default function Hero() {
       ...PERSONAS.map((x) => `- ${x.label}: [${x.primary.label}](${x.primary.href})`),
       "",
       "### Proof Points",
-      ...PROOF.map((m) => `- ${m}`),
+      ...PROOF.map((m) => `- ${m.to}${m.suffix} ${m.label}${m.note ? ' ' + m.note : ''}`),
     ].join("\n"),
   }, []);
 
@@ -125,23 +142,19 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.h1
               key={p.id + '-h1'}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
               className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0"
             >
               <VerticalCutReveal
                 key={p.id}
                 splitBy="words"
-                staggerDuration={0.08}
+                staggerDuration={0.06}
                 staggerFrom="first"
                 inViewOnScroll={false}
                 transition={{
                   type: "spring",
                   stiffness: 150,
                   damping: 20,
-                  delay: 0.1
+                  delay: 0
                 }}
               >
                 {p.h1}
@@ -174,9 +187,19 @@ export default function Hero() {
             </a> */}
           </div>
 
-          {/* proof strip */}
-          <div className="flex flex-wrap justify-center gap-3 sm:gap-6 text-xs sm:text-sm text-foreground/70 px-2 sm:px-0">
-            {PROOF.map((m) => <span key={m} className="whitespace-nowrap">{m}</span>)}
+          {/* proof strip with CountUp */}
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 px-2 sm:px-0">
+            {PROOF.map((p) => (
+              <div key={p.id} className="flex items-baseline gap-1 whitespace-nowrap">
+                <span className="text-xl sm:text-2xl font-semibold text-foreground">
+                  <CountUp from={0} to={p.to} duration={p.duration} separator={p.separator} className="align-baseline" />
+                  {p.suffix}
+                </span>
+                <span className="text-xs sm:text-sm text-foreground/70">
+                  {p.label} {p.note ? <span className="opacity-70">{p.note}</span> : null}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

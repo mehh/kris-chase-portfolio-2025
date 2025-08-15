@@ -12,6 +12,9 @@ import TargetCursor from '../components/TargetCursor';
 import GridScrollBackground from '../components/GridScrollBackground';
 import MachineOverlay from '../components/machine/MachineOverlay';
 import MachineToggle from '../components/machine/MachineToggle';
+import Script from "next/script";
+import SplashScreen from "../components/SplashScreen";
+import PageTransition from "../components/PageTransition";
 
 const chakra = Chakra_Petch({
   variable: "--font-chakra",
@@ -99,6 +102,25 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="kris">
       <body className={`${chakra.variable} ${questrial.variable} antialiased`}>
+        {/* Pre-hydration theme fix to avoid white flash */}
+        <Script id="no-fouc-theme" strategy="beforeInteractive">
+          {`
+            try {
+              var t = (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) || 'dark';
+              if (t === 'dark') {
+                document.documentElement.classList.add('dark');
+              } else {
+                document.documentElement.classList.remove('dark');
+              }
+            } catch (e) {
+              document.documentElement.classList.add('dark');
+            }
+          `}
+        </Script>
+        {/* First-load splash overlay */}
+        <SplashScreen />
+        {/* Route-change page transition overlay */}
+        <PageTransition />
         <JsonLd />
         {/* Global animated grid background */}
         <GridScrollBackground />
@@ -119,7 +141,7 @@ export default function RootLayout({
           {/* Target Cursor */}
           <TargetCursor 
             targetSelector={"a, button, .cursor-target, [role='button']"}
-            spinDuration={2}
+            spinDuration={6}
             hideDefaultCursor={true}
           />
         </div>

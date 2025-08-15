@@ -345,3 +345,176 @@ html * {
     @apply bg-background text-foreground;
   }
 }
+
+/* =============================
+   First-load Splash (KC -> Name)
+   ============================= */
+.kc-splash {
+  font-family: var(--font-chakra), ui-sans-serif, system-ui, -apple-system;
+  overflow: hidden;
+}
+
+.kc-initials {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(8px, 2vw, 24px);
+  font-weight: 700;
+  font-size: clamp(56px, 14vw, 260px);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  animation: kc-initials-seq 1.2s cubic-bezier(0.25, 0.9, 0.25, 1) forwards;
+}
+
+.kc-k { display: inline-block; }
+.kc-c {
+  display: inline-block;
+  transform: scaleX(-1); /* flipped C to resemble > */
+}
+
+.kc-name {
+  font-weight: 700;
+  font-size: clamp(28px, 6vw, 96px);
+  letter-spacing: 0.02em;
+  animation: kc-name-reveal 0.8s 0.9s ease forwards;
+}
+
+@keyframes kc-initials-seq {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(0deg);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1) rotate(10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.05) rotate(370deg); /* full spin */
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.6) rotate(460deg);
+  }
+}
+
+@keyframes kc-name-reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scaleX(0.8);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(0) scaleX(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kc-initials,
+  .kc-name {
+    animation: none !important;
+  }
+}
+
+/* =============================
+   TextReveal + KC -> Name Staging
+   ============================= */
+/* Per-char reveal with transform composition via CSS variables */
+.tr {
+  display: inline-flex;
+}
+.tr-char {
+  display: inline-block;
+  opacity: 0;
+  /* Compose transforms so flip/spin/reveal don't clobber each other */
+  --sx: 1;
+  --rot: 0deg;
+  --ty: 0.4em;
+  transform: rotate(var(--rot)) scaleX(var(--sx)) translateY(var(--ty));
+  animation: tr-reveal 600ms cubic-bezier(0.25, 0.9, 0.25, 1) forwards;
+}
+.tr-flip { --sx: -1; }
+.tr-spin  { animation: tr-reveal 600ms cubic-bezier(0.25, 0.9, 0.25, 1) forwards, tr-spin 700ms ease-out forwards; }
+
+@keyframes tr-reveal {
+  0% { opacity: 0; --ty: 0.4em; }
+  100% { opacity: 1; --ty: 0; }
+}
+@keyframes tr-spin {
+  0% { --rot: 0deg; }
+  100% { --rot: 360deg; }
+}
+
+/* Staging containers */
+.kc-stage-initials,
+.kc-stage-name {
+  font-family: var(--font-chakra), ui-sans-serif, system-ui, -apple-system;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+}
+
+/* Default (Splash) sizes */
+.kc-stage-initials,
+.kc-stage-name { font-size: clamp(56px, 14vw, 260px); }
+
+/* Fast (Route transition) sizes */
+.kc-stage-initials--fast,
+.kc-stage-name--fast { font-size: clamp(32px, 8vw, 140px); }
+
+/* Timeline: initials fade out, name fades in */
+.kc-stage-initials { opacity: 1; animation: kc-initials-out 900ms 700ms ease forwards; }
+.kc-stage-name { opacity: 0; animation: kc-name-in 600ms 700ms ease forwards; }
+.kc-stage-initials--fast { opacity: 1; animation: kc-initials-out 600ms 400ms ease forwards; }
+.kc-stage-name--fast { opacity: 0; animation: kc-name-in 500ms 400ms ease forwards; }
+
+@keyframes kc-initials-out {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.9); }
+}
+@keyframes kc-name-in {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Name assembly details */
+.kc-left .kc-k2 {
+  transform: translateX(0);
+  animation: kc-k-left 600ms ease forwards;
+}
+.kc-left .kc-ris {
+  opacity: 0;
+  animation: kc-ris-in 500ms 120ms ease forwards;
+}
+.kc-right { position: relative; overflow: hidden; }
+.kc-right .kc-c2 { display: inline-block; transform: scaleX(-1); }
+.kc-right .kc-hase {
+  display: inline-block;
+  transform: translateX(-100%);
+  animation: kc-hase-right 600ms 120ms ease forwards;
+}
+
+@keyframes kc-k-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-0.4em); }
+}
+@keyframes kc-ris-in {
+  0% { opacity: 0; transform: translateX(-0.1em); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+@keyframes kc-hase-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tr-char,
+  .kc-stage-initials,
+  .kc-stage-name,
+  .kc-left .kc-k2,
+  .kc-left .kc-ris,
+  .kc-right .kc-hase { animation: none !important; transform: none !important; opacity: 1 !important; }
+}
