@@ -3,6 +3,23 @@
 
 /* Footer styles removed - using normal document flow */
 
+/* Ensure loader overlays render before app content on initial paint */
+html:not(.splash-done) body {
+  overflow: hidden; /* prevent scroll before splash completes */
+}
+html:not(.splash-done) #__app-root {
+  opacity: 0; /* hide app content behind splash */
+}
+html.splash-done #__app-root {
+  opacity: 1;
+  transition: opacity 180ms ease; /* subtle fade-in after splash */
+}
+
+/* Optional: during route transitions, disable pointer events beneath overlay */
+html.route-transitioning #__app-root {
+  pointer-events: none;
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
@@ -457,6 +474,23 @@ html * {
   letter-spacing: -0.04em;
 }
 
+/* Single-sequence container (current implementation) */
+.kc-line {
+  font-family: var(--font-chakra), ui-sans-serif, system-ui, -apple-system;
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  /* Much bigger sizing */
+  font-size: clamp(80px, 20vw, 560px);
+  /* Ensure KC start side-by-side */
+  display: inline-flex;
+  gap: 0;
+}
+.kc-line.kc-fast {
+  /* Still big on transitions, slightly smaller than splash */
+  font-size: clamp(56px, 12vw, 360px);
+}
+
 /* Default (Splash) sizes */
 .kc-stage-initials,
 .kc-stage-name { font-size: clamp(56px, 14vw, 260px); }
@@ -482,32 +516,77 @@ html * {
 
 /* Name assembly details */
 .kc-left .kc-k2 {
+  position: relative;
+  z-index: 10; /* ensure always visible */
+  display: inline-block;
+  /* K should be visible immediately */
+  opacity: 1;
   transform: translateX(0);
-  animation: kc-k-left 600ms ease forwards;
+  /* add a brief hold before sliding left */
+  animation: kc-k-left 620ms 480ms ease forwards;
 }
+/* Removed K mask to avoid covering the glyph */
 .kc-left .kc-ris {
+  display: inline-block;
   opacity: 0;
-  animation: kc-ris-in 500ms 120ms ease forwards;
+  /* collapse so K sits next to C initially */
+  width: 0;
+  overflow: hidden;
+  animation: kc-ris-in 520ms 360ms ease forwards;
 }
-.kc-right { position: relative; overflow: hidden; }
-.kc-right .kc-c2 { display: inline-block; transform: scaleX(-1); }
+.kc-right { position: relative; overflow: visible; }
+.kc-left { position: relative; overflow: visible; }
+.kc-right .kc-c2 {
+  display: inline-block;
+  /* start flipped to face K */
+  opacity: 1;
+  transform: scaleX(-1);
+  position: relative;
+  z-index: 2; /* above its own black mask */
+  /* flip after a hold */
+  animation: kc-c-flip 520ms 480ms ease-out forwards;
+}
+.kc-right .kc-c2::before {
+  content: "";
+  position: absolute;
+  inset: -0.05em -0.08em; /* tiny bleed */
+  background: #000;
+  z-index: -1; /* behind the C glyph but above background */
+  border-radius: 0.02em;
+  pointer-events: none;
+}
 .kc-right .kc-hase {
   display: inline-block;
+  /* don't reserve width initially so C sits next to K */
+  max-width: 0;
+  overflow: hidden;
   transform: translateX(-100%);
-  animation: kc-hase-right 600ms 120ms ease forwards;
+  z-index: 3; /* above backgrounds once revealed */
+  /* reveal slightly after C flips open */
+  animation: kc-hase-right 680ms 560ms ease forwards;
 }
 
+@keyframes kc-show-in {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
 @keyframes kc-k-left {
   0% { transform: translateX(0); }
   100% { transform: translateX(-0.4em); }
 }
 @keyframes kc-ris-in {
-  0% { opacity: 0; transform: translateX(-0.1em); }
-  100% { opacity: 1; transform: translateX(0); }
+  0% { opacity: 0; filter: blur(2px); transform: translateX(0); width: 0; }
+  100% { opacity: 1; filter: blur(0); transform: translateX(0); width: 3.2ch; }
 }
 @keyframes kc-hase-right {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(0); }
+  0% { transform: translateX(-100%); max-width: 0; }
+  100% { transform: translateX(0); max-width: 8.4ch; }
+}
+
+/* Flip C from facing K (scaleX(-1)) to normal (scaleX(1)) */
+@keyframes kc-c-flip {
+  0% { transform: scaleX(-1); }
+  100% { transform: scaleX(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {

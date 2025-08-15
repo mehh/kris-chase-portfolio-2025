@@ -139,7 +139,7 @@ export default function Saver() {
       let lastTime = Date.now();
       
       const getRandomColor = () => {
-        const colors = ['#96442e', '#b8553a', '#8a3d28', '#d4654c'];
+        const colors = ['#FFF', '#FFF', '#FFF', '#FFF'];
         return colors[Math.floor(Math.random() * colors.length)];
       };
       

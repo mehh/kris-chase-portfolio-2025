@@ -2,8 +2,11 @@
 
 import React, { useState } from "react";
 
+type ChatSource = { title: string; url: string };
+type ChatMessage = { role: "user" | "assistant"; content: string; sources?: ChatSource[] };
+
 export default function ChatWidget() {
-  const [messages, setMessages] = useState<{ role: "user" | "assistant"; content: string }[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -25,7 +28,8 @@ export default function ChatWidget() {
       const json = await res.json();
       if (!res.ok) throw new Error(json?.error || "Request failed");
       const answer = json?.answer || "";
-      setMessages((m) => [...m, { role: "assistant", content: answer }]);
+      const sources: ChatSource[] = Array.isArray(json?.sources) ? json.sources : [];
+      setMessages((m) => [...m, { role: "assistant", content: answer, sources }]);
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Something went wrong";
       setError(msg);
@@ -42,9 +46,27 @@ export default function ChatWidget() {
         ) : (
           <ul className="space-y-3">
             {messages.map((m, i) => (
-              <li key={i} className={m.role === "user" ? "text-foreground" : "text-foreground/90"}>
-                <span className="font-medium mr-2">{m.role === "user" ? "You" : "AI"}:</span>
-                <span className="whitespace-pre-wrap">{m.content}</span>
+              <li key={i} className="text-foreground">
+                <div>
+                  <span className="font-medium mr-2">{m.role === "user" ? "You" : "AI"}:</span>
+                  <span className="whitespace-pre-wrap text-foreground/90">{m.content}</span>
+                </div>
+                {m.role === "assistant" && m.sources && m.sources.length > 0 && (
+                  <div className="mt-1 text-xs text-muted-foreground">
+                    <span className="mr-2">Sources:</span>
+                    {m.sources.map((s, si) => (
+                      <a
+                        key={si}
+                        href={s.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline underline-offset-2 hover:text-foreground mr-2"
+                      >
+                        {s.title}
+                      </a>
+                    ))}
+                  </div>
+                )}
               </li>
             ))}
           </ul>

@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import VerticalCutReveal from '../fancy/components/text/vertical-cut-reveal';
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import CountUp from "./CountUp";
+import GradientText from "./GradientText";
 
 const PERSONAS = [
   {
@@ -187,15 +188,22 @@ export default function Hero() {
             </a> */}
           </div>
 
-          {/* proof strip with CountUp */}
-          <div className="flex flex-wrap justify-center gap-4 sm:gap-8 px-2 sm:px-0">
+          {/* proof strip with CountUp + GradientText, centered and larger */}
+          <div className="flex flex-wrap justify-center gap-6 sm:gap-10 px-2 sm:px-0">
             {PROOF.map((p) => (
-              <div key={p.id} className="flex items-baseline gap-1 whitespace-nowrap">
-                <span className="text-xl sm:text-2xl font-semibold text-foreground">
-                  <CountUp from={0} to={p.to} duration={p.duration} separator={p.separator} className="align-baseline" />
-                  {p.suffix}
-                </span>
-                <span className="text-xs sm:text-sm text-foreground/70">
+              <div key={p.id} className="flex flex-col items-center text-center min-w-[140px]">
+                <GradientText
+                  colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
+                  animationSpeed={3}
+                  showBorder={false}
+                  className="custom-class"
+                >
+                  <span className="block leading-none text-3xl sm:text-5xl lg:text-6xl font-extrabold">
+                    <CountUp from={0} to={p.to} duration={p.duration} separator={p.separator} className="align-baseline" />
+                    {p.suffix}
+                  </span>
+                </GradientText>
+                <span className="mt-1 sm:mt-2 text-sm sm:text-base md:text-lg text-foreground/80">
                   {p.label} {p.note ? <span className="opacity-70">{p.note}</span> : null}
                 </span>
               </div>

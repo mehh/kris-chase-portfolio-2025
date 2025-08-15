@@ -35,7 +35,52 @@ const brands: Brand[] = [
   { file: "OluKai_Logo.png", name: "OluKai", color: "#8D6E63" },
   { file: "GFORE_Logo.png", name: "G/FORE", color: "#FFC107" },
   { file: "Northgate_Logo.png", name: "Northgate Market", color: "#4CAF50" },
+  // New additions
+  { file: "aprilaire.png", name: "Aprilaire", color: "#999999" },
+  { file: "arlo.png", name: "Arlo", color: "#999999" },
+  { file: "cast-it-reach.png", name: "Cast It Reach", color: "#999999" },
+  { file: "casting-frontier.png", name: "Casting Frontier", color: "#999999" },
+  { file: "casting-networks.png", name: "Casting Networks", color: "#999999" },
+  { file: "ehi-fund.png", name: "EHI Fund", color: "#999999" },
+  { file: "exfluential.png", name: "Exfluential", color: "#999999" },
+  { file: "factory-ai.png", name: "Factory AI", color: "#999999" },
+  { file: "fiji-vacations.png", name: "Fiji Vacations", color: "#999999" },
+  { file: "iverson-inc.png", name: "Iverson Inc.", color: "#999999" },
+  { file: "masterbuilt.png", name: "Masterbuilt", color: "#999999" },
+  { file: "molina-healthcare.png", name: "Molina Healthcare", color: "#999999" },
+  { file: "spotlight-uk.png", name: "Spotlight UK", color: "#999999" },
+  { file: "staff-me-up.png", name: "Staff Me Up", color: "#999999" },
+  { file: "t-mobile.png", name: "T-Mobile", color: "#999999" },
+  { file: "taylormade.png", name: "TaylorMade", color: "#999999" },
+  { file: "the-honest-kitchen.png", name: "The Honest Kitchen", color: "#999999" },
+  { file: "toshiba.png", name: "Toshiba", color: "#999999" },
+  { file: "travismathew.png", name: "TravisMathew", color: "#999999" },
+  { file: "xsolla.png", name: "Xsolla", color: "#999999" },
 ];
+
+// Files added in the latest batch; render these at 2x size
+const NEW_FILES = new Set([
+  "aprilaire.png",
+  "arlo.png",
+  "cast-it-reach.png",
+  "casting-frontier.png",
+  "casting-networks.png",
+  "ehi-fund.png",
+  "exfluential.png",
+  "factory-ai.png",
+  "fiji-vacations.png",
+  "iverson-inc.png",
+  "masterbuilt.png",
+  "molina-healthcare.png",
+  "spotlight-uk.png",
+  "staff-me-up.png",
+  "t-mobile.png",
+  "taylormade.png",
+  "the-honest-kitchen.png",
+  "toshiba.png",
+  "travismathew.png",
+  "xsolla.png",
+]);
 
 // Crosshair component for grid intersections
 const Crosshair = ({ delay = 0 }: { delay?: number }) => {
@@ -65,11 +110,18 @@ const Crosshair = ({ delay = 0 }: { delay?: number }) => {
 export default function BrandsGrid() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [previousHoveredIndex, setPreviousHoveredIndex] = useState<number | null>(null);
+  const [displayed, setDisplayed] = useState<Brand[]>([]);
   const [crosshairs, setCrosshairs] = useState<Array<{ id: number; row: number; col: number; delay: number }>>([]);
 
   // Calculate grid dimensions
-  const cols = 6; // lg:grid-cols-6
-  const rows = Math.ceil(brands.length / cols);
+  const cols = 10; // lg:grid-cols-10
+  const rows = Math.ceil((displayed.length || brands.length) / cols);
+
+  // Shuffle brands once on mount
+  useEffect(() => {
+    const shuffled = [...brands].sort(() => Math.random() - 0.5);
+    setDisplayed(shuffled);
+  }, []);
 
   // Register Brands for Machine View
   useMachineSlice({
@@ -79,7 +131,7 @@ export default function BrandsGrid() {
     order: 50,
     content: [
       "### Brand List",
-      ...brands.map((b) => `- ${b.name}`),
+      ...(displayed.length ? displayed : brands).map((b) => `- ${b.name}`),
     ].join("\n"),
   }, []);
 
@@ -133,7 +185,7 @@ export default function BrandsGrid() {
         {/* Grid container with relative positioning for crosshairs */}
         <div className="relative">
           {/* Logo grid */}
-          <div className="grid grid-cols-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-0 border border-border/30 relative">
+          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-0 border border-border/30 relative">
             {/* Crosshairs at grid intersections */}
             {crosshairs.map((crosshair) => (
               <div
@@ -150,7 +202,7 @@ export default function BrandsGrid() {
             ))}
             
             {/* Logo cells */}
-            {brands.map((brand, index) => {
+            {(displayed.length ? displayed : brands).map((brand, index) => {
               const isHovered = hoveredIndex === index;
               const wasPreviouslyHovered = previousHoveredIndex === index;
 
@@ -192,8 +244,8 @@ export default function BrandsGrid() {
                   <Image
                     src={`/brands/${brand.file}`}
                     alt={brand.name}
-                    width={120}
-                    height={80}
+                    width={NEW_FILES.has(brand.file) ? 240 : 120}
+                    height={NEW_FILES.has(brand.file) ? 160 : 80}
                     className="object-contain opacity-80 group-hover:opacity-100 transition-all duration-300 mix-blend-difference filter contrast-200"
                     style={{
                       maxWidth: '100%',

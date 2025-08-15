@@ -1,8 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import TextReveal from "./TextReveal";
 
 /**
  * PageTransition
@@ -14,7 +13,7 @@ export default function PageTransition() {
   const lastPath = useRef<string | null>(null);
   const [visible, setVisible] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Skip the first run if it's the initial load and SplashScreen will handle it.
     if (lastPath.current === null) {
       // First mount
@@ -27,7 +26,13 @@ export default function PageTransition() {
       lastPath.current = pathname;
       // Show transition between routes
       setVisible(true);
-      const t = setTimeout(() => setVisible(false), 900); // keep a bit shorter than first splash
+      // Mark route transitioning on <html> for potential global styling
+      try { document.documentElement.classList.add("route-transitioning"); } catch {}
+      // Match Splash small timing + 250ms post-anim delay
+      const t = setTimeout(() => {
+        setVisible(false);
+        try { document.documentElement.classList.remove("route-transitioning"); } catch {}
+      }, 1150);
       return () => clearTimeout(t);
     }
   }, [pathname]);
@@ -36,19 +41,13 @@ export default function PageTransition() {
 
   return (
     <div className="kc-splash fixed inset-0 z-[9998] flex items-center justify-center bg-black text-white select-none">
-      {/* Stage 1: KC reveal (quicker) */}
-      <div className="kc-stage-initials kc-stage-initials--fast absolute flex items-center gap-[0.2em]" aria-hidden>
-        <TextReveal text="K" className="kc-tr kc-tr-k" />
-        <TextReveal text="C" className="kc-tr kc-tr-c" flipHorizontal spin />
-      </div>
-
-      {/* Stage 2: Full name reveal (quicker) */}
-      <div className="kc-stage-name kc-stage-name--fast relative flex items-center gap-[0.25em]">
-        <div className="kc-left relative flex items-center">
+      {/* Single sequence (small): KC morphs into KRIS CHASE */}
+      <div className="kc-line kc-fast" aria-label="Kris Chase">
+        <div className="kc-left relative">
           <span className="kc-k2 block">K</span>
           <span className="kc-ris block">ris&nbsp;</span>
         </div>
-        <div className="kc-right relative inline-flex items-center">
+        <div className="kc-right relative">
           <span className="kc-c2 block">C</span>
           <span className="kc-hase block">hase</span>
         </div>

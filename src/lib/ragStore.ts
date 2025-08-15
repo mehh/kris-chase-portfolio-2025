@@ -39,7 +39,8 @@ export const cosineSim = (a: number[], b: number[]) => {
   let dot = 0,
     na = 0,
     nb = 0;
-  for (let i = 0; i < a.length; i++) {
+  const len = Math.min(a.length, b.length);
+  for (let i = 0; i < len; i++) {
     dot += a[i] * b[i];
     na += a[i] * a[i];
     nb += b[i] * b[i];
@@ -72,26 +73,113 @@ export async function getEmbeddings(texts: string[]): Promise<number[][]> {
   return json.data.map((d) => d.embedding);
 }
 
-let embedded = false;
 export async function ensureEmbedded() {
-  if (embedded) return;
-  const texts = RAG_DOCUMENTS.map((d) => d.content);
-  const embs = await getEmbeddings(texts);
+  // Only embed docs that don't have embeddings yet
+  const pendingIndexes: number[] = [];
+  const pendingTexts: string[] = [];
   for (let i = 0; i < RAG_DOCUMENTS.length; i++) {
-    RAG_DOCUMENTS[i].embedding = embs[i];
+    if (!RAG_DOCUMENTS[i].embedding) {
+      pendingIndexes.push(i);
+      pendingTexts.push(RAG_DOCUMENTS[i].content);
+    }
   }
-  embedded = true;
+  if (pendingTexts.length > 0) {
+    const embs = await getEmbeddings(pendingTexts);
+    pendingIndexes.forEach((idx, j) => {
+      RAG_DOCUMENTS[idx].embedding = embs[j];
+    });
+  }
 }
 
 export async function retrieve(query: string, k = 4) {
   await ensureEmbedded();
   const [qEmb] = await getEmbeddings([query]);
-  const scored = RAG_DOCUMENTS.map((d) => ({
-    doc: d,
-    score: cosineSim(qEmb, d.embedding || []),
-  }))
+  const scored = RAG_DOCUMENTS.map((d) => {
+    let score = cosineSim(qEmb, d.embedding || []);
+    // Lightly boost FAQ docs to help common interview Q&A surface
+    if (d.id.startsWith("faq-")) score *= 1.15;
+    return { doc: d, score };
+  })
     .sort((a, b) => b.score - a.score)
     .slice(0, k);
 
   return scored.map((s) => s.doc);
+}
+
+// ----- Extensions: FAQ + Site Crawling (MVP) -----
+import { INTERVIEW_FAQ } from "@/data/interview-faq";
+
+export function addFAQDocs() {
+  // Convert FAQs into docs (id stable by faq.id)
+  for (const faq of INTERVIEW_FAQ) {
+    const id = `faq-${faq.id}`;
+    if (!RAG_DOCUMENTS.some((d) => d.id === id)) {
+      RAG_DOCUMENTS.push({
+        id,
+        title: `Interview: ${faq.question}`,
+        url: `/faq#${faq.id}`,
+        content: `${faq.question}\n\n${faq.answer}`,
+      });
+    }
+  }
+}
+
+// Basic HTML → text stripper (MVP)
+function stripHtml(html: string) {
+  return html
+    .replace(/<script[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style[\s\S]*?<\/style>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+export async function fetchRouteAsText(origin: string, path: string): Promise<string | null> {
+  try {
+    const url = `${origin}${path}`;
+    const res = await fetch(url, { headers: { Accept: "text/html" } });
+    if (!res.ok) return null;
+    const html = await res.text();
+    return stripHtml(html);
+  } catch {
+    return null;
+  }
+}
+
+export async function indexSite(origin: string, routes: string[]) {
+  const toAdd: RagDoc[] = [];
+  for (const path of routes) {
+    // Avoid duplicating existing route doc IDs
+    const id = `route-${path}`;
+    if (RAG_DOCUMENTS.some((d) => d.id === id)) continue;
+    const text = await fetchRouteAsText(origin, path);
+    if (text && text.length > 200) {
+      toAdd.push({ id, title: `Page: ${path}`, url: path, content: text });
+    }
+  }
+  if (toAdd.length > 0) {
+    const embs = await getEmbeddings(toAdd.map((d) => d.content));
+    toAdd.forEach((d, i) => (d.embedding = embs[i]));
+    RAG_DOCUMENTS.push(...toAdd);
+  }
+}
+
+// ----- Helpers: add arbitrary docs and combined FAQ markdown -----
+export async function addDoc(doc: RagDoc) {
+  if (!RAG_DOCUMENTS.some((d) => d.id === doc.id)) {
+    const [emb] = await getEmbeddings([doc.content]);
+    doc.embedding = emb;
+    RAG_DOCUMENTS.push(doc);
+  }
+}
+
+export async function addFAQMarkdownDoc() {
+  // Combine all FAQs into a single markdown doc to improve recall
+  const md = INTERVIEW_FAQ.map((f) => `## ${f.question}\n\n${f.answer}`).join("\n\n");
+  await addDoc({
+    id: "faq-markdown",
+    title: "Interview FAQ (Full)",
+    url: "/faq",
+    content: md,
+  });
 }

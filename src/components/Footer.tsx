@@ -88,33 +88,17 @@ export default function Footer() {
                 © {new Date().getFullYear()} Kris Chase. All rights reserved.
               </p>
               <nav className="flex gap-6">
-                <a 
-                  href="https://github.com/mehh" 
-                  target="_blank" 
-                  rel="noreferrer" 
+              <a 
+                  href="/faq" 
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
-                  GitHub
-                </a>
-                <a 
-                  href="https://www.linkedin.com/in/krisrchase/" 
-                  target="_blank" 
-                  rel="noreferrer" 
-                  className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
-                >
-                  LinkedIn
-                </a>
-                <a 
-                  href="mailto:kris@krischase.com" 
-                  className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
-                >
-                  Email
-                </a>
+                  FAQ
+                </a>                
                 <a 
                   href="/partners" 
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
-                  Partners
+                  Become a Partner
                 </a>
               </nav>
             </div>
