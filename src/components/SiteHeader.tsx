@@ -20,10 +20,6 @@ export default function SiteHeader() {
     order: 5,
     content: [
       ...desktopLinks,
-      { label: "System", href: "/system" },
-      { label: "About", href: "/about" },
-      { label: "Press", href: "/press" },
-      { label: "Careers", href: "/careers" },
       { label: "Book Call", href: "/contact" },
     ]
       .map((i) => `- [${i.label}](${i.href})`)
@@ -101,23 +97,6 @@ export default function SiteHeader() {
                     </div>
                   </li>
                 ))}
-                <li data-v-6b95401f aria-label="System">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} href="/system" data-v-6b95401f>System</Link>
-                  </div>
-                </li>
-                <li data-v-6b95401f aria-label="Careers">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} href="/careers" data-v-6b95401f>Careers</Link>
-                  </div>
-                </li>
-                <li data-v-6b95401f aria-label="Book Call">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} href="/contact" className="mobile-menu-button" data-v-6b95401f>
-                      Book Call
-                    </Link>
-                  </div>
-                </li>
               </ul>
             </nav>
           </div>

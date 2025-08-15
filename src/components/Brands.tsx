@@ -208,7 +208,7 @@ export default function BrandsGrid() {
 
               return (
                 <motion.div
-                  key={brand.name}
+                  key={`${brand.name}-${brand.file}`}
                   className="relative aspect-square border border-border/30 flex items-center justify-center p-3 sm:p-4 md:p-6 cursor-pointer overflow-hidden group"
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
