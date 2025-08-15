@@ -20,6 +20,15 @@ html.route-transitioning #__app-root {
   pointer-events: none;
 }
 
+/* Hide UnicornStudio "Unicorn Studio" button/watermark inside loader container */
+[data-us-project] a[href*="unicornstudio"],
+[data-us-project] a[href*="hiunicornstudio"],
+[data-us-project] .unicornstudio-watermark,
+[data-us-project] .us-watermark,
+[data-us-project] button[title*="Unicorn Studio" i] {
+  display: none !important;
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;

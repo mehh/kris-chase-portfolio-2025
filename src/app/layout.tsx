@@ -14,8 +14,8 @@ import MachineOverlay from '../components/machine/MachineOverlay';
 import MachineToggle from '../components/machine/MachineToggle';
 import Script from "next/script";
 // import SplashScreen from "../components/SplashScreen"; // Temporarily disabled
-import UnicornLoader from "../components/UnicornLoader";
 import PageTransition from "../components/PageTransition";
+import InitialKCSplash from "../components/InitialKCSplash";
 
 const chakra = Chakra_Petch({
   variable: "--font-chakra",
@@ -111,9 +111,9 @@ export default function RootLayout({
             }
           `}
         </Script>
-        {/* First-load overlay (temporary UnicornStudio replacement) */}
-        <UnicornLoader />
-        {/* Route-change page transition overlay */}
+        {/* Initial KC splash overlay */}
+        <InitialKCSplash />
+        {/* Route-change KC overlay */}
         <PageTransition />
         <JsonLd />
         {/* Global animated grid background */}
