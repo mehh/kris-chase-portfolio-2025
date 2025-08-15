@@ -13,7 +13,8 @@ import GridScrollBackground from '../components/GridScrollBackground';
 import MachineOverlay from '../components/machine/MachineOverlay';
 import MachineToggle from '../components/machine/MachineToggle';
 import Script from "next/script";
-import SplashScreen from "../components/SplashScreen";
+// import SplashScreen from "../components/SplashScreen"; // Temporarily disabled
+import UnicornLoader from "../components/UnicornLoader";
 import PageTransition from "../components/PageTransition";
 
 const chakra = Chakra_Petch({
@@ -110,8 +111,8 @@ export default function RootLayout({
             }
           `}
         </Script>
-        {/* First-load splash overlay */}
-        <SplashScreen />
+        {/* First-load overlay (temporary UnicornStudio replacement) */}
+        <UnicornLoader />
         {/* Route-change page transition overlay */}
         <PageTransition />
         <JsonLd />
