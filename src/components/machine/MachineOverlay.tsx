@@ -45,7 +45,7 @@ export default function MachineOverlay() {
       </div>
 
       {/* Content */}
-      <div className="h-[calc(100vh-48px)] overflow-auto p-6">
+      <div className="h-[calc(100dvh-48px)] overflow-auto p-6">
         <div className="mx-auto max-w-[500px]">
           <pre className="whitespace-pre-wrap rounded-lg border border-border bg-muted/40 p-4 text-sm leading-relaxed font-mono">
 {content}

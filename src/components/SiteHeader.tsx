@@ -5,6 +5,13 @@ import { useMachineSlice } from "./machine/MachineViewProvider";
 
 export default function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const desktopLinks = [
+    { label: "Home", href: "/" },
+    { label: "How I Operate", href: "/how-i-operate" },
+    { label: "Testimonials", href: "/testimonials" },
+    { label: "Resume", href: "/resume" },
+    { label: "Get in Touch", href: "/contact" },
+  ];
   // Register navigation for Machine View (markdown-friendly)
   useMachineSlice({
     type: "nav",
@@ -12,11 +19,7 @@ export default function SiteHeader() {
     path: "global",
     order: 5,
     content: [
-      { label: "Home", href: "/" },
-      { label: "How I Operate", href: "/how-i-operate" },
-      { label: "Testimonials", href: "/testimonials" },
-      { label: "Resume", href: "/resume" },
-      { label: "Get in Touch", href: "/contact" },
+      ...desktopLinks,
       { label: "System", href: "/system" },
       { label: "About", href: "/about" },
       { label: "Press", href: "/press" },
@@ -51,18 +54,16 @@ export default function SiteHeader() {
     <header className="site-header" data-v-6b95401f>
       <div className="site-container" data-v-6b95401f>
         <div className="site-grid | w-full mx-auto">
-          <div className="inner" data-v-6b95401f>
+          <div className="inner" data-v-6b95401f data-open={open ? "true" : "false"}>
             <nav className="nav | font-nav" data-v-6b95401f>
               <ul data-v-6b95401f>
-                <li data-v-6b95401f><Link href="/" className="" data-v-6b95401f>Home</Link></li>
-                <li data-v-6b95401f><Link href="/how-i-operate" className="" data-v-6b95401f>How I Operate</Link></li>
-                <li data-v-6b95401f><Link href="/testimonials" className="" data-v-6b95401f>Testimonials</Link></li>
-                <li data-v-6b95401f><Link href="/resume" className="" data-v-6b95401f>Resume</Link></li>
-                <li data-v-6b95401f>
-                  <Link href="/contact" className="cta-link" data-v-6b95401f>
-                    Get in Touch
-                  </Link>
-                </li>
+                {desktopLinks.map((item) => (
+                  <li key={item.href} data-v-6b95401f>
+                    <Link href={item.href} className={item.label === 'Get in Touch' ? 'cta-link' : ''} data-v-6b95401f>
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
             <button
@@ -91,39 +92,23 @@ export default function SiteHeader() {
           <div className="mobile-menu" data-v-6b95401f style={mobileMenuStyle}>
             <nav id="mobile-menu" className="mobile-menu-items | menu-typo" aria-hidden={!open} data-v-6b95401f>
               <ul data-v-6b95401f>
-                <li data-v-6b95401f aria-label="Home">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} aria-current="page" href="/" className="router-link-active router-link-exact-active" data-v-6b95401f>Home</Link>
-                  </div>
-                </li>
-                <li data-v-6b95401f aria-label="Resume">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} href="/resume" data-v-6b95401f>Resume</Link>
-                  </div>
-                </li>
+                {desktopLinks.map((item) => (
+                  <li key={`m-${item.href}`} data-v-6b95401f aria-label={item.label}>
+                    <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
+                      <Link onClick={closeMobile} href={item.href} className={item.label === 'Get in Touch' ? 'mobile-menu-button' : ''} data-v-6b95401f>
+                        {item.label}
+                      </Link>
+                    </div>
+                  </li>
+                ))}
                 <li data-v-6b95401f aria-label="System">
                   <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
                     <Link onClick={closeMobile} href="/system" data-v-6b95401f>System</Link>
                   </div>
                 </li>
-                <li data-v-6b95401f aria-label="About">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} href="/about" data-v-6b95401f>About</Link>
-                  </div>
-                </li>
-                <li data-v-6b95401f aria-label="Press">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} href="/press" data-v-6b95401f>Press</Link>
-                  </div>
-                </li>
                 <li data-v-6b95401f aria-label="Careers">
                   <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
                     <Link onClick={closeMobile} href="/careers" data-v-6b95401f>Careers</Link>
-                  </div>
-                </li>
-                <li data-v-6b95401f aria-label="Contact">
-                  <div style={{ position: 'relative', display: 'block', textAlign: 'center' }}>
-                    <Link onClick={closeMobile} href="/contact" data-v-6b95401f>Contact</Link>
                   </div>
                 </li>
                 <li data-v-6b95401f aria-label="Book Call">
@@ -162,7 +147,7 @@ export default function SiteHeader() {
         .nav .cta-link[data-v-6b95401f]:hover { transform: translateY(-1px); box-shadow: 0 0 0 6px rgba(191, 255, 0, 0.12) }
         .nav a[data-v-6b95401f]:after { background-color: var(--c-lime); bottom: .21875rem; content: ""; height: .3125rem; left: 50%; opacity: 0; position: absolute; transform: translate(-50%) scale(0); transform-origin: center; transition: transform 1s cubic-bezier(.075,.82,.165,1), opacity .3s cubic-bezier(.39,.575,.565,1); width: .3125rem; will-change: transform }
         .nav a[data-v-6b95401f]:is(:hover, :focus-visible, .router-link-active) { color: var(--c-lime) }
-        .toggle-mobile-menu-button[data-v-6b95401f] { box-sizing: content-box; height: 1.5rem; justify-self: end; overflow: hidden; padding: 0; position: relative; touch-action: none; -webkit-user-select: none; -moz-user-select: none; user-select: none; width: 1.5rem }
+        .toggle-mobile-menu-button[data-v-6b95401f] { box-sizing: content-box; height: 1.5rem; justify-self: end; overflow: hidden; padding: 0; position: relative; touch-action: none; -webkit-user-select: none; -moz-user-select: none; user-select: none; width: 1.5rem; background: transparent; border: 0; appearance: none; -webkit-appearance: none; border-radius: 0; line-height: 0 }
         .toggle-mobile-menu-button .wrapper[data-v-6b95401f] { display: block; height: 100%; position: relative; width: 100% }
         .toggle-mobile-menu-button .t[data-v-6b95401f] { display: block; height: 2px; left: 0; position: absolute; top: 0; width: 100% }
         .toggle-mobile-menu-button .hl[data-v-6b95401f] { background: #fff; top: .4375rem; transition: transform 1s cubic-bezier(.19,1,.22,1) .2s, opacity .2s cubic-bezier(.39,.575,.565,1) .2s }
@@ -198,7 +183,11 @@ export default function SiteHeader() {
         @media (max-width: 1023px) {
           .nav[data-v-6b95401f] { display: none }
           .toggle-mobile-menu-button[data-v-6b95401f] { position: absolute; top: .75rem; right: .75rem; z-index: 2 }
-          .inner[data-v-6b95401f] { padding-right: 3.25rem; max-width: 180px; justify-self: end; align-self: start }
+          .inner[data-v-6b95401f] { justify-self: end; align-self: start; padding-right: 2.5rem }
+          /* tighter capsule when menu is closed */
+          .inner[data-open="false"][data-v-6b95401f] { max-width: 140px; padding: .75rem 2.25rem .75rem 1rem }
+          /* allow natural/full width when menu is open */
+          .inner[data-open="true"][data-v-6b95401f] { max-width: none }
         }
         @media (hover: hover) and (pointer: fine) {
           .logo[data-v-6b95401f] { transition: color .3s var(--ease-out) }

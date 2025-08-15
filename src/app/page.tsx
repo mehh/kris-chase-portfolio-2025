@@ -20,7 +20,7 @@ export default function Home() {
       <Saver />
       
       {/* Page Content */}
-      <div className="min-h-screen relative z-10 pl-12 sm:pl-16">
+      <div className="min-h-[100dvh] relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-12 xl:pl-16">
         <SectionTransition id="hero">
           <section id="hero">
             <Hero />

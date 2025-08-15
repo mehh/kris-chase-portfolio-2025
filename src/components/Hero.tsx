@@ -49,7 +49,7 @@ type Proof = {
 };
 
 const PROOF: Proof[] = [
-  { id: 'eng', label: 'engineers led', to: 60, suffix: '+', prefix: '', separator: ',', duration: 1.2 },
+  { id: 'eng', label: 'engineers led', to: 150, suffix: '+', prefix: '', separator: ',', duration: 1.2 },
   { id: 'launches', label: 'launches', to: 100, suffix: '+', prefix: '', separator: ',', duration: 1.2 },
   { id: 'cost', label: 'delivery cost', to: 30, suffix: '%', prefix: '', separator: ',', duration: 1.2, note: '↓' },
   { id: 'efficiency', label: 'dev efficiency', to: 65, suffix: '%', prefix: '', separator: ',', duration: 1.2, note: '↑' },
@@ -106,11 +106,11 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen overflow-hidden">
+    <section className="relative min-h-[100dvh] overflow-hidden">
       {/* Animated hex pattern background */}
       {/* <AnimatedHexBackground /> */}
 
-      <div className="relative z-20 min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="relative z-20 min-h-[100dvh] flex items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl text-center text-foreground w-full">
 
           {/* persona pills */}

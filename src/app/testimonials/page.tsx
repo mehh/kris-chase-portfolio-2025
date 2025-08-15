@@ -35,7 +35,7 @@ export default function TestimonialsPage() {
       <SimpleHoverEffect />
       
       {/* Page Content with site structure */}
-      <div className="min-h-screen bg-white dark:bg-black relative z-10 pl-20 sm:pl-16">
+      <div className="min-h-[100dvh] bg-white dark:bg-black relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-16">
         {/* Hero Section */}
         <SectionTransition id="testimonials-hero">
           <section id="testimonials-hero" className="pt-20 pb-16">

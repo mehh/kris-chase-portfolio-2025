@@ -79,7 +79,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'your-google-verification-code', // You'll need to add this
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
   },
   icons: {
     icon: [
@@ -129,7 +129,7 @@ export default function RootLayout({
             <SiteHeader />
             <LeftSidebar />
             {/* <ThemeToggle /> */}
-            <main className="relative z-10 min-h-screen">
+            <main className="relative z-10 min-h-[100dvh]">
               {children}
             </main>
             <Footer />
