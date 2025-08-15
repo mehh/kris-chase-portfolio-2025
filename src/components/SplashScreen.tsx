@@ -15,7 +15,7 @@ export default function SplashScreen() {
         document.documentElement.classList.add("splash-done");
       } catch {}
       setVisible(false);
-    }, 900);
+    }, 1150);
 
     return () => clearTimeout(t);
   }, []);

@@ -1,40 +1,82 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 type ChatSource = { title: string; url: string };
-type ChatMessage = { role: "user" | "assistant"; content: string; sources?: ChatSource[] };
+type Msg = { id: string; role: "user" | "assistant"; content: string };
 
 export default function ChatWidget() {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sourcesById, setSourcesById] = useState<Record<string, ChatSource[]>>({});
+  const lastQuestionRef = useRef<string>("");
 
-  const ask = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const q = input.trim();
-    if (!q) return;
+    if (!q || isLoading) return;
     setError(null);
-    setMessages((m) => [...m, { role: "user", content: q }]);
+    lastQuestionRef.current = q;
+
+    // push user message
+    const userId = `u_${Date.now()}`;
+    setMessages((m) => [...m, { id: userId, role: "user", content: q }]);
     setInput("");
-    setLoading(true);
+
+    // create placeholder assistant message for streaming
+    const assistantId = `a_${Date.now()}`;
+    setMessages((m) => [...m, { id: assistantId, role: "assistant", content: "" }]);
+    setIsLoading(true);
+
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: q }),
       });
-      const json = await res.json();
-      if (!res.ok) throw new Error(json?.error || "Request failed");
-      const answer = json?.answer || "";
-      const sources: ChatSource[] = Array.isArray(json?.sources) ? json.sources : [];
-      setMessages((m) => [...m, { role: "assistant", content: answer, sources }]);
+      if (!res.ok || !res.body) {
+        const msg = await res.text();
+        throw new Error(msg || "Request failed");
+      }
+
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let done = false;
+      while (!done) {
+        const { value, done: d } = await reader.read();
+        done = d;
+        if (value) {
+          const chunk = decoder.decode(value, { stream: true });
+          if (chunk) {
+            setMessages((m) =>
+              m.map((msg) =>
+                msg.id === assistantId ? { ...msg, content: msg.content + chunk } : msg
+              )
+            );
+          }
+        }
+      }
+
+      // fetch sources after streaming completes
+      try {
+        const sres = await fetch("/api/chat/sources", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: q }),
+        });
+        const json = await sres.json();
+        const sources: ChatSource[] = Array.isArray(json?.sources) ? json.sources : [];
+        setSourcesById((m) => ({ ...m, [assistantId]: sources }));
+      } catch {
+        // ignore
+      }
     } catch (e: unknown) {
       const msg = e instanceof Error ? e.message : "Something went wrong";
       setError(msg);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -45,16 +87,16 @@ export default function ChatWidget() {
           <p className="text-muted-foreground">Ask anything about my site content, resume PDF, or process.</p>
         ) : (
           <ul className="space-y-3">
-            {messages.map((m, i) => (
-              <li key={i} className="text-foreground">
+            {messages.map((m: { id: string; role: "user" | "assistant"; content: string }) => (
+              <li key={m.id} className="text-foreground">
                 <div>
                   <span className="font-medium mr-2">{m.role === "user" ? "You" : "AI"}:</span>
                   <span className="whitespace-pre-wrap text-foreground/90">{m.content}</span>
                 </div>
-                {m.role === "assistant" && m.sources && m.sources.length > 0 && (
+                {m.role === "assistant" && Array.isArray(sourcesById[m.id]) && sourcesById[m.id]?.length > 0 && (
                   <div className="mt-1 text-xs text-muted-foreground">
                     <span className="mr-2">Sources:</span>
-                    {m.sources.map((s, si) => (
+                    {sourcesById[m.id]!.map((s, si) => (
                       <a
                         key={si}
                         href={s.url}
@@ -73,7 +115,7 @@ export default function ChatWidget() {
         )}
       </div>
 
-      <form onSubmit={ask} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="flex gap-2">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
@@ -82,14 +124,14 @@ export default function ChatWidget() {
         />
         <button
           type="submit"
-          disabled={loading}
+          disabled={isLoading}
           className="rounded-md border border-gray-200/70 dark:border-gray-800 bg-foreground text-background px-3 py-2 text-sm font-medium disabled:opacity-60"
         >
-          {loading ? "Thinking..." : "Ask"}
+          {isLoading ? "Thinking..." : "Ask"}
         </button>
       </form>
 
-      {error && <p className="text-xs text-red-500">{error}</p>}
+      {error && <p className="text-xs text-red-500">{String(error)}</p>}
     </div>
   );
 }
