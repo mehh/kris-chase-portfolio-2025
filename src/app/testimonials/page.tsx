@@ -53,17 +53,15 @@ export default function TestimonialsPage() {
                 </div>
                 
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-black dark:text-white mb-8">
-                  Voices from the Field
+                  What It’s Like to Work Together
                 </h1>
                 
                 <p className="text-xl text-gray-700 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4">
-                  These are some of the incredible professionals and friends I&apos;ve been fortunate enough to 
-                  collaborate with throughout my journey in this industry. Each has contributed to shaping 
-                  who I am as a leader and engineer.
+                I’ve been lucky to collaborate with exceptional founders, leaders, engineers, designers, and operators. Their craft and generosity shaped me; these are their words.
                 </p>
                 
                 <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-                  I encourage you to reach out to any of them directly—they&apos;re not just colleagues, 
+                  Feel free to reach out to any of them directly—they&apos;re not just colleagues, 
                   they&apos;re the kind of people who make this industry extraordinary.
                 </p>
               </motion.div>

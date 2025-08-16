@@ -4,7 +4,7 @@ import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function Intro() {
   const copy =
-    "With more than a decade of experience, I have become a leader in building teams and award winning digital experiences, through web development, IoT and apps. That's not a brag, it's a promise: to deliver tomorrow's technology solutions — today.";
+    "With more than 20+ years programming, and a decade+ of experience, I have become a leader in building teams and award winning digital experiences, through web development, IoT and apps. That's not a brag, it's a promise: to deliver tomorrow's technology solutions — today.";
   
   // Register Intro copy for Machine View
   useMachineSlice({

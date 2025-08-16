@@ -10,7 +10,8 @@
     "build": "TAILWIND_DISABLE_NATIVE=1 next build",
     "start": "next start",
     "lint": "next lint",
-    "fetch:brands": "node ./scripts/fetch-brands.mjs"
+    "fetch:brands": "node ./scripts/fetch-brands.mjs",
+    "fetch:logos": "zsh ./scripts/fetch-logos.zsh"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.14",

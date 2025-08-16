@@ -71,6 +71,8 @@ export async function POST(req: Request) {
     const message = e instanceof Error ? e.message : "Unknown error";
     const distinctId = req.headers.get("x-posthog-distinct-id") || undefined;
     captureServer("chat_api_error", { message }, distinctId);
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("/api/chat error", e);
+    // Return a sanitized error so the client never exposes raw provider errors
+    return NextResponse.json({ error: "Failed to generate a response." }, { status: 500 });
   }
 }

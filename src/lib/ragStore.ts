@@ -35,6 +35,36 @@ export const RAG_DOCUMENTS: RagDoc[] = [
   },
 ];
 
+// Chunking configuration (character-based approximation ~ 4 chars per token)
+const CHUNK_SIZE_CHARS = 4000;
+const CHUNK_OVERLAP_CHARS = 200;
+
+function chunkText(text: string, size = CHUNK_SIZE_CHARS, overlap = CHUNK_OVERLAP_CHARS): string[] {
+  const chunks: string[] = [];
+  if (!text) return chunks;
+  let start = 0;
+  while (start < text.length) {
+    const hardEnd = Math.min(start + size, text.length);
+    let segment = text.slice(start, hardEnd);
+    // Try to end chunks on a boundary (sentence or newline) when possible
+    if (hardEnd < text.length) {
+      const lastNewline = segment.lastIndexOf("\n");
+      const lastSentence = segment.lastIndexOf(". ");
+      const lastBoundary = Math.max(lastNewline, lastSentence);
+      if (lastBoundary > size * 0.6) {
+        segment = segment.slice(0, lastBoundary + 1);
+      }
+    }
+    const trimmed = segment.trim();
+    if (trimmed) chunks.push(trimmed);
+    if (hardEnd >= text.length) break;
+    // Advance start by segment length minus overlap, with a safety guard
+    const advance = Math.max(1, trimmed.length || segment.length);
+    start += Math.max(advance - overlap, 1);
+  }
+  return chunks;
+}
+
 export const cosineSim = (a: number[], b: number[]) => {
   let dot = 0,
     na = 0,
@@ -53,24 +83,44 @@ export async function getEmbeddings(texts: string[]): Promise<number[][]> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not set");
 
-  const res = await fetch("https://api.openai.com/v1/embeddings", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: "text-embedding-3-small",
-      input: texts,
-    }),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`Embedding error: ${res.status} ${err}`);
+  // Batch inputs to reduce the chance of hitting context limits when sending arrays
+  const batches: string[][] = [];
+  const MAX_BATCH_CHARS = 16000; // ~4 chars/token -> ~4k tokens per batch (conservative)
+  let current: string[] = [];
+  let currentChars = 0;
+  for (const t of texts) {
+    const len = t?.length || 0;
+    if (current.length > 0 && currentChars + len > MAX_BATCH_CHARS) {
+      batches.push(current);
+      current = [];
+      currentChars = 0;
+    }
+    current.push(t);
+    currentChars += len;
   }
-  const json = (await res.json()) as { data: { embedding: number[] }[] };
-  return json.data.map((d) => d.embedding);
+  if (current.length) batches.push(current);
+
+  const out: number[][] = [];
+  for (const batch of batches) {
+    const res = await fetch("https://api.openai.com/v1/embeddings", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: "text-embedding-3-small",
+        input: batch,
+      }),
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(`Embedding error: ${res.status} ${err}`);
+    }
+    const json = (await res.json()) as { data: { embedding: number[] }[] };
+    json.data.forEach((d) => out.push(d.embedding));
+  }
+  return out;
 }
 
 export async function ensureEmbedded() {
@@ -150,11 +200,20 @@ export async function indexSite(origin: string, routes: string[]) {
   const toAdd: RagDoc[] = [];
   for (const path of routes) {
     // Avoid duplicating existing route doc IDs
-    const id = `route-${path}`;
-    if (RAG_DOCUMENTS.some((d) => d.id === id)) continue;
+    const baseId = `route-${path}`;
     const text = await fetchRouteAsText(origin, path);
     if (text && text.length > 200) {
-      toAdd.push({ id, title: `Page: ${path}`, url: path, content: text });
+      const parts = chunkText(text);
+      for (let i = 0; i < parts.length; i++) {
+        const id = parts.length === 1 ? baseId : `${baseId}#${i}`;
+        if (RAG_DOCUMENTS.some((d) => d.id === id)) continue;
+        toAdd.push({
+          id,
+          title: `Page: ${path}${parts.length > 1 ? ` (part ${i + 1})` : ""}`,
+          url: path,
+          content: parts[i],
+        });
+      }
     }
   }
   if (toAdd.length > 0) {
@@ -166,10 +225,27 @@ export async function indexSite(origin: string, routes: string[]) {
 
 // ----- Helpers: add arbitrary docs and combined FAQ markdown -----
 export async function addDoc(doc: RagDoc) {
-  if (!RAG_DOCUMENTS.some((d) => d.id === doc.id)) {
+  // If any chunk for this doc already exists, skip
+  const prefix = `${doc.id}#`;
+  const exists = RAG_DOCUMENTS.some((d) => d.id === doc.id || d.id.startsWith(prefix));
+  if (exists) return;
+
+  const parts = chunkText(doc.content);
+  if (parts.length <= 1) {
     const [emb] = await getEmbeddings([doc.content]);
     doc.embedding = emb;
     RAG_DOCUMENTS.push(doc);
+    return;
+  }
+  const embs = await getEmbeddings(parts);
+  for (let i = 0; i < parts.length; i++) {
+    RAG_DOCUMENTS.push({
+      id: `${doc.id}#${i}`,
+      title: `${doc.title} (part ${i + 1})`,
+      url: doc.url,
+      content: parts[i],
+      embedding: embs[i],
+    });
   }
 }
 

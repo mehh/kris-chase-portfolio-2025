@@ -18,7 +18,8 @@ export async function POST(req: Request) {
     // Warm-up (idempotent)
     await addFAQDocs();
     await addFAQMarkdownDoc();
-    const origin = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const origin =
+      req.headers.get("origin") || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
     await indexSite(origin, [
       "/",
       "/resume",
@@ -38,7 +39,8 @@ export async function POST(req: Request) {
     const message = e instanceof Error ? e.message : "Unknown error";
     const distinctId = req.headers.get("x-posthog-distinct-id") || undefined;
     captureServer("chat_sources_error", { message }, distinctId);
-    return NextResponse.json({ error: message }, { status: 500 });
+    console.error("/api/chat/sources error", e);
+    return NextResponse.json({ error: "Failed to fetch sources." }, { status: 500 });
   }
 }
 

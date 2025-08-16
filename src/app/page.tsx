@@ -7,6 +7,7 @@ import ThreeUp from "../components/ThreeUp";
 import Brands from "../components/Brands";
 import Testimonials from "../components/Testimonials";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
+import TechStacks from "../components/TechStacks";
 
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SectionTransition } from "../components/SmoothScrollProvider";
@@ -69,6 +70,13 @@ export default function Home() {
             </div>
           </SectionTransition>
         </div>
+        
+        {/* Stacks & Tools */}
+        <SectionTransition id="stacks">
+          <section id="stacks">
+            <TechStacks />
+          </section>
+        </SectionTransition>
         
         <SectionTransition id="across-the-web">
           <section id="across-the-web">

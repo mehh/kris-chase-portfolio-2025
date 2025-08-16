@@ -242,7 +242,7 @@ export default function BrandsGrid() {
                   
                   {/* Logo with mix-blend-mode for theme adaptation */}
                   <Image
-                    src={`/brands/${brand.file}`}
+                    src={`/brands/brands_normalized/${brand.file}`}
                     alt={brand.name}
                     width={NEW_FILES.has(brand.file) ? 240 : 120}
                     height={NEW_FILES.has(brand.file) ? 160 : 80}

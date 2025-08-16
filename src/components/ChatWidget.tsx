@@ -55,8 +55,17 @@ export default function ChatWidget() {
         body: JSON.stringify({ message: q }),
       });
       if (!res.ok || !res.body) {
-        const msg = await res.text();
-        throw new Error(msg || "Request failed");
+        let detail: unknown = null;
+        const ct = res.headers.get("content-type") || "";
+        try {
+          if (ct.includes("application/json")) {
+            detail = await res.json();
+          } else {
+            detail = await res.text();
+          }
+        } catch {}
+        console.error("Chat API error", { status: res.status, detail });
+        throw new Error("Chat unavailable. Please try again shortly.");
       }
 
       const reader = res.body.getReader();
@@ -101,10 +110,14 @@ export default function ChatWidget() {
         // ignore
       }
     } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Something went wrong";
-      setError(msg);
+      const friendly = "Sorry, I ran into an issue. Please try again or rephrase your question.";
+      setError(friendly);
+      console.error("Chat client error", e);
       try {
-        posthog.capture("chat_error", { message: String(msg) });
+        posthog.capture("chat_error", {
+          message: e instanceof Error ? e.message : String(e),
+          last_question_length: lastQuestionRef.current?.length || 0,
+        });
       } catch {}
     } finally {
       setIsLoading(false);
