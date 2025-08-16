@@ -81,6 +81,42 @@ export default function Hero() {
 
   const p = PERSONAS[idx];
 
+  // Measure tallest H1 across personas to prevent layout jump
+  const [maxH1Height, setMaxH1Height] = useState<number | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const measure = () => {
+      if (!measureRef.current) return;
+      const nodes = Array.from(measureRef.current.querySelectorAll('[data-measure-h1]')) as HTMLElement[];
+      const max = nodes.reduce((acc, el) => Math.max(acc, Math.ceil(el.getBoundingClientRect().height)), 0);
+      if (max && (!maxH1Height || max !== maxH1Height)) setMaxH1Height(max);
+    };
+
+    // Initial measure after mount and whenever fonts/layout settle
+    const id = window.requestAnimationFrame(measure);
+
+    // Recalculate on container resize
+    let ro: ResizeObserver | null = null;
+    if (containerRef.current && 'ResizeObserver' in window) {
+      ro = new ResizeObserver(() => measure());
+      ro.observe(containerRef.current);
+    } else {
+      // Fallback to window resize
+      window.addEventListener('resize', measure);
+    }
+
+    window.addEventListener('load', measure);
+
+    return () => {
+      window.cancelAnimationFrame(id);
+      if (ro) ro.disconnect();
+      else window.removeEventListener('resize', measure);
+      window.removeEventListener('load', measure);
+    };
+  }, [maxH1Height]);
+
   // Register Hero content for Machine View
   useMachineSlice({
     type: "hero",
@@ -111,7 +147,20 @@ export default function Hero() {
       {/* <AnimatedHexBackground /> */}
 
       <div className="relative z-20 min-h-[100dvh] flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl text-center text-foreground w-full">
+        <div ref={containerRef} className="max-w-4xl text-center text-foreground w-full relative">
+
+          {/* hidden measurement block for H1 heights (absolute so it doesn't affect layout) */}
+          <div ref={measureRef} aria-hidden="true" className="absolute left-0 right-0 opacity-0 pointer-events-none -z-10">
+            {PERSONAS.map((x) => (
+              <h1
+                key={x.id}
+                data-measure-h1
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight px-2 sm:px-0"
+              >
+                {x.h1}
+              </h1>
+            ))}
+          </div>
 
           {/* persona pills */}
           <div className="mb-4 sm:mb-5 flex flex-wrap justify-center gap-1.5 sm:gap-2">
@@ -143,7 +192,8 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.h1
               key={p.id + '-h1'}
-              className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0 min-h-[3.3rem] sm:min-h-[4.95rem] md:min-h-[6.6rem] lg:min-h-[8.25rem] 2xl:min-h-[9.9rem]"
+              className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0"
+              style={{ minHeight: maxH1Height ?? undefined }}
             >
               <VerticalCutReveal
                 key={p.id}
