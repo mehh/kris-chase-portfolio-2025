@@ -71,6 +71,22 @@ export const INTERVIEW_FAQ: InterviewFAQ[] = [
     tags: ["results", "case-studies", "category:strengths"],
   },
 
+  // Industries & Product Types (to support chat starter prompts)
+  {
+    id: "industries",
+    question: "What industries have you worked with?",
+    answer:
+      "SaaS (B2B/B2C), Marketplaces, E‑commerce/Retail, Media & Entertainment, AdTech/MarTech, Healthcare, Creative Agencies, and IoT/connected products. Example programs: e‑commerce marketplace on web/mobile, enterprise CMS platforms, subscription mobile apps with live video, and large multi-brand website portfolios.",
+    tags: ["industries", "experience", "category:product"],
+  },
+  {
+    id: "products-built",
+    question: "What types of products have you built?",
+    answer:
+      "E‑commerce marketplaces; subscription mobile apps; B2B/B2C SaaS platforms; enterprise CMS/marketing sites; internal tools/admin portals; public APIs and service backends; IoT/connected product experiences; data pipelines and reporting. Shipped across web, iOS/Android; scaled to thousands of concurrent users; implemented premium/upsell and a‑la‑carte monetization.",
+    tags: ["products", "marketplaces", "saas", "ecommerce", "category:product"],
+  },
+
   // 3) First 90 Days & Kickoff
   {
     id: "first-90-days",
