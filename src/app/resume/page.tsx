@@ -51,6 +51,7 @@ export default function ResumePage() {
                   frameBorder={0}
                   scrolling="no"
                   seamless
+                  data-cursor="native"
                   src="https://kris.jellypod.ai/embed?episode=8fecc861-5ddf-4fb7-948b-49702d6405f4&theme=dark"
                 />
               </div>
@@ -63,7 +64,7 @@ export default function ResumePage() {
           {/* Chat with my AI (placeholder) */}
           <div className="relative rounded-2xl p-2">
             <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
-            <div className="relative rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm p-6">
+            <div className="relative z-10 rounded-2xl border border-gray-200/70 dark:border-gray-800 bg-white/60 dark:bg-black/60 backdrop-blur-sm p-6">
               <h2 className="text-xl md:text-2xl font-semibold text-foreground">Chat with my AI</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Streaming answers via the Vercel AI SDK with a lightweight server-side RAG layer. We embed and rank chunks from my site, resume PDF, and interview FAQ using cosine similarity, then constrain the prompt to the top matches. Tokens stream in real time with verifiable sources; no user data is persisted. Roadmap: move embeddings from in-memory to pgvector, add evals/observability, and support multi-turn tool use.
@@ -116,6 +117,7 @@ export default function ResumePage() {
                     title="Kris Chase Resume PDF"
                     src="/files/Kris Chase Resume.pdf#toolbar=0&navpanes=0&view=FitH"
                     className="w-full h-full"
+                    data-cursor="native"
                   />
                   <p className="p-4 text-sm text-muted-foreground">
                     PDF preview not supported. <a className="underline" href="/files/Kris Chase Resume.pdf" target="_blank" rel="noopener noreferrer">Open the resume</a>.

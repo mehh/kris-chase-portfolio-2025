@@ -20,7 +20,6 @@ export default function SiteHeader() {
     order: 5,
     content: [
       ...desktopLinks,
-      { label: "Book Call", href: "/contact" },
     ]
       .map((i) => `- [${i.label}](${i.href})`)
       .join("\n"),

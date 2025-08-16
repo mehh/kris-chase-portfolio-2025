@@ -143,7 +143,7 @@ export default function Hero() {
           <AnimatePresence mode="wait">
             <motion.h1
               key={p.id + '-h1'}
-              className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0"
+              className="mb-3 sm:mb-4 text-2xl sm:text-4xl md:text-5xl lg:text-6xl 2xl:text-7xl font-bold leading-[1.1] sm:leading-[1.06] tracking-tight text-balance px-2 sm:px-0 min-h-[3.3rem] sm:min-h-[4.95rem] md:min-h-[6.6rem] lg:min-h-[8.25rem] 2xl:min-h-[9.9rem]"
             >
               <VerticalCutReveal
                 key={p.id}
@@ -171,7 +171,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.3 }}
-              className="mb-6 sm:mb-7 text-base sm:text-lg md:text-xl text-foreground/85 px-2 sm:px-0 max-w-3xl mx-auto"
+              className="mb-6 sm:mb-7 text-base sm:text-lg md:text-xl text-foreground/85 px-2 sm:px-0 max-w-3xl mx-auto min-h-[3rem] sm:min-h-[3.5rem] md:min-h-[3.5rem]"
             >
               {p.sub}
             </motion.p>

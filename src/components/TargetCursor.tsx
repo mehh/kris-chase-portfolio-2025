@@ -99,7 +99,54 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
 
     createSpinTimeline();
 
-    const moveHandler = (e: MouseEvent) => moveCursor(e.clientX, e.clientY);
+    // Helper to toggle custom/native cursor visibility
+    const showCustomCursor = () => {
+      if (!cursorRef.current) return;
+      cursorRef.current.style.opacity = "1";
+      if (hideDefaultCursor) document.body.style.cursor = 'none';
+    };
+    const hideCustomCursor = () => {
+      if (!cursorRef.current) return;
+      cursorRef.current.style.opacity = "0";
+      // Restore default cursor
+      document.body.style.cursor = '';
+    };
+
+    // Capture pointer entering/leaving iframes or declared native-cursor areas
+    const nativeEnter = (e: Event) => {
+      const target = e.target as Element | null;
+      if (!target) return;
+      const isIframe = target instanceof HTMLIFrameElement;
+      const isNativeArea = !!(target.closest && target.closest("[data-cursor='native']"));
+      if (isIframe || isNativeArea) hideCustomCursor();
+    };
+    const nativeLeave = (e: Event) => {
+      const target = e.target as Element | null;
+      if (!target) return;
+      const isIframe = target instanceof HTMLIFrameElement;
+      const isNativeArea = !!(target.closest && target.closest("[data-cursor='native']"));
+      if (isIframe || isNativeArea) showCustomCursor();
+    };
+    window.addEventListener('mouseover', nativeEnter, true);
+    window.addEventListener('mouseout', nativeLeave, true);
+
+    const moveHandler = (e: MouseEvent) => {
+      moveCursor(e.clientX, e.clientY);
+
+      // Detect when hovering over iframes (or explicit native-cursor areas)
+      // Iframes do not propagate mouse events to the parent document, so the
+      // custom cursor can appear to "stick" at the last position. When hovering
+      // an iframe, hide the custom cursor and restore the native cursor.
+      const el = document.elementFromPoint(e.clientX, e.clientY);
+      const isIframe = el instanceof HTMLIFrameElement;
+      const isNativeArea = !!(el && (el as Element).closest && (el as Element).closest("[data-cursor='native']"));
+
+      if (isIframe || isNativeArea) {
+        hideCustomCursor();
+      } else {
+        showCustomCursor();
+      }
+    };
     window.addEventListener("mousemove", moveHandler);
 
     const scrollHandler = () => {
@@ -323,6 +370,8 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
       window.removeEventListener("mousemove", moveHandler);
       window.removeEventListener("mouseover", enterHandler as EventListener);
       window.removeEventListener("scroll", scrollHandler);
+      window.removeEventListener('mouseover', nativeEnter, true);
+      window.removeEventListener('mouseout', nativeLeave, true);
 
       if (activeTarget) {
         cleanupTarget(activeTarget);

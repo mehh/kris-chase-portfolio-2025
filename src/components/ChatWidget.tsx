@@ -113,19 +113,19 @@ export default function ChatWidget() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="h-64 sm:h-72 md:h-80 overflow-y-auto rounded-lg border border-gray-200/70 dark:border-gray-800 bg-background p-3 text-sm">
+      <div className="relative z-10 h-64 sm:h-72 md:h-80 overflow-y-auto rounded-lg border border-zinc-700 bg-zinc-800 p-3 text-sm text-zinc-100">
         {messages.length === 0 ? (
-          <p className="text-muted-foreground">Ask anything about my site content, resume PDF, or process.</p>
+          <p className="text-zinc-400">Ask anything about my site content, resume PDF, or process.</p>
         ) : (
           <ul className="space-y-3">
             {messages.map((m: { id: string; role: "user" | "assistant"; content: string }) => (
-              <li key={m.id} className="text-foreground">
+              <li key={m.id} className="text-zinc-100">
                 <div>
                   <span className="font-medium mr-2">{m.role === "user" ? "You" : "AI"}:</span>
-                  <span className="whitespace-pre-wrap text-foreground/90">{m.content}</span>
+                  <span className="whitespace-pre-wrap text-zinc-100/90">{m.content}</span>
                 </div>
                 {m.role === "assistant" && Array.isArray(sourcesById[m.id]) && sourcesById[m.id]?.length > 0 && (
-                  <div className="mt-1 text-xs text-muted-foreground">
+                  <div className="mt-1 text-xs text-zinc-400">
                     <span className="mr-2">Sources:</span>
                     {sourcesById[m.id]!.map((s, si) => (
                       <a
@@ -133,7 +133,7 @@ export default function ChatWidget() {
                         href={s.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="underline underline-offset-2 hover:text-foreground mr-2"
+                        className="underline underline-offset-2 hover:text-white mr-2"
                       >
                         {s.title}
                       </a>
@@ -146,17 +146,17 @@ export default function ChatWidget() {
         )}
       </div>
 
-      <form onSubmit={handleSubmit} className="flex gap-2">
+      <form onSubmit={handleSubmit} className="flex gap-2 rounded-lg border border-zinc-700 bg-zinc-900 p-2">
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Type your question..."
-          className="flex-1 rounded-md border border-gray-200/70 dark:border-gray-800 bg-white dark:bg-black px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-foreground/20"
+          className="flex-1 rounded-md border border-zinc-700 bg-zinc-800 text-zinc-100 placeholder:text-zinc-400 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500/30"
         />
         <button
           type="submit"
           disabled={isLoading}
-          className="rounded-md border border-gray-200/70 dark:border-gray-800 bg-foreground text-background px-3 py-2 text-sm font-medium disabled:opacity-60"
+          className="rounded-md border border-zinc-700 bg-foreground text-background px-3 py-2 text-sm font-medium disabled:opacity-60"
         >
           {isLoading ? "Thinking..." : "Ask"}
         </button>

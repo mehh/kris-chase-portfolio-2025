@@ -17,6 +17,15 @@ export async function POST(req: Request) {
       email: String(body.email ?? ''),
       company: body.company ? String(body.company) : null,
       message: String(body.message ?? ''),
+      // persona step fields
+      persona: body.persona ? String(body.persona) : null,
+      persona_fit:
+        typeof body.persona_fit === 'boolean'
+          ? (body.persona_fit as boolean)
+          : typeof body.persona_fit === 'string'
+          ? body.persona_fit === 'true'
+          : null,
+      persona_question: body.persona_question ? String(body.persona_question) : null,
       // dynamic fields
       budget: body.budget ? String(body.budget) : null,
       start: body.start ? String(body.start) : null,
@@ -29,7 +38,7 @@ export async function POST(req: Request) {
 
     const distinctId = req.headers.get('x-posthog-distinct-id') || undefined;
     // Fire-and-forget server capture for received submission
-    captureServer('contact_submit_received', { reason: payload.reason }, distinctId);
+    captureServer('contact_submit_received', { reason: payload.reason, persona: payload.persona, persona_fit: payload.persona_fit }, distinctId);
 
     const { error } = await supabaseAdmin
       .from('contact_submissions')

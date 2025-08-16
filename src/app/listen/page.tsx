@@ -48,6 +48,7 @@ export default function Page() {
             frameBorder="0"
             scrolling="no"
             seamless
+            data-cursor="native"
             src="https://kris.jellypod.ai/embed?episode=8fecc861-5ddf-4fb7-948b-49702d6405f4"
           />
         </div>

@@ -29,6 +29,9 @@ export async function sendContactAlert(payload: {
   email: string;
   company: string | null;
   message: string;
+  persona: string | null;
+  persona_fit: boolean | null;
+  persona_question: string | null;
   budget: string | null;
   start: string | null;
   role_type: string | null;
@@ -41,10 +44,13 @@ export async function sendContactAlert(payload: {
   const resend = getResendClient();
   if (!resend) return;
 
-  const subject = `New Contact Submission: ${payload.reason || 'General'}`;
+  const subject = `New Contact Submission: ${payload.reason || 'General'}${payload.persona ? ` · ${payload.persona}` : ''}`;
 
   const lines: string[] = [
     `Reason: ${payload.reason}`,
+    `Persona: ${payload.persona ?? ''}`,
+    `Persona Fit: ${payload.persona_fit === null ? '' : payload.persona_fit ? 'yes' : 'no'}`,
+    `Persona Question: ${payload.persona_question ?? ''}`,
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
     `Company: ${payload.company ?? ''}`,

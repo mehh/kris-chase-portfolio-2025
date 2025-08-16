@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import TextReveal from "@/components/TextReveal";
 import Link from "next/link";
-import GradientText from "@/components/GradientText";
 
 interface KCOverlayProps {
   show: boolean;
