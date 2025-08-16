@@ -504,17 +504,24 @@ function SuccessView({ persona }: { persona: string }) {
               <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
               <h2 className="text-xl font-semibold text-foreground">How I help (2 min)</h2>
               <p className="mt-2 text-sm text-muted-foreground">Short video on who I’m for and how we’ll work together.</p>
-              <div className="relative mt-4 aspect-video w-full rounded-lg overflow-hidden border border-border bg-black/70">
+              <div className="mt-4 w-full overflow-hidden border border-border bg-black/70" style={{ position: 'relative', paddingBottom: '56.2%', borderRadius: 12 }}>
                 <iframe
-                  src="https://supercut.ai/embed/kris-chase/b8tjxYt5HkESUYr7HnD9ds?embed=sidebar"
+                  src="https://supercut.ai/embed/kris-chase/b8tjxYt5HkESUYr7HnD9ds?embed=full"
                   title="Kris Chase: Engineering Leader"
-                  className="w-full h-full"
-                  allow="encrypted-media; picture-in-picture"
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture; clipboard-write"
+                  referrerPolicy="origin-when-cross-origin"
                   frameBorder={0}
                   data-cursor="native"
                   allowFullScreen
+                  style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, borderRadius: 10 }}
                 />
               </div>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Having trouble loading the video?{' '}
+                <a href="https://supercut.ai/embed/kris-chase/b8tjxYt5HkESUYr7HnD9ds?embed=full" target="_blank" rel="noopener noreferrer" className="underline">
+                  Open it in a new tab
+                </a>.
+              </p>
             </div>
         </aside>
       </section>
