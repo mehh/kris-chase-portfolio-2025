@@ -48,6 +48,7 @@ export default function ResumePage() {
                 <iframe
                   title="Kris Chase – Podcast Resume"
                   className="w-full h-full"
+                  loading="lazy"
                   frameBorder={0}
                   scrolling="no"
                   seamless
@@ -117,6 +118,7 @@ export default function ResumePage() {
                     title="Kris Chase Resume PDF"
                     src="/files/Kris Chase Resume.pdf#toolbar=0&navpanes=0&view=FitH"
                     className="w-full h-full"
+                    loading="lazy"
                     data-cursor="native"
                   />
                   <p className="p-4 text-sm text-muted-foreground">

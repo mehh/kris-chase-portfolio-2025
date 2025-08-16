@@ -41,6 +41,7 @@ export default function ConnectPage() {
               src="https://cal.com/krischase/30min?embed=inline&theme=dark"
               title="Cal.com Scheduler"
               className="w-full h-[900px]"
+              loading="lazy"
               data-cursor="native"
               allow="clipboard-write; fullscreen"
             />

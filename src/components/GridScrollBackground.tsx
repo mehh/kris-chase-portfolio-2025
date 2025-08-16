@@ -48,7 +48,7 @@ export default function GridScrollBackground() {
           width={800}
           height={1600}
           className="h-screen w-auto select-none filter grayscale brightness-90 contrast-125"
-          priority
+          loading="lazy"
         />
       </motion.div>
 
@@ -63,7 +63,7 @@ export default function GridScrollBackground() {
           width={800}
           height={1600}
           className="h-screen w-auto select-none filter grayscale brightness-90 contrast-125"
-          priority
+          loading="lazy"
         />
       </motion.div>
     </div>

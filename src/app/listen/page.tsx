@@ -45,6 +45,7 @@ export default function Page() {
           <iframe
             title="Kris Chase – Podcast Resume"
             className="w-full h-full"
+            loading="lazy"
             frameBorder="0"
             scrolling="no"
             seamless

@@ -7,7 +7,6 @@ import ThreeUp from "../components/ThreeUp";
 import Brands from "../components/Brands";
 import Testimonials from "../components/Testimonials";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
-import Saver from "../components/Saver";
 
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SectionTransition } from "../components/SmoothScrollProvider";
@@ -17,7 +16,6 @@ export default function Home() {
     <>
       {/* Global Components */}
       <SimpleHoverEffect />
-      <Saver />
       
       {/* Page Content */}
       <div className="min-h-[100dvh] relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-12 xl:pl-16">

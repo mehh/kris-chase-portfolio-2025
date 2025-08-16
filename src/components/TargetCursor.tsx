@@ -33,6 +33,9 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
   const cornersRef = useRef<NodeListOf<Element> | null>(null);
   const spinTl = useRef<gsap.core.Timeline | null>(null);
   const dotRef = useRef<HTMLDivElement | null>(null);
+  // Reusable tween setters to avoid creating new tweens per mousemove
+  const quickX = useRef<((value: number) => gsap.core.Tween) | null>(null);
+  const quickY = useRef<((value: number) => gsap.core.Tween) | null>(null);
   const constants = useMemo(
     () => ({
       borderWidth: 3,
@@ -43,13 +46,19 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
   );
 
   const moveCursor = useCallback((x: number, y: number) => {
-    if (!cursorRef.current) return;
-    gsap.to(cursorRef.current, {
-      x,
-      y,
-      duration: 0.1,
-      ease: "power3.out",
-    });
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+    if (quickX.current && quickY.current) {
+      quickX.current(x);
+      quickY.current(y);
+    } else {
+      gsap.to(cursor, {
+        x,
+        y,
+        duration: 0.1,
+        ease: "power3.out",
+      });
+    }
   }, []);
 
   useEffect(() => {
@@ -62,6 +71,10 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
 
     const cursor = cursorRef.current;
     cornersRef.current = cursor.querySelectorAll(".target-cursor-corner");
+
+    // Initialize quickTo setters once
+    quickX.current = gsap.quickTo(cursor, "x", { duration: 0.1, ease: "power3.out" });
+    quickY.current = gsap.quickTo(cursor, "y", { duration: 0.1, ease: "power3.out" });
 
     let activeTarget: Element | null = null;
     let currentTargetMove: EventListener | null = null;
@@ -130,42 +143,56 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     window.addEventListener('mouseover', nativeEnter, true);
     window.addEventListener('mouseout', nativeLeave, true);
 
+    let mouseRaf: number | null = null;
     const moveHandler = (e: MouseEvent) => {
-      moveCursor(e.clientX, e.clientY);
+      const { clientX, clientY } = e;
+      if (mouseRaf) return;
+      mouseRaf = requestAnimationFrame(() => {
+        moveCursor(clientX, clientY);
 
-      // Detect when hovering over iframes (or explicit native-cursor areas)
-      // Iframes do not propagate mouse events to the parent document, so the
-      // custom cursor can appear to "stick" at the last position. When hovering
-      // an iframe, hide the custom cursor and restore the native cursor.
-      const el = document.elementFromPoint(e.clientX, e.clientY);
-      const isIframe = el instanceof HTMLIFrameElement;
-      const isNativeArea = !!(el && (el as Element).closest && (el as Element).closest("[data-cursor='native']"));
+        // Detect when hovering over iframes (or explicit native-cursor areas)
+        // Iframes do not propagate mouse events to the parent document, so the
+        // custom cursor can appear to "stick" at the last position. When hovering
+        // an iframe, hide the custom cursor and restore the native cursor.
+        const el = document.elementFromPoint(clientX, clientY);
+        const isIframe = el instanceof HTMLIFrameElement;
+        const isNativeArea = !!(el && (el as Element).closest && (el as Element).closest("[data-cursor='native']"));
 
-      if (isIframe || isNativeArea) {
-        hideCustomCursor();
-      } else {
-        showCustomCursor();
-      }
-    };
-    window.addEventListener("mousemove", moveHandler);
-
-    const scrollHandler = () => {
-      if (!activeTarget || !cursorRef.current) return;
-
-      const mouseX = Number(gsap.getProperty(cursorRef.current, "x"));
-      const mouseY = Number(gsap.getProperty(cursorRef.current, "y"));
-
-      const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
-      const isStillOverTarget = elementUnderMouse && (
-        elementUnderMouse === activeTarget ||
-        (elementUnderMouse.closest && elementUnderMouse.closest(targetSelector) === activeTarget)
-      );
-
-      if (!isStillOverTarget) {
-        if (currentLeaveHandler) {
-          currentLeaveHandler(new Event('mouseleave'));
+        if (isIframe || isNativeArea) {
+          hideCustomCursor();
+        } else {
+          showCustomCursor();
         }
-      }
+        mouseRaf = null;
+      });
+    };
+    window.addEventListener("mousemove", moveHandler, { passive: true } as AddEventListenerOptions);
+
+    let scrollRaf: number | undefined;
+    const scrollHandler = () => {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(() => {
+        if (!activeTarget || !cursorRef.current) {
+          scrollRaf = undefined;
+          return;
+        }
+
+        const mouseX = Number(gsap.getProperty(cursorRef.current, "x"));
+        const mouseY = Number(gsap.getProperty(cursorRef.current, "y"));
+
+        const elementUnderMouse = document.elementFromPoint(mouseX, mouseY);
+        const isStillOverTarget = elementUnderMouse && (
+          elementUnderMouse === activeTarget ||
+          (elementUnderMouse.closest && elementUnderMouse.closest(targetSelector) === activeTarget)
+        );
+
+        if (!isStillOverTarget) {
+          if (currentLeaveHandler) {
+            currentLeaveHandler(new Event('mouseleave'));
+          }
+        }
+        scrollRaf = undefined;
+      });
     };
 
     window.addEventListener("scroll", scrollHandler, { passive: true });
@@ -367,7 +394,7 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
     window.addEventListener("mouseover", enterHandler as EventListener, { passive: true } as AddEventListenerOptions);
 
     return () => {
-      window.removeEventListener("mousemove", moveHandler);
+      window.removeEventListener("mousemove", moveHandler as EventListener);
       window.removeEventListener("mouseover", enterHandler as EventListener);
       window.removeEventListener("scroll", scrollHandler);
       window.removeEventListener('mouseover', nativeEnter, true);
@@ -379,6 +406,10 @@ const TargetCursor: React.FC<TargetCursorProps> = ({
 
       spinTl.current?.kill();
       document.body.style.cursor = originalCursor;
+      if (mouseRaf) cancelAnimationFrame(mouseRaf);
+      if (scrollRaf !== undefined) cancelAnimationFrame(scrollRaf);
+      quickX.current = null;
+      quickY.current = null;
     };
   }, [targetSelector, spinDuration, moveCursor, constants, hideDefaultCursor, isTouch]);
 

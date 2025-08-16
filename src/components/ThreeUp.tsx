@@ -4,6 +4,7 @@ import React, { Suspense, useEffect, useRef, useState } from "react";
 import { Canvas, useFrame, type RootState } from "@react-three/fiber";
 import type * as THREE from "three";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import { useInView } from "framer-motion";
 
 function RotatingBox({ position }: { position: [number, number, number] }) {
   const meshRef = useRef<THREE.Mesh>(null!);
@@ -50,6 +51,28 @@ function RotatingTorus({ position }: { position: [number, number, number] }) {
       <torusGeometry args={[1, 0.3]} />
       <meshBasicMaterial color="#ffffff" wireframe />
     </mesh>
+  );
+}
+
+function VisibleCanvas({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, {
+    margin: "-10% 0px -10% 0px",
+    amount: 0.2,
+  });
+
+  return (
+    <div ref={ref} className="h-64 relative">
+      {isInView ? (
+        <Canvas
+          camera={{ position: [0, 0, 3] }}
+          gl={{ antialias: false, powerPreference: "low-power" }}
+          dpr={[1, 1.5]}
+        >
+          <Suspense fallback={null}>{children}</Suspense>
+        </Canvas>
+      ) : null}
+    </div>
   );
 }
 
@@ -123,14 +146,10 @@ export default function ThreeUp() {
               <div className="plane-wrapper mb-4">
                 <a href="https://krischase.com" className="plane-inner block">
                   <div className="hover-plane image relative overflow-hidden rounded-lg">
-                    <div className="h-64 relative">
-                      <Canvas camera={{ position: [0, 0, 3] }}>
-                        <Suspense fallback={null}>
-                          <RotatingBox position={[0, 0, 0]} />
-                          <ambientLight intensity={0.5} />
-                        </Suspense>
-                      </Canvas>
-                    </div>
+                    <VisibleCanvas>
+                      <RotatingBox position={[0, 0, 0]} />
+                      <ambientLight intensity={0.5} />
+                    </VisibleCanvas>
                   </div>
                 </a>
               </div>
@@ -143,14 +162,10 @@ export default function ThreeUp() {
               <div className="plane-wrapper mb-4">
                 <a href="https://krischase.com" className="plane-inner block">
                   <div className="hover-plane image relative overflow-hidden rounded-lg">
-                    <div className="h-64 relative">
-                      <Canvas camera={{ position: [0, 0, 3] }}>
-                        <Suspense fallback={null}>
-                          <RotatingSphere position={[0, 0, 0]} />
-                          <ambientLight intensity={0.5} />
-                        </Suspense>
-                      </Canvas>
-                    </div>
+                    <VisibleCanvas>
+                      <RotatingSphere position={[0, 0, 0]} />
+                      <ambientLight intensity={0.5} />
+                    </VisibleCanvas>
                   </div>
                 </a>
               </div>
@@ -163,14 +178,10 @@ export default function ThreeUp() {
               <div className="plane-wrapper mb-4">
                 <a href="https://krischase.com" className="plane-inner block">
                   <div className="hover-plane image relative overflow-hidden rounded-lg">
-                    <div className="h-64 relative">
-                      <Canvas camera={{ position: [0, 0, 3] }}>
-                        <Suspense fallback={null}>
-                          <RotatingTorus position={[0, 0, 0]} />
-                          <ambientLight intensity={0.5} />
-                        </Suspense>
-                      </Canvas>
-                    </div>
+                    <VisibleCanvas>
+                      <RotatingTorus position={[0, 0, 0]} />
+                      <ambientLight intensity={0.5} />
+                    </VisibleCanvas>
                   </div>
                 </a>
               </div>

@@ -10,6 +10,7 @@ import { GlowingEffect } from "@/components/ui/glowing-effect";
 
 export default function ContactPage() {
   const [status, setStatus] = useState<string | null>(null);
+  const [statusKind, setStatusKind] = useState<"success" | "error" | null>(null);
   const [reason, setReason] = useState<string>("job");
   const [step, setStep] = useState<number>(1);
   const [persona, setPersona] = useState<string>("");
@@ -24,6 +25,7 @@ export default function ContactPage() {
   // Submission transition state
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   // Register Contact page for Machine View
   useMachineSlice({
@@ -191,6 +193,9 @@ function SuccessView({ persona }: { persona: string }) {
     // Include wizard-only hidden fields in analytics
     const personaField = formData.get('persona');
     const data = Object.fromEntries(formData.entries());
+    setIsSubmitting(true);
+    setStatus(null);
+    setStatusKind(null);
     try {
       posthog.capture("contact_submit_attempted", { reason: data.reason, persona: personaField });
     } catch {}
@@ -209,7 +214,9 @@ function SuccessView({ persona }: { persona: string }) {
           : undefined;
       if (!res.ok) throw new Error(apiError || `Failed (${res.status})`);
       setStatus('Thanks! I’ll get back to you shortly.');
+      setStatusKind('success');
       // trigger fade-out of the form, then swap to success view
+      setIsSubmitting(false);
       setSubmitted(true);
       form.reset();
 
@@ -228,6 +235,8 @@ function SuccessView({ persona }: { persona: string }) {
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : 'Unknown error';
       setStatus(`Something went wrong. Please email me directly: kris@krischase.com`);
+      setStatusKind('error');
+      setIsSubmitting(false);
       console.error('Contact submit error:', message);
       try {
         posthog.capture("contact_submit_failed", { reason, message });
@@ -280,6 +289,7 @@ function SuccessView({ persona }: { persona: string }) {
                   onFocus={onFormFocus}
                   onSubmit={handleSubmit}
                   className={`space-y-5 transition-all duration-500 ${submitted ? 'opacity-0 translate-y-2 pointer-events-none' : ''}`}
+                  aria-busy={isSubmitting}
                 >
               {/* Step 1: Who are you? */}
               {step === 1 && (
@@ -440,7 +450,9 @@ function SuccessView({ persona }: { persona: string }) {
                     </div>
                     <div className="flex gap-2">
                       <button type="button" onClick={goBack} className="rounded-lg border border-border px-4 py-2 text-sm">Back</button>
-                      <button type="submit" className="rounded-lg bg-white text-black hover:bg-black hover:text-white border border-black px-4 py-2 text-sm font-semibold">Send Message</button>
+                      <button type="submit" disabled={isSubmitting} className="rounded-lg bg-white text-black hover:bg-black hover:text-white border border-black px-4 py-2 text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+                        {isSubmitting ? (<><span className="h-3 w-3 rounded-full border-2 border-current border-r-transparent animate-spin" aria-hidden="true" />Sending...</>) : 'Send Message'}
+                      </button>
                     </div>
                   </div>
 
@@ -478,13 +490,13 @@ function SuccessView({ persona }: { persona: string }) {
 
                   <div className="flex items-center justify-between gap-4">
                     <p className="text-sm text-muted-foreground">Prefer email? Write me at <a className="underline hover:opacity-80" href="mailto:kris@krischase.com">kris@krischase.com</a>.</p>
-                    <button type="submit" className="inline-flex items-center justify-center rounded-lg bg-white text-black hover:bg-black hover:text-white border border-black px-5 py-3 font-semibold transition-colors duration-200">
-                      Send Message
+                    <button type="submit" disabled={isSubmitting} className="inline-flex items-center justify-center rounded-lg bg-white text-black hover:bg-black hover:text-white border border-black px-5 py-3 font-semibold transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed gap-2">
+                      {isSubmitting ? (<><span className="h-4 w-4 rounded-full border-2 border-current border-r-transparent animate-spin" aria-hidden="true" />Sending...</>) : 'Send Message'}
                     </button>
                   </div>
 
                   {status && (
-                    <p className="text-sm text-green-600 dark:text-green-400">{status}</p>
+                    <p className={`text-sm ${statusKind === 'error' ? 'text-red-600 dark:text-red-400' : 'text-green-600 dark:text-green-400'}`}>{status}</p>
                   )}
                 </div>
               )}
@@ -511,6 +523,7 @@ function SuccessView({ persona }: { persona: string }) {
                   allow="autoplay; fullscreen; encrypted-media; picture-in-picture; clipboard-write"
                   referrerPolicy="origin-when-cross-origin"
                   frameBorder={0}
+                  loading="lazy"
                   data-cursor="native"
                   allowFullScreen
                   style={{ position: 'absolute', width: '100%', height: '100%', top: 0, left: 0, borderRadius: 10 }}
