@@ -4,7 +4,7 @@ import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 
 export default function Intro() {
   const copy =
-    "With more than 20+ years programming, and a decade+ of experience, I have become a leader in building teams and award winning digital experiences, through web development, IoT and apps. That's not a brag, it's a promise: to deliver tomorrow's technology solutions — today.";
+    "With 20+ years programming, and 10+ years leading teams, I build products that last—from smart, app‑enabled BBQs and connected beauty devices to ecommerce engines doing 100+ million per year, SaaS platforms serving thousands of concurrent users, and conversion funnels that perform. I’ve scaled teams from 0→30, led 65+ engineers, and architected systems that stay fast and resilient at scale. That's not a brag, it's a promise: to deliver tomorrow's technology solutions — today.";
   
   // Register Intro copy for Machine View
   useMachineSlice({

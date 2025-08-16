@@ -8,7 +8,7 @@ export function JsonLd() {
     url: "https://krischase.com",
     image: "https://krischase.com/images/KrisChase-OG.png",
     jobTitle: "CTO Consultant & Technical Leader",
-    description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, and align product roadmaps. 60+ engineers led, 100+ launches, 30% delivery cost reduction.",
+    description: "With 20+ years programming and 10+ years leading, I build products that last—from smart devices to $100M+/yr ecommerce and SaaS serving thousands of concurrent users. 65+ engineers led, 100+ launches.",
     knowsAbout: [
       "Technical Leadership",
       "Platform Architecture", 

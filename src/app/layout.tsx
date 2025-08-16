@@ -31,7 +31,7 @@ const questrial = Questrial({
 
 export const metadata: Metadata = {
   title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
-  description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, and align product roadmaps. 60+ engineers led, 100+ launches, 30% delivery cost reduction.",
+  description: "With 20+ years programming and 10+ years leading teams, I build products that last—from smart, app‑enabled devices to ecommerce doing $100M+/yr and SaaS serving thousands of concurrent users. 65+ engineers led, 100+ launches.",
   keywords: ["Technical Leadership", "CTO Consultant", "Engineering Excellence", "Startup CTO", "Platform Modernization", "Delivery Optimization", "CI/CD", "Team Scaling", "Technical Diligence", "90-Day Turnarounds"],
   authors: [{ name: "Kris Chase" }],
   creator: "Kris Chase",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
-    description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, align roadmaps. 60+ engineers led, 100+ launches.",
+    description: "From smart devices to $100M+/yr ecommerce and SaaS with thousands of concurrent users. 65+ engineers led, 100+ launches.",
     url: 'https://krischase.com',
     siteName: 'Kris Chase Portfolio',
     images: ['/images/KrisChase-OG.png'],
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
-    description: "I take startups from prototype to dependable product—and the team that ships it. Unblock delivery, modernize platforms, align roadmaps. 60+ engineers led, 100+ launches.",
+    description: "From smart devices to $100M+/yr ecommerce and SaaS with thousands of concurrent users. 65+ engineers led, 100+ launches.",
     images: ['/images/KrisChase-OG.png'],
     creator: '@krischase',
   },

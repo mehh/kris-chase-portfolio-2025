@@ -67,7 +67,7 @@ export const INTERVIEW_FAQ: InterviewFAQ[] = [
     id: "outcomes-driven",
     question: "Examples of outcomes you’ve driven?",
     answer:
-      "Premium feature launches and a-la-carte upsells, pods/on-call rollouts with MTTR down, large SEO-safe migrations, and QA automation that sped releases.",
+      "Premium feature launches and a-la-carte upsells, pods/on-call rollouts with MTTR down, large SEO-safe migrations, QA automation that sped releases, and scaling SaaS to thousands of concurrent users.",
     tags: ["results", "case-studies", "category:strengths"],
   },
 
@@ -159,7 +159,7 @@ export const INTERVIEW_FAQ: InterviewFAQ[] = [
     id: "reliability-operating",
     question: "How do you ensure reliability and on-call readiness?",
     answer:
-      "Service ownership, SLOs, clean alerts, on-call rotations, runbooks, and regular chaos/readiness reviews.",
+      "Service ownership, SLOs, clean alerts, on-call rotations, runbooks, and regular chaos/readiness reviews, plus capacity planning and load testing for high concurrency.",
     tags: ["reliability", "on-call", "observability", "category:reliability"],
   },
   {

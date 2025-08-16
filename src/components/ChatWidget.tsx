@@ -14,6 +14,15 @@ export default function ChatWidget() {
   const [sourcesById, setSourcesById] = useState<Record<string, ChatSource[]>>({});
   const lastQuestionRef = useRef<string>("");
 
+  // Starter suggestions to help users begin
+  const suggestions = [
+    "What's your leadership style?",
+    "What industries have you worked with?",
+    "What are your strengths?",
+    "How do you scale teams effectively?",
+    "What types of products have you built?",
+  ];
+
   useEffect(() => {
     // Track when chat widget is viewed/opened
     try {
@@ -23,21 +32,20 @@ export default function ChatWidget() {
     }
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const q = input.trim();
-    if (!q || isLoading) return;
+  const sendMessage = async (q: string) => {
+    const question = q.trim();
+    if (!question || isLoading) return;
     setError(null);
-    lastQuestionRef.current = q;
+    lastQuestionRef.current = question;
 
     // push user message
     const userId = `u_${Date.now()}`;
-    setMessages((m) => [...m, { id: userId, role: "user", content: q }]);
+    setMessages((m) => [...m, { id: userId, role: "user", content: question }]);
     setInput("");
 
     // Track chat message send
     try {
-      posthog.capture("chat_message_sent", { length: q.length });
+      posthog.capture("chat_message_sent", { length: question.length });
     } catch {}
 
     // create placeholder assistant message for streaming
@@ -52,7 +60,7 @@ export default function ChatWidget() {
           "Content-Type": "application/json",
           "X-PostHog-Distinct-Id": posthog.get_distinct_id?.() || "",
         },
-        body: JSON.stringify({ message: q }),
+        body: JSON.stringify({ message: question }),
       });
       if (!res.ok || !res.body) {
         let detail: unknown = null;
@@ -87,7 +95,7 @@ export default function ChatWidget() {
       }
 
       try {
-        posthog.capture("chat_response_stream_complete", { question_length: q.length });
+        posthog.capture("chat_response_stream_complete", { question_length: question.length });
       } catch {}
 
       // fetch sources after streaming completes
@@ -98,7 +106,7 @@ export default function ChatWidget() {
             "Content-Type": "application/json",
             "X-PostHog-Distinct-Id": posthog.get_distinct_id?.() || "",
           },
-          body: JSON.stringify({ message: q }),
+          body: JSON.stringify({ message: question }),
         });
         const json = await sres.json();
         const sources: ChatSource[] = Array.isArray(json?.sources) ? json.sources : [];
@@ -124,11 +132,38 @@ export default function ChatWidget() {
     }
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await sendMessage(input);
+  };
+
+  const handleSuggestionClick = (q: string) => {
+    try {
+      posthog.capture("chat_suggestion_clicked", { text: q, length: q.length });
+    } catch {}
+    void sendMessage(q);
+  };
+
   return (
     <div className="flex flex-col gap-4">
       <div className="relative z-10 h-64 sm:h-72 md:h-80 overflow-y-auto rounded-lg border border-zinc-700 bg-zinc-800 p-3 text-sm text-zinc-100">
         {messages.length === 0 ? (
-          <p className="text-zinc-400">Ask anything about my site content, resume PDF, or process.</p>
+          <div>
+            <p className="text-zinc-400">Ask anything about my site content, resume PDF, or process.</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {suggestions.map((s, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => handleSuggestionClick(s)}
+                  disabled={isLoading}
+                  className="rounded-full border border-zinc-700 bg-zinc-900 px-3 py-1 text-xs text-zinc-100 hover:bg-zinc-800 disabled:opacity-60"
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
         ) : (
           <ul className="space-y-3">
             {messages.map((m: { id: string; role: "user" | "assistant"; content: string }) => (

@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'FAQ | Kris Chase',
-  description: 'Answers to common questions about how I work, engagement models, and outcomes.',
+  description: 'Answers on leadership, delivery, platform modernization, and scaling systems—including SaaS serving thousands of concurrent users.',
   alternates: { canonical: '/faq' },
   openGraph: {
     title: 'FAQ | Kris Chase',
-    description: 'Answers to common questions about how I work, engagement models, and outcomes.',
+    description: 'Answers on leadership, delivery, platform modernization, and scaling systems—including SaaS serving thousands of concurrent users.',
     url: 'https://krischase.com/faq',
     images: ['/images/KrisChase-OG.png'],
     type: 'article',
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'FAQ | Kris Chase',
-    description: 'Answers to common questions about how I work, engagement models, and outcomes.',
+    description: 'Answers on leadership, delivery, platform modernization, and scaling systems—including SaaS serving thousands of concurrent users.',
     images: ['/images/KrisChase-OG.png'],
   },
 };
