@@ -3,9 +3,11 @@
 import React from "react";
 import { useMachineView } from "./MachineViewProvider";
 import { User, Bot } from "lucide-react";
+import { usePostHog } from "@posthog/react";
 
 export default function MachineToggle() {
   const { mode, setMode } = useMachineView();
+  const posthog = usePostHog();
   const isHuman = mode === "human";
   const isMachine = mode === "machine";
 
@@ -17,7 +19,15 @@ export default function MachineToggle() {
       <div className="inline-flex items-center overflow-hidden rounded-full border border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm ring-1 ring-lime-300/30 hover:ring-lime-400/40 transition-transform duration-300 will-change-transform hover:scale-[1.03]">
         <button
           type="button"
-          onClick={() => setMode("human")}
+          onClick={() => {
+            posthog?.capture("machine_toggle_click", {
+              from_mode: mode,
+              to_mode: "human",
+              path: typeof window !== "undefined" ? window.location.pathname : undefined,
+              source: "button",
+            });
+            setMode("human");
+          }}
           aria-pressed={isHuman}
           className={`px-3 py-1.5 text-xs font-medium transition inline-flex items-center gap-1.5 ${
             isHuman ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
@@ -29,7 +39,15 @@ export default function MachineToggle() {
         <div className="h-5 w-px bg-border/70" />
         <button
           type="button"
-          onClick={() => setMode("machine")}
+          onClick={() => {
+            posthog?.capture("machine_toggle_click", {
+              from_mode: mode,
+              to_mode: "machine",
+              path: typeof window !== "undefined" ? window.location.pathname : undefined,
+              source: "button",
+            });
+            setMode("machine");
+          }}
           aria-pressed={isMachine}
           className={`px-3 py-1.5 text-xs font-medium transition inline-flex items-center gap-1.5 ${
             isMachine ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
