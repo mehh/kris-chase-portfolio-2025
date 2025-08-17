@@ -58,24 +58,24 @@ function SVGGridPanel({ side }: { side: "left" | "right" }) {
   // Global pointer tracking so we don't need pointer-events on the background
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const onMove = (e: PointerEvent) => {
+    // Only enable hover trail on devices that actually have a fine pointer and support hover (desktop)
+    const allowHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!allowHover) return;
+    const onMove: EventListener = (e) => {
       if (pmRAFRef.current != null) return;
       pmRAFRef.current = window.requestAnimationFrame(() => {
         pmRAFRef.current = null;
         const el = svgRef.current;
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        const cx = e.clientX;
-        const cy = e.clientY;
+        const pe = e as PointerEvent;
+        const cx = pe.clientX;
+        const cy = pe.clientY;
         if (cx < rect.left || cx > rect.right || cy < rect.top || cy > rect.bottom) return;
-        const lx = (cx - rect.left) / rect.width; // 0..1 within this panel
-        const ly = (cy - rect.top) / rect.height; // 0..1 within this panel
-        const sx = lx * W;
-        const sy = ly * H;
-        const gx = Math.max(0, Math.min(Math.floor(sx / gap), Math.floor(W / gap)));
-        const gy = Math.max(0, Math.min(Math.floor(sy / gap), Math.floor(H / gap)));
-        const x = gx * gap + 1;
-        const y = gy * gap + 1;
+        const localX = cx - rect.left;
+        const localY = cy - rect.top;
+        const x = Math.floor(localX / gap) * gap;
+        const y = Math.floor(localY / gap) * gap;
         const id = Date.now() + Math.random();
         setHoverTrail((prev) => {
           const last = prev[prev.length - 1];
@@ -88,7 +88,7 @@ function SVGGridPanel({ side }: { side: "left" | "right" }) {
         }, 1200);
       });
     };
-    window.addEventListener("pointermove", onMove);
+    window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
       window.removeEventListener("pointermove", onMove);
       if (pmRAFRef.current != null) cancelAnimationFrame(pmRAFRef.current);
@@ -192,6 +192,10 @@ function SVGGridPanel({ side }: { side: "left" | "right" }) {
           .grid-cell { animation: none !important; }
           .grid-cell-hover { animation: none !important; }
         }
+        /* Disable hover trail on touch/coarse pointer devices */
+        @media (hover: none), (pointer: coarse) {
+          .grid-cell-hover { display: none !important; animation: none !important; }
+        }
       `}</style>
     </svg>
   );
@@ -202,19 +206,39 @@ export default function GridScrollBackground() {
   const { scrollYProgress } = useScroll();
 
   // Animate opacity early for immediate visibility
+  // Pointer coarse/mobile detection to slow and cap grid closing on touch
+  const [isCoarsePointer, setIsCoarsePointer] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(hover: none), (pointer: coarse)");
+    const onChange = () => setIsCoarsePointer(mq.matches);
+    // initialize
+    setIsCoarsePointer(mq.matches);
+    if (typeof mq.addEventListener === "function") {
+      mq.addEventListener("change", onChange);
+      return () => mq.removeEventListener("change", onChange);
+    } else {
+      mq.addListener(onChange);
+      return () => {
+        mq.removeListener(onChange);
+      };
+    }
+  }, []);
 
   // Opacity ramps quickly then holds
   const opacity = useTransform(scrollYProgress, [0, 0.1, 1], [0.35, 1, 1]);
 
   // Linear translate across the whole page for consistent speed
-  const leftX = useTransform(scrollYProgress, [0, 1], ["-65%", "5%"]);
-  const rightX = useTransform(scrollYProgress, [0, 1], ["65%", "-5%"]);
-  // Grid square scale grows with scroll
-  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1.25]);
+  const leftX = useTransform(scrollYProgress, [0, 1], isCoarsePointer ? ["-85%", "-30%"] : ["-65%", "5%"]);
+  const rightX = useTransform(scrollYProgress, [0, 1], isCoarsePointer ? ["85%", "30%"] : ["65%", "-5%"]);
+  // Grid square scale grows with scroll (reduced on mobile to avoid intersection)
+  const scale = useTransform(scrollYProgress, [0, 1], isCoarsePointer ? [0.95, 1.2] : [0.95, 1.5]);
 
   // Combine perspective + rotate + translate
-  const leftTransform = useMotionTemplate`perspective(1200px) rotateY(35deg) translateX(${leftX}) scale(${scale})`;
-  const rightTransform = useMotionTemplate`perspective(1200px) rotateY(-35deg) translateX(${rightX}) scale(${scale})`;
+  const leftRotate = isCoarsePointer ? 30 : 35;
+  const rightRotate = isCoarsePointer ? -30 : -35;
+  const leftTransform = useMotionTemplate`perspective(1200px) rotateY(${leftRotate}deg) translateX(${leftX}) scale(${scale})`;
+  const rightTransform = useMotionTemplate`perspective(1200px) rotateY(${rightRotate}deg) translateX(${rightX}) scale(${scale})`;
 
   return (
     <div

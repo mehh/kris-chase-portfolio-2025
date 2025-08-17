@@ -150,7 +150,7 @@ export default function SiteHeader() {
         .mobile-menu-button[data-v-6b95401f] { background-color: #fff3; border-radius: 8px; color: var(--c-white); font-family: var(--font-mono); font-weight: 700; padding: 2.2em; text-align: center; text-transform: uppercase; width: 100% }
         .mobile-menu-items a[data-v-6b95401f] { color: var(--c-white); text-decoration: none; display: inline-block; padding: .75rem 0; font-size: clamp(1.125rem, 5vw, 1.75rem); font-weight: 600 }
         @media (min-width: 1024px) {
-          .site-header[data-v-6b95401f] { inset: 2.875rem 0 auto }
+          .site-header[data-v-6b95401f] { inset: 1.875rem 0 auto }
           .site-header[data-v-6b95401f] .site-grid { grid-template-rows: auto }
           .site-grid { grid-template-columns: 1fr min(1200px, 92vw) 1fr }
           header .inner[data-v-6b95401f] { background-color: #0000004d }

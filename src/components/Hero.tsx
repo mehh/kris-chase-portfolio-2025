@@ -37,6 +37,9 @@ const PERSONAS = [
   },
 ];
 
+// Map persona id -> label for documentation/registry
+const PERSONA_LABEL: Record<string, string> = Object.fromEntries(PERSONAS.map((x) => [x.id, x.label]));
+
 type Proof = {
   id: string;
   label: string;
@@ -48,23 +51,56 @@ type Proof = {
   note?: string;
 };
 
-const PROOF: Proof[] = [
+// Type to pass CSS custom properties without 'any'
+type CSSVars = React.CSSProperties & { ['--cycle']?: string };
+
+// Fallback proof used if persona id missing
+const DEFAULT_PROOF: Proof[] = [
   { id: 'eng', label: 'engineers led', to: 150, suffix: '+', prefix: '', separator: ',', duration: 1.2 },
   { id: 'launches', label: 'launches', to: 100, suffix: '+', prefix: '', separator: ',', duration: 1.2 },
   { id: 'cost', label: 'delivery cost', to: 30, suffix: '%', prefix: '', separator: ',', duration: 1.2, note: '↓' },
   { id: 'efficiency', label: 'dev efficiency', to: 65, suffix: '%', prefix: '', separator: ',', duration: 1.2, note: '↑' },
 ];
 
+// Persona-specific proof points
+const PROOF_BY_PERSONA: Record<string, Proof[]> = {
+  founders: [
+    { id: 'launches', label: 'product launches', to: 100, suffix: '+', separator: ',', duration: 1.2 },
+    { id: 'ttm', label: 'time to market', to: 45, suffix: '%', duration: 1.2, note: '↓' },
+    { id: 'concurrency', label: 'concurrent users', to: 75, suffix: 'k+', separator: ',', duration: 1.2 },
+    { id: 'uptime', label: 'uptime', to: 99.9, suffix: '%', duration: 1.2 },
+  ],
+  cto: [
+    { id: 'cycle', label: 'cycle time', to: 40, suffix: '%', duration: 1.2, note: '↓' },
+    { id: 'deploys', label: 'deploys/week', to: 50, suffix: '+', duration: 1.2 },
+    { id: 'mttr', label: 'MTTR', to: 60, suffix: '%', duration: 1.2, note: '↓' },
+    { id: 'defects', label: 'defect escape', to: 35, suffix: '%', duration: 1.2, note: '↓' },
+  ],
+  product: [
+    { id: 'hitrate', label: 'roadmap hit rate', to: 90, suffix: '%', duration: 1.2 },
+    { id: 'ttv', label: 'time to value', to: 45, suffix: '%', duration: 1.2, note: '↓' },
+    { id: 'expwins', label: 'experiment win rate', to: 28, suffix: '%', duration: 1.2 },
+    { id: 'nps', label: 'NPS lift', to: 18, suffix: '+', duration: 1.2 },
+  ],
+  investor: [
+    { id: 'turnarounds', label: '90-day turnarounds', to: 6, suffix: '+', duration: 1.2 },
+    { id: 'diligence', label: 'diligence audits', to: 20, suffix: '+', duration: 1.2 },
+    { id: 'arr', label: 'ARR growth', to: 28, suffix: '%', duration: 1.2 },
+    { id: 'burn', label: 'burn reduction', to: 20, suffix: '%', duration: 1.2, note: '↓' },
+  ],
+};
+
 export default function Hero() {
   const [idx, setIdx] = useState(0);
   const [paused, setPaused] = useState(false);
   const hoverTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const HOVER_DELAY = 120;
+  const CYCLE_MS = 7000; // keep in sync with pill loader animation
 
   // auto-cycle until user interacts
   useEffect(() => {
     if (paused) return;
-    const id = setInterval(() => setIdx((i) => (i + 1) % PERSONAS.length), 7000);
+    const id = setInterval(() => setIdx((i) => (i + 1) % PERSONAS.length), CYCLE_MS);
     return () => clearInterval(id);
   }, [paused]);
 
@@ -80,6 +116,7 @@ export default function Hero() {
   };
 
   const p = PERSONAS[idx];
+  const proofs = PROOF_BY_PERSONA[p.id] ?? DEFAULT_PROOF;
 
   // Measure tallest H1 across personas to prevent layout jump
   const [maxH1Height, setMaxH1Height] = useState<number | null>(null);
@@ -118,6 +155,13 @@ export default function Hero() {
   }, [maxH1Height]);
 
   // Register Hero content for Machine View
+  const proofContent = Object.entries(PROOF_BY_PERSONA)
+    .flatMap(([id, arr]) => [
+      `- ${PERSONA_LABEL[id] ?? id}:`,
+      ...arr.map((m) => `  - ${m.to}${m.suffix ?? ''} ${m.label}${m.note ? ' ' + m.note : ''}`),
+    ])
+    .join("\n");
+
   useMachineSlice({
     type: "hero",
     title: "Homepage Hero",
@@ -136,8 +180,8 @@ export default function Hero() {
       "### Primary CTAs",
       ...PERSONAS.map((x) => `- ${x.label}: [${x.primary.label}](${x.primary.href})`),
       "",
-      "### Proof Points",
-      ...PROOF.map((m) => `- ${m.to}${m.suffix} ${m.label}${m.note ? ' ' + m.note : ''}`),
+      "### Proof Points by Persona",
+      proofContent,
     ].join("\n"),
   }, []);
 
@@ -161,23 +205,63 @@ export default function Hero() {
               </h1>
             ))}
           </div>
+          {/* Scoped styles for persona-pill progress (blend overlay, no reflow) */}
+          <style jsx global>{`
+            .persona-pill { position: relative; overflow: hidden; isolation: isolate; }
+            /* Single white overlay that blends and inverts text color; does not affect layout */
+            .persona-pill::after {
+              content: '';
+              position: absolute;
+              inset: 0;
+              background: #fff;
+              border-radius: inherit;
+              transform: scaleX(0);
+              transform-origin: left center;
+              transition: transform var(--cycle, 7s) linear;
+              will-change: transform;
+              mix-blend-mode: difference;
+              z-index: 20; /* above text for blending */
+              pointer-events: none;
+              backface-visibility: hidden;
+            }
+            @keyframes pill-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+            /* When selected, animate fill to full */
+            .persona-pill[data-selected="true"]::after {
+              transform: scaleX(1);
+              animation: pill-progress var(--cycle, 7s) linear both;
+            }
+            /* Non-selected pills collapse quickly */
+            .persona-pill:not([data-selected="true"])::after {
+              transition-duration: 0.2s;
+              transition-timing-function: ease-out;
+            }
+            /* Respect reduced motion */
+            @media (prefers-reduced-motion: reduce) {
+              .persona-pill::after {
+                transition: none;
+                transform: none;
+              }
+            }
+          `}</style>
 
           {/* persona pills */}
           <div className="mb-4 sm:mb-5 flex flex-wrap justify-center gap-1.5 sm:gap-2">
             {PERSONAS.map((x, i) => (
-              <button
+              <motion.button
                 key={x.id}
                 onMouseEnter={() => schedule(i)}
                 onMouseLeave={cancel}
                 onFocus={() => schedule(i)}     // keyboard
                 onBlur={cancel}
                 onClick={() => { setIdx(i); setPaused(true); }}
-                data-selected={i === idx}
-                className={`rounded-full border px-2.5 sm:px-3 py-1 text-xs sm:text-sm backdrop-blur-sm min-h-[44px] flex items-center justify-center
-                  ${i === idx ? 'bg-[#FFF]/80 text-[#000]' : 'border-foreground/20 text-foreground/80 hover:text-[#000] hover:bg-[#FFF]/80'}`}
+                data-selected={i === idx ? 'true' : undefined}
+                data-label={x.label}
+                style={{ '--cycle': `${CYCLE_MS}ms` } as CSSVars}
+                className={`persona-pill relative overflow-hidden rounded-full border px-2.5 sm:px-3 py-1 text-xs sm:text-sm min-h-[44px] flex items-center justify-center bg-black text-white border-white/20`}
               >
-                <span className="text-center leading-tight">{x.label}</span>
-              </button>
+                {/* Base label (white). Progress overlay inverts colors via blend mode. */}
+                <span className="relative z-10 text-center leading-tight whitespace-nowrap">{x.label}</span>
+              </motion.button>
             ))}
           </div>
 
@@ -238,23 +322,24 @@ export default function Hero() {
             </a> */}
           </div>
 
-          {/* proof strip with CountUp + GradientText, centered and larger */}
-          <div className="flex flex-wrap justify-center gap-6 sm:gap-10 px-2 sm:px-0">
-            {PROOF.map((p) => (
-              <div key={p.id} className="flex flex-col items-center text-center min-w-[140px]">
+          {/* proof strip: 2x2 grid on mobile, flex row on larger screens */
+          }
+          <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-4 sm:gap-10 px-2 sm:px-0 max-w-3xl mx-auto">
+            {proofs.map((m) => (
+              <div key={m.id} className="flex flex-col items-center text-center">
                 <GradientText
                   colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
                   animationSpeed={3}
                   showBorder={false}
                   className="custom-class"
                 >
-                  <span className="block leading-none text-3xl sm:text-5xl lg:text-6xl font-extrabold">
-                    <CountUp from={0} to={p.to} duration={p.duration} separator={p.separator} className="align-baseline" />
-                    {p.suffix}
+                  <span className="block leading-none text-2xl sm:text-5xl lg:text-6xl font-extrabold">
+                    <CountUp from={0} to={m.to} duration={m.duration} separator={m.separator} className="align-baseline" />
+                    {m.suffix}
                   </span>
                 </GradientText>
-                <span className="mt-1 sm:mt-2 text-sm sm:text-base md:text-lg text-foreground/80">
-                  {p.label} {p.note ? <span className="opacity-70">{p.note}</span> : null}
+                <span className="mt-1 sm:mt-2 text-xs sm:text-base md:text-lg text-foreground/80">
+                  {m.label} {m.note ? <span className="opacity-70">{m.note}</span> : null}
                 </span>
               </div>
             ))}
