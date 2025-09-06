@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         destination: "/how-i-operate",
         permanent: true,
       },
+      {
+        source: "/homes",
+        destination: "/",
+        permanent: true,
+      },
     ];
   },
 };

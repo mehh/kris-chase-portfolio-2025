@@ -31,13 +31,33 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         const v = params.get(k);
         if (v) utm[k] = v;
       });
+      // Capture custom referral params as well (for non-standard links)
+      const custom: Record<string, string> = {};
+      ["source", "action", "channel", "campaign"].forEach((k) => {
+        const v = params.get(k);
+        if (v) custom[k] = v;
+      });
       const initialRef = document.referrer || "direct";
       const firstTouchSet = window.localStorage.getItem("ph_utm_set");
+      const props = { ...utm, ...custom, initial_referrer: initialRef };
       if (!firstTouchSet) {
-        posthog.register({ ...utm, initial_referrer: initialRef });
+        posthog.register(props);
         window.localStorage.setItem("ph_utm_set", "1");
-      } else if (Object.keys(utm).length > 0) {
-        posthog.register(utm);
+      } else if (Object.keys(utm).length > 0 || Object.keys(custom).length > 0) {
+        posthog.register(props);
+      }
+
+      // Fire a dedicated event when a resume referral lands on /resume
+      const isResumePath = window.location.pathname === "/resume";
+      const isResumeSource = params.get("source") === "resume" || params.get("utm_source") === "resume";
+      const hasAction = !!(params.get("action") || params.get("utm_content"));
+      if (isResumePath && (isResumeSource || hasAction)) {
+        posthog.capture("resume_referral_landing", {
+          path: window.location.pathname,
+          query: window.location.search,
+          ...utm,
+          ...custom,
+        });
       }
     } catch {
       // ignore
