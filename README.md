@@ -94,6 +94,7 @@ A performance‑tuned Next.js 15 (App Router) site featuring custom animations, 
 - **Route**: `POST /api/contact` (`src/app/api/contact/route.ts`)
   - Stores submissions to Supabase table `public.contact_submissions` via service role.
   - Sends alert email via Resend (fire‑and‑forget) from `src/lib/notifications/email.ts`.
+  - Sends Telegram alert (fire‑and‑forget) from `src/lib/notifications/telegram.ts`.
   - Captures server analytics with PostHog.
 - **Env**:
   - `NEXT_PUBLIC_SUPABASE_URL`
@@ -135,7 +136,28 @@ SUPABASE_SERVICE_ROLE_KEY=
 RESEND_API_KEY=
 ALERT_EMAIL_TO=you@example.com
 ALERT_EMAIL_FROM=onboarding@resend.dev
+
+# Telegram alerts
+# Required
+TELEGRAM_BOT_TOKEN=
+TELEGRAM_CHAT_ID=
+# Optional per-form overrides (if set, these win over TELEGRAM_CHAT_ID)
+CONTACT_TELEGRAM_CHAT_ID=
+PARTNERS_TELEGRAM_CHAT_ID=
 ```
+
+## Telegram notifications
+- **Utility**: `src/lib/notifications/telegram.ts`
+  - Uses `sendMessage` on the Bot API.
+  - Defaults to `TELEGRAM_CHAT_ID` unless per-form overrides are set.
+- **Used by**:
+  - Contact: `src/app/api/contact/route.ts` → `sendContactTelegramAlert()`
+  - Partners: `src/app/api/partners/route.ts` → `sendPartnerTelegramAlert()`
+- **Setup**:
+  - Create a bot with BotFather and get the token.
+  - Add the bot to your channel/group and promote as admin if using a channel.
+  - Put values in `.env.local` and restart dev server.
+  - Optional: use unique chat IDs per form via `CONTACT_TELEGRAM_CHAT_ID` and `PARTNERS_TELEGRAM_CHAT_ID`.
 
 ## Scripts
 - Dev: `npm run dev` (Turbopack)

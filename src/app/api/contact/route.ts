@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../lib/supabase/admin';
 import { sendContactAlert } from '../../../lib/notifications/email';
 import { captureServer } from '@/lib/posthog/server';
+import { sendContactTelegramAlert } from '../../../lib/notifications/telegram';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -56,6 +57,11 @@ export async function POST(req: Request) {
     // and do not fail the request if the email fails.
     sendContactAlert(payload).catch((e) => {
       console.error('Contact alert email failed:', e);
+    });
+
+    // Fire-and-forget Telegram alert; non-blocking as well
+    sendContactTelegramAlert(payload).catch((e) => {
+      console.error('Contact Telegram alert failed:', e);
     });
 
     return NextResponse.json({ ok: true });

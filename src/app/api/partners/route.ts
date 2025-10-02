@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../lib/supabase/admin';
 import { sendPartnerAlert } from '../../../lib/notifications/email';
+import { sendPartnerTelegramAlert } from '../../../lib/notifications/telegram';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -33,6 +34,11 @@ export async function POST(req: Request) {
     // Fire-and-forget partner alert email
     sendPartnerAlert(payload).catch((e) => {
       console.error('Partner alert email failed:', e);
+    });
+
+    // Fire-and-forget Telegram alert; non-blocking as well
+    sendPartnerTelegramAlert(payload).catch((e) => {
+      console.error('Partner Telegram alert failed:', e);
     });
 
     return NextResponse.json({ ok: true });

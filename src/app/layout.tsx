@@ -12,6 +12,7 @@ import TargetCursor from '../components/TargetCursor';
 import GridScrollBackground from '../components/GridScrollBackground';
 import MachineOverlay from '../components/machine/MachineOverlay';
 import MachineToggle from '../components/machine/MachineToggle';
+import MobileDockNav from '../components/MobileDockNav';
 import Script from "next/script";
 // import SplashScreen from "../components/SplashScreen"; // Temporarily disabled
 import PageTransition from "../components/PageTransition";
@@ -126,6 +127,8 @@ export default function RootLayout({
             <main className="relative z-10 min-h-[100dvh] pl-12 sm:pl-16 md:pl-20 lg:pl-0">
               {children}
             </main>
+            {/* Mobile bottom dock navigation */}
+            <MobileDockNav />
             <Footer />
             {/* Machine View */}
             <MachineOverlay />
