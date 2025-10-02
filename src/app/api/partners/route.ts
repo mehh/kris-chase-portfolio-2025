@@ -36,10 +36,17 @@ export async function POST(req: Request) {
       console.error('Partner alert email failed:', e);
     });
 
-    // Fire-and-forget Telegram alert; non-blocking as well
-    sendPartnerTelegramAlert(payload).catch((e) => {
+    // Await Telegram send in prod to avoid function exit before request flushes
+    try {
+      const ok = await sendPartnerTelegramAlert(payload);
+      if (!ok) {
+        if (process.env.TELEGRAM_DEBUG === 'true') {
+          console.error('Partner Telegram alert returned false');
+        }
+      }
+    } catch (e) {
       console.error('Partner Telegram alert failed:', e);
-    });
+    }
 
     return NextResponse.json({ ok: true });
   } catch (err: unknown) {

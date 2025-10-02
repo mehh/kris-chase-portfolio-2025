@@ -1,5 +1,6 @@
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID; // global fallback
+const TELEGRAM_DEBUG = process.env.TELEGRAM_DEBUG === 'true';
 
 // Optional per-form overrides so you can route to different channels
 const CONTACT_TELEGRAM_CHAT_ID = process.env.CONTACT_TELEGRAM_CHAT_ID;
@@ -19,19 +20,23 @@ async function sendTelegramMessage({
   text,
   chatId,
   disableNotification = false,
+  timeoutMs = 3000,
 }: {
   text: string;
   chatId?: string | null;
   disableNotification?: boolean;
-}) {
-  if (!ensureConfigured()) return;
+  timeoutMs?: number;
+}): Promise<boolean> {
+  if (!ensureConfigured()) return false;
 
   const cid = (chatId || TELEGRAM_CHAT_ID)!;
-
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
+  const controller = new AbortController();
+  const t = setTimeout(() => controller.abort(), timeoutMs);
+
   try {
-    await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,9 +47,32 @@ async function sendTelegramMessage({
         // no parse_mode to avoid needing to escape user input; send as plain text
         disable_notification: disableNotification,
       }),
+      signal: controller.signal,
     });
+    clearTimeout(t);
+    let body: any = null;
+    try {
+      body = await res.json();
+    } catch {}
+    if (!res.ok || (body && body.ok === false)) {
+      if (TELEGRAM_DEBUG) {
+        console.error('Telegram send failed', {
+          status: res.status,
+          statusText: res.statusText,
+          body,
+        });
+      }
+      return false;
+    }
+    if (TELEGRAM_DEBUG) {
+      console.log('Telegram send ok', { body });
+    }
+    return true;
   } catch (e) {
-    console.error('Telegram sendMessage failed:', e);
+    if (TELEGRAM_DEBUG) {
+      console.error('Telegram sendMessage error:', e);
+    }
+    return false;
   }
 }
 
@@ -86,7 +114,7 @@ export async function sendContactTelegramAlert(payload: {
     `At: ${payload.created_at}`,
   ];
 
-  await sendTelegramMessage({ text: lines.join('\n'), chatId: CONTACT_TELEGRAM_CHAT_ID });
+  return await sendTelegramMessage({ text: lines.join('\n'), chatId: CONTACT_TELEGRAM_CHAT_ID });
 }
 
 export async function sendPartnerTelegramAlert(payload: {
@@ -113,5 +141,5 @@ export async function sendPartnerTelegramAlert(payload: {
     `At: ${payload.created_at}`,
   ];
 
-  await sendTelegramMessage({ text: lines.join('\n'), chatId: PARTNERS_TELEGRAM_CHAT_ID });
+  return await sendTelegramMessage({ text: lines.join('\n'), chatId: PARTNERS_TELEGRAM_CHAT_ID });
 }
