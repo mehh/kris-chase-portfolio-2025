@@ -50,11 +50,16 @@ async function sendTelegramMessage({
       signal: controller.signal,
     });
     clearTimeout(t);
-    let body: any = null;
+    let body: unknown = null;
     try {
       body = await res.json();
     } catch {}
-    if (!res.ok || (body && body.ok === false)) {
+    const hasBooleanOk = (x: unknown): x is { ok: boolean } => {
+      if (typeof x !== 'object' || x === null) return false;
+      const val = (x as Record<string, unknown>).ok;
+      return typeof val === 'boolean';
+    };
+    if (!res.ok || (hasBooleanOk(body) && body.ok === false)) {
       if (TELEGRAM_DEBUG) {
         console.error('Telegram send failed', {
           status: res.status,
