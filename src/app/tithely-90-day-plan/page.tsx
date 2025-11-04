@@ -148,11 +148,6 @@ export default function TithelyNinetyDayPlanPage() {
                 A focused roadmap to strengthen reliability, delivery speed, and cross-team alignment. Operate as a 
                 driving force, ensuring Tithely’s platform continues to scale in support of its mission.
               </p>
-              <p className="mt-4 text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-3xl leading-relaxed">
-                The first 90 days are about clarity: understanding what’s working, what’s slowing teams down, and where 
-                reliability can improve. My focus at Tithely would be to get close to the people, the systems, and the 
-                delivery process, then make practical changes that build momentum fast.
-              </p>
 
               {/* CTAs */}
               <div className="mt-8 flex flex-wrap gap-3">
@@ -182,6 +177,23 @@ export default function TithelyNinetyDayPlanPage() {
         </section>
       </SectionTransition>
 
+      {/* Intro Context */}
+      <SectionTransition id="tithely-intro">
+        <section className="pb-8 md:pb-10">
+          <div className="container mx-auto px-6 sm:px-8">
+            <div className="max-w-4xl">
+              <div className="rounded-xl border border-gray-200/80 dark:border-gray-800/80 bg-gray-50/40 dark:bg-gray-900/40 backdrop-blur-sm p-6">
+                <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                  The first 90 days are about clarity: understanding what’s working, what’s slowing teams down, and where
+                  reliability can improve. My focus at Tithely would be to get close to the people, the systems, and the
+                  delivery process, then make practical changes that build momentum fast.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionTransition>
+
       {/* The 90-Day Plan */}
       <SectionTransition id="tithely-plan">
         <section className="pb-8 md:pb-10">
@@ -190,7 +202,7 @@ export default function TithelyNinetyDayPlanPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {/* Phase 1: Diagnose */}
               <div className="relative rounded-2xl p-2">
-                <GlowingEffect spread={40} glow proximity={64} inactiveZone={0.01} borderWidth={3} />
+                <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
                 <div className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 backdrop-blur-sm p-6">
                   <h3 className="text-xl font-semibold">Phase 1: Diagnose</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
@@ -210,7 +222,7 @@ export default function TithelyNinetyDayPlanPage() {
 
               {/* Phase 2: Design */}
               <div className="relative rounded-2xl p-2">
-                <GlowingEffect spread={40} glow proximity={64} inactiveZone={0.01} borderWidth={3} />
+                <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
                 <div className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 backdrop-blur-sm p-6">
                   <h3 className="text-xl font-semibold">Phase 2: Design</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
@@ -230,7 +242,7 @@ export default function TithelyNinetyDayPlanPage() {
 
               {/* Phase 3: Deliver */}
               <div className="relative rounded-2xl p-2">
-                <GlowingEffect spread={40} glow proximity={64} inactiveZone={0.01} borderWidth={3} />
+                <GlowingEffect spread={40} glow disabled={false} proximity={64} inactiveZone={0.01} borderWidth={3} />
                 <div className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50/50 dark:bg-gray-900/50 backdrop-blur-sm p-6">
                   <h3 className="text-xl font-semibold">Phase 3: Deliver</h3>
                   <p className="mt-2 text-sm text-muted-foreground">
