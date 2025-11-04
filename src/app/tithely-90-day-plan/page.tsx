@@ -1,11 +1,79 @@
 "use client";
 
-import React from "react";
+import React, { Suspense, useRef } from "react";
 import { motion } from "motion/react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SectionTransition } from "@/components/SmoothScrollProvider";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
-import { ShieldCheck, Rocket, Users } from "lucide-react";
+import { Canvas, useFrame, type RootState } from "@react-three/fiber";
+import type * as THREE from "three";
+import { useInView } from "framer-motion";
+
+// Mini 3D icons (borrowed from ThreeUp)
+function RotatingBox({ position }: { position: [number, number, number] }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  useFrame((state: RootState) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.getElapsedTime();
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.5;
+    }
+  });
+  return (
+    <mesh ref={meshRef} position={position}>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshBasicMaterial color="#ffffff" wireframe />
+    </mesh>
+  );
+}
+
+function RotatingSphere({ position }: { position: [number, number, number] }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  useFrame((state: RootState) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.5;
+      meshRef.current.rotation.y = state.clock.getElapsedTime();
+    }
+  });
+  return (
+    <mesh ref={meshRef} position={position}>
+      <sphereGeometry args={[1]} />
+      <meshBasicMaterial color="#ffffff" wireframe />
+    </mesh>
+  );
+}
+
+function RotatingTorus({ position }: { position: [number, number, number] }) {
+  const meshRef = useRef<THREE.Mesh>(null!);
+  useFrame((state: RootState) => {
+    if (meshRef.current) {
+      meshRef.current.rotation.x = state.clock.getElapsedTime() * 0.3;
+      meshRef.current.rotation.y = state.clock.getElapsedTime() * 0.7;
+    }
+  });
+  return (
+    <mesh ref={meshRef} position={position}>
+      <torusGeometry args={[1, 0.3]} />
+      <meshBasicMaterial color="#ffffff" wireframe />
+    </mesh>
+  );
+}
+
+function MiniVisibleCanvas({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(ref, {
+    margin: "-10% 0px -10% 0px",
+    amount: 0.2,
+  });
+  return (
+    <div ref={ref} className="h-24 relative mb-3">
+      {isInView ? (
+        <Canvas camera={{ position: [0, 0, 3] }} gl={{ antialias: false, powerPreference: "low-power" }} dpr={[1, 1.5]}>
+          <Suspense fallback={null}>{children}</Suspense>
+        </Canvas>
+      ) : null}
+    </div>
+  );
+}
 
 export default function TithelyNinetyDayPlanPage() {
   // Register page content for Machine View
@@ -202,9 +270,10 @@ export default function TithelyNinetyDayPlanPage() {
               <div className="relative rounded-2xl p-2">
                 <GlowingEffect spread={40} glow proximity={64} inactiveZone={0.01} borderWidth={3} />
                 <div className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-                  <div className="w-fit rounded-lg border-[0.75px] border-border bg-muted p-2 mb-3">
-                    <ShieldCheck className="h-4 w-4" />
-                  </div>
+                  <MiniVisibleCanvas>
+                    <RotatingTorus position={[0, 0, 0]} />
+                    <ambientLight intensity={0.5} />
+                  </MiniVisibleCanvas>
                   <h3 className="text-xl font-semibold">Reliability</h3>
                   <p className="mt-2 text-sm text-muted-foreground">Build systems that prevent surprises.</p>
                 </div>
@@ -213,9 +282,10 @@ export default function TithelyNinetyDayPlanPage() {
               <div className="relative rounded-2xl p-2">
                 <GlowingEffect spread={40} glow proximity={64} inactiveZone={0.01} borderWidth={3} />
                 <div className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-                  <div className="w-fit rounded-lg border-[0.75px] border-border bg-muted p-2 mb-3">
-                    <Rocket className="h-4 w-4" />
-                  </div>
+                  <MiniVisibleCanvas>
+                    <RotatingBox position={[0, 0, 0]} />
+                    <ambientLight intensity={0.5} />
+                  </MiniVisibleCanvas>
                   <h3 className="text-xl font-semibold">Velocity</h3>
                   <p className="mt-2 text-sm text-muted-foreground">Ship often, measure results, and iterate.</p>
                 </div>
@@ -224,9 +294,10 @@ export default function TithelyNinetyDayPlanPage() {
               <div className="relative rounded-2xl p-2">
                 <GlowingEffect spread={40} glow proximity={64} inactiveZone={0.01} borderWidth={3} />
                 <div className="relative rounded-2xl border border-gray-200 dark:border-gray-800 bg-white/70 dark:bg-black/60 backdrop-blur-sm p-6">
-                  <div className="w-fit rounded-lg border-[0.75px] border-border bg-muted p-2 mb-3">
-                    <Users className="h-4 w-4" />
-                  </div>
+                  <MiniVisibleCanvas>
+                    <RotatingSphere position={[0, 0, 0]} />
+                    <ambientLight intensity={0.5} />
+                  </MiniVisibleCanvas>
                   <h3 className="text-xl font-semibold">Culture</h3>
                   <p className="mt-2 text-sm text-muted-foreground">Create space for ownership, trust, and growth.</p>
                 </div>
