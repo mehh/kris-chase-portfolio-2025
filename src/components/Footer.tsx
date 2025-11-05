@@ -10,9 +10,14 @@ export default function Footer() {
 
   // Dynamic CTA per page
   const isTithelyPlan = pathname?.startsWith('/tithely-90-day-plan');
-  const ctaTitle = isTithelyPlan ? "Tithely, let's talk next steps" : "Let's Build Something";
-  const ctaHref = isTithelyPlan ? "/connect/60" : "/partners";
-  const ctaSub = isTithelyPlan
+  const isHandoffPlan = pathname?.startsWith('/handoff-90-day-plan');
+  const ctaTitle = isTithelyPlan
+    ? "Tithely, let's talk next steps"
+    : isHandoffPlan
+      ? "Handoff, let's talk next steps"
+      : "Let's Build Something";
+  const ctaHref = isTithelyPlan || isHandoffPlan ? "/connect/60" : "/partners";
+  const ctaSub = (isTithelyPlan || isHandoffPlan)
     ? "Schedule some time to chat below:"
     : "Ready to bring your vision to life?";
 
