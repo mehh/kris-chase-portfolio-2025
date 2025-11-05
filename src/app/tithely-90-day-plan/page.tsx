@@ -8,6 +8,7 @@ import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import { Canvas, useFrame, type RootState } from "@react-three/fiber";
 import type * as THREE from "three";
 import { useInView } from "framer-motion";
+import PlanViewBeacon from "@/components/PlanViewBeacon";
 
 // Mini 3D icons (borrowed from ThreeUp)
 function RotatingBox({ position }: { position: [number, number, number] }) {
@@ -122,6 +123,7 @@ export default function TithelyNinetyDayPlanPage() {
 
   return (
     <div className="min-h-[100dvh] bg-white dark:bg-black relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-16">
+      <PlanViewBeacon />
       {/* Hero */}
       <SectionTransition id="tithely-hero">
         <section className="pt-24 sm:pt-28 md:pt-32 pb-12 md:pb-16">

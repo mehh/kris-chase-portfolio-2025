@@ -5,6 +5,7 @@ const TELEGRAM_DEBUG = process.env.TELEGRAM_DEBUG === 'true';
 // Optional per-form overrides so you can route to different channels
 const CONTACT_TELEGRAM_CHAT_ID = process.env.CONTACT_TELEGRAM_CHAT_ID;
 const PARTNERS_TELEGRAM_CHAT_ID = process.env.PARTNERS_TELEGRAM_CHAT_ID;
+const PLAN_TELEGRAM_CHAT_ID = process.env.PLAN_TELEGRAM_CHAT_ID; // optional override for plan page views
 
 function ensureConfigured() {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
@@ -147,4 +148,36 @@ export async function sendPartnerTelegramAlert(payload: {
   ];
 
   return await sendTelegramMessage({ text: lines.join('\n'), chatId: PARTNERS_TELEGRAM_CHAT_ID });
+}
+
+export async function sendPlanViewTelegramAlert(payload: {
+  path: string;
+  title: string;
+  at: string; // ISO timestamp
+  ip?: string | null;
+  ua?: string | null;
+  ref?: string | null;
+  country?: string | null;
+  region?: string | null;
+  city?: string | null;
+  lat?: string | null;
+  lon?: string | null;
+  tz?: string | null;
+  utm?: Record<string, string> | null;
+}) {
+  const lines: string[] = [
+    '🛰️ 90-Day Plan Page View',
+    `Path: ${payload.path}`,
+    `Title: ${payload.title}`,
+    `Ref: ${payload.ref ?? ''}`,
+    `IP: ${payload.ip ?? ''}`,
+    `Geo: ${[payload.city, payload.region, payload.country].filter(Boolean).join(', ')}`,
+    `Coords: ${payload.lat ?? ''}, ${payload.lon ?? ''}`,
+    `TZ: ${payload.tz ?? ''}`,
+    `UA: ${payload.ua ?? ''}`,
+    payload.utm ? `UTM: ${Object.entries(payload.utm).map(([k,v]) => `${k}=${v}`).join(' ')}` : '',
+    `At: ${payload.at}`,
+  ].filter(Boolean);
+
+  return await sendTelegramMessage({ text: lines.join('\n'), chatId: PLAN_TELEGRAM_CHAT_ID });
 }

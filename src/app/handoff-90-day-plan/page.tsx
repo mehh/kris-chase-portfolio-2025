@@ -9,6 +9,7 @@ import { Canvas, useFrame, type RootState } from "@react-three/fiber";
 import type * as THREE from "three";
 import { useInView } from "framer-motion";
 import RotatingEarth from "@/components/ui/wireframe-dotted-globe";
+import PlanViewBeacon from "@/components/PlanViewBeacon";
 
 function RotatingBox({ position }: { position: [number, number, number] }) {
   const meshRef = useRef<THREE.Mesh>(null!);
@@ -117,6 +118,7 @@ export default function HandoffNinetyDayPlanPage() {
 
   return (
     <div className="min-h-[100dvh] bg-white dark:bg-black relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-16">
+      <PlanViewBeacon />
       <SectionTransition id="handoff-hero">
         <section className="pt-24 sm:pt-28 md:pt-32 pb-12 md:pb-16">
           <div className="container mx-auto px-6 sm:px-8">
