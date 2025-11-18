@@ -5,6 +5,7 @@ const TELEGRAM_DEBUG = process.env.TELEGRAM_DEBUG === 'true';
 // Optional per-form overrides so you can route to different channels
 const CONTACT_TELEGRAM_CHAT_ID = process.env.CONTACT_TELEGRAM_CHAT_ID;
 const PARTNERS_TELEGRAM_CHAT_ID = process.env.PARTNERS_TELEGRAM_CHAT_ID;
+const DRUPAL_CANDIDATE_TELEGRAM_CHAT_ID = process.env.DRUPAL_CANDIDATE_TELEGRAM_CHAT_ID;
 const PLAN_TELEGRAM_CHAT_ID = process.env.PLAN_TELEGRAM_CHAT_ID; // optional override for plan page views
 
 function ensureConfigured() {
@@ -180,4 +181,49 @@ export async function sendPlanViewTelegramAlert(payload: {
   ].filter(Boolean);
 
   return await sendTelegramMessage({ text: lines.join('\n'), chatId: PLAN_TELEGRAM_CHAT_ID });
+}
+
+export async function sendDrupalCandidateTelegramAlert(payload: {
+  name: string;
+  email: string;
+  location: string;
+  timezone: string;
+  linkedin_url: string;
+  portfolio_url: string | null;
+  years_experience: number;
+  drupal_versions: string;
+  drupal_work_types: string;
+  relevant_project_url: string;
+  biggest_challenge: string;
+  skills: string;
+  hourly_rate: number;
+  weekly_availability: number;
+  can_start_dec1: boolean;
+  resume_url: string;
+  user_agent: string | null;
+  created_at: string;
+}) {
+  const lines: string[] = [
+    '💼 New Drupal Candidate Submission',
+    `Name: ${payload.name}`,
+    `Email: ${payload.email}`,
+    `Location: ${payload.location}`,
+    `Timezone: ${payload.timezone}`,
+    `LinkedIn: ${payload.linkedin_url}`,
+    payload.portfolio_url ? `Portfolio: ${payload.portfolio_url}` : '',
+    `Years Experience: ${payload.years_experience}`,
+    `Drupal Versions: ${payload.drupal_versions}`,
+    `Work Types: ${payload.drupal_work_types}`,
+    `Skills: ${payload.skills}`,
+    `Hourly Rate: $${payload.hourly_rate}`,
+    `Weekly Availability: ${payload.weekly_availability} hours`,
+    `Can Start Dec 1: ${payload.can_start_dec1 ? 'Yes' : 'No'}`,
+    `Relevant Project: ${payload.relevant_project_url}`,
+    `Resume: ${payload.resume_url}`,
+    `Biggest Challenge: ${payload.biggest_challenge.slice(0, 200)}${payload.biggest_challenge.length > 200 ? '...' : ''}`,
+    `UA: ${payload.user_agent ?? ''}`,
+    `At: ${payload.created_at}`,
+  ].filter(Boolean);
+
+  return await sendTelegramMessage({ text: lines.join('\n'), chatId: DRUPAL_CANDIDATE_TELEGRAM_CHAT_ID });
 }

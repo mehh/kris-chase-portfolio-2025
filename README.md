@@ -144,6 +144,7 @@ TELEGRAM_CHAT_ID=
 # Optional per-form overrides (if set, these win over TELEGRAM_CHAT_ID)
 CONTACT_TELEGRAM_CHAT_ID=
 PARTNERS_TELEGRAM_CHAT_ID=
+DRUPAL_CANDIDATE_TELEGRAM_CHAT_ID=
 ```
 
 ## Telegram notifications
