@@ -136,7 +136,7 @@ export default function DrupalCandidatePage() {
         </h1>
         <p className="mt-4 max-w-3xl text-base sm:text-lg leading-relaxed text-muted-foreground">
           Interested in working on Drupal projects? Please fill out this form to help us understand
-          your experience and availability. We'll review your submission and reach out if there's a
+          your experience and availability. We&apos;ll review your submission and reach out if there&apos;s a
           good fit.
         </p>
       </section>
@@ -465,7 +465,7 @@ export default function DrupalCandidatePage() {
             {/* Submit */}
             <div className="flex items-center justify-between gap-4 pt-5 border-t border-border">
               <p className="text-sm text-muted-foreground">
-                We'll review your submission and reach out if there's a good fit.
+                We&apos;ll review your submission and reach out if there&apos;s a good fit.
               </p>
               <button
                 type="submit"
