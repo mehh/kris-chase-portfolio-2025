@@ -15,8 +15,8 @@ export default function MachineToggle() {
   if (isMachine) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 z-[999] md:bottom-[46px] md:left-1/2 md:right-auto md:-translate-x-1/2">
-      <div className="inline-flex items-center overflow-hidden rounded-full border border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm ring-1 ring-lime-300/30 hover:ring-lime-400/40 transition-transform duration-300 will-change-transform hover:scale-[1.03]">
+    <div className="fixed top-1/2 right-4 -translate-y-1/2 z-[999] md:top-auto md:right-auto md:bottom-[46px] md:left-1/2 md:-translate-x-1/2 md:translate-y-0">
+      <div className="flex flex-col md:flex-row items-center overflow-hidden rounded-full border border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm ring-1 ring-lime-300/30 hover:ring-lime-400/40 transition-transform duration-300 will-change-transform hover:scale-[1.03]">
         <button
           type="button"
           onClick={() => {
@@ -29,14 +29,14 @@ export default function MachineToggle() {
             setMode("human");
           }}
           aria-pressed={isHuman}
-          className={`px-3 py-1.5 text-xs font-medium transition inline-flex items-center gap-1.5 ${
+          className={`px-2.5 py-1.5 sm:px-3 text-xs font-medium transition inline-flex items-center gap-1 sm:gap-1.5 ${
             isHuman ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
-          <User className="h-4 w-4" />
-          Human
+          <User className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline">Human</span>
         </button>
-        <div className="h-5 w-px bg-border/70" />
+        <div className="h-px w-5 md:h-5 md:w-px bg-border/70" />
         <button
           type="button"
           onClick={() => {
@@ -49,12 +49,12 @@ export default function MachineToggle() {
             setMode("machine");
           }}
           aria-pressed={isMachine}
-          className={`px-3 py-1.5 text-xs font-medium transition inline-flex items-center gap-1.5 ${
+          className={`px-2.5 py-1.5 sm:px-3 text-xs font-medium transition inline-flex items-center gap-1 sm:gap-1.5 ${
             isMachine ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
-          <Bot className="h-4 w-4" />
-          Machine
+          <Bot className="h-4 w-4 flex-shrink-0" />
+          <span className="hidden sm:inline">Machine</span>
         </button>
       </div>
     </div>

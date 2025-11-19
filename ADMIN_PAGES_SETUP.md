@@ -4,12 +4,14 @@ This document outlines the password-protected admin pages for viewing form submi
 
 ## Overview
 
-Two admin pages have been created to view and manage form submissions:
+Admin pages have been created to view and manage form submissions:
 
-1. **Drupal Candidates** (`/admin/drupal-candidates`)
-2. **Partner Submissions** (`/admin/partners`)
+1. **Admin Dashboard** (`/admin`) - Main dashboard linking to all admin pages
+2. **Contact Submissions** (`/admin/contact`) - View contact form submissions
+3. **Partner Submissions** (`/admin/partners`) - View partner/freelancer registrations
+4. **Drupal Candidates** (`/admin/drupal-candidates`) - View Drupal candidate intake submissions
 
-Both pages are password-protected and provide:
+All pages are password-protected and provide:
 - Full table view of all submissions
 - Search/filter functionality
 - Sortable columns
@@ -43,7 +45,37 @@ ADMIN_PASSWORD=your-secure-password-here
 
 ## Admin Pages
 
-### Drupal Candidates (`/admin/drupal-candidates`)
+### Admin Dashboard (`/admin`)
+
+The main admin dashboard provides a central hub to access all admin pages. It features:
+- Password-protected login
+- Card-based navigation to all admin sections
+- Quick links to public forms
+- Clean, modern UI matching your site design
+
+### Contact Submissions (`/admin/contact`)
+
+**Features:**
+- View all contact form submissions
+- Search by: name, email, company, message, reason, persona
+- Sort by: name, email, reason, persona, created date
+- Expandable rows showing:
+  - Full contact information
+  - Message content
+  - Persona details
+  - Additional information (budget, start date, role type, etc.)
+  - User agent
+- Export to CSV
+
+**Columns:**
+- Name
+- Email
+- Reason
+- Persona
+- Submitted Date
+- Actions (View/Hide details)
+
+### Partner Submissions (`/admin/partners`)
 
 **Features:**
 - View all Drupal candidate submissions
@@ -111,6 +143,28 @@ Fetches all Drupal candidate submissions.
 }
 ```
 
+### GET `/api/admin/contact`
+
+Fetches all contact form submissions.
+
+**Query Parameters:**
+- `password` (required): Admin password
+
+**Response:**
+```json
+{
+  "ok": true,
+  "data": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      // ... all contact fields
+    }
+  ]
+}
+```
+
 ### GET `/api/admin/partners`
 
 Fetches all partner submissions.
@@ -147,9 +201,12 @@ Fetches all partner submissions.
    npm run dev
    ```
 
-3. **Visit the admin pages**:
-   - `http://localhost:3000/admin/drupal-candidates`
-   - `http://localhost:3000/admin/partners`
+3. **Visit the admin dashboard**:
+   - `http://localhost:3000/admin`
+   - Or directly access individual pages:
+     - `http://localhost:3000/admin/contact`
+     - `http://localhost:3000/admin/partners`
+     - `http://localhost:3000/admin/drupal-candidates`
 
 4. **Enter the password** when prompted
 
@@ -160,9 +217,12 @@ Fetches all partner submissions.
    - Add `ADMIN_PASSWORD` with your secure password
    - Deploy or redeploy
 
-2. **Visit the admin pages**:
-   - `https://yourdomain.com/admin/drupal-candidates`
-   - `https://yourdomain.com/admin/partners`
+2. **Visit the admin dashboard**:
+   - `https://yourdomain.com/admin`
+   - Or directly access individual pages:
+     - `https://yourdomain.com/admin/contact`
+     - `https://yourdomain.com/admin/partners`
+     - `https://yourdomain.com/admin/drupal-candidates`
 
 3. **Enter the password** when prompted
 
@@ -232,8 +292,11 @@ Fetches all partner submissions.
 ## Files Created
 
 - `src/lib/admin-auth.ts` - Password verification utility
+- `src/app/api/admin/contact/route.ts` - API route for contact submissions
 - `src/app/api/admin/drupal-candidates/route.ts` - API route for candidates
 - `src/app/api/admin/partners/route.ts` - API route for partners
+- `src/app/admin/page.tsx` - Main admin dashboard
+- `src/app/admin/contact/page.tsx` - Contact submissions admin page
 - `src/app/admin/drupal-candidates/page.tsx` - Drupal candidates admin page
 - `src/app/admin/partners/page.tsx` - Partners admin page
 
