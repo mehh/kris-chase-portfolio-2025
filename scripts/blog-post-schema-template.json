@@ -1,0 +1,206 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Blog Post Generation Schema",
+  "description": "Schema for generating blog posts programmatically. Use this template to create 20 new articles.",
+  "type": "object",
+  "required": [
+    "slug",
+    "title",
+    "description",
+    "content",
+    "category",
+    "publishedDate"
+  ],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "description": "URL-friendly slug (lowercase, hyphens, no spaces). Example: 'how-to-optimize-wordpress-performance'",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "minLength": 3,
+      "maxLength": 100
+    },
+    "url": {
+      "type": "string",
+      "description": "Full URL of the post (if published). If generating new posts, use format: 'https://krischase.com/blog/{slug}'",
+      "format": "uri"
+    },
+    "title": {
+      "type": "string",
+      "description": "Post title (without ' - Kris Chase' suffix). Example: 'How to Optimize WordPress Performance'",
+      "minLength": 10,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "string",
+      "description": "Post excerpt/description (used for meta description and previews). Should be 120-160 characters for SEO.",
+      "minLength": 50,
+      "maxLength": 300
+    },
+    "content": {
+      "type": "string",
+      "description": "Full markdown content of the post. Can include code blocks, images, lists, etc. Should be substantial (minimum 200 words)."
+    },
+    "category": {
+      "type": "string",
+      "description": "Category name. Common categories: 'Development', 'WordPress', 'PHP', 'Linux', 'Magento', 'Security', 'Uncategorized'",
+      "enum": [
+        "Development",
+        "WordPress",
+        "PHP",
+        "Linux",
+        "Magento",
+        "Security",
+        "Uncategorized",
+        "Bootstrap",
+        "Gravity Forms"
+      ]
+    },
+    "tags": {
+      "type": "array",
+      "description": "Array of relevant tags. Should include 2-8 tags related to the content. Common tags: WordPress, PHP, Security, Bash, SQL, API, etc.",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "maxItems": 8,
+      "uniqueItems": true
+    },
+    "publishedDate": {
+      "type": "string",
+      "description": "Publication date in ISO format (YYYY-MM-DD). Example: '2024-12-09'",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "originalDate": {
+      "type": "string",
+      "description": "Original date string (if different format). Example: '2024.12.09' or 'December 9, 2024'"
+    },
+    "featuredImage": {
+      "type": "string",
+      "description": "Featured image URL (optional). Should be a full URL to an image. Example: 'https://krischase.com/images/featured-image.jpg'",
+      "format": "uri"
+    },
+    "firstImage": {
+      "type": "string",
+      "description": "First image from content (fallback if no featured image). Should be extracted from content or provided separately.",
+      "format": "uri"
+    },
+    "seo": {
+      "type": "object",
+      "description": "SEO metadata object",
+      "properties": {
+        "metaTitle": {
+          "type": "string",
+          "description": "Meta title (usually same as title + ' - Kris Chase'). Should be 50-60 characters.",
+          "maxLength": 70
+        },
+        "metaDescription": {
+          "type": "string",
+          "description": "Meta description (usually same as description). Should be 120-160 characters.",
+          "maxLength": 160
+        },
+        "ogTitle": {
+          "type": "string",
+          "description": "Open Graph title (for social sharing). Usually same as metaTitle.",
+          "maxLength": 70
+        },
+        "ogDescription": {
+          "type": "string",
+          "description": "Open Graph description (for social sharing). Usually same as metaDescription.",
+          "maxLength": 200
+        },
+        "ogImage": {
+          "type": "string",
+          "description": "Open Graph image URL (for social sharing). Should be 1200x630px recommended.",
+          "format": "uri"
+        },
+        "twitterCard": {
+          "type": "string",
+          "description": "Twitter card type. Usually 'summary' or 'summary_large_image'.",
+          "enum": ["summary", "summary_large_image"]
+        }
+      }
+    },
+    "readingTime": {
+      "type": "number",
+      "description": "Estimated reading time in minutes. Calculated as: wordCount / 225 (average reading speed). Auto-calculated if not provided.",
+      "minimum": 1
+    },
+    "wordCount": {
+      "type": "number",
+      "description": "Word count of the content. Auto-calculated from markdown if not provided.",
+      "minimum": 100
+    },
+    "author": {
+      "type": "object",
+      "description": "Author information",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Author name. Default: 'Kris Chase'",
+          "default": "Kris Chase"
+        },
+        "twitter": {
+          "type": "string",
+          "description": "Twitter handle. Default: '@chasebadkids'",
+          "default": "@chasebadkids"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address. Default: 'hey@mehh.org'",
+          "format": "email",
+          "default": "hey@mehh.org"
+        }
+      },
+      "required": ["name"]
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional metadata",
+      "properties": {
+        "updatedDate": {
+          "type": "string",
+          "description": "Last updated date in ISO format (YYYY-MM-DD) if post was updated after publication.",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        },
+        "isUpdated": {
+          "type": "boolean",
+          "description": "Whether the post has been updated after initial publication.",
+          "default": false
+        }
+      }
+    }
+  },
+  "examples": [
+    {
+      "slug": "advanced-wordpress-optimization-techniques",
+      "url": "https://krischase.com/blog/advanced-wordpress-optimization-techniques",
+      "title": "Advanced WordPress Optimization Techniques",
+      "description": "Learn how to optimize WordPress performance with advanced caching, database optimization, and CDN integration techniques.",
+      "content": "# Advanced WordPress Optimization Techniques\n\nWordPress performance optimization is crucial for user experience and SEO...\n\n## Caching Strategies\n\nImplementing proper caching can dramatically improve site speed...\n\n```php\n// Example caching code\nwp_cache_set('key', 'value', 'group', 3600);\n```\n\n## Database Optimization\n\nRegular database maintenance keeps your site running smoothly...",
+      "category": "WordPress",
+      "tags": ["WordPress", "Performance", "Optimization", "Caching"],
+      "publishedDate": "2024-12-09",
+      "originalDate": "2024.12.09",
+      "featuredImage": "https://krischase.com/images/wordpress-optimization.jpg",
+      "seo": {
+        "metaTitle": "Advanced WordPress Optimization Techniques - Kris Chase",
+        "metaDescription": "Learn how to optimize WordPress performance with advanced caching, database optimization, and CDN integration techniques.",
+        "ogTitle": "Advanced WordPress Optimization Techniques - Kris Chase",
+        "ogDescription": "Learn how to optimize WordPress performance with advanced caching, database optimization, and CDN integration techniques.",
+        "ogImage": "https://krischase.com/images/wordpress-optimization.jpg",
+        "twitterCard": "summary_large_image"
+      },
+      "readingTime": 5,
+      "wordCount": 1125,
+      "author": {
+        "name": "Kris Chase",
+        "twitter": "@chasebadkids",
+        "email": "hey@mehh.org"
+      },
+      "metadata": {
+        "isUpdated": false
+      }
+    }
+  ]
+}
+

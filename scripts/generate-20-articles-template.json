@@ -1,0 +1,55 @@
+[
+  {
+    "slug": "example-article-1",
+    "title": "Example Article Title 1",
+    "description": "This is a sample description for the first article. It should be between 120-160 characters for optimal SEO performance and preview display.",
+    "content": "# Example Article Title 1\n\nThis is the full markdown content of the article. You can include:\n\n- Lists\n- **Bold text**\n- *Italic text*\n- Code blocks\n\n```javascript\nconsole.log('Hello, World!');\n```\n\nAnd more markdown formatting as needed.",
+    "category": "Development",
+    "tags": ["JavaScript", "Web Development", "Tutorial"],
+    "publishedDate": "2024-12-09",
+    "originalDate": "2024.12.09",
+    "featuredImage": "https://krischase.com/images/example-1.jpg",
+    "seo": {
+      "metaTitle": "Example Article Title 1 - Kris Chase",
+      "metaDescription": "This is a sample description for the first article. It should be between 120-160 characters for optimal SEO performance and preview display.",
+      "ogTitle": "Example Article Title 1 - Kris Chase",
+      "ogDescription": "This is a sample description for the first article. It should be between 120-160 characters for optimal SEO performance and preview display.",
+      "ogImage": "https://krischase.com/images/example-1.jpg",
+      "twitterCard": "summary_large_image"
+    },
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
+    },
+    "metadata": {
+      "isUpdated": false
+    }
+  },
+  {
+    "slug": "example-article-2",
+    "title": "Example Article Title 2",
+    "description": "This is a sample description for the second article. Replace this with your actual article description.",
+    "content": "# Example Article Title 2\n\nYour article content goes here in markdown format.",
+    "category": "WordPress",
+    "tags": ["WordPress", "PHP", "Tutorial"],
+    "publishedDate": "2024-12-08",
+    "originalDate": "2024.12.08",
+    "seo": {
+      "metaTitle": "Example Article Title 2 - Kris Chase",
+      "metaDescription": "This is a sample description for the second article. Replace this with your actual article description.",
+      "ogTitle": "Example Article Title 2 - Kris Chase",
+      "ogDescription": "This is a sample description for the second article. Replace this with your actual article description.",
+      "twitterCard": "summary"
+    },
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
+    },
+    "metadata": {
+      "isUpdated": false
+    }
+  }
+]
+

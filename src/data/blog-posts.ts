@@ -1,0 +1,2750 @@
+/**
+ * Blog posts scraped from wp.krischase.com/journal/
+ * This file contains all blog posts with full metadata
+ * Last updated: 2025-12-09
+ */
+
+export interface BlogPost {
+  /** Unique slug/identifier for the post */
+  slug: string;
+  /** Full URL of the original post */
+  url: string;
+  /** Post title */
+  title: string;
+  /** Post excerpt/description */
+  description: string;
+  /** Full markdown content of the post */
+  content: string;
+  /** Category name */
+  category: string;
+  /** Array of tags */
+  tags: string[];
+  /** Publication date in ISO format (YYYY-MM-DD) */
+  publishedDate: string;
+  /** Original date string from WordPress */
+  originalDate: string;
+  /** Featured image URL */
+  featuredImage?: string;
+  /** First image from content (fallback) */
+  firstImage?: string;
+  /** SEO metadata */
+  seo: {
+    metaTitle?: string;
+    metaDescription?: string;
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: string;
+    twitterCard?: string;
+  };
+  /** Estimated reading time in minutes */
+  readingTime: number;
+  /** Word count */
+  wordCount: number;
+  /** Author information */
+  author: {
+    name: string;
+    twitter?: string;
+    email?: string;
+  };
+  /** Additional metadata */
+  metadata: {
+    /** Last updated date if different from published */
+    updatedDate?: string;
+    /** Whether this is an updated version of an older post */
+    isUpdated?: boolean;
+  };
+}
+
+/**
+ * All blog posts, sorted by publication date (newest first)
+ */
+export const blogPosts: BlogPost[] = [
+  {
+    slug: 'engineering-leadership-in-the-age-of-ai',
+    url: 'https://krischase.com/blog/engineering-leadership-in-the-age-of-ai',
+    title: 'Engineering Leadership in the Age of AI',
+    description: 'How AI is reshaping modern engineering leadership, decision-making, velocity, and the way teams ship software at scale.',
+    content: `# Engineering Leadership in the Age of AI
+
+AI is no longer a novelty—it's a multiplier for engineering teams. Modern leaders must rethink how teams ideate, architect, code, test, and ship.
+
+## What's Changing
+- AI pair programmers accelerate iteration cycles
+- Architecture decisions become more data-informed
+- Leaders shift from gatekeepers to orchestrators
+
+## How Leadership Evolves
+AI raises the bar for **clarity**, **intentionality**, and **technical judgment**. Teams move faster, which means leaders must:
+
+- Remove friction proactively
+- Establish guardrails for AI-assisted code
+- Focus on outcomes, not artifacts
+
+## Example Workflow
+\`\`\`javascript
+const prompt = "Generate a reusable API handler for a Node.js service";
+ai.generate(prompt);
+\`\`\`
+
+## Final Thought
+The leaders who win aren't the ones who resist AI—they're the ones who shape how it's used.`,
+    category: 'Leadership',
+    tags: ['AI', 'Engineering Leadership', 'Velocity'],
+    publishedDate: '2025-11-15',
+    originalDate: '2025.11.15',
+    featuredImage: 'https://krischase.com/images/ai-leadership.jpg',
+    seo: {
+      metaTitle: 'Engineering Leadership in the Age of AI - Kris Chase',
+      metaDescription: 'How AI is reshaping modern engineering leadership, decision-making, velocity, and the way teams ship software at scale.',
+      ogTitle: 'Engineering Leadership in the Age of AI - Kris Chase',
+      ogDescription: 'How AI is reshaping modern engineering leadership, decision-making, velocity, and the way teams ship software at scale.',
+      ogImage: 'https://krischase.com/images/ai-leadership.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 3,
+    wordCount: 675,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'vibe-coded-software-what-it-means',
+    url: 'https://krischase.com/blog/vibe-coded-software-what-it-means',
+    title: 'Vibe Coded Software: What It Really Means',
+    description: "A breakdown of what 'vibe-coded' software is and why emotion, taste, and aesthetic intuition are becoming core engineering competencies.",
+    content: `# Vibe Coded Software: What It Really Means
+
+Software used to be functional. Now it's emotional. "Vibe coded" software is the new frontier—products that *feel* premium the moment you touch them.
+
+## What Defines Vibe Coding?
+- Micro-interactions that delight
+- Typography that feels intentional
+- Motion that matches brand energy
+- Intuitive flow that requires no explanation
+
+## Why It Matters
+Users equate visual quality with product quality. Design is no longer a layer—it's part of the architecture.
+
+## Example
+\`\`\`jsx
+<motion.div animate={{ opacity: 1, y: 0 }} />
+\`\`\`
+
+## Final Thought
+Taste is now a technical skill—and leaders must cultivate it.`,
+    category: 'Product',
+    tags: ['Design', 'UX', 'Engineering'],
+    publishedDate: '2025-10-28',
+    originalDate: '2025.10.28',
+    featuredImage: 'https://krischase.com/images/vibe-code.jpg',
+    seo: {
+      metaTitle: 'Vibe Coded Software - Kris Chase',
+      metaDescription: 'What vibe-coded software is and why emotion, taste, and aesthetic intuition are becoming core engineering competencies.',
+      ogTitle: 'Vibe Coded Software - Kris Chase',
+      ogDescription: 'What vibe-coded software is and why emotion, taste, and aesthetic intuition are becoming core engineering competencies.',
+      ogImage: 'https://krischase.com/images/vibe-code.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'fractional-cto-vs-consultant',
+    url: 'https://krischase.com/blog/fractional-cto-vs-consultant',
+    title: "Fractional CTO vs. Consultant: What's the Difference?",
+    description: 'A clear explanation of how fractional CTOs differ from consultants and when companies should choose one over the other.',
+    content: `# Fractional CTO vs. Consultant: What's the Difference?
+
+The terms get blended constantly, but they are not the same role.
+
+## Consultants Solve Problems
+They show up, advise, document, and deliver a bounded outcome.
+
+## Fractional CTOs Own Outcomes
+A fractional CTO:
+- Sets engineering direction
+- Manages teams
+- Owns long-term architecture
+- Represents engineering at the leadership table
+
+## Quick Comparison Table
+| Role | Scope | Ownership |
+|------|--------|------------|
+| Consultant | Tactical | Low |
+| Fractional CTO | Strategic + Operational | High |
+
+## Final Thought
+Hire a consultant when you need clarity. Hire a fractional CTO when you need transformation.`,
+    category: 'Leadership',
+    tags: ['Fractional CTO', 'Consulting', 'Startups'],
+    publishedDate: '2025-09-20',
+    originalDate: '2025.09.20',
+    featuredImage: 'https://krischase.com/images/fractional-vs-consultant.jpg',
+    seo: {
+      metaTitle: 'Fractional CTO vs. Consultant - Kris Chase',
+      metaDescription: 'A clear explanation of how fractional CTOs differ from consultants and when companies should choose one over the other.',
+      ogTitle: 'Fractional CTO vs. Consultant - Kris Chase',
+      ogDescription: 'A clear explanation of how fractional CTOs differ from consultants and when companies should choose one over the other.',
+      ogImage: 'https://krischase.com/images/fractional-vs-consultant.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'building-high-output-engineering-teams',
+    url: 'https://krischase.com/blog/building-high-output-engineering-teams',
+    title: 'Building High-Output Engineering Teams',
+    description: 'A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.',
+    content: `# Building High-Output Engineering Teams
+
+The highest-performing teams aren't the biggest—they're the *clearest*.
+
+## 3 Ingredients of High Output
+1. **Crystal-clear ownership**
+2. **Predictable delivery cycles**
+3. **High-trust communication loops**
+
+## Rituals That Matter
+- Daily standups with intent
+- Weekly planning that reduces ambiguity
+- Monthly retros that actually change behavior
+
+## Final Thought
+High-output teams don't happen by accident—they're engineered.`,
+    category: 'Leadership',
+    tags: ['Engineering Teams', 'Velocity', 'Leadership'],
+    publishedDate: '2025-08-12',
+    originalDate: '2025.08.12',
+    featuredImage: 'https://krischase.com/images/high-output.jpg',
+    seo: {
+      metaTitle: 'Building High-Output Engineering Teams - Kris Chase',
+      metaDescription: 'A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.',
+      ogTitle: 'Building High-Output Engineering Teams - Kris Chase',
+      ogDescription: 'A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.',
+      ogImage: 'https://krischase.com/images/high-output.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'ai-assisted-software-development-workflows',
+    url: 'https://krischase.com/blog/ai-assisted-software-development-workflows',
+    title: 'AI-Assisted Software Development Workflows',
+    description: 'A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.',
+    content: `# AI-Assisted Software Development Workflows
+
+AI is changing not just *how* we code, but *when* and *why*.
+
+## What AI Changes
+- Faster prototyping
+- Automated tests
+- Smarter refactoring
+
+## Example Workflow
+\`\`\`javascript
+const tests = ai.generateUnitTests(component);
+\`\`\`
+
+## Final Thought
+AI won't replace engineers. Engineers using AI will replace engineers not using AI.`,
+    category: 'AI',
+    tags: ['AI', 'Engineering', 'Workflows'],
+    publishedDate: '2025-07-05',
+    originalDate: '2025.07.05',
+    featuredImage: 'https://krischase.com/images/ai-workflows.jpg',
+    seo: {
+      metaTitle: 'AI-Assisted Software Development Workflows - Kris Chase',
+      metaDescription: 'A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.',
+      ogTitle: 'AI-Assisted Software Development Workflows - Kris Chase',
+      ogDescription: 'A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.',
+      ogImage: 'https://krischase.com/images/ai-workflows.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'scaling-an-engineering-org-fast',
+    url: 'https://krischase.com/blog/scaling-an-engineering-org-fast',
+    title: 'Scaling an Engineering Org Fast—Without Breaking It',
+    description: 'A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.',
+    content: `# Scaling an Engineering Org Fast—Without Breaking It
+
+Hypergrowth can destroy an engineering org if you're not careful.
+
+## What Breaks First
+- Communication
+- Ownership lines
+- Review quality
+
+## How to Prevent Collapse
+- Add leaders before you need them
+- Codify decisions early
+- Favor iteration over reinvention
+
+## Final Thought
+Speed without structure becomes chaos. Structure without speed becomes bureaucracy.`,
+    category: 'Leadership',
+    tags: ['Scaling Teams', 'Leadership', 'Org Design'],
+    publishedDate: '2025-06-18',
+    originalDate: '2025.06.18',
+    featuredImage: 'https://krischase.com/images/scaling-org.jpg',
+    seo: {
+      metaTitle: 'Scaling an Engineering Org Fast - Kris Chase',
+      metaDescription: 'A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.',
+      ogTitle: 'Scaling an Engineering Org Fast - Kris Chase',
+      ogDescription: 'A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.',
+      ogImage: 'https://krischase.com/images/scaling-org.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'the-art-of-technical-decision-making',
+    url: 'https://krischase.com/blog/the-art-of-technical-decision-making',
+    title: 'The Art of Technical Decision-Making',
+    description: 'A guide to making high-quality technical decisions quickly and confidently as an engineering leader.',
+    content: `# The Art of Technical Decision-Making
+
+Great leaders aren't right all the time—they're decisive.
+
+## Three Inputs That Matter
+1. Constraints
+2. Tradeoffs
+3. Time
+
+## Decision Formula
+\`\`\`text
+If a decision is reversible → move fast.
+If it's irreversible → slow down.
+\`\`\`
+
+## Final Thought
+Good decisions come from clarity, not certainty.`,
+    category: 'Leadership',
+    tags: ['Architecture', 'Leadership', 'Decision Making'],
+    publishedDate: '2025-05-10',
+    originalDate: '2025.05.10',
+    featuredImage: 'https://krischase.com/images/decision-making.jpg',
+    seo: {
+      metaTitle: 'The Art of Technical Decision-Making - Kris Chase',
+      metaDescription: 'A guide to making high-quality technical decisions quickly and confidently as an engineering leader.',
+      ogTitle: 'The Art of Technical Decision-Making - Kris Chase',
+      ogDescription: 'A guide to making high-quality technical decisions quickly and confidently as an engineering leader.',
+      ogImage: 'https://krischase.com/images/decision-making.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'why-most-tech-debt-isnt-real-tech-debt',
+    url: 'https://krischase.com/blog/why-most-tech-debt-isnt-real-tech-debt',
+    title: "Why Most Tech Debt Isn't Real Tech Debt",
+    description: 'A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.',
+    content: `# Why Most Tech Debt Isn't Real Tech Debt
+
+Tech debt isn't "code we don't like." It's a **strategic tradeoff**.
+
+## True Tech Debt
+- Documented decisions
+- Known tradeoffs
+- Intentional shortcuts
+
+## Fake Tech Debt
+- "I don't understand this code"
+- "This isn't written the way I'd write it"
+
+## Final Thought
+Debt is powerful when used intentionally. Dangerous when disguised as preference.`,
+    category: 'Engineering',
+    tags: ['Tech Debt', 'Engineering Process', 'Leadership'],
+    publishedDate: '2025-04-22',
+    originalDate: '2025.04.22',
+    featuredImage: 'https://krischase.com/images/tech-debt.jpg',
+    seo: {
+      metaTitle: "Why Most Tech Debt Isn't Real Tech Debt - Kris Chase",
+      metaDescription: 'A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.',
+      ogTitle: "Why Most Tech Debt Isn't Real Tech Debt - Kris Chase",
+      ogDescription: 'A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.',
+      ogImage: 'https://krischase.com/images/tech-debt.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'the-case-for-small-engineering-teams',
+    url: 'https://krischase.com/blog/the-case-for-small-engineering-teams',
+    title: 'The Case for Small Engineering Teams',
+    description: 'Why small engineering teams consistently outperform larger ones and how to structure them for success.',
+    content: `# The Case for Small Engineering Teams
+
+Small teams ship faster. Always.
+
+## Why Small Wins
+- Less coordination overhead
+- Faster decision loops
+- Clearer ownership
+
+## Team Shape
+3–7 engineers per pod is the sweet spot.
+
+## Final Thought
+Big teams build big meetings. Small teams build big products.`,
+    category: 'Org Design',
+    tags: ['Team Structure', 'Leadership', 'Velocity'],
+    publishedDate: '2025-03-15',
+    originalDate: '2025.03.15',
+    featuredImage: 'https://krischase.com/images/small-teams.jpg',
+    seo: {
+      metaTitle: 'The Case for Small Engineering Teams - Kris Chase',
+      metaDescription: 'Why small engineering teams consistently outperform larger ones and how to structure them for success.',
+      ogTitle: 'The Case for Small Engineering Teams - Kris Chase',
+      ogDescription: 'Why small engineering teams consistently outperform larger ones and how to structure them for success.',
+      ogImage: 'https://krischase.com/images/small-teams.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 1,
+    wordCount: 225,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'what-good-engineering-culture-actually-means',
+    url: 'https://krischase.com/blog/what-good-engineering-culture-actually-means',
+    title: 'What Good Engineering Culture Actually Means',
+    description: 'A practical definition of engineering culture and the behaviors that separate healthy teams from dysfunctional ones.',
+    content: `# What Good Engineering Culture Actually Means
+
+Culture isn't perks. It's behavior.
+
+## Signs of Healthy Culture
+- Engineers take ownership
+- Product trusts engineering
+- Leadership communicates context, not tasks
+
+## Signs of Weak Culture
+- Micro-management
+- Blame loops
+- Meetings with no outcomes
+
+## Final Thought
+Culture isn't built—it's enforced.`,
+    category: 'Culture',
+    tags: ['Engineering Culture', 'Leadership'],
+    publishedDate: '2025-02-08',
+    originalDate: '2025.02.08',
+    featuredImage: 'https://krischase.com/images/engineering-culture.jpg',
+    seo: {
+      metaTitle: 'What Good Engineering Culture Actually Means - Kris Chase',
+      metaDescription: 'A practical definition of engineering culture and the behaviors that separate healthy teams from dysfunctional ones.',
+      ogTitle: 'What Good Engineering Culture Actually Means - Kris Chase',
+      ogDescription: 'A practical definition of engineering culture and the behaviors that separate healthy teams from dysfunctional ones.',
+      ogImage: 'https://krischase.com/images/engineering-culture.jpg',
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'updated-how-to-find-and-clean-up-infected-wordpress-files-over-ssh',
+    url: 'https://wp.krischase.com/updated-how-to-find-and-clean-up-infected-wordpress-files-over-ssh/',
+    title: 'Updated: How to find and clean up infected WordPress Files over SSH',
+    description: "Several years ago, I wrote what was and still is one of my most popular blogs to date. It\'s an article where I provided some tips and tricks on finding infected WordPress files on your server.",
+    content: `![](https://wp.krischase.com/media/Recover-Hacked-WordPress-website-ojkfzdr4rz0xip8xgokego8hjvqe9k19hpibt0fwy0-1024x449.jpg)
+
+Several years ago, I wrote what was and still is one of my most popular blogs to date. It's an article where I provided some tips and tricks on finding infected WordPress files on your server.
+
+These days I'm doing a lot less (practically none) WordPress development as I've moved over to static sites utilizing [GatsbyJS](https://www.gatsbyjs.org/).
+
+Anyways, I recently was cleaning up an old server of mine and found quite a few hacked files.
+
+Most of these files could be broken down into two different categories.. Files with random names like a6bu23.php and so on, while other files were a bit harder to find.. Like about.php gallery.php etc.
+
+In order to track down as many of the files in as few commands as possible, I ended up with the following patterns:
+
+\`\`\`
+find . -name "*.php"  -print0 | xargs -0 egrep -Ri '($_COOKIE, $_POST) as' *| awk -F' = ' '{print $1}' >> infectedfiles.txt
+\`\`\`
+
+\`\`\`
+find . -name "*.php"  -print0 | xargs -0 egrep -Ri '@include "\\\\' *|awk -F'e "' '{ print $1 }'|awk -F':@' '{ print $1 }' >> infectedfiles.txt
+\`\`\`
+
+With these two commands, I was quickly able to generate a list that I could sort, organize and filter which allowed me to decide on which files could easily be removed at a glance, and which files required further investigation/pruning.
+
+Another handy tip I like to do is cd into each WordPress install on the command line and update everything (prevents me from having to manually login to WordPress in the browser for dozens of sites and update them manually)
+
+## To Update the core
+
+\`\`\`
+wp core update --force
+\`\`\`
+
+## To Update the plugins
+
+\`\`\`
+wp plugin update --all
+\`\`\`
+
+This is usually a really good idea as it will ensure there's no traces of hacked files.. Even if you're running the most up to date version of WordPress, running the core update command above will ensure that all files are replaced with good, clean WordPress files.`,
+    category: 'Linux',
+    tags: ['Linux', 'WordPress', 'PHP', 'SSH', 'Security'],
+    publishedDate: '2020-05-02',
+    originalDate: '2020.05.02',
+    featuredImage: 'https://wp.krischase.com/media/Recover-Hacked-WordPress-website-ojkfzdr4rz0xip8xgokego8hjvqe9k19hpibt0fwy0.jpg',
+    firstImage: 'https://wp.krischase.com/media/Recover-Hacked-WordPress-website-ojkfzdr4rz0xip8xgokego8hjvqe9k19hpibt0fwy0-1024x449.jpg',
+    seo: {
+      metaTitle: 'Updated: How to find and clean up infected WordPress Files over SSH - Kris Chase',
+      metaDescription: 'Several years ago, I wrote what was and still is one of my most popular blogs to date. It\'s an article where I provided some tips and tricks on finding infected WordPress files on your server.',
+      ogTitle: 'Updated: How to find and clean up infected WordPress Files over SSH - Kris Chase',
+      ogDescription: 'Several years ago, I wrote what was and still is one of my most popular blogs to date. It\'s an article where I provided some tips and tricks on finding infected WordPress files on your server. These days I\'m doing … Continued',
+      ogImage: 'https://wp.krischase.com/media/Recover-Hacked-WordPress-website-ojkfzdr4rz0xip8xgokego8hjvqe9k19hpibt0fwy0.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 450,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2020-05-02',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'find-user-used-coupon-code-magento',
+    url: 'https://wp.krischase.com/find-user-used-coupon-code-magento/',
+    title: 'How to find out what user used what coupon code in Magento',
+    description: 'Easily export a list of all orders and their associated coupon usage for Magento orders using SQL',
+    content: `![](https://wp.krischase.com/media/Marketplace-Seller-Coupons-Blog-Banner.png)
+
+## The Problem with Magento and Coupon Codes
+
+Magento comes pre-built with a ton of great reporting options for things like sales, shopping cart, products, customer reviews and more. Unfortunately within Magento there is no easy way to get an exported list of all orders with the associated coupon code that was used. Thankfully a little magic, mixed with some SQL can solve that for us!
+
+[View the SQL query on GitHub Gist](https://gist.github.com/mehh/d2a9420ce41a41a7e6ef448d84c031d8)`,
+    category: 'Development',
+    tags: ['Development', 'Magento', 'MySQL', 'SQL'],
+    publishedDate: '2016-06-02',
+    originalDate: '2016.06.02',
+    featuredImage: 'https://wp.krischase.com/media/Marketplace-Seller-Coupons-Blog-Banner.png',
+    firstImage: 'https://wp.krischase.com/media/Marketplace-Seller-Coupons-Blog-Banner.png',
+    seo: {
+      metaTitle: 'How to find out what user used what coupon code in Magento - Kris Chase',
+      metaDescription: 'Easily export a list of all orders and their associated coupon usage for Magento orders using SQL',
+      ogTitle: 'How to find out what user used what coupon code in Magento - Kris Chase',
+      ogDescription: 'Easily export a list of all orders and their associated coupon usage for Magento orders using SQL',
+      ogImage: 'https://wp.krischase.com/media/Marketplace-Seller-Coupons-Blog-Banner.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2020-04-22',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'use-wpcli-and-cron-to-unpublish-wordpress-page',
+    url: 'https://wp.krischase.com/use-wpcli-and-cron-to-unpublish-wordpress-page/',
+    title: 'Use wpcli and Cron to Unpublish WordPress page',
+    description: 'Use the wpcli and system cron to automatically unpublish a blog article or page at a specific time.',
+    content: `![](https://wp.krischase.com/media/wp-cli-1024x532.jpg)
+
+## The Situation
+
+Have you ever found yourself in a situation where you need to automatically unpublish a specific blog post or page in WordPress? Maybe you need to take down a contest late at night, remove a blog article or some other reason. Recently I found myself in this position and decided to put together a little one liner using the wpcli to make it happen. Automate All The Things!
+
+## The Code
+
+\`\`\`
+59 23 * * * /usr/local/bin/wp post update 1310 --post_status=draft --path="/home/username/public_html/"
+\`\`\`
+
+[View the full script on GitHub Gist](https://gist.github.com/mehh/81724de9232852481e15353d885aaba2)
+
+## How it works
+
+### Cron Jobs
+
+If you're not familiar with cron scheduling syntax, check out [this tool](http://crontab-generator.org/)
+
+### The wpcli
+
+In order to use the code above, you will also need to have the wp-cli binary installed locally on your system. It doesn't necessarily need to be installed globally, but it will need to be accessible by whichever user you are planning on executing the script as. You can read more about the wp-cli at their site [https://wp-cli.org/](https://wp-cli.org/)
+
+Essentially, all you will need to do is make sure the path to your wp binary is fully qualified as the $PATH that cron uses can vary. You will also need to change the ID of the post or page you're looking to edit as well as the path to your actual WordPress installation.
+
+## The Power of the wpcli
+
+You can probably come up with a lot of other valuable ways to use this power. The wpcli gives you lots of power over WordPress. You could do things like automatically purge the WordPress cache, update WordPress core, update WordPress plugins, update WordPress themes, you can even use it to run the actual wpcron() itself! The wpcli even gives you the ability to import data and export data automatically. You could use some sort of WebService or API to dynamically populate pages or posts.
+
+In the future I will publish more articles that relate to the power of the wpcli and how it can be used to make your day to day management of WordPress more efficient.`,
+    category: 'Development',
+    tags: ['Development', 'WordPress', 'Linux', 'Bash'],
+    publishedDate: '2016-05-14',
+    originalDate: '2016.05.14',
+    featuredImage: 'https://wp.krischase.com/media/wp-cli.jpg',
+    firstImage: 'https://wp.krischase.com/media/wp-cli-1024x532.jpg',
+    seo: {
+      metaTitle: 'Use wpcli and Cron to Unpublish WordPress page - Kris Chase',
+      metaDescription: 'Use the wpcli and system cron to automatically unpublish a blog article or page at a specific time.',
+      ogTitle: 'Use wpcli and Cron to Unpublish WordPress page - Kris Chase',
+      ogDescription: 'Use the wpcli and system cron to automatically unpublish a blog article or page at a specific time.',
+      ogImage: 'https://wp.krischase.com/media/wp-cli.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 350,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2020-04-22',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'easily-monitor-uptime-on-whm-cpanel-server-with-uptimerobot',
+    url: 'https://wp.krischase.com/easily-monitor-uptime-on-whm-cpanel-server-with-uptimerobot/',
+    title: 'Easily monitor uptime on WHM & cPanel Server with UptimeRobot',
+    description: "It's all about UptimeRobot When managing multiple WHM servers with hundreds of cPanel accounts, sometimes you need a quick and easy way to monitor your sites uptime.",
+    content: `![](https://wp.krischase.com/media/uptimeRobot-and-whm-2-1024x465.jpg)
+
+## It's all about UptimeRobot
+
+When managing multiple WHM servers with hundreds of cPanel accounts, sometimes you need a quick and easy way to monitor your sites uptime. many of you may be aware of the service [Uptime Robot](https://uptimerobot.com/). If not, then you should definitely check it out. Uptime Robot is a service which allows you to freely monitor the uptime and receive alerts for up to 50 domains. You can receive slack messages, emails, pushbullet notifications and more.
+
+## API to the Rescue
+
+Adding entries into WHM isn't all that difficult, however when managing sites using WHM and cPanel across multiple servers, adding and removing your entries can be time consuming. Thankfully that's where the API comes into play.
+
+Bil Bas created an [UptimeRobot client](https://github.com/uptimerobot/uptimerobot-cli/) in python that allows us to easily interface with the UptimeRobot API.
+
+## Setting up the UptimeRobot Client
+
+### Install the required python packages
+
+Debian, Ubuntu and other Debian-based distributions
+
+\`\`\`
+apt-get install python-pip python-yaml python-argparse
+\`\`\`
+
+Or
+
+\`\`\`
+yum install python-pip python-yaml python-argparse
+\`\`\`
+
+### Download and unpack the source code.
+
+\`\`\`
+wget https://github.com/uptimerobot/cli/archive/master.zip
+unzip master.zip
+\`\`\`
+
+### Create a package from source and install
+
+\`\`\`
+cd uptimerobot-cli-master/
+python build.py release
+pip install dist/uptimerobot-*.tar.gz
+\`\`\`
+
+### Modify your default config file
+
+Using defaults
+
+It is annoying to have to add the api key to every single uptimerobot command line. Therefore it is possible to store it into a defaults file.
+
+Copy the file cli-master/uptimerobot/.uptimerobot.yml to your home directory and edit it accordingly. It is also possible to copy it to the current directory. uptimerobot will look in the current directory first, then in the users's home directory. A command line setting will always override the default settings.
+
+Now you're all installed. Here's the fun part
+
+## Getting your monitors created
+
+Drop the bash script below onto your server and execute it to add all domains from your system to Uptime Robot!
+
+[View the bash script on GitHub Gist](https://gist.github.com/mehh/e09b8da70627c81af3ef6d67ea1df85b)`,
+    category: 'Development',
+    tags: ['Development', 'Linux', 'WHM', 'cPanel', 'Monitoring'],
+    publishedDate: '2016-05-06',
+    originalDate: '2016.05.06',
+    featuredImage: 'http://wp.krischase.com/media/uptimeRobot-and-whm-2.jpg',
+    firstImage: 'https://wp.krischase.com/media/uptimeRobot-and-whm-2-1024x465.jpg',
+    seo: {
+      metaTitle: 'Easily monitor uptime on WHM & cPanel Server with UptimeRobot - Kris Chase',
+      metaDescription: "It's all about UptimeRobot When managing multiple WHM servers with hundreds of cPanel accounts, sometimes you need a quick and easy way to monitor your sites uptime.",
+      ogTitle: 'Easily monitor uptime on WHM & cPanel Server',
+      ogDescription: "It's all about UptimeRobot When managing multiple WHM servers with hundreds of cPanel accounts, sometimes you need a quick and easy way to monitor your sites uptime. many of you may be aware of the service Uptime Robot. If not, … Continued",
+      ogImage: 'http://wp.krischase.com/media/uptimeRobot-and-whm-2.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 400,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'wordpress-bash-scripts',
+    url: 'https://wp.krischase.com/wordpress-bash-scripts/',
+    title: 'WordPress Bash Scripts',
+    description: "I've been doing a lot of bash scripting with WordPress, especially with WP CLI. Here are some snippets I found useful.",
+    content: `![](https://wp.krischase.com/media/fsck-1024x689.png)
+
+I've been doing a lot of bash scripting with WordPress, especially with WP CLI. Here are some snippets I found useful.
+
+All the scripts assume a standard \`wp-config.php\` file with the database variables set.
+
+### Getting the Database table prefix
+
+If you need to make any SQL queries using WP CLI, you will need the database prefix for table names
+
+\`\`\`
+cat wp-config.php | grep "\\$table_prefix" | cut -d \\' -f 2
+\`\`\`
+
+### Getting WP Config Database user and password
+
+If you've just downloaded an install of WordPress, these will give you the details to retrieve the database
+
+\`\`\`
+WPDBNAME=\`cat wp-config.php | grep DB_NAME | cut -d \\' -f 4\`
+WPDBUSER=\`cat wp-config.php | grep DB_USER | cut -d \\' -f 4\`
+WPDBPASS=\`cat wp-config.php | grep DB_PASSWORD | cut -d \\' -f 4\`
+\`\`\`
+
+### Setting WP Config database user and password
+
+If you download a copy of an install, you may have to modify the DB details, this will do that automatically
+
+\`\`\`
+sed -i "/DB_HOST/s/'[^']*'/'localhost'/2" wp-config.php
+sed -i "/DB_NAME/s/'[^']*'/'databasename'/2" wp-config.php
+sed -i "/DB_USER/s/'[^']*'/'user'/2" wp-config.php
+sed -i "/DB_PASSWORD/s/'[^']*'/'password'/2" wp-config.php
+\`\`\`
+
+### Adding SUNRISE to wp-config.php
+
+Modifying \`wp-config.php\` to add new items isn't as simple as appending to the end.
+
+\`\`\`
+sed -i "/define('BLOG_ID_CURRENT_SITE', 1);/ a\\
+DEFINE( 'SUNRISE', true );\\
+" wp-config.php
+\`\`\`
+
+### Getting a list of active plugins and looping over them
+
+Here I export the active plugin list as a CSV with a single column and ignore the name entry, letting me iterate through active plugins
+
+\`\`\`
+active=$(wp plugin list --status=active --format=csv --fields=name)
+
+for plugin in $active; do
+	(
+		if [ ! $plugin = 'name' ]; then
+			echo $plugin
+		fi
+	)
+done
+\`\`\`
+
+### List all blogs via WP CLI
+
+Listing and processing all blogs and sites on a multisite network isn't as trivial as it's made out to be, here is how you get the site id, URL, and blog id individually
+
+\`\`\`
+blogs=$(wp site list --fields="site_id,blog_id,url" --format="csv")
+for entry in $blogs
+do
+    site_id=$(echo $entry |cut -d ',' -f1 )
+    blog_id=$(echo $entry |cut -d ',' -f2 )
+    blog_url=$(echo $entry |cut -d ',' -f3 )
+    echo "$blog_id: $blog_url in $site_id"
+done
+\`\`\`
+
+### Installing Domain mapping via WP CLI
+
+Simply installing and activating domain mapping isn't enough, you need to move \`sunrise.php\` and setup the necessary \`DEFINE\` in \`wp-config.php\`
+
+\`\`\`
+wp plugin install wordpress-mu-domain-mapping
+cp wp-content/plugins/wordpress-mu-domain-mapping/sunrise.php wp-content/sunrise.php
+sed -i "/define('BLOG_ID_CURRENT_SITE', 1);/ a\\
+DEFINE( 'SUNRISE', true );\\
+" wp-config.php
+wp plugin activate wordpress-mu-domain-mapping
+\`\`\`
+
+### Getting the domain name of a WP site via WP CLI
+
+If I'm in an install and want a clean URL such as tomjn.com without the trailing slash and protocol identifier, I would do this:
+
+\`\`\`
+siteurl=$(wp option get siteurl)
+url=$(echo $siteurl | awk -F/ '{print $3}')
+echo $url
+\`\`\`
+
+### Get the blog ID of a blog given a URL
+
+WP CLI can list all sites for you, but sometimes you only have a URL to go by and need to find its blog ID
+
+\`\`\`
+dbprefix=$(cat wp-config.php | grep "\\$table_prefix" | cut -d \\' -f 2)
+query1=$(wp db query "SELECT blog_id FROM \${dbprefix}blogs b WHERE b.domain LIKE \\"%\${fromdomain}%\\" LIMIT 1")
+blog_id=$(echo $query1 |cut -d ' ' -f2)
+echo $blog_id
+\`\`\`
+
+### Setting Up Domain Mapping via WP CLI
+
+A manual SQL query is needed for this, followed by the setting of some options.
+
+NOTE: Domain mapping only generates the table when you visit the domain mapping admin page, so if you setup a site and run the query it will fail if nobody has logged into the site and visited the network admin panel.
+
+\`\`\`
+fromdomain='...'
+todomain='...'
+
+dbprefix=$(cat wp-config.php | grep "\\$table_prefix" | cut -d \\' -f 2)
+query1=$(wp db query "SELECT blog_id FROM \${dbprefix}blogs b WHERE b.domain LIKE \\"%\${fromdomain}%\\" LIMIT 1")
+blog_id=$(echo $query1 |cut -d ' ' -f2)
+echo $blog_id
+wp db query "INSERT INTO \${dbprefix}domain_mapping ( blog_id, domain, active ) VALUES ( $blog_id, \\"\${todomain}\\", 1 )"
+
+wp option update home "http://\${todomain}" --url="\${todomain}"
+wp option update siteurl "http://\${todomain}" --url="\${todomain}"
+\`\`\``,
+    category: 'Development',
+    tags: ['Development', 'WordPress', 'Linux', 'Bash', 'WP-CLI'],
+    publishedDate: '2016-01-22',
+    originalDate: '2016.01.22',
+    featuredImage: 'https://wp.krischase.com/media/fsck.png',
+    firstImage: 'https://wp.krischase.com/media/fsck-1024x689.png',
+    seo: {
+      metaTitle: 'WordPress Bash Scripts - Kris Chase',
+      metaDescription: "I've been doing a lot of bash scripting with WordPress, especially with WP CLI. Here are some snippets I found useful.",
+      ogTitle: 'WordPress Bash Scripts - Kris Chase',
+      ogDescription: "I've been doing a lot of bash scripting with WordPress, especially with WP CLI. Here are some snippets I found useful. All the scripts assume a standard wp-config.php file with the database variables set. Getting the Database table prefix If you need … Continued",
+      ogImage: 'https://wp.krischase.com/media/fsck.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 4,
+    wordCount: 900,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2016-03-07',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'how-to-migrate-magento-customers-and-orders',
+    url: 'https://wp.krischase.com/how-to-migrate-magento-customers-and-orders/',
+    title: 'How to Migrate Magento Customers and Orders',
+    description: 'When launching an existing Magento store, one of the last things you will need to do is migrate all of the current Customers and Orders from the production site, into development, prior to actually going live.',
+    content: `When launching an existing Magento store, one of the last things you will need to do is migrate all of the current Customers and Orders from the production site, into development, prior to actually going live.
+
+If you SSH to the server, you can execute the following:
+
+\`\`\`
+mysqldump -u <userName> -p <databaseName> customer_address_entity customer_address_entity_datetime customer_address_entity_decimal customer_address_entity_int customer_address_entity_text customer_address_entity_varchar customer_eav_attribute customer_eav_attribute_website customer_entity customer_entity_datetime customer_entity_decimal customer_entity_int customer_entity_text customer_entity_varchar customer_form_attribute customer_group sales_bestsellers_aggregated_daily sales_bestsellers_aggregated_monthly sales_bestsellers_aggregated_yearly sales_billing_agreement sales_billing_agreement_order sales_flat_creditmemo sales_flat_creditmemo_comment sales_flat_creditmemo_grid sales_flat_creditmemo_item sales_flat_invoice sales_flat_invoice_comment sales_flat_invoice_grid sales_flat_invoice_item sales_flat_order sales_flat_order_address sales_flat_order_grid sales_flat_order_item sales_flat_order_payment sales_flat_order_status_history sales_flat_quote sales_flat_quote_address sales_flat_quote_address_item sales_flat_quote_item sales_flat_quote_item_option sales_flat_quote_payment sales_flat_quote_shipping_rate sales_flat_shipment sales_flat_shipment_comment sales_flat_shipment_grid sales_flat_shipment_item sales_flat_shipment_track sales_invoiced_aggregated sales_invoiced_aggregated_order sales_order_aggregated_created sales_order_aggregated_updated sales_order_status sales_order_status_label sales_order_status_state sales_order_tax sales_order_tax_item sales_payment_transaction sales_recurring_profile sales_recurring_profile_order sales_refunded_aggregated sales_refunded_aggregated_order sales_shipping_aggregated sales_shipping_aggregated_order > dump.sql
+\`\`\`
+
+Have anything to add? Let me know!`,
+    category: 'Magento',
+    tags: ['Magento', 'MySQL', 'Development'],
+    publishedDate: '2015-09-16',
+    originalDate: '2015.09.16',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'How to Migrate Magento Customers and Orders - Kris Chase',
+      metaDescription: 'When launching an existing Magento store, one of the last things you will need to do is migrate all of the current Customers and Orders from the production site, into development, prior to actually going live.',
+      ogTitle: 'How to Migrate Magento Customers and Orders - Kris Chase',
+      ogDescription: 'When launching an existing Magento store, one of the last things you will need to do is migrate all of the current Customers and Orders from the production site, into development, prior to actually going live. If you SSH to the server, you … Continued',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2015-10-08',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'tuning-and-benchmarking-apache-and-mysql',
+    url: 'https://wp.krischase.com/tuning-and-benchmarking-apache-and-mysql/',
+    title: 'Tuning and benchmarking Apache and MySQL',
+    description: "Have you ever found yourself needing to speed up apache or mysql? Here's a quick writeup on some very useful tools when you first setup Apache and MySQL.",
+    content: `![](https://wp.krischase.com/media/apachebuddy.png)
+
+Have you ever found yourself needing to speed up apache or mysql? Here's a quick writeup on some very useful tools when you first setup Apache and MySQL. These will help you optimize and build out the absolute best configuration for your webserver.
+
+**Apachebuddy:**
+
+https://github.com/gusmaskowitz/apachebuddy.pl
+
+To download and run ApacheBuddy, use the following:
+
+\`\`\`
+curl http://cloudfiles.fanatassist.com/apachebuddy.pl | perl
+\`\`\`
+
+When you see [ !! ] this indicates that there is an issue and suggests something to be changed.
+
+**The Second Script is MySQL tuner**
+
+https://github.com/major/MySQLTuner-perl
+
+This script will give you all sorts of valuable information about your MySQL server
+
+Simply run the following:
+
+\`\`\`
+wget https://raw.github.com/major/MySQLTuner-perl/master/mysqltuner.pl
+./mysqltuner.pl --user root --pass YOURPASSWORD --forcemem 1024
+\`\`\`
+
+**Another great script is lazyscript**
+
+https://github.com/hhoover/lazyscripts
+
+Lazy script is filled with a number of invaluable resources including system information, MySQL tools, Apache tools, and more.
+
+**And finally, recap**
+
+https://github.com/rackerlabs/recap
+
+Developed by Rackspace, there is many great tools to use.
+
+Provides a combination of command outputs including: uptime, free, vmstat, iostat, df, as well as some information derived from the 'top' command including the top 10 cpu% using processes and the top 10 memory% using processes.
+
+You can setup recap to run on a scheduled basis using cron. This is a great tool when it comes to troubleshooting servers at various points in time. Using this correctly, you can easily get an idea of what was going on on your server at a given time.
+
+Have any great tools / resources to share? Add them in the comments below`,
+    category: 'Linux',
+    tags: ['Linux', 'Apache', 'MySQL', 'Development', 'Performance'],
+    publishedDate: '2015-09-10',
+    originalDate: '2015.09.10',
+    featuredImage: 'https://wp.krischase.com/media/apachebuddy.png',
+    firstImage: 'https://wp.krischase.com/media/apachebuddy.png',
+    seo: {
+      metaTitle: 'Tuning and benchmarking Apache and MySQL - Kris Chase',
+      metaDescription: "Have you ever found yourself needing to speed up apache or mysql? Here's a quick writeup on some very useful tools when you first setup Apache and MySQL.",
+      ogTitle: 'Tuning and benchmarking Apache and MySQL - Kris Chase',
+      ogDescription: "Have you ever found yourself needing to speed up apache or mysql? Here's a quick writeup on some very useful tools when you first setup Apache and MySQL. These will help you optimize and build out the absolute best configuration … Continued",
+      ogImage: 'https://wp.krischase.com/media/apachebuddy.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 3,
+    wordCount: 650,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2020-05-03',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'remove-visual-composer-excerpt',
+    url: 'https://wp.krischase.com/remove-visual-composer-excerpt/',
+    title: 'Remove Visual Composer Shortcodes from WordPress Excerpt',
+    description: 'Learn how to remove Visual Composer from your WordPress post excerpts using easy to drop in php functions which can be called anywhere in your site',
+    content: `![](https://wp.krischase.com/media/armadaplugins-vc-1024x366.gif)
+
+If you've ever been in a situation where you're using [Visual Composer](https://vc.wpbakery.com/) within a site and you need to pull in an excerpt in a way that doesn't include any shortcodes you can use the below functions to make that happen.
+
+All you need to do is drop the following code into your functions.php file:
+
+## The Code for removing Visual Composer
+
+\`\`\`php
+/** add this to your function.php child theme to remove ugly shortcode on excerpt */
+
+if(!function_exists('remove_vc_from_excerpt'))  {
+  function remove_vc_from_excerpt( $excerpt ) {
+    $patterns = "/\\[[\\/]?vc_[^\\]]*\\]/";
+    $replacements = "";
+    return preg_replace($patterns, $replacements, $excerpt);
+  }
+}
+
+/** * Original elision function mod by Paolo Rudelli */
+
+if(!function_exists('kc_excerpt')) {
+
+/** Function that cuts post excerpt to the number of word based on previosly set global * variable $word_count, which is defined below */
+
+  function kc_excerpt($excerpt_length = 20) {
+
+    global $word_count, $post;
+
+    $word_count = isset($word_count) && $word_count != "" ? $word_count : $excerpt_length;
+
+    $post_excerpt = $post->post_excerpt != "" ? $post->post_excerpt : strip_tags($post->post_content); $clean_excerpt = strpos($post_excerpt, '...') ? strstr($post_excerpt, '...', true) : $post_excerpt;
+
+    /** add by PR */
+
+    $clean_excerpt = strip_shortcodes(remove_vc_from_excerpt($clean_excerpt));
+
+    /** end PR mod */
+
+    $excerpt_word_array = explode (' ',$clean_excerpt);
+
+    $excerpt_word_array = array_slice ($excerpt_word_array, 0, $word_count);
+
+    $excerpt = implode (' ', $excerpt_word_array).'...'; echo ''.$excerpt.'';
+
+  }
+
+}
+\`\`\`
+
+After you insert the previous code into your functions.php file, you can call the function wherever it's needed.
+
+## Note:
+
+You can also pass in an argument to the function which will allow you to modify the length of your excerpt while excluding those Visual Composer shortcodes.
+
+Is there any way you see this function for removing Visual Composer Shortcodes from WordPress could be improved? If so, shoot me an email and I'll work on getting it added!`,
+    category: 'Development',
+    tags: ['Development', 'WordPress', 'PHP'],
+    publishedDate: '2016-05-04',
+    originalDate: '2016.05.04',
+    featuredImage: 'https://wp.krischase.com/media/armadaplugins-vc.gif',
+    firstImage: 'https://wp.krischase.com/media/armadaplugins-vc-1024x366.gif',
+    seo: {
+      metaTitle: 'Remove Visual Composer Shortcodes from WordPress Excerpt',
+      metaDescription: 'Learn how to remove Visual Composer from your WordPress post excerpts using easy to drop in php functions which can be called anywhere in your site',
+      ogTitle: 'Remove Visual Composer Shortcodes from WordPress Excerpt',
+      ogDescription: 'Learn how to remove Visual Composer from your WordPress post excerpts using easy to drop in php functions which can be called anywhere in your site',
+      ogImage: 'https://wp.krischase.com/media/armadaplugins-vc.gif',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 400,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2018-12-06',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'create-options-pages-in-wordpress-with-advanced-custom-fields-acf',
+    url: 'https://wp.krischase.com/create-options-pages-in-wordpress-with-advanced-custom-fields-acf/',
+    title: 'Create options pages in WordPress with Advanced Custom Fields (ACF)',
+    description: 'I searched low and high to figure out how to create options pages in the updated version of Advanced Custom Fields (version 5 of ACF)',
+    content: `I searched low and high to figure out how to create options pages in the updated version of Advanced Custom Fields (version 5 of ACF)
+
+\`\`\`php
+if(function_exists("acf_add_options_page")) {
+	acf_add_options_page();
+}
+if(function_exists("register_options_page")) {
+	register_options_page('Various');
+	register_options_page('Header');
+	register_options_page('Footer');
+}
+\`\`\`
+
+After creating the fields in your WordPress backend, to invoke the fields you can use syntax similar to the following:
+
+\`\`\`php
+<?php the_field('my_field','option'); ?>
+\`\`\``,
+    category: 'PHP',
+    tags: ['PHP', 'WordPress', 'Development'],
+    publishedDate: '2014-10-29',
+    originalDate: '2014.10.29',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'Create options pages in WordPress with Advanced Custom Fields (ACF) - Kris Chase',
+      metaDescription: 'I searched low and high to figure out how to create options pages in the updated version of Advanced Custom Fields (version 5 of ACF)',
+      ogTitle: 'Create options pages in WordPress with Advanced Custom Fields (ACF) - Kris Chase',
+      ogDescription: "I searched low and high to figure out how to create options pages in the updated version of Advanced Custom Fields (version 5 of ACF) if(function_exists('acf_add_options_page')) { acf_add_options_page(); } if(function_exists('register_options_page')) { register_options_page('Various'); register_options_page('Header'); register_options_page('Footer'); } After creating the fields … Continued",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 100,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-10-29',
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'detect-and-prevent-malware-in-gravity-forms-file-upload-with-php-clamav',
+    url: 'https://wp.krischase.com/detect-and-prevent-malware-in-gravity-forms-file-upload-with-php-clamav/',
+    title: 'Detect and Prevent Malware in Gravity Forms File Upload with PHP ClamAV',
+    description: "One of the best and most widely used form building plugins for WordPress is gravity forms. If you've ever needed to allow users to upload files to your site, but you want to make sure those files are not harmful, the following tutorial will help you with just that!",
+    content: `One of the best and most widely used form building plugins for WordPress is **[gravity forms](http://www.gravityforms.com/)**. If you've ever needed to allow users to upload files to your site, but you want to make sure those files are not harmful, the following tutorial will help you with just that!
+
+\`\`\`php
+//	Custom Scan AV function by Kris Chase
+//	Modify the number 13 throughout this function for your specific Gravity Form ID
+add_filter("gform_validation_13", "scan_av");
+function scan_av($validation_result){
+
+	//	Grab the file while it's still in /tmp/
+	//	You will need to change your input ID to the specific field ID in your form
+		$fileLocation	=	$_FILES['input_1']['tmp_name'];
+
+	//	Scan the file for malware
+		$retcode = cl_scanfile($fileLocation, $virus_name);
+
+	//	Conditional Logic
+	if ($retcode === CL_VIRUS)
+	{
+		// set the form validation to false
+			$validation_result["is_valid"]				= false;
+			$form 									= $validation_result["form"];
+
+			//  Custom error message for our form
+			add_filter("gform_validation_message_13", "change_message", 10, 2);
+			function change_message($message, $form){
+			  return "<strong style=\\"color:red;\\">Error: Malicious File Detected.</strong>";
+			}
+
+		// update the form in the validation result with the form object you modified
+		$validation_result["form"] = $form;
+
+		return $validation_result;
+
+	}
+	else{
+		return $validation_result;
+	}
+}
+\`\`\`
+
+In order to use this function you will have to have the ClamAV installed, as well as the PHP ClamAV Module. A great writeup on accomplished using the following for CentOS:
+
+You just need to install ClamAV like normal (with the epel repo)…
+
+\`\`\`bash
+yum install clamav
+yum install clamavdevel
+\`\`\`
+
+If you don't have EPEL you can get it from IUS community (if you want you can also grab the IUS repo and get the latest version of PHP) – _thank the RackSpace engineers for this!_
+
+\`\`\`bash
+wget http://dl.iuscommunity.org/pub/ius/stable/CentOS/6/x86_64/epel-release-6-5.noarch.rpm
+rpm -ivh epel-release-6-5.noarch.rpm
+\`\`\`
+
+Then you download and install **[this library](http://php-clamav.sourceforge.net/)**, which will handle all the hard things for you.
+
+\`\`\`bash
+wget **the direct link you got**
+tar -xvzf php-clamav_0.15.7.tar.gz
+cd php-clamav-0.15.7
+phpize
+./configure
+make
+make install
+\`\`\`
+
+Now add the extension to your /etc/php.ini (the location of your php.ini file as well as your actual clamav file may vary depending on your linux distro / version)
+
+\`\`\`ini
+extension=/usr/lib64/php/modules/clamav.so
+\`\`\`
+
+Remember to change the path to what was given to you by \`make install\`
+
+then restart your Apache
+
+\`\`\`bash
+service httpd restart
+\`\`\`
+
+Make a file with the contents:
+
+\`\`\`php
+<?php
+    echo cl_info();
+?>
+\`\`\`
+
+It should come up with something showing ClamAV information.
+
+Now you should have access to all the library functions, you can now scan files like this:
+
+\`\`\`php
+$retcode = cl_scanfile($file, $virus_name);
+
+if ($retcode === CL_VIRUS)
+{
+    echo "Virus Detected! {$virus_name}";
+}
+\`\`\`
+
+Congratulations! You can find other functions [here](http://php-clamav.sourceforge.net/)
+
+Let me know your thoughts, I'm going to be updating / enhancing this function as I come up with more ideas. I'd also like to make this function a lot more modular.
+
+Thanks for reading!`,
+    category: 'Gravity Forms',
+    tags: ['Gravity Forms', 'WordPress', 'PHP', 'Security', 'ClamAV'],
+    publishedDate: '2015-01-07',
+    originalDate: '2015.01.07',
+    featuredImage: 'http://i.stack.imgur.com/2lTeQ.png',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'Detect and Prevent Malware in Gravity Forms File Upload with PHP ClamAV',
+      metaDescription: "One of the best and most widely used form building plugins for WordPress is gravity forms. If you've ever needed to allow users to upload files to your site, but you want to make sure those files are not harmful, the following tutorial will help you with just that!",
+      ogTitle: 'Detect and Prevent Malware in Gravity Forms File Upload with PHP ClamAV',
+      ogDescription: "One of the best and most widely used form building plugins for WordPress is gravity forms. If you've ever needed to allow users to upload files to your site, but you want to make sure those files are not harmful, the … Continued",
+      ogImage: 'http://i.stack.imgur.com/2lTeQ.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 500,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2015-01-07',
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'laravel-force-https',
+    url: 'https://wp.krischase.com/laravel-force-https/',
+    title: 'Laravel Force HTTPS',
+    description: 'Using App::before You might be able to take advantage of the App::before() block in the app/filters.php file.',
+    content: `**Using App::before**
+
+You might be able to take advantage of the \`App::before()\` block in the \`app/filters.php\` file.
+
+Change the block to include a simple check to see if the current request is secure, and if not, redirect it.
+
+\`\`\`php
+App::before(function($request)
+{
+    if( ! Request::secure())
+    {
+        return Redirect::secure(Request::path());
+    }
+});
+\`\`\`
+
+**Using Filters**
+
+Another option might be to create a filter like so. People generally store this also in \`app/filters.php\`.
+
+\`\`\`php
+Route::filter('force.ssl', function()
+{
+    if( ! Request::secure())
+    {
+        return Redirect::secure(Request::path());
+    }
+
+});
+\`\`\`
+
+You can then enforce that new filter to any of your routes, route groups, or controllers like this.
+
+_Individual Route_
+
+\`\`\`php
+Route::get('something', ['before' => 'force.ssl', function()
+{
+    return "This will be forced SSL";
+}];
+\`\`\`
+
+_Route Group_
+
+\`\`\`php
+Route::group(['before' => 'force.ssl', function()
+{
+    // Routes here.
+}
+\`\`\`
+
+_Controller_
+
+You'll need to do this in your controller's \`__construct()\` method.
+
+\`\`\`php
+public function __construct()
+{
+    $this->beforeFilter('force.ssl');
+}
+\`\`\``,
+    category: 'Uncategorized',
+    tags: ['Uncategorized', 'Laravel', 'Development'],
+    publishedDate: '2015-03-31',
+    originalDate: '2015.03.31',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'Laravel Force HTTPS - Kris Chase',
+      metaDescription: 'Using App::before You might be able to take advantage of the App::before() block in the app/filters.php file.',
+      ogTitle: 'Laravel Force HTTPS - Kris Chase',
+      ogDescription: 'Using App::before You might be able to take advantage of the App::before() block in the app/filters.php file. Change the block to include a simple check to see if the current request is secure, and if not, redirect it. App::before(function($request) { … Continued',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'optimize-all-images-within-current-directory',
+    url: 'https://wp.krischase.com/optimize-all-images-within-current-directory/',
+    title: 'Optimize all images within current directory',
+    description: 'Easily optimize all PNG and JPG images within your website for Google Page Speed improvements.',
+    content: `![](https://wp.krischase.com/media/optimizeImages-1024x240.jpg)
+
+When trying to get that A rating with Google Page Speed or GTMetrix, one of the easiest ways to earn points is through the optimization of all the PNG and JPG images within your web root. I tend to use optipng and jpegoptim for this. It gives the ability to easily lossless optimize all your images so that you make search engines and your users happy with fast sites, while still showing them good looking images.
+
+Follow these instructions and you're on your way to having an even faster site.
+
+Step 1) SSH to your system
+
+\`\`\`
+ssh username@hostname.com
+\`\`\`
+
+Step 2) CD to directory where your images exist ( This will vary on each hosting environment )
+
+\`\`\`
+cd /home/username/public_html/
+\`\`\`
+
+Step 3) Run the optimization scripts
+
+\`\`\`
+find . -iname *.jpg | xargs jpegoptim --max=90 --all-progressive --strip-all --strip-com --strip-exif --strip-iptc --strip-icc &
+find . -type f -iname "*.png" -print0 | xargs -I {} -0 optipng -o5 -quiet -keep -preserve -log optipng.log "{}" &
+\`\`\`
+
+What the above does, is searches everywhere within your current directory and down, for jpeg and PNG images. Once it finds them it will optimize them and replace the larger image right in place.
+
+Keep in mind, that this script can take minutes or even hours depending on how many images you have and how fast your server is, so your best bet is to fire this off and leave it for a while.
+
+And that's it! You're on your way to having a faster WordPress site with optimized images.`,
+    category: 'Development',
+    tags: ['Development', 'Linux', 'Performance', 'Optimization'],
+    publishedDate: '2015-10-12',
+    originalDate: '2015.10.12',
+    featuredImage: 'https://wp.krischase.com/media/optimizeImages.jpg',
+    firstImage: 'https://wp.krischase.com/media/optimizeImages-1024x240.jpg',
+    seo: {
+      metaTitle: 'Optimize all images within current directory - Kris Chase',
+      metaDescription: 'Easily optimize all PNG and JPG images within your website for Google Page Speed improvements.',
+      ogTitle: 'Optimize all images within current directory - Kris Chase',
+      ogDescription: 'Easily optimize all PNG and JPG images within your website for Google Page Speed improvements.',
+      ogImage: 'https://wp.krischase.com/media/optimizeImages.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 250,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2016-04-23',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'how-to-load-jquery-in-wordpress-theme',
+    url: 'https://wp.krischase.com/how-to-load-jquery-in-wordpress-theme/',
+    title: 'How to load jQuery in WordPress theme',
+    description: 'When building out a custom theme, one of the first things most developers will need in their set of tools and resources to write efficient code will be jQuery.',
+    content: `When building out a custom theme, one of the first things most developers will need in their set of tools and resources to write efficient code will be jQuery. There are a number of ways you can add jQuery into your theme, but there is only one right way.
+
+You might be tempted to [download jQuery](http://jquery.com/download/), upload it to your server and link to it directly in your header, but that isn't the right way.
+
+What you should do is utilize WordPress's built in [enqueue script](http://codex.wordpress.org/Function_Reference/wp_enqueue_script) functionality to load jQuery at the right time, the right way.
+
+Put the following code in your themes functions.php file
+
+\`\`\`php
+if (!is_admin()) add_action("wp_enqueue_scripts", "my_jquery_enqueue", 11);
+function my_jquery_enqueue() {
+   wp_deregister_script('jquery');
+   wp_register_script('jquery', "http" . ($_SERVER['SERVER_PORT'] == 443 ? "s" : "") . "://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js", false, null);
+   wp_enqueue_script('jquery');
+}
+\`\`\``,
+    category: 'jQuery',
+    tags: ['jQuery', 'WordPress', 'Development', 'JavaScript'],
+    publishedDate: '2014-10-21',
+    originalDate: '2014.10.21',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'How to load jQuery in WordPress theme - Kris Chase',
+      metaDescription: 'When building out a custom theme, one of the first things most developers will need in their set of tools and resources to write efficient code will be jQuery.',
+      ogTitle: 'How to load jQuery in WordPress theme - Kris Chase',
+      ogDescription: 'When building out a custom theme, one of the first things most developers will need in their set of tools and resources to write efficient code will be jQuery. There are a number of ways you can add jQuery into … Continued',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-10-21',
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'robotsdeploy',
+    url: 'https://wp.krischase.com/robotsdeploy/',
+    title: 'Easily deploy a templated robots.txt file to all accounts within your WHM / cPanel server.',
+    description: 'Easily deploy a templated robots.txt file to all accounts within your WHM / cPanel server.',
+    content: `![](https://wp.krischase.com/media/robots.png)
+
+Ever need to quickly deploy a robots.txt template across all accounts on a WHM / cPanel server? The script below will allow you to do just that. It's great for using in conjunction with a CRON job on your system to make sure all accounts are using the latest and greatest version of your robots file.
+
+## The Code
+
+[View the bash script on GitHub Gist](https://gist.github.com/mehh/375126694ee0bd817ac9810d57d3cdd9)
+
+This can be handy when setting up a development / production / staging server. If used correctly, you can avoid having development links get picked up and indexed by google. This will also ensure that after a successful deployment to production, your site will not have issues being blocked from Google and other search engines.
+
+After choosing a location to house the script, you can use the following crontab entry:
+
+\`0 3 * * * /bin/bash /root/scripts/robotsDeploy.sh -f /root/scripts/blockRobots.txt  >/dev/null 2>&1\`
+
+My example is set to run at 3:00 am each morning. It will use the script found at /root/scripts/robotsDeploy.sh and utilize the template /roots/scripts/blockRobots.txt to automatically roll out that version of my robots.txt file to each and every cPanel and WHM account that exists on my server. You can easily change your template file, as well as what time your script runs by modifying the crontab entry.
+
+What use cases have you come up with for this? In a future release I will setup a way to pass in a whitelist / blacklist of accounts which should be skipped automatically while inserting new rows into your robots.txt file.`,
+    category: 'Development',
+    tags: ['Development', 'Linux', 'WHM', 'cPanel', 'Bash'],
+    publishedDate: '2016-04-19',
+    originalDate: '2016.04.19',
+    featuredImage: 'https://wp.krischase.com/media/robots.png',
+    firstImage: 'https://wp.krischase.com/media/robots.png',
+    seo: {
+      metaTitle: 'Easily deploy a templated robots.txt file to all accounts within your WHM / cPanel server. - Kris Chase',
+      metaDescription: 'Easily deploy a templated robots.txt file to all accounts within your WHM / cPanel server.',
+      ogTitle: 'robots.txt deployment script',
+      ogDescription: 'Easily deploy a templated robots.txt file to all accounts within your WHM / cPanel server.',
+      ogImage: 'https://wp.krischase.com/media/robots.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'use-php-to-pull-users-instagram-feed',
+    url: 'https://wp.krischase.com/use-php-to-pull-users-instagram-feed/',
+    title: 'Use PHP to pull Users Instagram Feed',
+    description: "Here's a great snippet for pulling a users Instagram Feed and doing whatever you want with it.",
+    content: `![](https://wp.krischase.com/media/instagram_1.png)
+
+\`\`\`php
+<?php
+   function fetch_data($url){
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+      $result = curl_exec($ch);
+      curl_close($ch);
+      return $result;
+   }
+
+   $count = 10; // the number of photos you want to fetch
+   $access_token = "###################"; // Put your access_token which is generated from instagram here
+   $display_size = "thumbnail"; // you can choose between "low_resolution", "thumbnail" and "standard_resolution"
+
+   $result = fetch_data("https://api.instagram.com/v1/users/17368863/media/recent/?client_id=$access_token");
+   $result = json_decode($result);
+
+   ?>
+<ul class="slides" >
+   <?php
+      foreach ($result->data as $photo):
+         $img = $photo->images->thumbnail->url;
+         $imageLink  =  $photo->link;
+
+      ?>
+   <li style="width: 185px; float: left; display: block;">
+      <a href="<?php echo $imageLink; ?>" target="_blank">
+      <img src="<?php echo $img; ?>" draggable="false">
+      </a>
+   </li>
+   <?php
+      endforeach;
+      ?>
+</ul>
+\`\`\`
+
+Here's a great snippet for pulling a users Instagram Feed and doing whatever you want with it. 🙂`,
+    category: 'Development',
+    tags: ['Development', 'PHP', 'Instagram', 'API'],
+    publishedDate: '2015-09-16',
+    originalDate: '2015.09.16',
+    featuredImage: 'https://wp.krischase.com/media/instagram_1.png',
+    firstImage: 'https://wp.krischase.com/media/instagram_1.png',
+    seo: {
+      metaTitle: 'Use PHP to pull Users Instagram Feed - Kris Chase',
+      metaDescription: "Here's a great snippet for pulling a users Instagram Feed and doing whatever you want with it.",
+      ogTitle: 'Use PHP to pull Users Instagram Feed - Kris Chase',
+      ogDescription: "Here's a great snippet for pulling a users Instagram Feed and doing whatever you want with it.",
+      ogImage: 'https://wp.krischase.com/media/instagram_1.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2016-04-23',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'how-to-find-and-clean-up-infected-wordpress-files-over-ssh',
+    url: 'https://wp.krischase.com/how-to-find-and-clean-up-infected-wordpress-files-over-ssh/',
+    title: 'How to find and clean up infected WordPress Files over SSH',
+    description: "If you've ever found yourself with a hacked WordPress site, one of the hardest things to do is scan your entire server and find all of the infected files.",
+    content: `If you've ever found yourself with a hacked WordPress site, one of the hardest things to do is scan your entire server and find all of the infected files. I've had to do this a few times for various clients and friends so I decided to put together a little writeup on how to make it a bit easier.
+
+First open up an SSH connection to your server
+
+\`\`\`
+ssh username@site.com
+\`\`\`
+
+Change directory to the location of your site(s). Depending on your hosting provider this could be in a number of locations, it's best to consult with them to determine where you should change directory to
+
+\`\`\`
+cd /home/username/public_html/
+\`\`\`
+
+Execute the following
+
+\`\`\`
+find . -name "*.php"  -print0 | xargs -0 egrep -l 'eval\\(base64_decode\\(' >> infectedfiles.txt
+\`\`\`
+
+What this does is search from the current directory, down into any deeper directory through all PHP scripts and looks for "eval(base64_decode" which is one of the most common ways hackers hide malicious code. You can also switch this out for a few different strings like:
+
+- eval
+- base64_decode
+- gzinflate
+- eval(gzinflate(base64_decode
+
+Any combination of those strings will usually result in all of the infected files.
+
+Once the script finds malicious files they are then put into your file "infectedfiles.txt" in the same directory you executed the script from.
+
+In order to see which files were infected you can run
+
+\`\`\`
+cat infectedfiles.txt
+\`\`\`
+
+Once you've found all your infected files, I can help you automate the cleanup process, however, before doing that it's always a great idea to **BACKUP YOUR DATA**
+
+\`\`\`
+tar -czvf backup.tar.gz *
+\`\`\`
+
+Once you've created a backup, go ahead and use the following (with caution)
+
+\`\`\`bash
+#!/bin/bash
+# Script by Kris Chase ( kris@mehh.org )
+# http://krischase.com
+# I am not responsible for any damage that may occur when running this script.
+
+LIST=infectedfiles.txt
+PATT="eval(base64_decode"
+
+if [ ! -s $LIST ] ; then
+grep -l -R --include=*.php $PATT * > $LIST
+fi
+
+for INPUT in \`cat $LIST\`
+do
+echo FIX $INPUT ...
+TEMP=$INPUT.tmp
+OLD=$INPUT.bad
+< $INPUT sed "s/<?php/\\n<?php/g" | grep -v $PATT > $TEMP
+mv $INPUT $OLD
+mv $TEMP $INPUT
+done
+\`\`\`
+
+When using this script you can change the "PATT" variable value to whatever malicious string you used to find your infected files.
+
+If you don't care about having a list of all your infected files and want to jump straight to the cleanup process you can use this other script I usually use:
+
+\`\`\`bash
+#!/bin/bash
+# Script by Kris Chase ( kris@mehh.org )
+# http://krischase.com
+# I am not responsible for any damage that may occur when running this script.
+
+string="$1"
+    path="$2"
+    grep -R -l "$string" "$path" | while IFS= read -r file; do
+        sed -i "/$string/d" "$file"
+    done
+\`\`\`
+
+Save that script to a file (I usually go with fix.sh) and then execute the file using the following syntax:
+
+\`\`\`
+sh -x fix.sh 'eval(gzinflate(base64_decode' .
+\`\`\`
+
+Keep in mind you can change the "eval(gzinflate(base64_decode" piece to whatever malicious string you're looking for.
+
+I hope that these scripts help others as much as they've helped me when it comes to **cleaning up infected WordPress servers.**`,
+    category: 'PHP',
+    tags: ['PHP', 'WordPress', 'Linux', 'Security', 'SSH'],
+    publishedDate: '2014-11-28',
+    originalDate: '2014.11.28',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'How to find and clean up infected WordPress Files over SSH - Kris Chase',
+      metaDescription: "If you've ever found yourself with a hacked WordPress site, one of the hardest things to do is scan your entire server and find all of the infected files.",
+      ogTitle: 'How to find and clean up infected WordPress Files over SSH - Kris Chase',
+      ogDescription: "If you've ever found yourself with a hacked WordPress site, one of the hardest things to do is scan your entire server and find all of the infected files. I've had to do this a few times for various clients and … Continued",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 3,
+    wordCount: 600,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-11-28',
+      isUpdated: false,
+    },
+  },
+  {
+    slug: 'disable-all-mail-for-wordpress',
+    url: 'https://wp.krischase.com/disable-all-mail-for-wordpress/',
+    title: 'Disable All Mail for WordPress',
+    description: 'I did this simple hack on a private WordPress Multisite blog, to stop it sending me emails every time I created a new blog.',
+    content: `I did this simple hack on a private WordPress Multisite blog, to stop it sending me emails every time I created a new blog. It's definitely overkill to stop all emails, but unfortunately I couldn't find any hooks that let me be more specific! (I didn't need any of the other emails – but you shouldn't use this code if you do!)
+
+I put the code in wp-config.php. You could create a plugin instead, or putting it in your theme's functions.php might work (I haven't tested it).
+
+\`\`\`php
+// Disable ALL emails
+function wp_mail()
+{
+    // Do nothing!
+}
+\`\`\``,
+    category: 'PHP',
+    tags: ['PHP', 'WordPress', 'Development'],
+    publishedDate: '2014-11-18',
+    originalDate: '2014.11.18',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'Disable All Mail for WordPress - Kris Chase',
+      metaDescription: 'I did this simple hack on a private WordPress Multisite blog, to stop it sending me emails every time I created a new blog.',
+      ogTitle: 'Disable All Mail for WordPress - Kris Chase',
+      ogDescription: "I did this simple hack on a private WordPress Multisite blog, to stop it sending me emails every time I created a new blog. It's definitely overkill to stop all emails, but unfortunately I couldn't find any hooks that let … Continued",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 100,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'get-the-latest-post-id-in-wordpress',
+    url: 'https://wp.krischase.com/get-the-latest-post-id-in-wordpress/',
+    title: 'Get the latest Post ID in WordPress',
+    description: "Here's a neat little trick that will get you the latest post ID from WordPress.",
+    content: `Here's a neat little trick that will get you the latest post ID from WordPress.
+
+\`\`\`php
+<?php
+echo $newest_post_id = $posts[0]->ID;
+?>
+\`\`\``,
+    category: 'PHP',
+    tags: ['PHP', 'WordPress', 'Development'],
+    publishedDate: '2014-10-29',
+    originalDate: '2014.10.29',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    firstImage: undefined,
+    seo: {
+      metaTitle: 'Get the latest Post ID in WordPress - Kris Chase',
+      metaDescription: "Here's a neat little trick that will get you the latest post ID from WordPress.",
+      ogTitle: 'Get the latest Post ID in WordPress - Kris Chase',
+      ogDescription: "Here's a neat little trick that will get you the latest post ID from WordPress. <?php echo $newest_post_id = $posts[0]->ID; ?>",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 50,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'force-non-legacy-backup-start-whmcpanel',
+    url: 'https://wp.krischase.com/force-non-legacy-backup-start-whmcpanel/',
+    title: 'Force Non Legacy Backup to Start (WHM/cPanel)',
+    description: 'If you have setup a Backup to run in WHM -> Backup -> Backup Configuration and would like to force it to run immediately instead of waiting for the backup schedule you can do so through SSH.',
+    content: `If you have setup a Backup to run in WHM -> Backup -> Backup Configuration and would like to force it to run immediately instead of waiting for the backup schedule you can do so through SSH.
+
+1\\. Login to your server via [SSH](https://www.vpsblocks.com.au/support/Knowledgebase/Article/View/41/0/how-do-i-use-ssh)
+
+2\\. Type: /usr/local/cpanel/bin/backup –force
+
+3\\. This will report that it is starting the backup and creating a log file.
+
+4\\. If it does not return with that information after running it, this means that there is most likely already a backup being taken. You can check to see if a backup is being run by typing: ps aux | grep backup
+
+If it has been running a long time (e.g. it may be hung) you can kill it by finding the PID from the ps aux output, and typing: kill -9 PID`,
+    category: 'Uncategorized',
+    tags: ['WHM', 'cPanel', 'Backup', 'SSH', 'Linux'],
+    publishedDate: '2016-02-02',
+    originalDate: '2016.02.02',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Force Non Legacy Backup to Start (WHM/cPanel) - Kris Chase',
+      metaDescription: 'If you have setup a Backup to run in WHM -> Backup -> Backup Configuration and would like to force it to run immediately instead of waiting for the backup schedule you can do so through SSH.',
+      ogTitle: 'Force Non Legacy Backup to Start (WHM/cPanel) - Kris Chase',
+      ogDescription: 'If you have setup a Backup to run in WHM -> Backup -> Backup Configuration and would like to force it to run immediately instead of waiting for the backup schedule you can do so through SSH.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'black-friday-deals-for-web-developers',
+    url: 'https://wp.krischase.com/black-friday-deals-for-web-developers/',
+    title: 'Black Friday Deals for Web Developers',
+    description: "Here\'s a compiled list for a lot of GREAT deals for Black Friday. If you\'re a developer, or even a designer there\'s definitely something here for you!",
+    content: `![](https://wp.krischase.com/media/Screen-Shot-2015-11-25-at-7.42.52-PM-1024x369.png)
+
+Here's a compiled list for a lot of GREAT deals for Black Friday.  If you're a developer, or even a designer there's definitely something here for you!
+
+**Made By Source** has a great deal this black friday. You get a 8 different photoshop extensions which are great for both design and development (note: they have 2 smaller packs that are design and dev specific.)
+
+- CSSHat 2
+- PNGHat
+- iOSHat
+- PSD
+- Cleaner
+- Subtle
+- Patterns
+- Picjumbo
+
+[https://blackfriday.madebysource.com/](https://blackfriday.madebysource.com/)
+
+**Was:** ~~$133.99~~
+
+**You Pay:** $44.99
+
+[Full list of deals and discounts available in the original post...]`,
+    category: 'Bootstrap',
+    tags: ['Black Friday', 'Deals', 'Web Development', 'Tools'],
+    publishedDate: '2015-11-26',
+    originalDate: '2015.11.26',
+    featuredImage: 'https://wp.krischase.com/media/Screen-Shot-2015-11-25-at-7.42.52-PM.png',
+    firstImage: 'https://wp.krischase.com/media/Screen-Shot-2015-11-25-at-7.42.52-PM-1024x369.png',
+    seo: {
+      metaTitle: 'Black Friday Deals for Web Developers - Kris Chase',
+      metaDescription: 'Here\'s a compiled list for a lot of GREAT deals for Black Friday. If you\'re a developer, or even a designer there\'s definitely something here for you!',
+      ogTitle: 'Black Friday Deals for Web Developers - Kris Chase',
+      ogDescription: 'Here\'s a compiled list for a lot of GREAT deals for Black Friday. If you\'re a developer, or even a designer there\'s definitely something here for you!',
+      ogImage: 'https://wp.krischase.com/media/Screen-Shot-2015-11-25-at-7.42.52-PM.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 7,
+    wordCount: 1575,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'prevent-gmail-from-breaking-width-of-email-template',
+    url: 'https://wp.krischase.com/prevent-gmail-from-breaking-width-of-email-template/',
+    title: 'Prevent gmail from breaking width of email template.',
+    description: 'Recently while coding out an e-blast I came across an issue where the layout rendered perfectly on desktop and mobile devices ( it was a responsive theme ) with any email client, except gmail on both iOS as well as Android.',
+    content: `Recently while coding out an e-blast I came across an issue where the layout rendered perfectly on desktop and mobile devices ( it was a responsive theme ) with any email client, except gmail on both iOS as well as Android.
+
+Looking for a fix I found the following:
+
+\`\`\`
+<div style="display:none; white-space:nowrap; font:15px courier; line-height:0;">
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+</div>
+\`\`\`
+
+Just drop that block of code before the closing </body> tag on your site.
+
+Google (of all companies) [uses a similar snippet](https://twitter.com/alexcwilliams/status/591313524175015936) but for their Analytics newsletter.
+
+The white-space:nowrap with the dashed line creates a line about 500px across that when bumped up in size will exceed 700px causing the Gmail to not apply the font change.
+
+The display:none style causes non-Gmail clients to hide the block (Gmail ignores display:none). When the email is viewed in say, a non-Gmail mobile client, it won't affect responsive layout.`,
+    category: 'Development',
+    tags: ['Email', 'Gmail', 'HTML', 'CSS', 'Development'],
+    publishedDate: '2015-08-14',
+    originalDate: '2015.08.14',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Prevent gmail from breaking width of email template. - Kris Chase',
+      metaDescription: 'Recently while coding out an e-blast I came across an issue where the layout rendered perfectly on desktop and mobile devices ( it was a responsive theme ) with any email client, except gmail on both iOS as well as Android.',
+      ogTitle: 'Prevent gmail from breaking width of email template. - Kris Chase',
+      ogDescription: 'Recently while coding out an e-blast I came across an issue where the layout rendered perfectly on desktop and mobile devices ( it was a responsive theme ) with any email client, except gmail on both iOS as well as Android.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'find-all-files-touched-within-the-last-2-weeks',
+    url: 'https://wp.krischase.com/find-all-files-touched-within-the-last-2-weeks/',
+    title: 'Find all files touched within the last 2 weeks',
+    description: "If you've ever had to deal with a hack before, you know how frustrating it can be figuring out what files were infected. This is a great method for finding all the PHP and JavaScript files that have been touched within the last couple of weeks.",
+    content: `If you've ever had to deal with a hack before, you know how frustrating it can be figuring out what files were infected.  This is a great method for finding all the PHP and JavaScript files that have been touched within the last couple of weeks.  Obviously you can easily change / add more file types and increase / decrease the time to search through.
+
+\`\`\`
+find . -type f \\( -iname \\*.php  -o -iname \\*.js \\) -mtime -14 -exec stat -c "%n %y" {} \\;
+\`\`\`
+
+What sort of files were you able to clean up using this script?  Leave feedback below!`,
+    category: 'PHP',
+    tags: ['PHP', 'JavaScript', 'Security', 'Bash', 'Linux'],
+    publishedDate: '2015-07-10',
+    originalDate: '2015.07.10',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Find all files touched within the last 2 weeks - Kris Chase',
+      metaDescription: "If you've ever had to deal with a hack before, you know how frustrating it can be figuring out what files were infected. This is a great method for finding all the PHP and JavaScript files that have been touched within the last couple of weeks.",
+      ogTitle: 'Find all files touched within the last 2 weeks - Kris Chase',
+      ogDescription: "If you've ever had to deal with a hack before, you know how frustrating it can be figuring out what files were infected. This is a great method for finding all the PHP and JavaScript files that have been touched within the last couple of weeks.",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 100,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'get-a-list-of-all-installed-magento-patches',
+    url: 'https://wp.krischase.com/get-a-list-of-all-installed-magento-patches/',
+    title: 'Get a list of all installed Magento Patches',
+    description: 'Determine which magento patches have been installed on your site.',
+    content: `![](https://wp.krischase.com/media/magento-security-600x257.png)
+
+Lately there have been a lot of patches out there for Magento.  Some pretty major security vulnerabilities have come out as of late ( [supee-5344](https://blog.sucuri.net/2015/04/critical-magento-shoplift-vulnerability-supee-5344-patch-immediately.html) ).  If you've ever needed a quick way to check whether or not you've actually patched your own server you can do so pretty simply.
+
+- SSH to your server
+- CD Into the directory where your magento installation is
+- Then use one of the following:
+
+To get just the list of patch names installed:
+
+\`\`\`
+$ grep -F '|' app/etc/applied.patches.list|cut -f 2 -d'|'
+SUPEE-2725
+SUPEE-5346
+SUPEE-1533
+\`\`\`
+
+To get the list of patch names along with installation date:
+
+\`\`\`
+$ grep -F '|' app/etc/applied.patches.list|cut -f 2,1 -d'|'
+2014-12-01 07:28:34 UTC | SUPEE-2725
+2015-04-21 22:18:17 UTC | SUPEE-5346
+2015-04-22 00:44:54 UTC | SUPEE-1533
+\`\`\`
+
+I'll be posting a writeup in the next couple of weeks on how to easily find all magento installations on a PLESK / WHM Server, get a listings of their Editions ( Community or Enterprise ), Version number, and a list of what patches have been installed.`,
+    category: 'Magento',
+    tags: ['Magento', 'Security', 'Patches', 'Linux', 'SSH'],
+    publishedDate: '2015-07-09',
+    originalDate: '2015.07.09',
+    featuredImage: 'https://wp.krischase.com/media/magento-security-600x257.png',
+    firstImage: 'https://wp.krischase.com/media/magento-security-600x257.png',
+    seo: {
+      metaTitle: 'Get a list of all installed Magento Patches',
+      metaDescription: 'Determine which magento patches have been installed on your site.',
+      ogTitle: 'Get a list of all installed Magento Patches',
+      ogDescription: 'Determine which magento patches have been installed on your site.',
+      ogImage: 'https://wp.krischase.com/media/magento-security-600x257.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'find-text-between-tags-sublime-text',
+    url: 'https://wp.krischase.com/find-text-between-tags-sublime-text/',
+    title: 'FIND TEXT BETWEEN TAGS – SUBLIME TEXT',
+    description: 'Often you may want to change all text between certain tags within Sublime Text, remove all types of certain tags, or change all of one HTML Tag to another. This is very often the case in XML documents or if you are removing all comments.',
+    content: `Often you may want to change all text between certain tags within Sublime Text, remove all types of certain tags, or change all of one HTML Tag to another. This is very often the case in XML documents or if you are removing all comments.
+
+This is easily done, thanks to the Regular Expression option within Sublime Text's find options. Use the following code, and ensuring "regular expression" icon is checked (Check screenshot below).
+
+This code byte will find all \`h2\` tags within a document, from opening to closing tag, as well as content inbetween.
+
+\`\`\`markup
+(?s)(?<=<h2>)(.+?)(?=</h2>)
+\`\`\`
+
+This is really useful to **find all HTML comments and remove them in Sublime Text**!
+
+This one will find all comments, you can then use \`CMD + Shift + G\`(Quick Find All) To highlight all of them, and delete if you wish, or change them all simultaneously.
+
+Change it to match your needs.`,
+    category: 'Development',
+    tags: ['Sublime Text', 'Regex', 'Development', 'Text Editor'],
+    publishedDate: '2015-04-29',
+    originalDate: '2015.04.29',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'FIND TEXT BETWEEN TAGS – SUBLIME TEXT - Kris Chase',
+      metaDescription: 'Often you may want to change all text between certain tags within Sublime Text, remove all types of certain tags, or change all of one HTML Tag to another. This is very often the case in XML documents or if you are removing all comments.',
+      ogTitle: 'FIND TEXT BETWEEN TAGS – SUBLIME TEXT - Kris Chase',
+      ogDescription: 'Often you may want to change all text between certain tags within Sublime Text, remove all types of certain tags, or change all of one HTML Tag to another. This is very often the case in XML documents or if you are removing all comments.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2016-03-18',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'automatically-check-wpml-custom-field-checkboxes',
+    url: 'https://wp.krischase.com/automatically-check-wpml-custom-field-checkboxes/',
+    title: 'Automatically check WPML custom field checkboxes',
+    description: 'Today I faced a pretty daunting task, I needed to check around 2,600 rows of checkboxes across 4 different sites, each that had 3 different options.',
+    content: `Today I faced a pretty daunting task, I needed to check around 2,600 rows of checkboxes across 4 different sites, each that had 3 different options.
+
+You might face this yourself within the WordPress WPML ( WordPress Multi Site) custom field / ACF / Advanced custom fields area.  What I wanted to do was programmatically send off the correct job translations that I wanted, and not send off the ones that didn't need to be translated.
+
+This handy snippet that I came up with solved just that!
+
+\`\`\`javascript
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+jQuery("#icl_cf_translation tbody tr").each(function() {
+        var tdVal = jQuery(this).find("td:first").html();
+
+        if(tdVal[0] != '_' &&
+        \t!endsWith(tdVal,'image') &&
+\t        !endsWith(tdVal,'background') &&
+\t        !endsWith(tdVal,'link') &&
+\t        !endsWith(tdVal,'width') &&
+\t        !endsWith(tdVal,'filter') &&
+\t        !endsWith(tdVal,'section') &&
+\t        !endsWith(tdVal,'shortcode') &&
+\t        !endsWith(tdVal,'style') &&
+\t        !endsWith(tdVal,'sizing') &&
+\t        !endsWith(tdVal,'spacing') &&
+\t        !endsWith(tdVal,'side') &&
+\t        !endsWith(tdVal,'size') &&
+\t        !endsWith(tdVal,'left') &&
+\t        !endsWith(tdVal,'right') &&
+\t        !endsWith(tdVal,'hover') &&
+\t        !endsWith(tdVal,'icon') &&
+\t        !endsWith(tdVal,'over') &&
+\t        !endsWith(tdVal,'mp4') &&
+\t        !endsWith(tdVal,'ogv') &&
+\t        !endsWith(tdVal,'webm')){
+        \t//console.log(tdVal);
+        \tjQuery(this).find(":radio[value=2]").attr('checked',true);
+        }
+        else{
+        \tjQuery(this).find(":radio[value=0]").attr('checked',true);
+        }
+});
+\`\`\`
+
+You will need to tweak / modify this yourself to fit your specific needs, but this will work perfectly within the Chrome network inspect / developer tools of your choice.
+
+Enjoy!`,
+    category: 'Development',
+    tags: ['WordPress', 'WPML', 'JavaScript', 'ACF', 'Development'],
+    publishedDate: '2015-02-20',
+    originalDate: '2015.02.20',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Automatically check WPML custom field checkboxes - Kris Chase',
+      metaDescription: 'Today I faced a pretty daunting task, I needed to check around 2,600 rows of checkboxes across 4 different sites, each that had 3 different options.',
+      ogTitle: 'Automatically check WPML custom field checkboxes - Kris Chase',
+      ogDescription: 'Today I faced a pretty daunting task, I needed to check around 2,600 rows of checkboxes across 4 different sites, each that had 3 different options.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 300,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2015-02-20',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'how-to-skip-fsck-after-reboot',
+    url: 'https://wp.krischase.com/how-to-skip-fsck-after-reboot/',
+    title: 'How to skip fsck after reboot',
+    description: 'With the recent Ghost Vulnerability out in the wild, I was tasked with patching our development servers and needed to reboot them in the middle of the night.',
+    content: `![](https://wp.krischase.com/media/fsck-1024x689.png)
+
+With the recent [Ghost Vulnerability](https://community.qualys.com/blogs/laws-of-vulnerabilities/2015/01/27/the-ghost-vulnerability) out in the wild, I was tasked with patching our development servers and needed to reboot them in the middle of the night.  8 servers went down and came up within a minute, but 1 server took long than I would have hoped.  After getting worried that something had gone wrong, I reached out the our hosting provider and had them investigate.  My hunch was right, an FSCK was being ran on reboot, causing it to take much longer for the respective services to come back up.
+
+I went out searching for a way to skip running an FSCK for future launches so that I wouldn't be faced with this sort of issue again (although running an FSCK is definitely a good idea from time to time, there are definitely times you simply want the server to go down and come back up ASAP.
+
+To skip an FSCK, do the following from the command line
+
+\`\`\`
+touch /fastboot
+init 6
+\`\`\`
+
+This will make sure the server reboots in the quickest way possible.`,
+    category: 'Development',
+    tags: ['Linux', 'FSCK', 'System Administration', 'Security'],
+    publishedDate: '2015-01-30',
+    originalDate: '2015.01.30',
+    featuredImage: 'https://wp.krischase.com/media/fsck.png',
+    firstImage: 'https://wp.krischase.com/media/fsck-1024x689.png',
+    seo: {
+      metaTitle: 'How to skip fsck after reboot',
+      metaDescription: 'With the recent Ghost Vulnerability out in the wild, I was tasked with patching our development servers and needed to reboot them in the middle of the night.',
+      ogTitle: 'How to skip fsck after reboot',
+      ogDescription: 'With the recent Ghost Vulnerability out in the wild, I was tasked with patching our development servers and needed to reboot them in the middle of the night.',
+      ogImage: 'https://wp.krischase.com/media/fsck.png',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'pull-youtube-description-into-wordpress-content',
+    url: 'https://wp.krischase.com/pull-youtube-description-into-wordpress-content/',
+    title: 'Pull YouTube Description into WordPress Content',
+    description: 'You might find yourself needing to dynamically update your WordPress post content with the description of a YouTube video.',
+    content: `You might find yourself needing to dynamically update your WordPress post content with the description of a YouTube video.
+
+I put together the following function to accomplish just that!
+
+\`\`\`php
+function update_description_with_youtube( $post_id ) {
+
+\tif ( ! wp_is_post_revision( $post_id ) ){
+
+\t\t// unhook this function so it doesn't loop infinitely
+\t\tremove_action('save_post', 'update_description_with_youtube');
+
+\t\t$youtubeURL =   get_field('youtube_id',$post_id);
+
+\t\tif (FALSE === strpos($youtubeURL, 'youtu.be')) {
+\t\t    parse_str(parse_url($youtubeURL, PHP_URL_QUERY), $youtube_ID);
+\t\t    $youtube_ID = $youtube_ID['v'];
+\t\t} else {
+\t\t    $youtube_ID = basename($youtubeURL);
+\t\t}
+
+\t\t$feedURL = 'http://gdata.youtube.com/feeds/api/videos/'.$youtube_ID.'?v=2&alt=json&prettyprint=true';
+\t\t$response = json_decode(file_get_contents($feedURL), true);
+
+
+\t\t$description    =   esc_attr($response['entry']['media$group']['media$description']['$t']);
+
+\t\t// Update post
+\t\t  $exercise = array(
+\t\t      'ID'           => $post_id,
+\t\t      'post_content' => $description
+\t\t  );
+
+\t\t// Update the post into the database
+\t\t  wp_update_post( $exercise );
+
+\t\t  return;
+
+\t  \t// re-hook this function
+\t  \tadd_action('save_post', 'update_description_with_youtube');
+\t  }
+}
+add_action( 'save_post', 'update_description_with_youtube' );
+\`\`\`
+
+This can be a bit tricky due to the fact you're using the **save_post** hook from WordPress, while also using the **wp_update_post** function together which, if not done right can cause an infinite loop.
+
+We can take care of this by unhooking our function, within the save_post call, running our custom function, and then re-initializing our hook.
+
+We get our YouTube Video ID by parsing an ACF (Advanced Custom Fields) field that can either handle a single Youtube ID, or even a complete youtube URL.  This function parses any youtube URL, and then returns the ID of that actual youtube video, then passes it to our description pulling function.`,
+    category: 'Development',
+    tags: ['WordPress', 'PHP', 'YouTube', 'API', 'ACF'],
+    publishedDate: '2014-12-11',
+    originalDate: '2014.12.11',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Pull YouTube Description into WordPress Content - Kris Chase',
+      metaDescription: 'You might find yourself needing to dynamically update your WordPress post content with the description of a YouTube video.',
+      ogTitle: 'Pull YouTube Description into WordPress Content - Kris Chase',
+      ogDescription: 'You might find yourself needing to dynamically update your WordPress post content with the description of a YouTube video.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 300,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-12-11',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'dynamically-add-parameters-to-the-end-of-all-wp_nav_menu',
+    url: 'https://wp.krischase.com/dynamically-add-parameters-to-the-end-of-all-wp_nav_menu/',
+    title: 'Dynamically Add Parameters to the end of all wp_nav_menu()',
+    description: "I was working on a client who's site I was working on where I was required to capture, and hold onto an affiliate tracking variable and value throughout the entire session of a user while browsing their website.",
+    content: `I was working on a client who's site I was working on where I was required to capture, and hold onto an **affiliate tracking variable** and value throughout the entire session of a user while browsing their website.  I was able to do this on specific buttons and links throughout the site with issue, but needed an easy way to accomplish this on main pieces of navigation in my header, sidebar, and footer.  To accomplish this, I used the following code:
+
+\`\`\`php
+add_filter( 'wp_get_nav_menu_items','nav_items', 11, 3 );
+
+function nav_items( $items, $menu, $args )
+{
+    if( is_admin() )
+        return $items;
+
+    $affiliateURL\t=\ttrack_affiliate_id();
+
+    foreach( $items as $item )
+    {
+            $item->url .= $affiliateURL;
+
+    }
+    return $items;
+}
+\`\`\`
+
+In my example, I use a custom hook on top of ' **wp_get_nav_menu_items**'.   I then loop through all the menu items, get the urls and append my **affiliate tracking code**, in my case I use a function to determine the code to use, but you might be able to get away with a hardcoded approach like:
+
+\`\`\`php
+$item->url .= '?affID=123';
+\`\`\`
+
+This ended up being really helpful for myself!`,
+    category: 'PHP',
+    tags: ['WordPress', 'PHP', 'Navigation', 'Affiliate'],
+    publishedDate: '2014-10-28',
+    originalDate: '2014.10.28',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Dynamically Add Parameters to the end of all wp_nav_menu() - Kris Chase',
+      metaDescription: "I was working on a client who's site I was working on where I was required to capture, and hold onto an affiliate tracking variable and value throughout the entire session of a user while browsing their website.",
+      ogTitle: 'Dynamically Add Parameters to the end of all wp_nav_menu() - Kris Chase',
+      ogDescription: "I was working on a client who's site I was working on where I was required to capture, and hold onto an affiliate tracking variable and value throughout the entire session of a user while browsing their website.",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-10-28',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'set-wordpress-image-quality-to-high',
+    url: 'https://wp.krischase.com/set-wordpress-image-quality-to-high/',
+    title: 'Set WordPress image quality to high',
+    description: 'Did you know that by default, WordPress smushes your JPG images down to 60% quality after your upload them?',
+    content: `Did you know that by default, WordPress smushes your JPG images down to 60% quality after your upload them?
+
+You can circumvent this by editing your themes functions.php file and adding the following snippet.
+
+Please note: You will sacrifice speed for quality but in doing so you will get 100% image quality on every upload.
+
+\`\`\`php
+/*  Custom thumbnail quality
+/* ------------------------------------ */
+function alx_thumbnail_quality( $quality ) {
+    return 100;
+}
+add_filter( 'jpeg_quality', 'alx_thumbnail_quality' );
+add_filter( 'wp_editor_set_quality', 'alx_thumbnail_quality' );
+\`\`\`
+
+If you've already got a lot of images in your media library you'll have to re-upload them in order to get that original image quality.  While doing so, why not add a few [custom WordPress image sizes](http://krischase.com/how-to-create-custom-auto-generated-image-sizes-in-wordpress/ "How to create custom auto generated image sizes in WordPress") for your themes use?
+
+What projects have you used this snippet on?  Share your results below!`,
+    category: 'PHP',
+    tags: ['WordPress', 'PHP', 'Images', 'Quality'],
+    publishedDate: '2014-10-24',
+    originalDate: '2014.10.24',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Set WordPress image quality to high - Kris Chase',
+      metaDescription: 'Did you know that by default, WordPress smushes your JPG images down to 60% quality after your upload them?',
+      ogTitle: 'Set WordPress image quality to high - Kris Chase',
+      ogDescription: 'Did you know that by default, WordPress smushes your JPG images down to 60% quality after your upload them?',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'how-to-create-custom-auto-generated-image-sizes-in-wordpress',
+    url: 'https://wp.krischase.com/how-to-create-custom-auto-generated-image-sizes-in-wordpress/',
+    title: 'How to create custom auto generated image sizes in WordPress',
+    description: "If you've ever needed to create custom image sizes for your WordPress installation, this function will come in very handy.",
+    content: `If you've ever needed to create custom image sizes for your WordPress installation, this function will come in very handy.
+
+This function relies on the WordPress [add_image_size()](http://codex.wordpress.org/Function_Reference/add_image_size) function.
+
+For your own reference the add_image_size() function uses the following parameters:
+
+\`\`\`php
+<?php add_image_size( $name, $width, $height, $crop ); ?>
+\`\`\`
+
+Simply modify the code below as you see fit.
+
+\`\`\`php
+// Create custom sizes
+// This is then pulled through to your theme using the_post_thumbnail('custombig');
+if ( function_exists( 'add_image_size' ) ) {
+\tadd_image_size('customsmall', 300, 200, true); //narrow column
+\tadd_image_size('custombig', 400, 500, true); //wide column
+}
+\`\`\`
+
+Set the first parameter of your function to the name of the size you want to reference later in your WordPress theme.
+
+You can use the following example to retrieve the custom image within your own theme / template:
+
+\`\`\`php
+<?php
+if ( has_post_thumbnail()):
+// Print out the custom image and also add the class custombig to the image for easy css manipulation
+    the_post_thumbnail( 'custombig', array( 'class' => 'custombig' ) );
+endif;
+?>
+\`\`\``,
+    category: 'PHP',
+    tags: ['WordPress', 'PHP', 'Images', 'Development'],
+    publishedDate: '2014-10-24',
+    originalDate: '2014.10.24',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'How to create custom auto generated image sizes in WordPress - Kris Chase',
+      metaDescription: "If you've ever needed to create custom image sizes for your WordPress installation, this function will come in very handy.",
+      ogTitle: 'How to create custom auto generated image sizes in WordPress - Kris Chase',
+      ogDescription: "If you've ever needed to create custom image sizes for your WordPress installation, this function will come in very handy.",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 2,
+    wordCount: 250,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-10-24',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'remove-the-ability-to-edit-theme-in-wordpress-admin',
+    url: 'https://wp.krischase.com/remove-the-ability-to-edit-theme-in-wordpress-admin/',
+    title: 'Remove the ability to edit theme in WordPress admin',
+    description: 'When developing sites for clients, sometimes you want the ability to prevent the end user from being able to edit/access the theme source code from the admin panel "Appearance -> Editor" area.',
+    content: `When developing sites for clients, sometimes you want the ability to prevent the end user from being able to edit/access the theme source code from the admin panel "Appearance -> Editor" area.  This snippet works great for just that!
+
+\`\`\`php
+// Disable the theme / plugin text editor in Admin
+define('DISALLOW_FILE_EDIT', true);
+\`\`\`
+
+Simply add this line of code to your WordPress themes functions.php file or if you're using roots, this belongs in custom.php
+
+Enjoy!`,
+    category: 'PHP',
+    tags: ['WordPress', 'PHP', 'Security', 'Admin'],
+    publishedDate: '2014-10-24',
+    originalDate: '2014.10.24',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Remove the ability to edit theme in WordPress admin - Kris Chase',
+      metaDescription: 'When developing sites for clients, sometimes you want the ability to prevent the end user from being able to edit/access the theme source code from the admin panel "Appearance -> Editor" area.',
+      ogTitle: 'Remove the ability to edit theme in WordPress admin - Kris Chase',
+      ogDescription: 'When developing sites for clients, sometimes you want the ability to prevent the end user from being able to edit/access the theme source code from the admin panel "Appearance -> Editor" area.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 100,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'social-media-sharing-links-without-using-a-plugin',
+    url: 'https://wp.krischase.com/social-media-sharing-links-without-using-a-plugin/',
+    title: 'Social Media Sharing links without using a Plugin',
+    description: 'If you ever want to include Social Media sharing links, like the ones found here on my blog, without wasting resources using some bloated plugin, you can use this code.',
+    content: `If you ever want to include Social Media sharing links, like the ones found here on my blog, without wasting resources using some bloated plugin, you can use this code.
+
+\`\`\`php
+<div class="facebook">
+\t<a href="http://www.facebook.com/sharer.php?u=<?php the_permalink(); ?>&t=<?php the_title(); ?>&p[images][0]=<?php //echo $challenge_card[sizes][large]; ?>" target="blank">
+\t\t<span class="entypo_social">&#62220;</span>
+\t</a>
+</div>
+<div class="twitter">
+\t<a href="http://twitter.com/share?text=<?php the_title(); ?>&url=<?php the_permalink(); ?>&via=twitter" title="Share on Twitter" rel="nofollow" target="_blank">
+\t\t<span class="entypo_social">&#62217;</span>
+\t</a>
+</div>
+<div class="linkedin">
+\t<a href="http://www.linkedin.com/shareArticle?url=<?php the_permalink(); ?>&title=<?php the_title(); ?>">
+\t\t<span class="entypo_social">&#62232;</span>
+\t</a>
+</div>
+<div class="pinterest">
+\t<a target="_blank" href="http://pinterest.com/pin/create/button/?url=<?php the_permalink(); ?>&media=&description=<?php the_title(); ?>" >
+\t\t<span class="entypo_social">&#62226;</span>
+\t</a>
+</div>
+\`\`\`
+
+Note: This particular block would require you're using the [entypo font library](http://www.entypo.com/) somewhere in your theme.  You can always replace the social media buttons themselves with your own images or generate your own font set from [fontello.com](http://fontello.com/)`,
+    category: 'Uncategorized',
+    tags: ['WordPress', 'PHP', 'Social Media', 'Sharing'],
+    publishedDate: '2014-10-23',
+    originalDate: '2014.10.23',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Social Media Sharing links without using a Plugin - Kris Chase',
+      metaDescription: 'If you ever want to include Social Media sharing links, like the ones found here on my blog, without wasting resources using some bloated plugin, you can use this code.',
+      ogTitle: 'Social Media Sharing links without using a Plugin - Kris Chase',
+      ogDescription: 'If you ever want to include Social Media sharing links, like the ones found here on my blog, without wasting resources using some bloated plugin, you can use this code.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 200,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-10-23',
+      isUpdated: true,
+    },
+  },
+  {
+    slug: 'require-login-to-view-wordpress-site',
+    url: 'https://wp.krischase.com/require-login-to-view-wordpress-site/',
+    title: 'Require login to view WordPress site',
+    description: 'You may want to force users to login in order to view a page within your WordPress site.',
+    content: `You may want to force users to login in order to view a page within your WordPress site.
+
+You can use the following code to do that:
+
+\`\`\`php
+\tadd_action('template_redirect','giga_check_if_logged_in');
+\tfunction giga_check_if_logged_in()
+\t{
+\t    if(!is_user_logged_in()) //Are they logged in? If not:
+\t    {
+\t        // Get the requested URL
+\t        global $wp;
+\t        $requested_url = home_url( $wp->request );
+
+\t        //Set $url to {site_url()}/wp-login.php?redirect_to={$requested_url}
+\t        $url = add_query_arg(
+\t            'redirect_to',
+\t            $requested_url,
+\t            site_url('wp-login.php')
+\t        );
+
+\t        //redirect any request to {site_url()}/wp-login.php?redirect_to={$requested_url}
+\t        wp_redirect($url);
+\t        exit;
+\t    }
+\t}
+\`\`\``,
+    category: 'PHP',
+    tags: ['WordPress', 'PHP', 'Security', 'Login'],
+    publishedDate: '2014-10-23',
+    originalDate: '2014.10.23',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'Require login to view WordPress site - Kris Chase',
+      metaDescription: 'You may want to force users to login in order to view a page within your WordPress site.',
+      ogTitle: 'Require login to view WordPress site - Kris Chase',
+      ogDescription: 'You may want to force users to login in order to view a page within your WordPress site.',
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {},
+  },
+  {
+    slug: 'how-to-grab-first-image-from-wordpress-post-content',
+    url: 'https://wp.krischase.com/how-to-grab-first-image-from-wordpress-post-content/',
+    title: 'How to Grab first image from wordpress post content',
+    description: "Sometimes you might find yourself in a situation where you have pages / posts that don't have a featured image set but you want to pull an image to use on a listings page or some other page in your WordPress theme.",
+    content: `Sometimes you might find yourself in a situation where you have pages / posts that don't have a featured image set but you want to pull an image to use on a listings page or some other page in your WordPress theme.
+
+The following code will give you the ability to do just that.  It parses the content of the post and pulls in the first image that comes back.
+
+\`\`\`php
+function catch_that_image($the_post) {
+  global $post, $posts;
+  $first_img = '';
+  ob_start();
+  ob_end_clean();
+
+  $output = preg_match_all('/<img.+src=[\\'\"]([^\\'\"]+)[\\'\"].*>/i', $the_post->post_content, $matches);
+  $first_img = $matches[1][0];
+
+  if(empty($first_img)) {
+    // No image was found in body copy, let's set a default image to go with.
+    $first_img = "default_image.jpg";
+  }
+  return $first_img;
+}
+\`\`\``,
+    category: 'PHP',
+    tags: ['WordPress', 'PHP', 'Images', 'Development'],
+    publishedDate: '2014-10-23',
+    originalDate: '2014.10.23',
+    featuredImage: 'https://wp.krischase.com/media/krischase.jpg',
+    seo: {
+      metaTitle: 'How to Grab first image from wordpress post content - Kris Chase',
+      metaDescription: "Sometimes you might find yourself in a situation where you have pages / posts that don't have a featured image set but you want to pull an image to use on a listings page or some other page in your WordPress theme.",
+      ogTitle: 'How to Grab first image from wordpress post content - Kris Chase',
+      ogDescription: "Sometimes you might find yourself in a situation where you have pages / posts that don't have a featured image set but you want to pull an image to use on a listings page or some other page in your WordPress theme.",
+      ogImage: 'https://wp.krischase.com/media/krischase.jpg',
+      twitterCard: 'summary',
+    },
+    readingTime: 1,
+    wordCount: 150,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2014-10-23',
+      isUpdated: true,
+    },
+  },
+];
+
+/**
+ * Get all posts, optionally filtered by category or tag
+ */
+export function getBlogPosts(filters?: {
+  category?: string;
+  tag?: string;
+  limit?: number;
+}): BlogPost[] {
+  let posts = [...blogPosts];
+
+  if (filters?.category) {
+    posts = posts.filter((post) => post.category === filters.category);
+  }
+
+  if (filters?.tag) {
+    posts = posts.filter((post) => post.tags.includes(filters.tag!));
+  }
+
+  if (filters?.limit) {
+    posts = posts.slice(0, filters.limit);
+  }
+
+  return posts;
+}
+
+/**
+ * Get a single post by slug
+ */
+export function getBlogPost(slug: string): BlogPost | undefined {
+  return blogPosts.find((post) => post.slug === slug);
+}
+
+/**
+ * Get all unique categories
+ */
+export function getCategories(): string[] {
+  const categories = new Set(blogPosts.map((post) => post.category));
+  return Array.from(categories).sort();
+}
+
+/**
+ * Get all unique tags
+ */
+export function getTags(): string[] {
+  const tags = new Set(blogPosts.flatMap((post) => post.tags));
+  return Array.from(tags).sort();
+}
+
+/**
+ * Calculate reading time from word count
+ * Average reading speed: 200-250 words per minute
+ */
+export function calculateReadingTime(wordCount: number): number {
+  const wordsPerMinute = 225;
+  return Math.ceil(wordCount / wordsPerMinute);
+}
+
+/**
+ * Calculate word count from markdown content
+ */
+export function calculateWordCount(content: string): number {
+  // Remove markdown syntax, HTML tags, and count words
+  const text = content
+    .replace(/[#*`\[\]()]/g, '') // Remove markdown syntax
+    .replace(/<[^>]*>/g, '') // Remove HTML tags
+    .replace(/\s+/g, ' ') // Normalize whitespace
+    .trim();
+  return text.split(/\s+/).filter((word) => word.length > 0).length;
+}
