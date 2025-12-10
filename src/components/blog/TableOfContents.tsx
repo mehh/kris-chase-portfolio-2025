@@ -86,40 +86,40 @@ export function TableOfContents() {
 
   return (
     <nav
-      className="sticky top-24 hidden xl:block w-64 h-fit max-h-[calc(100vh-8rem)] overflow-y-auto"
+      className="sticky top-24 hidden xl:block w-72 h-fit max-h-[calc(100vh-8rem)] overflow-y-auto pr-4"
       aria-label="Table of contents"
     >
-      <div className="border-l-2 border-border/30 pl-6 py-2">
-        <h3 className="text-sm font-semibold text-foreground mb-4 uppercase tracking-wider">
-          Contents
+      <div className="border-l-2 border-primary/30 pl-6 py-4 bg-muted/30 rounded-r-xl backdrop-blur-sm">
+        <h3 className="text-xs font-bold text-foreground mb-6 uppercase tracking-widest">
+          Table of Contents
         </h3>
-        <ul className="space-y-2">
+        <ul className="space-y-3">
           {headings.map((heading) => {
             const isActive = activeId === heading.id;
-            const indent = heading.level - 1;
+            const indent = heading.level - 2; // Start indenting from h2
 
             return (
               <li
                 key={heading.id}
-                style={{ paddingLeft: `${indent * 0.75}rem` }}
+                style={{ paddingLeft: `${Math.max(0, indent) * 1.25}rem` }}
                 className="relative"
               >
                 <a
                   href={`#${heading.id}`}
                   onClick={(e) => handleClick(e, heading.id)}
-                  className={`group flex items-start gap-2 text-sm transition-colors ${
+                  className={`group flex items-start gap-2.5 text-sm transition-all duration-200 rounded-lg px-2 py-1.5 -ml-2 ${
                     isActive
-                      ? 'text-primary font-medium'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'text-primary font-semibold bg-primary/10 border-l-2 border-primary'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/50'
                   }`}
                 >
                   {heading.level > 2 && (
-                    <ChevronRight className="w-3 h-3 mt-0.5 flex-shrink-0 opacity-50 group-hover:opacity-100 transition-opacity" />
+                    <ChevronRight className="w-3.5 h-3.5 mt-0.5 flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity" />
                   )}
                   <span className="leading-relaxed">{heading.text}</span>
                 </a>
                 {isActive && (
-                  <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-primary" />
+                  <div className="absolute left-0 top-1 bottom-1 w-1 bg-primary rounded-r-full" />
                 )}
               </li>
             );

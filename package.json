@@ -11,7 +11,9 @@
     "start": "next start",
     "lint": "next lint",
     "fetch:brands": "node ./scripts/fetch-brands.mjs",
-    "fetch:logos": "zsh ./scripts/fetch-logos.zsh"
+    "fetch:logos": "zsh ./scripts/fetch-logos.zsh",
+    "generate:blog-images": "node ./scripts/generate-blog-images.mjs",
+    "generate:featured-images": "node ./scripts/generate-featured-images-openai.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.14",
@@ -31,6 +33,7 @@
     "curtainsjs": "^8.1.6",
     "d3": "^7.9.0",
     "daisyui": "^5.0.50",
+    "dotenv": "^17.2.3",
     "framer-motion": "^12.23.12",
     "gsap": "^3.13.0",
     "highlight.js": "^11.11.1",
@@ -39,6 +42,7 @@
     "lucide-react": "^0.539.0",
     "motion": "^12.23.12",
     "next": "15.5.7",
+    "openai": "^6.10.0",
     "posthog-js": "^1.257.2",
     "react": "19.2.1",
     "react-dom": "19.2.1",

@@ -46,25 +46,23 @@ export function BlogCard({ post, featured = false, index = 0 }: BlogCardProps) {
     >
       <Link href={`/blog-gemini3/${post.slug}`} className="block h-full">
         <div className={`flex flex-col h-full ${featured ? 'md:flex-row' : ''}`}>
-          {/* Image */}
-          {imageUrl && (
-            <div
-              className={cn(
-                'relative overflow-hidden bg-muted',
-                featured ? 'h-48 md:h-auto md:w-1/2' : 'h-48'
-              )}
-            >
-              <Image
-                src={imageUrl}
-                alt={post.title}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-                sizes={featured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, 33vw'}
-                unoptimized={imageUrl.startsWith('http://') || imageUrl.startsWith('https://')}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
-            </div>
-          )}
+          {/* Image - Always show (has default fallback) */}
+          <div
+            className={cn(
+              'relative overflow-hidden bg-muted',
+              featured ? 'h-48 md:h-auto md:w-1/2' : 'h-48'
+            )}
+          >
+            <Image
+              src={imageUrl}
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              sizes={featured ? '(max-width: 768px) 100vw, 50vw' : '(max-width: 768px) 100vw, 33vw'}
+              unoptimized={imageUrl.startsWith('http://') || imageUrl.startsWith('https://')}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+          </div>
 
           {/* Content */}
           <div

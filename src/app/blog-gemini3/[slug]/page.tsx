@@ -97,7 +97,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const imageUrl = getPostImage(post);
-  const postUrl = getPostUrl(post.slug);
 
   // Get related posts (same category, excluding current)
   const relatedPosts = blogPosts
@@ -107,78 +106,82 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       <ScrollProgress />
-      <main className="relative mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-20">
-        {/* Back Link */}
-        <div className="mb-8">
-          <Link
-            href="/blog-gemini3"
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
-          >
-            <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-            <span className="text-sm font-medium">Back to Blog</span>
-          </Link>
-        </div>
-
-        {/* Article Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12">
-          {/* Main Content */}
-          <article className="prose prose-lg dark:prose-invert max-w-none">
-            {/* Header */}
-            <header className="mb-8">
-              {/* Category */}
-              <div className="mb-4">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#96442e]/10 dark:bg-[#96442e]/20 text-[#96442e] dark:text-[#b46633] text-sm font-medium">
-                  <Tag className="h-3.5 w-3.5" />
-                  {getCategoryDisplayName(post.category)}
-                </span>
-              </div>
-
-              {/* Title */}
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold tracking-tight text-foreground mb-6">
-                {post.title}
-              </h1>
-
-              {/* Metadata */}
-              <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-6">
-                <time dateTime={post.publishedDate} className="flex items-center gap-1.5">
-                  <Calendar className="h-4 w-4" />
-                  {formatDate(post.publishedDate, "long")}
-                </time>
-                <span className="flex items-center gap-1.5">
-                  <Clock className="h-4 w-4" />
-                  {post.readingTime} min read
-                </span>
-                {post.metadata.updatedDate && (
-                  <span className="text-xs">
-                    Updated {formatDate(post.metadata.updatedDate, "short")}
-                  </span>
-                )}
-              </div>
-
-              {/* Featured Image */}
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-muted mb-8">
-                <Image
-                  src={imageUrl}
-                  alt={post.title}
-                  fill
-                  className="object-cover"
-                  priority
-                  sizes="(max-width: 768px) 100vw, 80vw"
-                />
-              </div>
-
-              {/* Description/Excerpt */}
-              {post.description && (
-                <p className="text-xl text-muted-foreground leading-relaxed mb-8">
-                  {post.description}
-                </p>
-              )}
-            </header>
-
-            {/* Content */}
-            <div className="mb-12">
-              <PostContent content={post.content} post={post} />
+      <main className="relative w-full min-h-screen">
+        {/* Hero Section - Full Width */}
+        <section className="w-full border-b border-border/50 bg-gradient-to-b from-background via-background to-transparent">
+          <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-48 pb-12 md:pb-16">
+            {/* Back Link */}
+            <div className="mb-8">
+              <Link
+                href="/blog-gemini3"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
+              >
+                <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+                <span className="text-sm font-medium">Back to Blog</span>
+              </Link>
             </div>
+
+            {/* Category */}
+            <div className="mb-6">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#96442e]/10 dark:bg-[#96442e]/20 text-[#96442e] dark:text-[#b46633] text-sm font-medium">
+                <Tag className="h-3.5 w-3.5" />
+                {getCategoryDisplayName(post.category)}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight text-foreground mb-6">
+              {post.title}
+            </h1>
+
+            {/* Metadata */}
+            <div className="flex flex-wrap items-center gap-6 text-sm text-muted-foreground mb-8">
+              <time dateTime={post.publishedDate} className="flex items-center gap-1.5">
+                <Calendar className="h-4 w-4" />
+                {formatDate(post.publishedDate, "long")}
+              </time>
+              <span className="flex items-center gap-1.5">
+                <Clock className="h-4 w-4" />
+                {post.readingTime} min read
+              </span>
+              {post.metadata.updatedDate && (
+                <span className="text-xs">
+                  Updated {formatDate(post.metadata.updatedDate, "short")}
+                </span>
+              )}
+            </div>
+
+            {/* Featured Image - Full Width */}
+            <div className="relative w-full -mx-6 sm:-mx-8 md:-mx-10 lg:-mx-12 aspect-[21/9] md:aspect-video rounded-none md:rounded-2xl overflow-hidden bg-muted mb-8">
+              <Image
+                src={imageUrl}
+                alt={post.title.replace(/"/g, '&quot;')}
+                fill
+                className="object-cover"
+                priority
+                sizes="100vw"
+              />
+            </div>
+
+            {/* Description/Excerpt */}
+            {post.description && (
+              <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8 max-w-4xl">
+                {post.description}
+              </p>
+            )}
+          </div>
+        </section>
+
+        {/* Content Container */}
+        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12 py-12 md:py-16">
+          {/* Article Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 lg:gap-16">
+            {/* Main Content */}
+            <article className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:font-bold prose-h2:text-3xl prose-h3:text-2xl prose-p:text-foreground/90 prose-p:leading-relaxed prose-a:text-[#96442e] prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-strong:font-semibold">
+              {/* Content */}
+              <div className="mb-12">
+                <PostContent content={post.content} post={post} />
+              </div>
 
             {/* Tags */}
             {post.tags.length > 0 && (
@@ -197,41 +200,42 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </div>
             )}
 
-            {/* Social Share */}
-            <SocialShare post={post} />
-          </article>
+              {/* Social Share */}
+              <SocialShare post={post} />
+            </article>
 
-          {/* Sidebar */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
-            <TableOfContents />
-          </aside>
-        </div>
+            {/* Sidebar */}
+            <aside className="lg:sticky lg:top-24 lg:self-start">
+              <TableOfContents />
+            </aside>
+          </div>
 
-        {/* Related Posts */}
-        {relatedPosts.length > 0 && (
-          <section className="mt-20 pt-12 border-t border-border">
-            <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-8">
-              Related Posts
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-              {relatedPosts.map((relatedPost) => (
-                <div key={relatedPost.slug} className="relative rounded-2xl p-2">
-                  <GlowingEffect
-                    spread={40}
-                    glow
-                    disabled={false}
-                    proximity={64}
-                    inactiveZone={0.01}
-                    borderWidth={3}
-                  />
-                  <div className="relative rounded-2xl">
-                    <BlogCard post={relatedPost} />
+          {/* Related Posts */}
+          {relatedPosts.length > 0 && (
+            <section className="mt-20 pt-12 border-t border-border">
+              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-8">
+                Related Posts
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                {relatedPosts.map((relatedPost) => (
+                  <div key={relatedPost.slug} className="relative rounded-2xl p-2">
+                    <GlowingEffect
+                      spread={40}
+                      glow
+                      disabled={false}
+                      proximity={64}
+                      inactiveZone={0.01}
+                      borderWidth={3}
+                    />
+                    <div className="relative rounded-2xl">
+                      <BlogCard post={relatedPost} />
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       </main>
     </>
   );
