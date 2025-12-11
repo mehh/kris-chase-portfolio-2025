@@ -60,292 +60,184 @@ export interface BlogPost {
  */
 export const blogPosts: BlogPost[] = [
   {
-    slug: 'engineering-leadership-in-the-age-of-ai',
-    url: 'https://krischase.com/blog/engineering-leadership-in-the-age-of-ai',
-    title: 'Engineering Leadership in the Age of AI',
-    description: 'How AI is reshaping modern engineering leadership, decision-making, velocity, and the way teams ship software at scale.',
-    content: `# Engineering Leadership in the Age of AI
-
-AI is no longer a novelty—it's a multiplier for engineering teams. Modern leaders must rethink how teams ideate, architect, code, test, and ship.
-
-## What's Changing
-- AI pair programmers accelerate iteration cycles
-- Architecture decisions become more data-informed
-- Leaders shift from gatekeepers to orchestrators
-
-## How Leadership Evolves
-AI raises the bar for **clarity**, **intentionality**, and **technical judgment**. Teams move faster, which means leaders must:
-
-- Remove friction proactively
-- Establish guardrails for AI-assisted code
-- Focus on outcomes, not artifacts
-
-## Example Workflow
-\`\`\`javascript
-const prompt = "Generate a reusable API handler for a Node.js service";
-ai.generate(prompt);
-\`\`\`
-
-## Final Thought
-The leaders who win aren't the ones who resist AI—they're the ones who shape how it's used.`,
-    category: 'Leadership',
-    tags: ['AI', 'Engineering Leadership', 'Velocity'],
-    publishedDate: '2025-11-15',
-    originalDate: '2025.11.15',
-    featuredImage: '/images/blog/engineering-leadership-in-the-age-of-ai.png',
-    seo: {
-      metaTitle: 'Engineering Leadership in the Age of AI - Kris Chase',
-      metaDescription: 'How AI is reshaping modern engineering leadership, decision-making, velocity, and the way teams ship software at scale.',
-      ogTitle: 'Engineering Leadership in the Age of AI - Kris Chase',
-      ogDescription: 'How AI is reshaping modern engineering leadership, decision-making, velocity, and the way teams ship software at scale.',
-      ogImage: 'https://krischase.com/images/ai-leadership.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "engineering-leadership-in-the-age-of-ai",
+    "url": "https://krischase.com/blog/engineering-leadership-in-the-age-of-ai",
+    "title": "Engineering Leadership in the Age of AI",
+    "description": "How AI is reshaping modern engineering leadership, accelerating decision-making, and redefining how teams design, build, and ship software.",
+    "content": "# Engineering Leadership in the Age of AI\n\nAI is no longer an emerging trend—it’s the new operating system for engineering organizations. The leaders who thrive in this era aren’t the ones who simply *adopt* AI tools. They’re the ones who redesign how teams think, collaborate, and execute.\n\n## How AI Is Rewriting Engineering\nAI isn’t just improving development velocity—it’s fundamentally changing engineering strategy:\n- **AI pair programmers** shrink iteration cycles from days to minutes.\n- **Architecture decisions** become measurable, data-backed, and reversible.\n- **Leaders shift from gatekeepers to orchestrators**, creating systems where teams produce more with less friction.\n\nAI doesn’t replace strategic thinking. It **amplifies** it.\n\n## What Modern Engineering Leaders Must Adapt To\nAs AI accelerates delivery, the role of leadership changes. High-output teams now require:\n- **Radical clarity** — because ambiguity compounds faster at AI speed.\n- **Healthier guardrails**, not heavier process — AI-generated code needs direction, not bureaucracy.\n- **Outcome-driven culture** — value is in what ships, not what gets discussed.\n- **A bias toward iteration** — when AI reduces the cost of change, the cost of waiting increases.\n\nLeaders who previously optimized for control must now optimize for **enablement**.\n\n## A Modern AI-Infused Workflow\nHere's a simple example of how leaders can operationalize AI inside the development lifecycle:\n```javascript\nconst prompt = \"Generate a reusable API handler for a Node.js service. Include logging, retries, and error shaping.\";\nconst result = ai.generate(prompt);\n```\nInstead of producing artifacts manually, engineers design higher-level intent—and AI reduces the distance from idea to implementation.\n\n## What This Means for the Future of Engineering Teams\nAI compels leaders to:\n- Invest in foundational architecture that AI can extend safely.\n- Teach teams how to *collaborate with automation*.\n- Shift career paths toward systems thinking, product intuition, and taste.\n- Rethink productivity metrics entirely.\n\nThe organizations that win will be the ones that make AI a **team member**, not a tool.\n\n## Final Thought\nThe leaders who thrive in this era won’t be the ones who resist AI—they’ll be the ones who **define how it’s used**. Leadership in the age of AI is ultimately about judgment, clarity, and the courage to redesign how teams work.\n",
+    "category": "Leadership",
+    "tags": ["AI", "Engineering Leadership", "Velocity"],
+    "publishedDate": "2025-11-15",
+    "originalDate": "2025.11.15",
+    "featuredImage": "/images/blog/engineering-leadership-in-the-age-of-ai.png",
+    "seo": {
+      "metaTitle": "Engineering Leadership in the Age of AI - Kris Chase",
+      "metaDescription": "How AI is reshaping modern engineering leadership, decision-making, and the way high-performance teams design, build, and ship software.",
+      "ogTitle": "Engineering Leadership in the Age of AI - Kris Chase",
+      "ogDescription": "A deep dive into how AI is transforming engineering leadership, velocity, and decision-making at scale.",
+      "ogImage": "https://krischase.com/images/ai-leadership.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 3,
-    wordCount: 675,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 850,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'vibe-coded-software-what-it-means',
-    url: 'https://krischase.com/blog/vibe-coded-software-what-it-means',
-    title: 'Vibe Coded Software: What It Really Means',
-    description: "A breakdown of what 'vibe-coded' software is and why emotion, taste, and aesthetic intuition are becoming core engineering competencies.",
-    content: `# Vibe Coded Software: What It Really Means
-
-Software used to be functional. Now it's emotional. "Vibe coded" software is the new frontier—products that *feel* premium the moment you touch them.
-
-## What Defines Vibe Coding?
-- Micro-interactions that delight
-- Typography that feels intentional
-- Motion that matches brand energy
-- Intuitive flow that requires no explanation
-
-## Why It Matters
-Users equate visual quality with product quality. Design is no longer a layer—it's part of the architecture.
-
-## Example
-\`\`\`jsx
-<motion.div animate={{ opacity: 1, y: 0 }} />
-\`\`\`
-
-## Final Thought
-Taste is now a technical skill—and leaders must cultivate it.`,
-    category: 'Product',
-    tags: ['Design', 'UX', 'Engineering'],
-    publishedDate: '2025-10-28',
-    originalDate: '2025.10.28',
-    featuredImage: '/images/blog/vibe-coded-software-what-it-means.png',
-    seo: {
-      metaTitle: 'Vibe Coded Software - Kris Chase',
-      metaDescription: 'What vibe-coded software is and why emotion, taste, and aesthetic intuition are becoming core engineering competencies.',
-      ogTitle: 'Vibe Coded Software - Kris Chase',
-      ogDescription: 'What vibe-coded software is and why emotion, taste, and aesthetic intuition are becoming core engineering competencies.',
-      ogImage: 'https://krischase.com/images/vibe-code.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "vibe-coded-software-what-it-means",
+    "url": "https://krischase.com/blog/vibe-coded-software-what-it-means",
+    "title": "Vibe Coded Software: What It Really Means",
+    "description": "A grounded explanation of vibe-coded software—how modern AI-native tools enable fast, fluid, high-quality software creation without requiring deep focus or hours of manual coding.",
+    "content": "# Vibe Coded Software: What It Really Means\n\nThe definition of software development has fundamentally changed. Not because frameworks evolved, but because the *developer’s mental model* has. Tools like **Cursor**, **Windsurf**, **Bolt**, **v0**, **Lovable**, and **vZero** have created a new mode of building—one where developers can create high-quality applications without slipping into the old, narrow-flow, deeply focused state that traditional engineering demanded.\n\nThis new mode is called **vibe coding**.\n\nIt’s not about aesthetics. It’s not about UI feelings. It’s about **a different cognitive posture** for building software.\n\n## What Vibe Coding Actually Is\nVibe coding is the ability to:\n- Build faster and more fluidly using AI-native IDEs.\n- Generate high-quality starting points without manual boilerplate.\n- Switch contexts without losing momentum.\n- Ship continuously without requiring long, focus-intensive coding sessions.\n\nInstead of grinding through hours of hand-written code, developers prompt, refine, shape, and steer systems that generate the heavy lifting for them.\n\nVibe coding is **development with lowered cognitive load**.\n\nIt's writing real software while:\n- juggling multiple tasks,\n- context switching naturally,\n- working in a relaxed state,\n- keeping your head above the details rather than being buried underneath them.\n\nThis isn’t about being careless—it’s about being *amplified*.\n\n## The Shift: From Deep Focus to Light-Touch Creation\nTraditional engineering often required:\n- long uninterrupted blocks of focus,\n- memorizing APIs and syntax,\n- manually managing state and architecture,\n- switching mental models for every framework and layer.\n\nToday, vibe coding replaces that with:\n- **AI agents that scaffold entire features**,\n- **in-IDE refactoring assistants**,\n- **context-aware test generation**,\n- **auto-documented PRs**,\n- **instant style + component creation**,\n- **orchestration instead of rote typing**.\n\nInstead of saying, “Let me disappear for three hours and figure this out,” vibe coders say:\n> *“Give me 10 minutes and I’ll get a version working.”*\n\n## Why This Matters for CTOs and Engineering Leaders\nVibe coding changes operational assumptions:\n\n### 1. **It lowers the barrier to building great software**\nMore people—designers, PMs, founders, entrepreneurs—can express ideas in working form. That doesn’t make engineers obsolete; it makes them *force multipliers*.\n\n### 2. **It compresses development timelines**\nWhat used to be a sprint becomes a day. What used to take a day becomes an hour.\n\n### 3. **It reduces the cognitive tax on developers**\nInstead of fighting complexity, engineers steer systems that absorb it.\n\n### 4. **It unlocks parallel creativity**\nYou can build while:\n- on calls,\n- reviewing designs,\n- answering Slack messages,\n- switching between projects.\n\nDeep flow still exists—but now it’s optional.\n\n### 5. **It creates a new engineering culture**\nOne where:\n- prototypes are cheap,\n- iteration is constant,\n- experimentation is expected,\n- engineering feels lighter,\n- shipping becomes habitual.\n\nThis is the shift from *artisanal code* to **intent-driven creation**.\n\n## What Vibe-Coded Workflows Look Like\nA small example:\n```javascript\n// Instead of building this by hand…\nconst handler = createExpressHandler({\n  retries: 3,\n  validator: \"zod\",\n  db: \"postgres\"\n});\n\n// A vibe-coded workflow is:\nai.generate(\"Create a robust Express handler with retries, zod validation, and Postgres support.\");\n```\nThe developer becomes the director, not the typist.\n\n## The Bigger Picture: This Changes Who Can Build\nVibe coding democratizes creation.\n\nPeople who previously needed:\n- complete quiet,\n- long uninterrupted sessions,\n- deep framework-level thinking…\n\n…can now build production-grade products **while staying in a relaxed, conversational state**. The tools do the heavy lifting. The human provides direction, judgment, and taste.\n\nIt’s not that engineering becomes less valuable. It becomes *less rigid*.\n\n## Final Thought\nVibe coding represents a new era of software creation—where great things can be built quickly, fluidly, and without the old constraints of deep-focus, grind-heavy engineering. It lowers the barrier to entry, raises the ceiling on output, and lets teams ship more while thinking more strategically.\n\nIn a world where time-to-market is everything, vibe coding isn’t a trend. It’s the new baseline.\n",
+    "category": "Product",
+    "tags": ["AI", "Developer Tools", "Engineering", "Velocity"],
+    "publishedDate": "2025-10-28",
+    "originalDate": "2025.10.28",
+    "featuredImage": "/images/blog/vibe-coded-software-what-it-means.png",
+    "seo": {
+      "metaTitle": "Vibe Coded Software - Kris Chase",
+      "metaDescription": "A real definition of vibe-coded software—how AI-native development tools like Cursor, Windsurf, Bolt, and vZero lower cognitive load and let engineers build high-quality products faster.",
+      "ogTitle": "Vibe Coded Software - Kris Chase",
+      "ogDescription": "A CTO-level breakdown of vibe-coded development and how AI-native tools change the speed and cognitive posture of software creation.",
+      "ogImage": "https://krischase.com/images/vibe-code.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 5,
+    "wordCount": 1050,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'fractional-cto-vs-consultant',
-    url: 'https://krischase.com/blog/fractional-cto-vs-consultant',
-    title: "Fractional CTO vs. Consultant: What's the Difference?",
-    description: 'A clear explanation of how fractional CTOs differ from consultants and when companies should choose one over the other.',
-    content: `# Fractional CTO vs. Consultant: What's the Difference?
-
-The terms get blended constantly, but they are not the same role.
-
-## Consultants Solve Problems
-They show up, advise, document, and deliver a bounded outcome.
-
-## Fractional CTOs Own Outcomes
-A fractional CTO:
-- Sets engineering direction
-- Manages teams
-- Owns long-term architecture
-- Represents engineering at the leadership table
-
-## Quick Comparison Table
-| Role | Scope | Ownership |
-|------|--------|------------|
-| Consultant | Tactical | Low |
-| Fractional CTO | Strategic + Operational | High |
-
-## Final Thought
-Hire a consultant when you need clarity. Hire a fractional CTO when you need transformation.`,
-    category: 'Leadership',
-    tags: ['Fractional CTO', 'Consulting', 'Startups'],
-    publishedDate: '2025-09-20',
-    originalDate: '2025.09.20',
-    featuredImage: 'https://krischase.com/images/fractional-vs-consultant.jpg',
-    seo: {
-      metaTitle: 'Fractional CTO vs. Consultant - Kris Chase',
-      metaDescription: 'A clear explanation of how fractional CTOs differ from consultants and when companies should choose one over the other.',
-      ogTitle: 'Fractional CTO vs. Consultant - Kris Chase',
-      ogDescription: 'A clear explanation of how fractional CTOs differ from consultants and when companies should choose one over the other.',
-      ogImage: 'https://krischase.com/images/fractional-vs-consultant.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "fractional-cto-vs-consultant",
+    "url": "https://krischase.com/blog/fractional-cto-vs-consultant",
+    "title": "Fractional CTO vs. Consultant: What's the Difference?",
+    "description": "A clear, practical breakdown of how fractional CTOs differ from consultants—and how founders can choose the right model for their stage and risk profile.",
+    "content": "# Fractional CTO vs. Consultant: What's the Difference?\n\nThe terms get mixed up constantly, but they represent fundamentally different modes of working. One delivers clarity. The other delivers leadership. Both are useful—but not for the same situations.\n\n## Consultants Solve Problems\nConsultants excel when you need a **defined outcome**:\n- Diagnose a problem\n- Recommend a path forward\n- Deliver documentation, analysis, or a scoped solution\n\nThey bring expertise, point-in-time insight, and pattern recognition. Their job is to **advise**, not own.\n\nA consultant helps you answer:\n- *“What should we do?”*\n- *“Why is this happening?”*\n- *“How do we fix this specific thing?”*\n\nThe engagement is bounded, tactical, and oriented around a deliverable—not around the long-term health of your engineering organization.\n\n## Fractional CTOs Own Outcomes\nA fractional CTO is very different. They’re not just solving a problem—they’re building the system that prevents the problem from happening again.\n\nA fractional CTO:\n- Sets engineering direction and long-term architecture\n- Manages or mentors teams\n- Creates the processes, cadences, and culture for predictable delivery\n- Represents engineering at the leadership table\n- Aligns roadmap, tech strategy, and business goals\n- Makes decisions that drive the company forward—not just the project\n\nWhere consultants focus on **insight**, fractional CTOs focus on **execution** and **transformation**.\n\nIf a consultant says “Here’s the map,” a fractional CTO says “Let’s go there together.”\n\n## When to Choose a Consultant\nConsultants are ideal when you need:\n- A fast diagnosis\n- A specific architectural review\n- A one-time audit or assessment\n- Research into tooling, vendors, or technical options\n- A roadmap or planning artifact\n- Expertise without long-term commitment\n\nThey’re the right call when the problem is **discrete**, not systemic.\n\n## When to Choose a Fractional CTO\nA fractional CTO is the right fit when you need:\n- Leadership, not just advice\n- Someone to manage and grow the engineering team\n- Real accountability for delivery velocity and quality\n- A partner who understands product, business, and engineering tradeoffs\n- A long-term technology strategy\n- A stabilizing force during hiring, restructuring, or rapid scaling\n\nFractional CTOs are **builders**, not consultants. They shape org design, create culture, set standards, and drive outcomes.\n\n## Quick Comparison Table\n| Role | Scope | Responsibility | Time Horizon |\n|------|--------|----------------|----------------|\n| Consultant | Tactical | Low | Short-term |\n| Fractional CTO | Strategic + Operational | High | Medium–Long term |\n\n## The Founder Lens: Which One Do You Actually Need?\nAsk yourself:\n1. **“Is this a one-time problem or a recurring pattern?”**\n2. **“Do I need expertise or leadership?”**\n3. **“Do we lack strategy, execution, or both?”**\n4. **“Is our biggest gap knowledge or accountability?”**\n\nYour answers determine whether you need someone who *advises*… or someone who *owns outcomes*.\n\n## Final Thought\nHire a consultant when you need clarity. Hire a fractional CTO when you need transformation.\n\nOne helps you understand the problem. The other helps you build the system that solves it—permanently.\n",
+    "category": "Leadership",
+    "tags": ["Fractional CTO", "Consulting", "Startups"],
+    "publishedDate": "2025-09-20",
+    "originalDate": "2025.09.20",
+    "featuredImage": "https://krischase.com/images/fractional-vs-consultant.jpg",
+    "seo": {
+      "metaTitle": "Fractional CTO vs. Consultant - Kris Chase",
+      "metaDescription": "A clear, practical breakdown of how fractional CTOs differ from consultants—and when founders should choose one over the other.",
+      "ogTitle": "Fractional CTO vs. Consultant - Kris Chase",
+      "ogDescription": "A straightforward explanation of the difference between fractional CTOs and consultants, tailored for founders and engineering leaders.",
+      "ogImage": "https://krischase.com/images/fractional-vs-consultant.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 825,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'building-high-output-engineering-teams',
-    url: 'https://krischase.com/blog/building-high-output-engineering-teams',
-    title: 'Building High-Output Engineering Teams',
-    description: 'A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.',
-    content: `# Building High-Output Engineering Teams
-
-The highest-performing teams aren't the biggest—they're the *clearest*.
-
-## 3 Ingredients of High Output
-1. **Crystal-clear ownership**
-2. **Predictable delivery cycles**
-3. **High-trust communication loops**
-
-## Rituals That Matter
-- Daily standups with intent
-- Weekly planning that reduces ambiguity
-- Monthly retros that actually change behavior
-
-## Final Thought
-High-output teams don't happen by accident—they're engineered.`,
-    category: 'Leadership',
-    tags: ['Engineering Teams', 'Velocity', 'Leadership'],
-    publishedDate: '2025-08-12',
-    originalDate: '2025.08.12',
-    featuredImage: '/images/blog/building-high-output-engineering-teams.png',
-    seo: {
-      metaTitle: 'Building High-Output Engineering Teams - Kris Chase',
-      metaDescription: 'A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.',
-      ogTitle: 'Building High-Output Engineering Teams - Kris Chase',
-      ogDescription: 'A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.',
-      ogImage: 'https://krischase.com/images/high-output.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "building-high-output-engineering-teams",
+    "url": "https://krischase.com/blog/building-high-output-engineering-teams",
+    "title": "Building High-Output Engineering Teams",
+    "description": "A practical, modern framework for building engineering teams that consistently deliver high velocity, high quality, and low drama.",
+    "content": "# Building High-Output Engineering Teams\n\nHigh-output engineering teams don’t emerge from raw talent or headcount—they emerge from clarity. When teams know exactly who owns what, how decisions are made, and how work flows, output becomes predictable and quality becomes repeatable.\n\nThe secret isn’t more people. It’s fewer questions.\n\n## The Three Ingredients of High Output\n### **1. Crystal-Clear Ownership**\nTeams slow down when nobody knows who owns a decision. High-output orgs create:\n- Clear lanes of responsibility\n- Lightweight decision-making frameworks\n- Team captains who remove ambiguity, not add to it\n\nWhen ownership is clear, velocity becomes a natural byproduct.\n\n### **2. Predictable Delivery Cycles**\nGreat engineering teams are steady—not chaotic. They:\n- Plan in realistic increments\n- Keep scope tight and movable\n- Align engineering and product around shared definitions of “done”\n\nPredictability builds trust. Trust accelerates everything.\n\n### **3. High-Trust Communication Loops**\nThe highest-performing teams communicate early, openly, and without ego. This looks like:\n- Engineers surfacing risks early\n- Product offering context, not mandates\n- Leaders removing blockers instead of adding meetings\n\nWhen trust is high, teams stop posturing and start solving.\n\n## Rituals That Actually Matter\nMost teams either under-ritualize (chaos) or over-ritualize (bureaucracy). High-output teams keep only what drives momentum:\n- **Daily standups with intent**, not status theater\n- **Weekly planning that reduces ambiguity**, not creates project management debt\n- **Monthly retros focused on behavior**, not blame\n\nRituals should serve the team—not the other way around.\n\n## The Leader’s Role\nHigh-output cultures are built by leaders who:\n- Provide context early and often\n- Enforce quality through example, not fear\n- Protect engineers from thrash and priority churn\n- Align incentives around outcomes, not activity\n\nGreat leaders create systems where engineers can do the best work of their careers.\n\n## Final Thought\nHigh-output teams aren’t accidents. They’re engineered structures where clarity, trust, and predictability compound into velocity. Build the environment, and the output takes care of itself.\n",
+    "category": "Leadership",
+    "tags": ["Engineering Teams", "Velocity", "Leadership"],
+    "publishedDate": "2025-08-12",
+    "originalDate": "2025.08.12",
+    "featuredImage": "/images/blog/building-high-output-engineering-teams.png",
+    "seo": {
+      "metaTitle": "Building High-Output Engineering Teams - Kris Chase",
+      "metaDescription": "A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.",
+      "ogTitle": "Building High-Output Engineering Teams - Kris Chase",
+      "ogDescription": "A practical framework for creating engineering teams that consistently deliver high velocity, high quality, and low drama.",
+      "ogImage": "https://krischase.com/images/high-output.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 780,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'ai-assisted-software-development-workflows',
-    url: 'https://krischase.com/blog/ai-assisted-software-development-workflows',
-    title: 'AI-Assisted Software Development Workflows',
-    description: 'A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.',
-    content: `# AI-Assisted Software Development Workflows
-
-AI is changing not just *how* we code, but *when* and *why*.
-
-## What AI Changes
-- Faster prototyping
-- Automated tests
-- Smarter refactoring
-
-## Example Workflow
-\`\`\`javascript
-const tests = ai.generateUnitTests(component);
-\`\`\`
-
-## Final Thought
-AI won't replace engineers. Engineers using AI will replace engineers not using AI.`,
-    category: 'AI',
-    tags: ['AI', 'Engineering', 'Workflows'],
-    publishedDate: '2025-07-05',
-    originalDate: '2025.07.05',
-    featuredImage: '/images/blog/ai-assisted-software-development-workflows.png',
-    seo: {
-      metaTitle: 'AI-Assisted Software Development Workflows - Kris Chase',
-      metaDescription: 'A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.',
-      ogTitle: 'AI-Assisted Software Development Workflows - Kris Chase',
-      ogDescription: 'A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.',
-      ogImage: 'https://krischase.com/images/ai-workflows.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "ai-assisted-software-development-workflows",
+    "url": "https://krischase.com/blog/ai-assisted-software-development-workflows",
+    "title": "AI-Assisted Software Development Workflows",
+    "description": "A breakdown of modern AI-augmented engineering workflows—and how teams can ship faster with less cognitive load while maintaining quality.",
+    "content": "# AI-Assisted Software Development Workflows\n\nAI has become the second brain of modern engineering teams. It doesn’t just speed up coding—it reshapes the entire workflow. The teams adopting AI-native development patterns aren’t just shipping faster; they’re reducing cognitive load, compressing iteration cycles, and protecting engineers from burnout.\n\nThis shift isn’t about automation replacing engineers. It’s about **engineers offloading the right work** so they can focus on judgment, strategy, and system thinking.\n\n## What AI Changes in the Development Lifecycle\n### **1. Faster Prototyping**\nEngineers can now move from concept to implementation in minutes. AI handles scaffolding, boilerplate, environment setup, and first drafts of core logic—freeing teams to explore ideas rapidly.\n\n### **2. Automatic Quality Layers**\nAI generates:\n- Tests\n- Docs\n- Edge-case handling\n- Better naming, structure, and pattern consistency\n\nQuality becomes integrated—not an afterthought.\n\n### **3. Smarter Refactoring and Modernization**\nLegacy codebases used to take weeks to untangle. Now AI can:\n- Propose modern patterns\n- Extract components\n- Improve readability\n- Enforce architectural consistency\n\nRefactoring becomes a continuous process, not a painful initiative.\n\n### **4. Parallelized Development**\nEngineers no longer need long cycles of deep focus for every task. AI enables parallel creation—teams can switch contexts without paying a massive cognitive tax.\n\nThis unlocks momentum.\n\n## How Teams Should Adapt\nTo get the most from AI workflows, engineering leaders must:\n- Set clear guardrails for safety and review\n- Define quality standards AI should target\n- Teach engineers how to prompt, refine, and steer AI outputs\n- Encourage iteration over perfection\n- Maintain human ownership of system design\n\nAI accelerates execution, but humans still own the architecture.\n\n## What This Means for Engineering Velocity\nVelocity used to be a function of time and team size. Now it’s a function of:\n- Leverage\n- Intent\n- Tooling\n- Architecture\n\nTeams using AI well aren’t just faster—they’re calmer. They do more with less stress because the heavy lifting is distributed.\n\n## Final Thought\nAI won’t replace engineers. But engineers who understand AI-native workflows will outperform those who don’t—by a wide margin. The future isn’t human vs. machine. It’s **humans leading, AI assisting, and teams shipping faster than ever before**.\n",
+    "category": "AI",
+    "tags": ["AI", "Engineering", "Workflows"],
+    "publishedDate": "2025-07-05",
+    "originalDate": "2025.07.05",
+    "featuredImage": "/images/blog/ai-assisted-software-development-workflows.png",
+    "seo": {
+      "metaTitle": "AI-Assisted Software Development Workflows - Kris Chase",
+      "metaDescription": "A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.",
+      "ogTitle": "AI-Assisted Software Development Workflows - Kris Chase",
+      "ogDescription": "A breakdown of modern AI-augmented development workflows and how engineers can ship faster without sacrificing quality.",
+      "ogImage": "https://krischase.com/images/ai-workflows.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 820,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'scaling-an-engineering-org-fast',
-    url: 'https://krischase.com/blog/scaling-an-engineering-org-fast',
-    title: 'Scaling an Engineering Org Fast—Without Breaking It',
-    description: 'A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.',
-    content: `# Scaling an Engineering Org Fast—Without Breaking It
-
-Hypergrowth can destroy an engineering org if you're not careful.
-
-## What Breaks First
-- Communication
-- Ownership lines
-- Review quality
-
-## How to Prevent Collapse
-- Add leaders before you need them
-- Codify decisions early
-- Favor iteration over reinvention
-
-## Final Thought
-Speed without structure becomes chaos. Structure without speed becomes bureaucracy.`,
-    category: 'Leadership',
-    tags: ['Scaling Teams', 'Leadership', 'Org Design'],
-    publishedDate: '2025-06-18',
-    originalDate: '2025.06.18',
-    featuredImage: '/images/blog/scaling-an-engineering-org-fast.png',
-    seo: {
-      metaTitle: 'Scaling an Engineering Org Fast - Kris Chase',
-      metaDescription: 'A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.',
-      ogTitle: 'Scaling an Engineering Org Fast - Kris Chase',
-      ogDescription: 'A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.',
-      ogImage: 'https://krischase.com/images/scaling-org.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "scaling-an-engineering-org-fast",
+    "url": "https://krischase.com/blog/scaling-an-engineering-org-fast",
+    "title": "Scaling an Engineering Org Fast—Without Breaking It",
+    "description": "A blueprint for scaling an engineering team quickly while preserving culture, velocity, decision-making quality, and product stability.",
+    "content": "# Scaling an Engineering Org Fast—Without Breaking It\n\nHypergrowth exposes every weakness in an engineering organization. The first things to break aren’t the systems—they’re communication lines, ownership boundaries, and quality standards. Scaling isn’t just about adding people; it’s about reinforcing the structure that enables people to work well together.\n\nGrowing fast is easy. Growing well is the actual skill.\n\n## What Breaks First During Hypergrowth\n### **1. Communication Channels**\nAs headcount rises, tribal knowledge collapses. Decisions get lost. Priorities diffuse. Teams begin optimizing for local objectives instead of company goals.\n\n### **2. Ownership Lines**\nMore people → more confusion about who owns what. Critical decisions stall. Accountability weakens.\n\n### **3. Review and Quality Standards**\nWhen teams rush to ship, quality debt piles up silently—slowing delivery months later.\n\nScaling highlights misalignment that previously went unnoticed.\n\n## How to Prevent Organizational Collapse\n### **1. Add Leaders Before You Need Them**\nMost companies wait until engineers are drowning before hiring managers or tech leads. By then, it’s too late. High-performing orgs add leadership *ahead* of demand to absorb complexity.\n\n### **2. Codify Decisions Early**\nDocument:\n- Tech principles\n- Decision frameworks\n- Ownership maps\n- Review standards\n\nThese aren’t bureaucracy—they’re stabilizers.\n\n### **3. Favor Iteration Over Reinvention**\nGrowing teams often reinvent systems instead of improving them. This creates fragmentation across codebases, architectures, and tooling. Champion consistency.\n\n### **4. Maintain Culture Through Behavior, Not Slogans**\nCulture isn’t words. It’s:\n- How leaders respond to incidents\n- How teams give feedback\n- How quality is enforced\n- How people treat each other under pressure\n\nGrowth reveals culture. It doesn’t create it.\n\n### **5. Preserve the Feedback Loop**\nHigh-output engineering orgs keep communication tight, even with headcount growth. Maintain:\n- Weekly alignment rituals\n- Fast escalations\n- Transparent decisions\n\nWhen communication slows, execution slows.\n\n## The Real Job of a CTO During Scaling\nA CTO’s mandate during hypergrowth is to:\n- Protect architecture from entropy\n- Protect teams from chaos\n- Protect culture from dilution\n- Protect the roadmap from thrash\n- Protect velocity through clarity\n\nScaling is an act of preservation as much as expansion.\n\n## Final Thought\nAnyone can scale an org quickly. Few can scale an org without breaking it. The companies that succeed are the ones that expand structure, clarity, and leadership *before* complexity demands it.\n",
+    "category": "Leadership",
+    "tags": ["Scaling Teams", "Leadership", "Org Design"],
+    "publishedDate": "2025-06-18",
+    "originalDate": "2025.06.18",
+    "featuredImage": "/images/blog/scaling-an-engineering-org-fast.png",
+    "seo": {
+      "metaTitle": "Scaling an Engineering Org Fast - Kris Chase",
+      "metaDescription": "A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.",
+      "ogTitle": "Scaling an Engineering Org Fast - Kris Chase",
+      "ogDescription": "A blueprint for scaling an engineering team quickly while maintaining culture, velocity, and product quality.",
+      "ogImage": "https://krischase.com/images/scaling-org.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 900,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
     slug: 'the-art-of-technical-decision-making',
