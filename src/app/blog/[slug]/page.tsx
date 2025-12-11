@@ -44,12 +44,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     publisher: 'Kris Chase',
     metadataBase: new URL('https://krischase.com'),
     alternates: {
-      canonical: `/blog-opus/${slug}`,
+      canonical: `/blog/${slug}`,
     },
     openGraph: {
       title: post.seo.ogTitle || post.title,
       description: post.seo.ogDescription || post.description,
-      url: `https://krischase.com/blog-opus/${slug}`,
+      url: `https://krischase.com/blog/${slug}`,
       siteName: 'Kris Chase Portfolio',
       images: [
         {
@@ -110,10 +110,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <header className="w-full bg-gradient-to-b from-background via-background to-muted/20 border-b border-border/50">
           <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-16 lg:py-20">
             {/* Back to blog */}
-            <Link
-              href="/blog-opus"
-              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all mb-8 group"
-            >
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all mb-8 group"
+              >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               <span>Back to Blog</span>
             </Link>
@@ -227,7 +227,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       <span className="text-sm font-medium text-muted-foreground">Share:</span>
                       <div className="flex items-center gap-3">
                         <a
-                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://krischase.com/blog-opus/${slug}`)}`}
+                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
@@ -237,7 +237,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                           Twitter
                         </a>
                         <a
-                          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://krischase.com/blog-opus/${slug}`)}`}
+                          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
@@ -256,7 +256,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {prevPost && (
                       <Link
-                        href={`/blog-opus/${prevPost.slug}`}
+                        href={`/blog/${prevPost.slug}`}
                         className="group p-6 rounded-xl border-2 border-border/50 hover:border-primary/50 hover:bg-muted/30 transition-all"
                       >
                         <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
@@ -270,7 +270,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     )}
                     {nextPost && (
                       <Link
-                        href={`/blog-opus/${nextPost.slug}`}
+                        href={`/blog/${nextPost.slug}`}
                         className="group p-6 rounded-xl border-2 border-border/50 hover:border-primary/50 hover:bg-muted/30 transition-all md:text-right"
                       >
                         <div className="flex items-center justify-end gap-2 text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">

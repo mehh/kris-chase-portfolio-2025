@@ -30,33 +30,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Drupal candidate page
     { path: '/drupal-candidate', changeFrequency: 'monthly', priority: 0.7 },
     
-    // Blog index pages
-    { path: '/blog-codex', changeFrequency: 'weekly', priority: 0.8 },
-    { path: '/blog-gemini3', changeFrequency: 'weekly', priority: 0.8 },
-    { path: '/blog-opus', changeFrequency: 'weekly', priority: 0.8 },
+    // Blog index page
+    { path: '/blog', changeFrequency: 'weekly', priority: 0.8 },
   ];
 
-  // Add blog posts from all blog routes
-  const blogRoutes = blogPosts.flatMap((post) => [
-    {
-      path: `/blog-codex/${post.slug}`,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-      lastModified: new Date(post.metadata?.updatedDate || post.publishedDate),
-    },
-    {
-      path: `/blog-gemini3/${post.slug}`,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-      lastModified: new Date(post.metadata?.updatedDate || post.publishedDate),
-    },
-    {
-      path: `/blog-opus/${post.slug}`,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-      lastModified: new Date(post.metadata?.updatedDate || post.publishedDate),
-    },
-  ]);
+  // Add blog posts
+  const blogRoutes = blogPosts.map((post) => ({
+    path: `/blog/${post.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+    lastModified: new Date(post.metadata?.updatedDate || post.publishedDate),
+  }));
 
   return [...routes, ...blogRoutes].map((r) => ({
     url: `${baseUrl}${r.path}`,

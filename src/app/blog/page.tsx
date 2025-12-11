@@ -23,12 +23,12 @@ export const metadata: Metadata = {
   publisher: 'Kris Chase',
   metadataBase: new URL('https://krischase.com'),
   alternates: {
-    canonical: '/blog-opus',
+    canonical: '/blog',
   },
   openGraph: {
     title: 'Blog | Engineering Leadership & Technical Strategy',
     description: 'Insights on engineering leadership, platform modernization, CI/CD, team scaling, and building products that last.',
-    url: 'https://krischase.com/blog-opus',
+    url: 'https://krischase.com/blog',
     siteName: 'Kris Chase Portfolio',
     images: ['/images/KrisChase-OG.png'],
     locale: 'en_US',

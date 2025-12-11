@@ -116,5 +116,5 @@ export function getPostImage(post: { featuredImage?: string; firstImage?: string
  * Generate canonical URL for a blog post
  */
 export function getPostUrl(slug: string): string {
-  return `https://krischase.com/blog-gemini3/${slug}`;
+  return `https://krischase.com/blog/${slug}`;
 }

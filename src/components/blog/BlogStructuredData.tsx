@@ -35,7 +35,7 @@ export function BlogStructuredData({ post }: BlogStructuredDataProps) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://krischase.com/blog-opus/${post.slug}`,
+      '@id': `https://krischase.com/blog/${post.slug}`,
     },
     articleSection: post.category,
     keywords: post.tags.join(', '),

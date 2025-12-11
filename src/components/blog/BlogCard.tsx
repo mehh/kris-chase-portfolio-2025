@@ -44,7 +44,7 @@ export function BlogCard({ post, featured = false, index = 0 }: BlogCardProps) {
           : 'border-foreground/10 bg-card/30 hover:border-foreground/30 hover:shadow-md hover:shadow-primary/5'
       )}
     >
-      <Link href={`/blog-gemini3/${post.slug}`} className="block h-full">
+      <Link href={`/blog/${post.slug}`} className="block h-full">
         <div className={`flex flex-col h-full ${featured ? 'md:flex-row' : ''}`}>
           {/* Image - Always show (has default fallback) */}
           <div

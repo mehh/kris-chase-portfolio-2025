@@ -105,7 +105,7 @@ export default function Footer() {
               </p>
               <nav className="flex gap-6">
                 <Link 
-                  href="/blog-gemini3" 
+                  href="/blog" 
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
                   Blog

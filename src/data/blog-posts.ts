@@ -129,13 +129,13 @@ export const blogPosts: BlogPost[] = [
     "tags": ["Fractional CTO", "Consulting", "Startups"],
     "publishedDate": "2025-09-20",
     "originalDate": "2025.09.20",
-    "featuredImage": "https://krischase.com/images/fractional-vs-consultant.jpg",
+    "featuredImage": "/images/blog/fractional-vs-consultant.jpg",
     "seo": {
       "metaTitle": "Fractional CTO vs. Consultant - Kris Chase",
       "metaDescription": "A clear, practical breakdown of how fractional CTOs differ from consultants—and when founders should choose one over the other.",
       "ogTitle": "Fractional CTO vs. Consultant - Kris Chase",
       "ogDescription": "A straightforward explanation of the difference between fractional CTOs and consultants, tailored for founders and engineering leaders.",
-      "ogImage": "https://krischase.com/images/fractional-vs-consultant.jpg",
+      "ogImage": "https://krischase.com/images/blog/fractional-vs-consultant.jpg",
       "twitterCard": "summary_large_image"
     },
     "readingTime": 4,
