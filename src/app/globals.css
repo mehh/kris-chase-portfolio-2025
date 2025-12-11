@@ -36,8 +36,6 @@ html {
   scroll-behavior: smooth;
 }
 
-@custom-variant dark (&:is(.dark *));
-
 :root {
   --color-secondary: #96442e;
   --radius: 0.625rem;
@@ -324,10 +322,11 @@ html * {
 
 @layer base {
   * {
-    @apply border-border/50;
+    border-color: var(--border);
   }
   body {
-    @apply bg-background text-foreground;
+    background-color: var(--background);
+    color: var(--foreground);
   }
 }
 
