@@ -240,182 +240,124 @@ export const blogPosts: BlogPost[] = [
     }
   },
   {
-    slug: 'the-art-of-technical-decision-making',
-    url: 'https://krischase.com/blog/the-art-of-technical-decision-making',
-    title: 'The Art of Technical Decision-Making',
-    description: 'A guide to making high-quality technical decisions quickly and confidently as an engineering leader.',
-    content: `# The Art of Technical Decision-Making
-
-Great leaders aren't right all the time—they're decisive.
-
-## Three Inputs That Matter
-1. Constraints
-2. Tradeoffs
-3. Time
-
-## Decision Formula
-\`\`\`text
-If a decision is reversible → move fast.
-If it's irreversible → slow down.
-\`\`\`
-
-## Final Thought
-Good decisions come from clarity, not certainty.`,
-    category: 'Leadership',
-    tags: ['Architecture', 'Leadership', 'Decision Making'],
-    publishedDate: '2025-05-10',
-    originalDate: '2025.05.10',
-    featuredImage: '/images/blog/the-art-of-technical-decision-making.png',
-    seo: {
-      metaTitle: 'The Art of Technical Decision-Making - Kris Chase',
-      metaDescription: 'A guide to making high-quality technical decisions quickly and confidently as an engineering leader.',
-      ogTitle: 'The Art of Technical Decision-Making - Kris Chase',
-      ogDescription: 'A guide to making high-quality technical decisions quickly and confidently as an engineering leader.',
-      ogImage: 'https://krischase.com/images/decision-making.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "the-art-of-technical-decision-making",
+    "url": "https://krischase.com/blog/the-art-of-technical-decision-making",
+    "title": "The Art of Technical Decision-Making",
+    "description": "A practical decision-making framework for engineering leaders who need to move fast without creating long-term architectural pain.",
+    "content": "# The Art of Technical Decision-Making\n\nEngineering leadership isn’t about having all the answers—it’s about making decisions that create momentum without jeopardizing the future. Good technical decisions aren’t the perfect ones. They’re the ones made with clarity, context, and appropriate speed.\n\n## The Three Inputs That Matter\n### **1. Constraints**\nEvery decision exists within real limits: time, budget, skills, legacy code, and market expectations. Leaders who understand their true constraints make faster, cleaner choices.\n\n### **2. Tradeoffs**\nEvery direction has a cost. Great leaders define the tradeoffs explicitly:\n- Speed vs. durability\n- Flexibility vs. simplicity\n- Innovation vs. predictability\n\nThe goal isn’t to avoid tradeoffs. It’s to choose the *right* ones.\n\n### **3. Time**\nThe urgency of a decision is often more important than its complexity. The longer a team waits, the more uncertainty compounds.\n\n## The Decision Formula\nThere’s a simple principle high-performing teams use to move fast without breaking things:\n\n- **If a decision is reversible → move fast**\n- **If it's irreversible → slow down**\n\nMost engineering decisions *are* reversible. The danger isn’t choosing wrong—it’s waiting too long.\n\n## Avoiding the Two Common Failure Modes\n### **1. Paralysis by Analysis**\nTeams overthink decisions that don’t matter, stalling progress. This usually points to fear or unclear ownership—not technical complexity.\n\n### **2. Unexamined Momentum**\nMoving fast without aligning on principles leads to rework. Speed only helps when direction is correct.\n\n## How Great Leaders Make Better Technical Decisions\nThey:\n- Push decisions down to the closest responsible engineer\n- Create technical principles that guide choices\n- Encourage small, iterative decisions instead of large, risky leaps\n- Communicate *why*, not just *what*\n- Hold teams accountable for learning, not perfection\n\nThe quality of decisions compounds across an organization.\n\n## Final Thought\nGreat technical decisions don’t come from certainty—they come from clarity. When leaders understand constraints, articulate tradeoffs, and match speed to risk, they create engineering orgs that move confidently and effectively.\n",
+    "category": "Leadership",
+    "tags": ["Architecture", "Leadership", "Decision Making"],
+    "publishedDate": "2025-05-10",
+    "originalDate": "2025.05.10",
+    "featuredImage": "/images/blog/the-art-of-technical-decision-making.png",
+    "seo": {
+      "metaTitle": "The Art of Technical Decision-Making - Kris Chase",
+      "metaDescription": "A guide to making high-quality technical decisions quickly and confidently as an engineering leader.",
+      "ogTitle": "The Art of Technical Decision-Making - Kris Chase",
+      "ogDescription": "A guide to making high-quality technical decisions quickly and confidently as an engineering leader.",
+      "ogImage": "https://krischase.com/images/decision-making.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 780,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'why-most-tech-debt-isnt-real-tech-debt',
-    url: 'https://krischase.com/blog/why-most-tech-debt-isnt-real-tech-debt',
-    title: "Why Most Tech Debt Isn't Real Tech Debt",
-    description: 'A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.',
-    content: `# Why Most Tech Debt Isn't Real Tech Debt
-
-Tech debt isn't "code we don't like." It's a **strategic tradeoff**.
-
-## True Tech Debt
-- Documented decisions
-- Known tradeoffs
-- Intentional shortcuts
-
-## Fake Tech Debt
-- "I don't understand this code"
-- "This isn't written the way I'd write it"
-
-## Final Thought
-Debt is powerful when used intentionally. Dangerous when disguised as preference.`,
-    category: 'Engineering',
-    tags: ['Tech Debt', 'Engineering Process', 'Leadership'],
-    publishedDate: '2025-04-22',
-    originalDate: '2025.04.22',
-    featuredImage: 'https://krischase.com/images/tech-debt.jpg',
-    seo: {
-      metaTitle: "Why Most Tech Debt Isn't Real Tech Debt - Kris Chase",
-      metaDescription: 'A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.',
-      ogTitle: "Why Most Tech Debt Isn't Real Tech Debt - Kris Chase",
-      ogDescription: 'A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.',
-      ogImage: 'https://krischase.com/images/tech-debt.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "why-most-tech-debt-isnt-real-tech-debt",
+    "url": "https://krischase.com/blog/why-most-tech-debt-isnt-real-tech-debt",
+    "title": "Why Most Tech Debt Isn’t Real Tech Debt",
+    "description": "A perspective shift on tech debt—why teams misuse the term and how to distinguish real strategic debt from simple code dissatisfaction.",
+    "content": "# Why Most Tech Debt Isn't Real Tech Debt\n\nTech debt has become a catch-all phrase engineers use to describe any part of the codebase they don’t like. But real tech debt is far more specific—and far more useful—than that.\n\nMislabeling everything as “debt” creates noise. Understanding true debt creates leverage.\n\n## What Real Tech Debt Actually Is\nReal tech debt has three characteristics:\n### **1. It’s a documented decision**\nSomeone intentionally chose a shortcut or constraint based on context.\n\n### **2. It involves a known tradeoff**\nThe team understood what they were sacrificing—speed, flexibility, simplicity—in exchange for delivery.\n\n### **3. It carries interest**\nOver time, the choice imposes increasing cost on future development.\n\nThis type of debt is strategic. It creates acceleration today in exchange for known cleanup later.\n\n## What Fake Tech Debt Looks Like\nMost “tech debt” tickets fall into these categories:\n- “I don’t understand this code.”\n- “This isn’t written the way I prefer.”\n- “This architecture doesn’t match my ideal mental model.”\n- “Something feels messy, so let’s rewrite it.”\n\nThat’s not debt. That’s discomfort.\n\nCalling every annoyance “debt” hides the real issues and misdirects engineering energy.\n\n## Why This Distinction Matters for Teams\nWhen everything is labeled debt, teams:\n- Over-prioritize refactoring\n- Under-prioritize delivery\n- Spend cycles debating style instead of strategy\n- Erode trust with product and leadership\n\nWhen only *real* debt is documented, teams:\n- Align around strategic cleanup\n- Make intentional tradeoffs\n- Communicate technical risk clearly\n- Build roadmaps that balance innovation and stability\n\nPrecision leads to credibility.\n\n## How to Use Tech Debt Properly\nThink of it as a business concept, not an engineering complaint. Ask:\n- What was the decision?\n- What tradeoff was made?\n- What interest are we paying?\n- What is the cost of leaving this in place?\n- What is the opportunity unlocked by addressing it?\n\nDebt is a tool—one that lets teams ship faster when used intentionally.\n\n## Final Thought\nTech debt becomes dangerous only when it’s disguised as preference. When teams reserve the label for intentional, documented tradeoffs, it becomes a strategic instrument for speed—not a catch-all excuse for rewriting code.\n",
+    "category": "Engineering",
+    "tags": ["Tech Debt", "Engineering Process", "Leadership"],
+    "publishedDate": "2025-04-22",
+    "originalDate": "2025.04.22",
+    "featuredImage": "https://krischase.com/images/tech-debt.jpg",
+    "seo": {
+      "metaTitle": "Why Most Tech Debt Isn't Real Tech Debt - Kris Chase",
+      "metaDescription": "A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.",
+      "ogTitle": "Why Most Tech Debt Isn't Real Tech Debt - Kris Chase",
+      "ogDescription": "A perspective-shifting look at tech debt—why most teams misuse the term and how to use it correctly.",
+      "ogImage": "https://krischase.com/images/tech-debt.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 780,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'the-case-for-small-engineering-teams',
-    url: 'https://krischase.com/blog/the-case-for-small-engineering-teams',
-    title: 'The Case for Small Engineering Teams',
-    description: 'Why small engineering teams consistently outperform larger ones and how to structure them for success.',
-    content: `# The Case for Small Engineering Teams
-
-Small teams ship faster. Always.
-
-## Why Small Wins
-- Less coordination overhead
-- Faster decision loops
-- Clearer ownership
-
-## Team Shape
-3–7 engineers per pod is the sweet spot.
-
-## Final Thought
-Big teams build big meetings. Small teams build big products.`,
-    category: 'Org Design',
-    tags: ['Team Structure', 'Leadership', 'Velocity'],
-    publishedDate: '2025-03-15',
-    originalDate: '2025.03.15',
-    featuredImage: '/images/blog/the-case-for-small-engineering-teams.png',
-    seo: {
-      metaTitle: 'The Case for Small Engineering Teams - Kris Chase',
-      metaDescription: 'Why small engineering teams consistently outperform larger ones and how to structure them for success.',
-      ogTitle: 'The Case for Small Engineering Teams - Kris Chase',
-      ogDescription: 'Why small engineering teams consistently outperform larger ones and how to structure them for success.',
-      ogImage: 'https://krischase.com/images/small-teams.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "the-case-for-small-engineering-teams",
+    "url": "https://krischase.com/blog/the-case-for-small-engineering-teams",
+    "title": "The Case for Small Engineering Teams",
+    "description": "Why small engineering teams consistently outperform large ones—and how to structure them for clarity, ownership, and execution.",
+    "content": "# The Case for Small Engineering Teams\n\nSmall teams ship faster. Not because they work harder, but because they carry less overhead. Every additional person increases communication paths, slows decision-making, and adds coordination cost.\n\nLarge teams build large meetings. Small teams build large impact.\n\n## Why Small Teams Win\n### **1. Less Coordination Overhead**\nWith fewer people, there are fewer handoffs, fewer dependencies, and fewer opportunities for misalignment. Work flows directly from idea to execution.\n\n### **2. Faster Decision Loops**\nSmall teams don’t wait for committees. They:\n- Make decisions early\n- Own their outcomes\n- Iterate without drama\n\nSpeed becomes a natural property of the system.\n\n### **3. Clearer Ownership**\nWhen a team is 3–7 engineers, everyone knows:\n- Their role\n- Their domain\n- Their responsibilities\n- Their decision-making authority\n\nClarity increases accountability. Accountability increases velocity.\n\n## The Ideal Team Shape\nTeams in the **3–7 engineer range** consistently produce the most predictable output. That shape:\n- Protects autonomy\n- Minimizes coordination\n- Maximizes focus and ownership\n- Enables parallel exploration across pods\n\nThis model scales horizontally, not vertically.\n\n## How Leaders Can Support Small Teams\nLeaders should:\n- Provide clear context and success metrics\n- Remove blockers quickly\n- Resist unnecessary process\n- Let teams own their roadmap slices\n- Empower technical leads with decision authority\n\nSmall teams thrive under leaders who trust them.\n\n## Final Thought\nThe future of engineering isn’t massive org charts—it’s small, empowered pods with high trust and high clarity. Big teams build big meetings. Small teams build big products.\n",
+    "category": "Org Design",
+    "tags": ["Team Structure", "Leadership", "Velocity"],
+    "publishedDate": "2025-03-15",
+    "originalDate": "2025.03.15",
+    "featuredImage": "/images/blog/the-case-for-small-engineering-teams.png",
+    "seo": {
+      "metaTitle": "The Case for Small Engineering Teams - Kris Chase",
+      "metaDescription": "Why small engineering teams consistently outperform larger ones and how to structure them for success.",
+      "ogTitle": "The Case for Small Engineering Teams - Kris Chase",
+      "ogDescription": "Why small engineering teams consistently outperform larger ones and how to structure them for success.",
+      "ogImage": "https://krischase.com/images/small-teams.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 1,
-    wordCount: 225,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 3,
+    "wordCount": 650,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
-    slug: 'what-good-engineering-culture-actually-means',
-    url: 'https://krischase.com/blog/what-good-engineering-culture-actually-means',
-    title: 'What Good Engineering Culture Actually Means',
-    description: 'A practical definition of engineering culture and the behaviors that separate healthy teams from dysfunctional ones.',
-    content: `# What Good Engineering Culture Actually Means
-
-Culture isn't perks. It's behavior.
-
-## Signs of Healthy Culture
-- Engineers take ownership
-- Product trusts engineering
-- Leadership communicates context, not tasks
-
-## Signs of Weak Culture
-- Micro-management
-- Blame loops
-- Meetings with no outcomes
-
-## Final Thought
-Culture isn't built—it's enforced.`,
-    category: 'Culture',
-    tags: ['Engineering Culture', 'Leadership'],
-    publishedDate: '2025-02-08',
-    originalDate: '2025.02.08',
-    featuredImage: '/images/blog/what-good-engineering-culture-actually-means.png',
-    seo: {
-      metaTitle: 'What Good Engineering Culture Actually Means - Kris Chase',
-      metaDescription: 'A practical definition of engineering culture and the behaviors that separate healthy teams from dysfunctional ones.',
-      ogTitle: 'What Good Engineering Culture Actually Means - Kris Chase',
-      ogDescription: 'A practical definition of engineering culture and the behaviors that separate healthy teams from dysfunctional ones.',
-      ogImage: 'https://krischase.com/images/engineering-culture.jpg',
-      twitterCard: 'summary_large_image',
+    "slug": "what-good-engineering-culture-actually-means",
+    "url": "https://krischase.com/blog/what-good-engineering-culture-actually-means",
+    "title": "What Good Engineering Culture Actually Means",
+    "description": "A practical definition of engineering culture—and the behaviors that separate healthy, high-output teams from dysfunctional ones.",
+    "content": "# What Good Engineering Culture Actually Means\n\nMost companies talk about engineering culture as if it’s perks, slogans, or office vibes. But real culture has nothing to do with ping-pong tables, fancy Slack emojis, or motivational posters.\n\nCulture is simply **how your team behaves when nobody is watching**.\n\nThe best engineering organizations don’t craft culture with branding—they enforce it through action. They build environments where engineers do the best work of their careers and where teams operate with clarity, trust, and momentum.\n\n## What Healthy Engineering Culture Looks Like\n### **1. Engineers Take Ownership**\nOwnership is the strongest predictor of output. In healthy cultures:\n- Engineers feel responsible for outcomes, not just tasks.\n- People escalate risks early instead of hiding them.\n- Team members design with the future in mind, not just the sprint.\n- Engineers ask, “What’s the right thing for the system?” rather than “What’s the fastest way to close this ticket?”\n\nOwnership turns teams into partners—not executors.\n\n### **2. Product and Engineering Trust Each Other**\nGreat teams break the cycle of blame. Instead:\n- Product offers context, not feature lists.\n- Engineering provides reality, not excuses.\n- Both sides align on goals and constraints.\n\nTrust eliminates friction and accelerates delivery.\n\n### **3. Leadership Communicates Context, Not Tasks**\nHealthy cultures aren’t led by micromanagers. They’re led by people who:\n- Share the “why” behind decisions\n- Set clear success criteria\n- Remove blockers instead of adding pressure\n- Empower engineers to make decisions\n\nWhen leaders provide context, teams move with confidence.\n\n## Signs of a Weak or Dysfunctional Culture\n### **1. Micromanagement**\nWhen leaders dictate every detail, engineers disengage. Autonomy disappears. Creativity dies.\n\n### **2. Blame Loops**\nIf the response to every incident is finger-pointing instead of learning, teams become defensive. Innovation slows. People stop taking risks.\n\n### **3. Meetings With No Outcomes**\nSlow cultures love meetings because they substitute conversation for progress. High-performing cultures optimize for action.\n\n## Culture Isn’t Built—It’s Enforced\nThis is the part teams often get wrong.\n\nCulture doesn’t come from:\n- Vision decks\n- Company values posters\n- CEO all-hands speeches\n- Brand books\n\nCulture comes from **what leaders reward, tolerate, and correct**.\n\nIf you reward clarity, your org becomes clear. If you tolerate chaos, your org becomes chaotic. If you correct disrespect, collaboration increases. If you ignore it, toxicity grows.\n\nBehavior is the culture.\n\n## The Leader's Responsibility\nEngineering leaders shape culture every day through:\n- How they respond to mistakes\n- How they give feedback\n- How they prioritize technical debt\n- How they communicate roadmap changes\n- How they handle conflict\n\nGreat leaders protect the environment in which high-quality engineering becomes possible.\n\n## Final Thought\nGood engineering culture isn't soft. It's structural. It's behavioral. It's the invisible system that determines how quickly and confidently teams move.\n\nAt its core, culture is the accumulation of everyday choices. Enforce the right behaviors consistently, and the culture you want becomes the culture you have.\n",
+    "category": "Culture",
+    "tags": ["Engineering Culture", "Leadership"],
+    "publishedDate": "2025-02-08",
+    "originalDate": "2025.02.08",
+    "featuredImage": "/images/blog/what-good-engineering-culture-actually-means.png",
+    "seo": {
+      "metaTitle": "What Good Engineering Culture Actually Means - Kris Chase",
+      "metaDescription": "A practical definition of engineering culture and the key behaviors that separate healthy engineering teams from dysfunctional ones.",
+      "ogTitle": "What Good Engineering Culture Actually Means - Kris Chase",
+      "ogDescription": "A practical definition of engineering culture and the key behaviors that separate healthy engineering teams from dysfunctional ones.",
+      "ogImage": "https://krischase.com/images/engineering-culture.jpg",
+      "twitterCard": "summary_large_image"
     },
-    readingTime: 2,
-    wordCount: 450,
-    author: {
-      name: 'Kris Chase',
-      twitter: '@chasebadkids',
-      email: 'hey@mehh.org',
+    "readingTime": 4,
+    "wordCount": 830,
+    "author": {
+      "name": "Kris Chase",
+      "twitter": "@chasebadkids",
+      "email": "hey@mehh.org"
     },
-    metadata: {
-      isUpdated: false,
-    },
+    "metadata": {
+      "isUpdated": true
+    }
   },
   {
     slug: 'updated-how-to-find-and-clean-up-infected-wordpress-files-over-ssh',
