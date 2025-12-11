@@ -39,7 +39,7 @@ A performance‑tuned Next.js 15 (App Router) site featuring custom animations, 
 
 ## Stack
 - **Framework**: Next.js 15 (App Router), React 19, TypeScript
-- **Styling**: Tailwind CSS v4, DaisyUI, LightningCSS
+- **Styling**: Tailwind CSS v3.4.17, DaisyUI, LightningCSS
 - **Animation**: Framer Motion, GSAP
 - **3D**: React Three Fiber + Three.js
 - **Analytics**: PostHog (client + server capture)
