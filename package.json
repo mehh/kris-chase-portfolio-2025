@@ -7,7 +7,8 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "TAILWIND_DISABLE_NATIVE=1 next build",
+    "build": "NAPI_RS_FORCE_WASI=1 TAILWIND_DISABLE_NATIVE=1 next build",
+    "build:internal": "next build",
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
