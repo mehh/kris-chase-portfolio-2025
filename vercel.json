@@ -1,9 +1,0 @@
-{
-  "buildCommand": "NAPI_RS_FORCE_WASI=1 TAILWIND_DISABLE_NATIVE=1 npm run build",
-  "installCommand": "NAPI_RS_FORCE_WASI=1 TAILWIND_DISABLE_NATIVE=1 npm install",
-  "env": {
-    "NAPI_RS_FORCE_WASI": "1",
-    "TAILWIND_DISABLE_NATIVE": "1"
-  }
-}
-
