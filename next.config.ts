@@ -14,6 +14,16 @@ const nextConfig: NextConfig = {
         hostname: 'krischase.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'oaidalleapiprodscus.blob.core.windows.net',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'oaidalleapiprod.blob.core.windows.net',
+        pathname: '/**',
+      },
     ],
   },
   async redirects() {

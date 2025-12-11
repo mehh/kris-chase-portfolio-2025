@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { FaLinkedin, FaInstagram, FaFacebook, FaGithub, FaTwitter } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaFacebook, FaGithub } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 
 export default function LeftSidebar() {
   return (
@@ -60,9 +61,9 @@ export default function LeftSidebar() {
           href="https://x.com/krisrchase"
           target="_blank"
           rel="noopener noreferrer"
-          title="Twitter"
+          title="X (formerly Twitter)"
         >
-          <FaTwitter size={20} className="sm:w-6 sm:h-6" />
+          <FaXTwitter size={20} className="sm:w-6 sm:h-6" />
         </a>
       </div>
 

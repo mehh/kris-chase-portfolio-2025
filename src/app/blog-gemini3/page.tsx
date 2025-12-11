@@ -46,10 +46,10 @@ export default function BlogIndexPage() {
   const categories = Array.from(new Set(blogPosts.map((post) => post.category)));
 
   return (
-    <main className="relative w-full min-h-screen">
+    <main className="relative w-full min-h-screen bg-black">
       {/* Hero Section - Full Width with Container */}
       <section className="w-full border-b border-border/50 bg-gradient-to-b from-background via-background to-transparent">
-        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-48 pb-16 md:pb-20">
+        <div className="mx-auto w-full max-w-[85rem] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-32 sm:pt-40 md:pt-48 pb-16 md:pb-20">
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold tracking-tight text-foreground mb-6">
             Blog
           </h1>
@@ -60,8 +60,8 @@ export default function BlogIndexPage() {
         </div>
       </section>
 
-      {/* Content Container */}
-      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12 py-12 md:py-16">
+      {/* Content Container - Optimized gutters */}
+      <div className="mx-auto w-full max-w-[85rem] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 md:py-16 lg:py-20">
         {/* Featured Post */}
         {featuredPost && (
           <section className="mb-16 md:mb-20">
@@ -97,7 +97,7 @@ export default function BlogIndexPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-10">
             {regularPosts.map((post, index) => (
               <BlogCard key={post.slug} post={post} index={index + 1} />
             ))}
@@ -106,11 +106,11 @@ export default function BlogIndexPage() {
 
         {/* Categories Section */}
         {categories.length > 0 && (
-          <section className="mt-20 pt-12 border-t border-border">
-            <h2 className="text-2xl font-heading font-semibold text-foreground mb-6">
+          <section className="mt-16 md:mt-20 pt-8 md:pt-12 border-t border-border">
+            <h2 className="text-xl sm:text-2xl font-heading font-semibold text-foreground mb-4 md:mb-6">
               Browse by Category
             </h2>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               {categories.map((category) => {
                 const count = blogPosts.filter((p) => p.category === category).length;
                 return (

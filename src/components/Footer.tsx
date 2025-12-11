@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef } from 'react';
+import Link from 'next/link';
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import { usePathname } from "next/navigation";
 
@@ -103,7 +104,13 @@ export default function Footer() {
                 © {new Date().getFullYear()} Kris Chase. All rights reserved.
               </p>
               <nav className="flex gap-6">
-              <a 
+                <Link 
+                  href="/blog-gemini3" 
+                  className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
+                >
+                  Blog
+                </Link>
+                <a 
                   href="/faq" 
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >

@@ -95,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="kris">
+    <html lang="en" data-theme="kris" suppressHydrationWarning>
       <body className={`${chakra.variable} ${questrial.variable} antialiased`}>
         {/* Pre-hydration theme fix to avoid white flash */}
         <Script id="no-fouc-theme" strategy="beforeInteractive">

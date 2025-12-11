@@ -17,7 +17,7 @@ interface PostContentProps {
 
 export function PostContent({ content, post }: PostContentProps) {
   return (
-    <article className="prose prose-lg dark:prose-invert max-w-none">
+    <article className="prose prose-lg dark:prose-invert max-w-none w-full">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeRaw, rehypeHighlight]}

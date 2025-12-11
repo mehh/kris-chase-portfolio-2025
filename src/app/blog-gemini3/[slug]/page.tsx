@@ -106,10 +106,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       <ScrollProgress />
-      <main className="relative w-full min-h-screen">
+      <main className="relative w-full min-h-screen bg-black">
         {/* Hero Section - Full Width */}
         <section className="w-full border-b border-border/50 bg-gradient-to-b from-background via-background to-transparent">
-          <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-48 pb-12 md:pb-16">
+          <div className="mx-auto w-full max-w-[85rem] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-32 sm:pt-40 md:pt-48 pb-12 md:pb-16">
             {/* Back Link */}
             <div className="mb-8">
               <Link
@@ -172,12 +172,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </section>
 
-        {/* Content Container */}
-        <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 md:px-10 lg:px-12 py-12 md:py-16">
+        {/* Content Container - Optimized gutters and spacing */}
+        <div className="mx-auto w-full max-w-[85rem] px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 py-12 md:py-16 lg:py-20">
           {/* Article Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-12 lg:gap-16">
-            {/* Main Content */}
-            <article className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-heading prose-headings:font-bold prose-h2:text-3xl prose-h3:text-2xl prose-p:text-foreground/90 prose-p:leading-relaxed prose-a:text-[#96442e] prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-strong:font-semibold">
+          <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_280px] gap-8 md:gap-12 lg:gap-16">
+            {/* Main Content - Full width within grid */}
+            <article className="prose prose-lg dark:prose-invert max-w-none w-full prose-headings:font-heading prose-headings:font-bold prose-h2:text-3xl prose-h3:text-2xl prose-p:text-foreground/90 prose-p:leading-relaxed prose-a:text-[#96442e] prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-strong:font-semibold prose-pre:max-w-full prose-code:max-w-full">
               {/* Content */}
               <div className="mb-12">
                 <PostContent content={post.content} post={post} />
@@ -212,11 +212,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Related Posts */}
           {relatedPosts.length > 0 && (
-            <section className="mt-20 pt-12 border-t border-border">
-              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-8">
+            <section className="mt-16 md:mt-20 pt-8 md:pt-12 border-t border-border">
+              <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground mb-6 md:mb-8">
                 Related Posts
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
                 {relatedPosts.map((relatedPost) => (
                   <div key={relatedPost.slug} className="relative rounded-2xl p-2">
                     <GlowingEffect

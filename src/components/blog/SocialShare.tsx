@@ -1,8 +1,10 @@
 'use client';
 
-import { Share2, Twitter, Linkedin, Link2 } from 'lucide-react';
+import { Share2, Linkedin, Link2 } from 'lucide-react';
+import { FaXTwitter } from 'react-icons/fa6';
 import { BlogPost } from '@/data/blog-posts';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getPostUrl } from '@/lib/blog-utils';
 
 interface SocialShareProps {
   post: BlogPost;
@@ -10,17 +12,29 @@ interface SocialShareProps {
 
 export function SocialShare({ post }: SocialShareProps) {
   const [copied, setCopied] = useState(false);
-  const url = typeof window !== 'undefined' ? window.location.href : `https://krischase.com/blog-codex/${post.slug}`;
+  // Start with canonical URL to match server-side render
+  const [url, setUrl] = useState<string>(getPostUrl(post.slug));
+  
+  // After hydration, update to actual current URL (for copy functionality)
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setUrl(window.location.href);
+    }
+  }, []);
+  
   const title = encodeURIComponent(post.title);
   const text = encodeURIComponent(post.description);
 
+  // Use canonical URL for share links to ensure consistency
+  const shareUrl = getPostUrl(post.slug);
   const shareLinks = {
-    twitter: `https://twitter.com/intent/tweet?text=${title}&url=${encodeURIComponent(url)}`,
-    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+    x: `https://x.com/intent/tweet?text=${title}&url=${encodeURIComponent(shareUrl)}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
   };
 
   const copyToClipboard = async () => {
     try {
+      // Use current URL if available (after hydration), otherwise use canonical URL
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -35,13 +49,13 @@ export function SocialShare({ post }: SocialShareProps) {
       <span className="text-sm font-medium text-foreground">Share:</span>
       <div className="flex items-center gap-2">
         <a
-          href={shareLinks.twitter}
+          href={shareLinks.x}
           target="_blank"
           rel="noopener noreferrer"
           className="p-2 rounded-lg hover:bg-muted transition-colors"
-          aria-label="Share on Twitter"
+          aria-label="Share on X"
         >
-          <Twitter className="h-4 w-4 text-muted-foreground hover:text-[#1DA1F2] transition-colors" />
+          <FaXTwitter className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
         </a>
         <a
           href={shareLinks.linkedin}
