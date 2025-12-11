@@ -1,0 +1,6 @@
+{
+  "env": {
+    "TAILWIND_DISABLE_NATIVE": "1"
+  }
+}
+

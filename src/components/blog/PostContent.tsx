@@ -8,6 +8,7 @@ import Image from "next/image";
 import { BlogPost } from "@/data/blog-posts";
 
 // Import highlight.js styles - using a dark theme that works in both light and dark modes
+// Note: This CSS import goes through PostCSS, but TAILWIND_DISABLE_NATIVE=1 should prevent native binding issues
 import "highlight.js/styles/github-dark.css";
 
 interface PostContentProps {
