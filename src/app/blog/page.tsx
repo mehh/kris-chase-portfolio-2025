@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { getBlogPosts } from '@/data/blog-posts';
-import { BlogCard } from '@/components/blog/BlogCard';
+import { BlogListing } from '@/components/blog/BlogListing';
 import { SectionTransition } from '@/components/SmoothScrollProvider';
 
 export const metadata: Metadata = {
@@ -56,13 +56,6 @@ export const metadata: Metadata = {
 
 export default function BlogIndexPage() {
   const allPosts = getBlogPosts();
-  const featuredPosts = allPosts.slice(0, 1); // First post is featured
-  const regularPosts = allPosts.slice(1);
-
-  // Get unique categories and tags for future filtering
-  const categories = Array.from(new Set(allPosts.map((post) => post.category))).filter(Boolean);
-  const allTags = allPosts.flatMap((post) => post.tags);
-  const uniqueTags = Array.from(new Set(allTags));
 
   return (
     <div className="min-h-screen relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-12 xl:pl-16">
@@ -80,72 +73,8 @@ export default function BlogIndexPage() {
         </section>
       </SectionTransition>
 
-      {/* Featured Post */}
-      {featuredPosts.length > 0 && (
-        <SectionTransition id="featured">
-          <section className="mb-12 md:mb-16">
-            <div className="max-w-7xl mx-auto">
-              <div className="mb-6">
-                <h2 className="font-heading font-semibold text-2xl md:text-3xl text-foreground mb-2">
-                  Featured
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  Latest insights and updates
-                </p>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <BlogCard post={featuredPosts[0]} featured={true} index={0} />
-              </div>
-            </div>
-          </section>
-        </SectionTransition>
-      )}
-
-      {/* All Posts Grid */}
-      <SectionTransition id="all-posts">
-        <section className="pb-16 md:pb-20">
-          <div className="max-w-7xl mx-auto">
-            <div className="mb-8 flex items-center justify-between">
-              <div>
-                <h2 className="font-heading font-semibold text-2xl md:text-3xl text-foreground mb-2">
-                  All Articles
-                </h2>
-                <p className="text-sm text-muted-foreground">
-                  {allPosts.length} {allPosts.length === 1 ? 'article' : 'articles'} on engineering leadership and technical strategy
-                </p>
-              </div>
-            </div>
-
-            {/* Posts Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {regularPosts.map((post, index) => (
-                <BlogCard key={post.slug} post={post} index={index + 1} />
-              ))}
-            </div>
-
-            {/* Categories & Tags (for future filtering) */}
-            {categories.length > 0 && (
-              <div className="mt-16 pt-12 border-t border-border/50">
-                <div className="mb-6">
-                  <h3 className="font-heading font-semibold text-xl text-foreground mb-4">
-                    Topics
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {categories.map((category) => (
-                      <span
-                        key={category}
-                        className="inline-flex items-center px-3 py-1.5 rounded-full text-sm bg-muted/50 text-muted-foreground border border-border/50"
-                      >
-                        {category}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </section>
-      </SectionTransition>
+      {/* Blog Listing with Filters */}
+      <BlogListing allPosts={allPosts} />
     </div>
   );
 }

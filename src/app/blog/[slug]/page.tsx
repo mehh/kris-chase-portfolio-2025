@@ -4,8 +4,13 @@ import { getBlogPost, getBlogPosts } from '@/data/blog-posts';
 import { BlogPostContent } from '@/components/blog/BlogPostContent';
 import { ScrollProgress } from '@/components/blog/ScrollProgress';
 import { TableOfContents } from '@/components/blog/TableOfContents';
+import { RelatedPosts } from '@/components/blog/RelatedPosts';
+import { AISummary } from '@/components/blog/AISummary';
+import { AIQuestion } from '@/components/blog/AIQuestion';
+import { Breadcrumbs } from '@/components/blog/Breadcrumbs';
+import { EnhancedSocialShare } from '@/components/blog/EnhancedSocialShare';
 import { formatBlogDate } from '@/lib/blog-utils';
-import { Calendar, Clock, Tag, Share2, ArrowLeft, ArrowRight, User } from 'lucide-react';
+import { Calendar, Clock, Tag, ArrowLeft, ArrowRight, User } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogStructuredData } from '@/components/blog/BlogStructuredData';
@@ -109,11 +114,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Full-width header section with gradient background */}
         <header className="w-full bg-gradient-to-b from-background via-background to-muted/20 border-b border-border/50">
           <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-16 lg:py-20">
+            {/* Breadcrumbs */}
+            <Breadcrumbs
+              items={[
+                { label: 'Blog', href: '/blog' },
+                { label: post.title },
+              ]}
+              className="mb-6"
+            />
+
             {/* Back to blog */}
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all mb-8 group"
-              >
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all mb-8 group"
+            >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               <span>Back to Blog</span>
             </Link>
@@ -198,6 +212,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Main Content - Full width with optimal reading width */}
             <div className="flex-1 min-w-0">
               <div className="max-w-4xl mx-auto">
+                {/* AI Summary */}
+                <AISummary post={post} />
+
                 <BlogPostContent content={post.content} />
 
                 {/* Enhanced Author & Share Section */}
@@ -223,33 +240,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm font-medium text-muted-foreground">Share:</span>
-                      <div className="flex items-center gap-3">
-                        <a
-                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
-                          aria-label="Share on Twitter"
-                        >
-                          <Share2 className="w-4 h-4" />
-                          Twitter
-                        </a>
-                        <a
-                          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
-                          aria-label="Share on LinkedIn"
-                        >
-                          <Share2 className="w-4 h-4" />
-                          LinkedIn
-                        </a>
-                      </div>
-                    </div>
+                    <EnhancedSocialShare
+                      title={post.title}
+                      url={`https://krischase.com/blog/${slug}`}
+                      description={post.description}
+                    />
                   </div>
                 </div>
+
+                {/* Related Posts */}
+                <RelatedPosts currentPost={post} />
 
                 {/* Enhanced Navigation */}
                 <nav className="mt-16 pt-12 border-t-2 border-border/50">
@@ -292,6 +292,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </div>
         </div>
       </article>
+
+      {/* AI Question Widget */}
+      <AIQuestion post={post} />
     </>
   );
 }
