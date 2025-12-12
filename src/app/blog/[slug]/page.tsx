@@ -4,11 +4,16 @@ import { getBlogPost, getBlogPosts } from '@/data/blog-posts';
 import { BlogPostContent } from '@/components/blog/BlogPostContent';
 import { ScrollProgress } from '@/components/blog/ScrollProgress';
 import { TableOfContents } from '@/components/blog/TableOfContents';
+import { RelatedPosts } from '@/components/blog/RelatedPosts';
+import { AISummary } from '@/components/blog/AISummary';
+import { AIQuestion } from '@/components/blog/AIQuestion';
+import { AISocialPost } from '@/components/blog/AISocialPost';
 import { formatBlogDate } from '@/lib/blog-utils';
-import { Calendar, Clock, Tag, Share2, ArrowLeft, ArrowRight, User } from 'lucide-react';
+import { Calendar, Clock, Tag, Share2, ArrowLeft, ArrowRight, User, Linkedin, Link2 } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogStructuredData } from '@/components/blog/BlogStructuredData';
+import { SocialShare } from '@/components/blog/SocialShare';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -109,11 +114,38 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         {/* Full-width header section with gradient background */}
         <header className="w-full bg-gradient-to-b from-background via-background to-muted/20 border-b border-border/50">
           <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-16 lg:py-20">
-            {/* Back to blog */}
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all mb-8 group"
-              >
+            {/* Enhanced Breadcrumbs */}
+            <nav className="mb-8" aria-label="Breadcrumb">
+              <ol className="flex items-center gap-2 text-sm">
+                <li>
+                  <Link
+                    href="/"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li className="text-muted-foreground">/</li>
+                <li>
+                  <Link
+                    href="/blog"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    Blog
+                  </Link>
+                </li>
+                <li className="text-muted-foreground">/</li>
+                <li className="text-foreground font-medium truncate max-w-xs md:max-w-md">
+                  {post.title}
+                </li>
+              </ol>
+            </nav>
+            
+            {/* Back to blog button */}
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 border border-transparent hover:border-border/50 transition-all mb-8 group"
+            >
               <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
               <span>Back to Blog</span>
             </Link>
@@ -148,45 +180,47 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               </p>
             )}
 
-            {/* Enhanced Metadata */}
-            <div className="flex flex-wrap items-center gap-6 md:gap-8 text-sm md:text-base text-muted-foreground pb-8 border-b border-border/50">
-              <div className="flex items-center gap-2.5 px-4 py-2 rounded-lg bg-muted/40 border border-border/30">
-                <Calendar className="w-4 h-4 md:w-5 md:h-5" />
-                <time dateTime={post.publishedDate} className="font-medium">
+            {/* Enhanced Metadata with better visual treatment */}
+            <div className="flex flex-wrap items-center gap-4 md:gap-6 text-sm md:text-base pb-8 border-b-2 border-border/50">
+              <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-gradient-to-br from-muted/60 to-muted/40 border border-border/40 hover:border-primary/30 transition-all group">
+                <Calendar className="w-4 h-4 md:w-5 md:h-5 text-primary group-hover:scale-110 transition-transform" />
+                <time dateTime={post.publishedDate} className="font-medium text-foreground">
                   {formatBlogDate(post.publishedDate)}
                 </time>
                 {post.metadata.updatedDate && post.metadata.updatedDate !== post.publishedDate && (
-                  <span className="text-xs opacity-75 ml-2">
+                  <span className="text-xs opacity-75 ml-2 text-muted-foreground">
                     (Updated {formatBlogDate(post.metadata.updatedDate)})
                   </span>
                 )}
               </div>
-              <div className="flex items-center gap-2.5 px-4 py-2 rounded-lg bg-muted/40 border border-border/30">
-                <Clock className="w-4 h-4 md:w-5 md:h-5" />
-                <span className="font-medium">{post.readingTime} min read</span>
+              <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-gradient-to-br from-muted/60 to-muted/40 border border-border/40 hover:border-primary/30 transition-all group">
+                <Clock className="w-4 h-4 md:w-5 md:h-5 text-primary group-hover:scale-110 transition-transform" />
+                <span className="font-medium text-foreground">{post.readingTime} min read</span>
               </div>
-              <div className="flex items-center gap-2.5 px-4 py-2 rounded-lg bg-muted/40 border border-border/30">
-                <span className="font-medium">{post.wordCount.toLocaleString()} words</span>
+              <div className="flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-gradient-to-br from-muted/60 to-muted/40 border border-border/40 hover:border-primary/30 transition-all group">
+                <span className="font-medium text-foreground">{post.wordCount.toLocaleString()} words</span>
               </div>
             </div>
           </div>
         </header>
 
-        {/* Full-width Featured Image */}
+        {/* Full-width Featured Image with enhanced styling */}
         {imageUrl && (
           <div className="w-full mb-12 md:mb-16 lg:mb-20">
             <div className="w-full max-w-[1800px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20">
-              <div className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden bg-muted shadow-2xl border border-border/50">
+              <div className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden bg-muted shadow-2xl border-2 border-border/50 group">
                 <Image
                   src={imageUrl}
                   alt={post.title}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
                   priority
                   sizes="100vw"
                   unoptimized={imageUrl.startsWith('http://') || imageUrl.startsWith('https://')}
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent group-hover:from-black/20 transition-colors duration-500" />
+                {/* Decorative corner accent */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/20 to-transparent rounded-bl-full opacity-50" />
               </div>
             </div>
           </div>
@@ -198,7 +232,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             {/* Main Content - Full width with optimal reading width */}
             <div className="flex-1 min-w-0">
               <div className="max-w-4xl mx-auto">
+                {/* AI Summary - Before content */}
+                <AISummary post={post} />
+
                 <BlogPostContent content={post.content} />
+
+                {/* AI Question Component */}
+                <AIQuestion post={post} />
+
+                {/* AI Social Post Generator */}
+                <AISocialPost post={post} />
 
                 {/* Enhanced Author & Share Section */}
                 <div className="mt-16 pt-12 border-t-2 border-border/50">
@@ -223,33 +266,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm font-medium text-muted-foreground">Share:</span>
-                      <div className="flex items-center gap-3">
-                        <a
-                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
-                          aria-label="Share on Twitter"
-                        >
-                          <Share2 className="w-4 h-4" />
-                          Twitter
-                        </a>
-                        <a
-                          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
-                          aria-label="Share on LinkedIn"
-                        >
-                          <Share2 className="w-4 h-4" />
-                          LinkedIn
-                        </a>
-                      </div>
-                    </div>
+                    <SocialShare post={post} />
                   </div>
                 </div>
+
+                {/* Related Posts */}
+                <RelatedPosts currentPost={post} allPosts={allPosts} />
 
                 {/* Enhanced Navigation */}
                 <nav className="mt-16 pt-12 border-t-2 border-border/50">

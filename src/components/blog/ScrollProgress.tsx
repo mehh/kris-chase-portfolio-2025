@@ -32,9 +32,14 @@ export function ScrollProgress() {
   }, []);
 
   return (
-    <div className="fixed top-0 left-0 right-0 h-1 bg-background/50 z-50">
+    <div className="fixed top-0 left-0 right-0 h-1.5 bg-background/30 backdrop-blur-sm z-50">
       <div
-        className="h-full bg-gradient-to-r from-primary via-primary/80 to-primary transition-all duration-150 ease-out"
+        className="h-full bg-gradient-to-r from-primary via-primary/90 to-primary shadow-lg shadow-primary/50 transition-all duration-200 ease-out"
+        style={{ width: `${progress}%` }}
+      />
+      {/* Glow effect */}
+      <div
+        className="absolute top-0 h-full bg-primary/40 blur-xl transition-all duration-200 ease-out"
         style={{ width: `${progress}%` }}
       />
     </div>

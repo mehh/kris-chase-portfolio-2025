@@ -118,3 +118,37 @@ export function getPostImage(post: { featuredImage?: string; firstImage?: string
 export function getPostUrl(slug: string): string {
   return `https://krischase.com/blog/${slug}`;
 }
+
+/**
+ * Find related posts based on shared tags and category
+ * Returns posts sorted by relevance (most shared tags/category first)
+ */
+export function findRelatedPosts<T extends { slug: string; tags: string[]; category: string }>(
+  currentPost: { slug: string; tags: string[]; category: string },
+  allPosts: T[],
+  limit: number = 3
+): T[] {
+  const related = allPosts
+    .filter((post) => post.slug !== currentPost.slug)
+    .map((post) => {
+      // Calculate relevance score
+      let score = 0;
+      
+      // Same category = 3 points
+      if (post.category === currentPost.category) {
+        score += 3;
+      }
+      
+      // Each shared tag = 2 points
+      const sharedTags = post.tags.filter((tag) => currentPost.tags.includes(tag));
+      score += sharedTags.length * 2;
+      
+      return { post, score };
+    })
+    .filter(({ score }) => score > 0) // Only include posts with some relevance
+    .sort((a, b) => b.score - a.score) // Sort by score descending
+    .slice(0, limit)
+    .map(({ post }) => post);
+
+  return related;
+}

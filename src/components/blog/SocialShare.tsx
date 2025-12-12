@@ -44,40 +44,46 @@ export function SocialShare({ post }: SocialShareProps) {
   };
 
   return (
-    <div className="flex items-center gap-3 pt-4 border-t border-border/50">
-      <Share2 className="h-4 w-4 text-muted-foreground" />
-      <span className="text-sm font-medium text-foreground">Share:</span>
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
       <div className="flex items-center gap-2">
+        <Share2 className="h-5 w-5 text-muted-foreground" />
+        <span className="text-sm font-semibold text-foreground">Share this article:</span>
+      </div>
+      <div className="flex items-center gap-3">
         <a
           href={shareLinks.x}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg hover:bg-muted transition-colors"
-          aria-label="Share on X"
+          className="group flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border-2 border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
+          aria-label="Share on X (Twitter)"
         >
-          <FaXTwitter className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
+          <FaXTwitter className="h-4 w-4" />
+          <span className="hidden sm:inline">X</span>
         </a>
         <a
           href={shareLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg hover:bg-muted transition-colors"
+          className="group flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border-2 border-border/50 hover:border-[#0077B5]/50 transition-all text-foreground hover:text-[#0077B5]"
           aria-label="Share on LinkedIn"
         >
-          <Linkedin className="h-4 w-4 text-muted-foreground hover:text-[#0077B5] transition-colors" />
+          <Linkedin className="h-4 w-4" />
+          <span className="hidden sm:inline">LinkedIn</span>
         </a>
         <button
           onClick={copyToClipboard}
-          className="p-2 rounded-lg hover:bg-muted transition-colors"
-          aria-label="Copy link"
+          className={`group flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border-2 transition-all ${
+            copied
+              ? 'bg-primary/20 border-primary/50 text-primary'
+              : 'bg-muted/60 hover:bg-muted border-border/50 hover:border-primary/50 text-foreground hover:text-primary'
+          }`}
+          aria-label="Copy link to clipboard"
         >
-          <Link2 className="h-4 w-4 text-muted-foreground hover:text-foreground transition-colors" />
-        </button>
-        {copied && (
-          <span className="text-xs text-muted-foreground animate-in fade-in duration-200">
-            Copied!
+          <Link2 className={`h-4 w-4 ${copied ? 'text-primary' : ''}`} />
+          <span className="hidden sm:inline">
+            {copied ? 'Copied!' : 'Copy Link'}
           </span>
-        )}
+        </button>
       </div>
     </div>
   );
