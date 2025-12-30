@@ -8,6 +8,7 @@ export default function SiteHeader() {
     { label: "How I Operate", href: "/how-i-operate" },
     { label: "Testimonials", href: "/testimonials" },
     { label: "Resume", href: "/resume" },
+    { label: "Tools", href: "https://exec-tech.tools", external: true },
     { label: "Get in Touch", href: "/contact" },
   ];
   // Register navigation for Machine View (markdown-friendly)
@@ -32,9 +33,21 @@ export default function SiteHeader() {
               <ul data-v-6b95401f>
                 {desktopLinks.map((item) => (
                   <li key={item.href} data-v-6b95401f>
-                    <Link href={item.href} className={item.label === 'Get in Touch' ? 'cta-link' : ''} data-v-6b95401f>
-                      {item.label}
-                    </Link>
+                    {item.external ? (
+                      <a 
+                        href={item.href} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className={item.label === 'Get in Touch' ? 'cta-link' : ''} 
+                        data-v-6b95401f
+                      >
+                        {item.label}
+                      </a>
+                    ) : (
+                      <Link href={item.href} className={item.label === 'Get in Touch' ? 'cta-link' : ''} data-v-6b95401f>
+                        {item.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

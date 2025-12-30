@@ -115,7 +115,15 @@ export default function Footer() {
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
                   FAQ
-                </a>                
+                </a>
+                <a 
+                  href="https://exec-tech.tools" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
+                >
+                  Tools
+                </a>
                 <a 
                   href="/partners" 
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
