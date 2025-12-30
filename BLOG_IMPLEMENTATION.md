@@ -213,3 +213,8 @@ Currently using `github-dark.css` which works well in both light and dark modes.
 - The design balances aesthetics with performance and accessibility
 - Code is well-commented and follows existing patterns in the codebase
 
+
+
+
+
+

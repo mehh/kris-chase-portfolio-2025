@@ -73,9 +73,28 @@ export default function BlogIndexPage() {
             <h1 className="font-heading font-bold text-4xl md:text-5xl lg:text-6xl mb-4 text-foreground">
               Engineering Leadership & Technical Strategy
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mb-8">
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mb-6">
               Insights on platform modernization, CI/CD, team scaling, technical architecture, and building products that last.
             </p>
+            <div className="mb-8">
+              <a
+                href="https://exec-tech.tools"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary group"
+              >
+                <span>Executive Tools & Resources</span>
+                <svg
+                  className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                <span className="text-xs text-muted-foreground">exec-tech.tools</span>
+              </a>
+            </div>
           </div>
         </section>
       </SectionTransition>

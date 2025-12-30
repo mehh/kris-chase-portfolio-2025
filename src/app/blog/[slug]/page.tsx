@@ -223,30 +223,48 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                         )}
                       </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <span className="text-sm font-medium text-muted-foreground">Share:</span>
-                      <div className="flex items-center gap-3">
-                        <a
-                          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
-                          aria-label="Share on Twitter"
-                        >
-                          <Share2 className="w-4 h-4" />
-                          Twitter
-                        </a>
-                        <a
-                          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
-                          aria-label="Share on LinkedIn"
-                        >
-                          <Share2 className="w-4 h-4" />
-                          LinkedIn
-                        </a>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm font-medium text-muted-foreground">Share:</span>
+                        <div className="flex items-center gap-3">
+                          <a
+                            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
+                            aria-label="Share on Twitter"
+                          >
+                            <Share2 className="w-4 h-4" />
+                            Twitter
+                          </a>
+                          <a
+                            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://krischase.com/blog/${slug}`)}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary"
+                            aria-label="Share on LinkedIn"
+                          >
+                            <Share2 className="w-4 h-4" />
+                            LinkedIn
+                          </a>
+                        </div>
                       </div>
+                      <a
+                        href="https://exec-tech.tools"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/50 transition-all text-primary hover:text-primary/90 group"
+                      >
+                        <span>Executive Tools</span>
+                        <svg
+                          className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
                     </div>
                   </div>
                 </div>
