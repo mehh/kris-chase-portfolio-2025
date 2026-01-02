@@ -72,9 +72,9 @@ export default function SiteHeader() {
         .inner[data-v-6b95401f] { align-items: center; -webkit-backdrop-filter: blur(30px); backdrop-filter: blur(30px); border: 1px solid #ffffff1a; border-radius: 8px; display: grid; grid-column: 1/-1; grid-row: 1; grid-template-areas: "a b"; padding: 1.25rem 1.625rem; place-self: start stretch; position: relative; z-index: 1 }
         .logo-link[data-v-6b95401f] { grid-area: a; justify-self: start }
         .logo[data-v-6b95401f] { color: var(--c-white); width: 6rem }
-        .nav[data-v-6b95401f] { grid-area: b; justify-self: end }
-        .nav ul[data-v-6b95401f] { align-items: center; display: flex; gap: 1.6875rem; list-style-type: none; margin: 0; padding: 0 }
-        .nav a[data-v-6b95401f] { color: currentColor; padding: 1em 0; position: relative; text-decoration: none }
+        .nav[data-v-6b95401f] { grid-area: b; justify-self: end; font-family: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 0.875rem; letter-spacing: -0.01em; }
+        .nav ul[data-v-6b95401f] { align-items: center; display: flex; gap: 1.25rem; list-style-type: none; margin: 0; padding: 0 }
+        .nav a[data-v-6b95401f] { color: currentColor; padding: 0.75em 0; position: relative; text-decoration: none; font-weight: 500; }
         .nav .cta-link[data-v-6b95401f] { background: var(--c-lime); color: #ffffff; padding: .55em 1em; border-radius: 9999px; font-weight: 700; border: 1px solid #ffffffb3; box-shadow: 0 0 0 0 rgba(191, 255, 0, 0.4); transition: box-shadow .4s ease, transform .2s ease }
         .nav .cta-link[data-v-6b95401f]:hover { transform: translateY(-1px); box-shadow: 0 0 0 6px rgba(191, 255, 0, 0.12) }
         .nav a[data-v-6b95401f]:after { background-color: var(--c-lime); bottom: .21875rem; content: ""; height: .3125rem; left: 50%; opacity: 0; position: absolute; transform: translate(-50%) scale(0); transform-origin: center; transition: transform 1s cubic-bezier(.075,.82,.165,1), opacity .3s cubic-bezier(.39,.575,.565,1); width: .3125rem; will-change: transform }

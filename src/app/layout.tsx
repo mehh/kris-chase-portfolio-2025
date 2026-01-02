@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Providers from './providers';
@@ -18,7 +19,7 @@ import Script from "next/script";
 import PageTransition from "../components/PageTransition";
 import InitialKCSplash from "../components/InitialKCSplash";
 
-// GeistMono is already configured and ready to use
+// Geist fonts are configured and ready to use
 
 export const metadata: Metadata = {
   title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
@@ -86,7 +87,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="kris" className="dark" suppressHydrationWarning>
-      <body className={`${GeistMono.variable} antialiased`}>
+      <body className={`${GeistSans.variable} ${GeistMono.variable} antialiased`}>
         {/* Pre-hydration theme fix to avoid white flash */}
         <Script id="no-fouc-theme" strategy="beforeInteractive">
           {`
