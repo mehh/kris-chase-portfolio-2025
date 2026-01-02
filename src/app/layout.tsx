@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Chakra_Petch, Questrial } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import Providers from './providers';
 import LeftSidebar from '../components/Header';
@@ -18,17 +18,7 @@ import Script from "next/script";
 import PageTransition from "../components/PageTransition";
 import InitialKCSplash from "../components/InitialKCSplash";
 
-const chakra = Chakra_Petch({
-  variable: "--font-chakra",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const questrial = Questrial({
-  variable: "--font-questrial",
-  subsets: ["latin"],
-  weight: "400",
-});
+// GeistMono is already configured and ready to use
 
 export const metadata: Metadata = {
   title: "Kris Chase | Ship Faster, Scale Safely, Cut Delivery Costs",
@@ -96,7 +86,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="kris" className="dark" suppressHydrationWarning>
-      <body className={`${chakra.variable} ${questrial.variable} antialiased`}>
+      <body className={`${GeistMono.variable} antialiased`}>
         {/* Pre-hydration theme fix to avoid white flash */}
         <Script id="no-fouc-theme" strategy="beforeInteractive">
           {`

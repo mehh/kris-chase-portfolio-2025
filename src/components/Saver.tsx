@@ -58,7 +58,7 @@ export default function Saver() {
 
       // Set font styles based on screen size
       const fontSize = window.innerWidth > 1000 ? 150 : 50;
-      const font = `bold ${fontSize}px 'Chakra Petch', Helvetica, Arial, sans-serif`;
+      const font = `bold ${fontSize}px 'Geist Mono', 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace`;
       
       const text = "Kris Chase";
       const speed = 10;

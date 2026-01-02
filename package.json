@@ -39,6 +39,7 @@
     "daisyui": "^5.0.50",
     "dotenv": "^17.2.3",
     "framer-motion": "^12.23.12",
+    "geist": "^1.5.1",
     "gsap": "^3.13.0",
     "highlight.js": "^11.11.1",
     "lightningcss": "1.30.1",

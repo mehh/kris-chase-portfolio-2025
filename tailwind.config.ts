@@ -49,8 +49,9 @@ const config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-questrial)", "system-ui", "sans-serif"],
-        heading: ["var(--font-chakra)", "system-ui", "sans-serif"],
+        sans: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", "monospace"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", "monospace"],
+        heading: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular", "SF Mono", "Menlo", "Consolas", "Liberation Mono", "monospace"],
       },
       borderRadius: {
         lg: "var(--radius)",
