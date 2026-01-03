@@ -96,3 +96,46 @@ export async function captureServer(
     }
   }
 }
+
+/**
+ * Identify a user on the server side
+ * Associates user properties (name, email, etc.) with their distinct ID
+ * This ensures all future events are linked to the identified user
+ */
+export async function identifyServer(
+  distinctId: string,
+  properties: Record<string, unknown> = {},
+  headers?: Headers
+): Promise<void> {
+  if (!POSTHOG_KEY) return;
+  
+  try {
+    const context = getServerContext(headers);
+    const mergedProperties = { ...context, ...properties };
+
+    const payload = {
+      api_key: POSTHOG_KEY,
+      event: "$identify",
+      distinct_id: distinctId,
+      properties: mergedProperties,
+      $set: mergedProperties, // Set user properties
+    };
+
+    // Fire and forget - don't block the request
+    fetch(`${POSTHOG_HOST}/capture/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch((error) => {
+      // Only log in development
+      if (process.env.NODE_ENV === "development") {
+        console.warn("PostHog server identify failed:", error);
+      }
+    });
+  } catch (error) {
+    // Silently fail - don't break the app if tracking fails
+    if (process.env.NODE_ENV === "development") {
+      console.warn("PostHog server identify error:", error);
+    }
+  }
+}

@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import posthog from "posthog-js";
+import { identify } from "@/lib/posthog/client";
 import PageViewEvent from "@/components/PageViewEvent";
 import { useScrollTracking } from "@/hooks/useScrollTracking";
 import Link from "next/link";
@@ -265,13 +266,28 @@ function SuccessView({ persona }: { persona: string }) {
       setSubmitted(true);
       form.reset();
 
-      // Identify by hashed email and set person properties
+      // Identify user with name and email - use current distinct ID or email hash
       const email = typeof data.email === 'string' ? data.email : '';
       const name = typeof data.name === 'string' ? data.name : '';
-      const distinctId = email ? await hashEmail(email) : undefined;
       try {
-        if (distinctId) {
-          posthog.identify(distinctId, { $email: email, name });
+        const currentDistinctId = posthog.get_distinct_id?.();
+        if (currentDistinctId && name && email) {
+          // Use current distinct ID to associate name/email with existing session
+          identify(currentDistinctId, {
+            name,
+            email,
+            $email: email, // PostHog standard property
+            company: typeof data.company === 'string' ? data.company : undefined,
+          });
+        } else if (email) {
+          // Fallback: use hashed email as distinct ID if no current ID
+          const hashedEmail = await hashEmail(email);
+          identify(hashedEmail, {
+            name,
+            email,
+            $email: email,
+            company: typeof data.company === 'string' ? data.company : undefined,
+          });
         }
         const timeToComplete = Math.floor((Date.now() - formStartTime) / 1000);
         posthog.capture("contact_submit_succeeded", { 

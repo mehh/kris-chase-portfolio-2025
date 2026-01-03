@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../lib/supabase/admin';
 import { sendPartnerAlert } from '../../../lib/notifications/email';
 import { sendPartnerTelegramAlert } from '../../../lib/notifications/telegram';
+import { identifyServer } from '@/lib/posthog/server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -21,6 +22,17 @@ export async function POST(req: Request) {
       user_agent: req.headers.get('user-agent'),
       created_at: new Date().toISOString(),
     };
+
+    // Identify user with name and email if provided
+    const distinctId = req.headers.get('x-posthog-distinct-id');
+    if (payload.name && payload.email && distinctId) {
+      identifyServer(distinctId, {
+        name: payload.name,
+        email: payload.email,
+        phone: payload.phone,
+        website: payload.website,
+      }, req.headers);
+    }
 
     const { error } = await supabaseAdmin
       .from('partner_submissions')

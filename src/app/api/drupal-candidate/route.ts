@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../lib/supabase/admin';
 import { sendDrupalCandidateTelegramAlert } from '../../../lib/notifications/telegram';
+import { identifyServer } from '@/lib/posthog/server';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -225,6 +226,16 @@ export async function POST(req: Request) {
       user_agent: req.headers.get('user-agent') || null,
       created_at: new Date().toISOString(),
     };
+
+    // Identify user with name and email if provided
+    const distinctId = req.headers.get('x-posthog-distinct-id');
+    if (payload.name && payload.email && distinctId) {
+      identifyServer(distinctId, {
+        name: payload.name,
+        email: payload.email,
+        location: payload.location,
+      }, req.headers);
+    }
 
     // Insert into Supabase
     const { error } = await supabaseAdmin.from('drupal_candidates').insert(payload);

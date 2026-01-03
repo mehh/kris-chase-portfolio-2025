@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import PageViewEvent from "@/components/PageViewEvent";
 import { useScrollTracking } from "@/hooks/useScrollTracking";
+import posthog from "posthog-js";
+import { identify } from "@/lib/posthog/client";
 
 export default function PartnersRegistrationPage() {
   const [status, setStatus] = useState<string | null>(null);
@@ -55,7 +57,10 @@ export default function PartnersRegistrationPage() {
     try {
       const res = await fetch('/api/partners', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+          'X-PostHog-Distinct-Id': posthog.get_distinct_id?.() || ''
+        },
         body: JSON.stringify(data),
       });
       let json: unknown = null;
@@ -66,7 +71,26 @@ export default function PartnersRegistrationPage() {
             (json as any).error
           : undefined;
       if (!res.ok) throw new Error(apiError || `Failed (${res.status})`);
-      setStatus('Thanks! You’ve been added to my collaboration list.');
+      
+      // Identify user with name and email
+      const name = typeof data.name === 'string' ? data.name : '';
+      const email = typeof data.email === 'string' ? data.email : '';
+      if (name && email) {
+        try {
+          const distinctId = posthog.get_distinct_id?.();
+          if (distinctId) {
+            identify(distinctId, {
+              name,
+              email,
+              $email: email,
+              phone: typeof data.phone === 'string' ? data.phone : undefined,
+              website: typeof data.website === 'string' ? data.website : undefined,
+            });
+          }
+        } catch {}
+      }
+      
+      setStatus("Thanks! You've been added to my collaboration list.");
       form.reset();
       setTypes([]);
     } catch (err: unknown) {

@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import PageViewEvent from "@/components/PageViewEvent";
 import { useScrollTracking } from "@/hooks/useScrollTracking";
+import posthog from "posthog-js";
+import { identify } from "@/lib/posthog/client";
 
 export default function DrupalCandidatePage() {
   const [status, setStatus] = useState<string | null>(null);
@@ -94,6 +96,7 @@ export default function DrupalCandidatePage() {
     try {
       const res = await fetch("/api/drupal-candidate", {
         method: "POST",
+        headers: { 'X-PostHog-Distinct-Id': posthog.get_distinct_id?.() || '' },
         body: formData,
       });
 
@@ -112,6 +115,23 @@ export default function DrupalCandidatePage() {
 
       if (!res.ok) {
         throw new Error(apiError || `Failed (${res.status})`);
+      }
+
+      // Identify user with name and email
+      const name = formData.get('name') as string;
+      const email = formData.get('email') as string;
+      if (name && email) {
+        try {
+          const distinctId = posthog.get_distinct_id?.();
+          if (distinctId) {
+            identify(distinctId, {
+              name,
+              email,
+              $email: email,
+              location: formData.get('location') as string || undefined,
+            });
+          }
+        } catch {}
       }
 
       setStatus("Thank you! Your application has been submitted successfully.");

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '../../../lib/supabase/admin';
 import { sendContactAlert } from '../../../lib/notifications/email';
-import { captureServer } from '@/lib/posthog/server';
+import { captureServer, identifyServer } from '@/lib/posthog/server';
 import { sendContactTelegramAlert } from '../../../lib/notifications/telegram';
 
 export const runtime = 'nodejs';
@@ -38,6 +38,16 @@ export async function POST(req: Request) {
     };
 
     const distinctId = req.headers.get('x-posthog-distinct-id') || undefined;
+    
+    // Identify user with name and email if provided
+    if (payload.name && payload.email && distinctId) {
+      identifyServer(distinctId, {
+        name: payload.name,
+        email: payload.email,
+        company: payload.company,
+      }, req.headers);
+    }
+    
     // Fire-and-forget server capture for received submission
     captureServer('contact_submit_received', { reason: payload.reason, persona: payload.persona, persona_fit: payload.persona_fit }, distinctId);
 
