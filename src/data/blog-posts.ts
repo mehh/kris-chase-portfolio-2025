@@ -7419,13 +7419,13 @@ Explore and sort the data:
       key: 'budget',
       label: 'Budget',
       sortable: true,
-      render: (value) => \`$\${Number(value).toLocaleString()}\`,
+      render: (value) => '$' + Number(value).toLocaleString(),
     },
     {
       key: 'completion',
       label: 'Completion %',
       sortable: true,
-      render: (value) => \`\${value}%\`,
+      render: (value) => String(value) + '%',
     },
   ]}
   searchable={true}
