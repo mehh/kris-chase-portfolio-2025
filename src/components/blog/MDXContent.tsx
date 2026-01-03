@@ -116,11 +116,17 @@ export function MDXContent({ content, className }: MDXContentProps) {
         
         // Inject component declarations at the very top of the MDX content
         // Access the global store and declare each component
+        // Use a more reliable way to access the global object
+        const getGlobalCode = '(typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {})';
         const componentDeclarations = componentNames.length > 0
-          ? `const __MDX_COMPONENTS__ = (typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : self)['${COMPONENT_STORE_KEY}'];\n` +
+          ? 'const __MDX_COMPONENTS__ = ' + getGlobalCode + '["' + COMPONENT_STORE_KEY + '"];\n' +
+            'if (!__MDX_COMPONENTS__) { throw new Error("MDX components not found in global store"); }\n' +
             componentNames.map(name => {
-              // Declare each component - throw error if not found to help debug
-              return `const ${name} = __MDX_COMPONENTS__ && __MDX_COMPONENTS__['${name}'];`;
+              // Declare each component with error checking - use string concatenation to avoid template literal issues
+              const componentName = name;
+              const errorMsg = 'Component ' + componentName + ' not found in MDX components store';
+              return 'const ' + componentName + ' = __MDX_COMPONENTS__["' + componentName + '"];\n' +
+                     'if (!' + componentName + ') { throw new Error("' + errorMsg + '"); }';
             }).join('\n') +
             '\n\n'
           : '';
