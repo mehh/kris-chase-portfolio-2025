@@ -100,7 +100,32 @@ export function MDXContent({ content, className }: MDXContentProps) {
             ? `file://${process.cwd()}`
             : 'file:///';
 
-        const { default: MDXComponent } = await evaluate(transformedContent, {
+        // Store components in a closure-accessible location
+        // We'll create a unique ID for this compilation and store components there
+        const componentStoreId = `__MDX_COMPONENTS_${Date.now()}_${Math.random().toString(36).substr(2, 9)}__`;
+        
+        // Store components in a global store that the compiled MDX can access
+        if (typeof window !== 'undefined') {
+          (window as any)[componentStoreId] = components;
+        } else if (typeof global !== 'undefined') {
+          (global as any)[componentStoreId] = components;
+        }
+
+        // Inject component declarations at the top of the MDX content
+        // These will reference the stored components
+        const componentNames = Object.keys(components).filter(
+          key => typeof components[key as keyof typeof components] === 'function'
+        );
+        
+        const componentDeclarations = componentNames.length > 0
+          ? `const __MDX_COMPONENTS__ = typeof window !== 'undefined' ? window['${componentStoreId}'] : typeof global !== 'undefined' ? global['${componentStoreId}'] : {};\n` +
+            componentNames.map(name => `const ${name} = __MDX_COMPONENTS__?.${name};`).join('\n') +
+            '\n\n'
+          : '';
+
+        const finalContent = componentDeclarations + transformedContent;
+
+        const { default: MDXComponent } = await evaluate(finalContent, {
           ...runtime,
           remarkPlugins: [remarkGfm],
           rehypePlugins: [rehypeHighlight],
@@ -111,6 +136,16 @@ export function MDXContent({ content, className }: MDXContentProps) {
         if (isMounted) {
           setComponent(() => MDXComponent);
           setIsLoading(false);
+          
+          // Clean up the global component store after a delay
+          // (give time for the component to render)
+          setTimeout(() => {
+            if (typeof window !== 'undefined') {
+              delete (window as any)[componentStoreId];
+            } else if (typeof global !== 'undefined') {
+              delete (global as any)[componentStoreId];
+            }
+          }, 1000);
         }
       } catch (err) {
         console.error('Error compiling MDX:', err);
