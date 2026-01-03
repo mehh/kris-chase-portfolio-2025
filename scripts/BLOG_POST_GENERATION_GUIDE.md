@@ -103,7 +103,7 @@ These fields are automatically calculated if not provided:
 
 - **`author`** (object): Author information
   - **`name`** (string): Author name (default: `"Kris Chase"`)
-  - **`twitter`** (string, optional): Twitter handle (default: `"@chasebadkids"`)
+  - **`twitter`** (string, optional): Twitter handle (default: `"@krisrchase"`)
   - **`email`** (string, optional): Email address (default: `"hey@mehh.org"`)
 
 ### Additional Metadata
@@ -138,7 +138,7 @@ These fields are automatically calculated if not provided:
   "wordCount": 1125,
   "author": {
     "name": "Kris Chase",
-    "twitter": "@chasebadkids",
+    "twitter": "@krisrchase",
     "email": "hey@mehh.org"
   },
   "metadata": {

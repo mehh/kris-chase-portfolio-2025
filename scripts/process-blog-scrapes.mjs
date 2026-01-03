@@ -136,7 +136,7 @@ export function processScrapedPost(scrapedData, metadata) {
     wordCount,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {

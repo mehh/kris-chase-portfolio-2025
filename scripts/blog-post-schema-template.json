@@ -141,8 +141,8 @@
         },
         "twitter": {
           "type": "string",
-          "description": "Twitter handle. Default: '@chasebadkids'",
-          "default": "@chasebadkids"
+          "description": "Twitter handle. Default: '@krisrchase'",
+          "default": "@krisrchase"
         },
         "email": {
           "type": "string",
@@ -194,7 +194,7 @@
       "wordCount": 1125,
       "author": {
         "name": "Kris Chase",
-        "twitter": "@chasebadkids",
+        "twitter": "@krisrchase",
         "email": "hey@mehh.org"
       },
       "metadata": {

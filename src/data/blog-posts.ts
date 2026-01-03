@@ -544,7 +544,7 @@ The assessment helps you do that.`,
     wordCount: 1172,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -844,7 +844,7 @@ Know your readiness. Address gaps. Achieve compliance. The framework helps you d
     wordCount: 1178,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -1404,7 +1404,7 @@ Hire full-time when you need long-term core skills. Use contractors when you nee
     wordCount: 1303,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -1662,7 +1662,7 @@ Too many vendors, too little time—but with the right framework, you can make g
     wordCount: 1141,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -2187,7 +2187,7 @@ Know your debt. Plan your pay-down. Avoid the crisis.`,
     wordCount: 1301,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -2730,7 +2730,7 @@ AI is moving fast. Don't let analysis paralysis delay decisions, but don't rush 
     wordCount: 1432,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -3094,7 +3094,7 @@ The analyzer helps you get alignment right.`,
     wordCount: 1025,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -3314,7 +3314,7 @@ The checker helps you get alignment right.`,
     wordCount: 990,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -3537,7 +3537,7 @@ The analyzer helps you do that.`,
     wordCount: 1166,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -3785,7 +3785,7 @@ The framework helps you make the right call.`,
     wordCount: 1282,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -3995,7 +3995,7 @@ The framework helps you make the right call.`,
     wordCount: 1314,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -4208,7 +4208,7 @@ Cutting features feels like failure, but launching late is the real failure. Lau
     wordCount: 1248,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -4374,7 +4374,7 @@ Use the [MVP vs Overbuild Checker](https://exec-tech.tools/mvp-checker) for your
     wordCount: 1120,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -4754,7 +4754,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     wordCount: 1039,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -4786,7 +4786,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 850,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -4816,7 +4816,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 1050,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -4846,7 +4846,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 825,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -4876,7 +4876,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 780,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -4906,7 +4906,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 820,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -4936,7 +4936,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 900,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -4966,7 +4966,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 780,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -4996,7 +4996,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 780,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -5026,7 +5026,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 650,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -5056,7 +5056,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     "wordCount": 830,
     "author": {
       "name": "Kris Chase",
-      "twitter": "@chasebadkids",
+      "twitter": "@krisrchase",
       "email": "hey@mehh.org"
     },
     "metadata": {
@@ -5123,7 +5123,7 @@ This is usually a really good idea as it will ensure there's no traces of hacked
     wordCount: 450,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5161,7 +5161,7 @@ Magento comes pre-built with a ton of great reporting options for things like sa
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5223,7 +5223,7 @@ In the future I will publish more articles that relate to the power of the wpcli
     wordCount: 350,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5312,7 +5312,7 @@ Drop the bash script below onto your server and execute it to add all domains fr
     wordCount: 400,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -5469,7 +5469,7 @@ wp option update siteurl "http://\${todomain}" --url="\${todomain}"
     wordCount: 900,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5509,7 +5509,7 @@ Have anything to add? Let me know!`,
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5586,7 +5586,7 @@ Have any great tools / resources to share? Add them in the comments below`,
     wordCount: 650,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5674,7 +5674,7 @@ Is there any way you see this function for removing Visual Composer Shortcodes f
     wordCount: 400,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5723,7 +5723,7 @@ After creating the fields in your WordPress backend, to invoke the fields you ca
     wordCount: 100,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5862,7 +5862,7 @@ Thanks for reading!`,
     wordCount: 500,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -5954,7 +5954,7 @@ public function __construct()
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6012,7 +6012,7 @@ And that's it! You're on your way to having a faster WordPress site with optimiz
     wordCount: 250,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6059,7 +6059,7 @@ function my_jquery_enqueue() {
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6107,7 +6107,7 @@ What use cases have you come up with for this? In a future release I will setup 
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6176,7 +6176,7 @@ Here's a great snippet for pulling a users Instagram Feed and doing whatever you
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6302,7 +6302,7 @@ I hope that these scripts help others as much as they've helped me when it comes
     wordCount: 600,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6344,7 +6344,7 @@ function wp_mail()
     wordCount: 100,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6379,7 +6379,7 @@ echo $newest_post_id = $posts[0]->ID;
     wordCount: 50,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6417,7 +6417,7 @@ If it has been running a long time (e.g. it may be hung) you can kill it by find
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6467,7 +6467,7 @@ Here's a compiled list for a lot of GREAT deals for Black Friday.  If you're a d
     wordCount: 1575,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6513,7 +6513,7 @@ The display:none style causes non-Gmail clients to hide the block (Gmail ignores
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6547,7 +6547,7 @@ What sort of files were you able to clean up using this script?  Leave feedback 
     wordCount: 100,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6602,7 +6602,7 @@ I'll be posting a writeup in the next couple of weeks on how to easily find all 
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6644,7 +6644,7 @@ Change it to match your needs.`,
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6720,7 +6720,7 @@ Enjoy!`,
     wordCount: 300,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6765,7 +6765,7 @@ This will make sure the server reboots in the quickest way possible.`,
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -6842,7 +6842,7 @@ We get our YouTube Video ID by parsing an ACF (Advanced Custom Fields) field tha
     wordCount: 300,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6900,7 +6900,7 @@ This ended up being really helpful for myself!`,
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -6949,7 +6949,7 @@ What projects have you used this snippet on?  Share your results below!`,
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -7009,7 +7009,7 @@ endif;
     wordCount: 250,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -7049,7 +7049,7 @@ Enjoy!`,
     wordCount: 100,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -7102,7 +7102,7 @@ Note: This particular block would require you're using the [entypo font library]
     wordCount: 200,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -7159,7 +7159,7 @@ You can use the following code to do that:
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {},
@@ -7207,7 +7207,7 @@ function catch_that_image($the_post) {
     wordCount: 150,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -7461,7 +7461,7 @@ Start creating interactive blog posts today and watch your engagement soar!`,
     wordCount: 650,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {

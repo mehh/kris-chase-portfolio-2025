@@ -257,7 +257,7 @@ The assessment helps you do that.`,
     wordCount: 1172,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -557,7 +557,7 @@ Know your readiness. Address gaps. Achieve compliance. The framework helps you d
     wordCount: 1178,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -846,7 +846,7 @@ Hire full-time when you need long-term core skills. Use contractors when you nee
     wordCount: 1303,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -1104,7 +1104,7 @@ Too many vendors, too little time—but with the right framework, you can make g
     wordCount: 1141,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -1348,7 +1348,7 @@ Know your debt. Plan your pay-down. Avoid the crisis.`,
     wordCount: 1301,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -1630,7 +1630,7 @@ AI is moving fast. Don't let analysis paralysis delay decisions, but don't rush 
     wordCount: 1432,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -1855,7 +1855,7 @@ The analyzer helps you get alignment right.`,
     wordCount: 1025,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -2075,7 +2075,7 @@ The checker helps you get alignment right.`,
     wordCount: 990,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -2298,7 +2298,7 @@ The analyzer helps you do that.`,
     wordCount: 1166,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -2546,7 +2546,7 @@ The framework helps you make the right call.`,
     wordCount: 1282,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -2756,7 +2756,7 @@ The framework helps you make the right call.`,
     wordCount: 1314,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -2969,7 +2969,7 @@ Cutting features feels like failure, but launching late is the real failure. Lau
     wordCount: 1248,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -3135,7 +3135,7 @@ Use the [MVP vs Overbuild Checker](https://exec-tech.tools/mvp-checker) for your
     wordCount: 1120,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
@@ -3272,7 +3272,7 @@ Use the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy) for your nex
     wordCount: 1039,
     author: {
       name: 'Kris Chase',
-      twitter: '@chasebadkids',
+      twitter: '@krisrchase',
       email: 'hey@mehh.org',
     },
     metadata: {
