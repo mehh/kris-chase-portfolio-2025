@@ -1,5 +1,8 @@
 "use client";
 
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
+
 import React, { Suspense, useRef } from "react";
 import { motion } from "motion/react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
@@ -77,6 +80,8 @@ function MiniVisibleCanvas({ children }: { children: React.ReactNode }) {
 }
 
 export default function TithelyNinetyDayPlanPage() {
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
   // Register page content for Machine View
   useMachineSlice(
     {
@@ -122,8 +127,10 @@ export default function TithelyNinetyDayPlanPage() {
   };
 
   return (
-    <div className="min-h-[100dvh] bg-white dark:bg-black relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-16">
-      <PlanViewBeacon />
+    <>
+      <PageViewEvent pageName="tithely_90_day_plan" />
+      <div className="min-h-[100dvh] bg-white dark:bg-black relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-16">
+        <PlanViewBeacon />
       {/* Hero */}
       <SectionTransition id="tithely-hero">
         <section className="pt-24 sm:pt-28 md:pt-32 pb-12 md:pb-16">
@@ -320,6 +327,7 @@ export default function TithelyNinetyDayPlanPage() {
           </div>
         </section>
       </SectionTransition>
-    </div>
+      </div>
+    </>
   );
 }

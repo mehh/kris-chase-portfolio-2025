@@ -9,15 +9,26 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import 'highlight.js/styles/github-dark.css';
 import { cn } from '@/lib/utils';
+import { isMDXContent } from '@/lib/mdx-renderer';
+import { MDXContent } from './MDXContent';
 
 interface BlogPostContentProps {
   content: string;
 }
 
 /**
- * Renders markdown blog post content with syntax highlighting and proper formatting
+ * Renders markdown or MDX blog post content with syntax highlighting and proper formatting
+ * Automatically detects MDX content (contains JSX/component syntax) and renders accordingly
  */
 export function BlogPostContent({ content }: BlogPostContentProps) {
+  const isMDX = isMDXContent(content);
+  
+  // If content is MDX, use MDX renderer
+  if (isMDX) {
+    return <MDXContent content={content} />;
+  }
+
+  // Otherwise, render as markdown
   const headings = extractHeadings(content);
 
   // Add IDs to headings in the rendered content

@@ -4,6 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import { usePathname } from "next/navigation";
+import { capture } from "@/lib/posthog/client";
 
 export default function Footer() {
   const footerRef = useRef<HTMLElement>(null);
@@ -88,6 +89,15 @@ export default function Footer() {
           </p>
           <a 
             href={ctaHref}
+            onClick={() => {
+              try {
+                capture("footer_cta_clicked", {
+                  destination: ctaHref,
+                  cta_title: ctaTitle,
+                  page_path: pathname,
+                });
+              } catch {}
+            }}
             className="inline-flex items-center justify-center bg-white text-black hover:bg-black hover:text-white border border-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors duration-300 shadow-lg text-sm sm:text-base min-h-[48px]"
           >
             Get In Touch
@@ -106,12 +116,30 @@ export default function Footer() {
               <nav className="flex gap-6">
                 <Link 
                   href="/blog" 
+                  onClick={() => {
+                    try {
+                      capture("footer_link_clicked", {
+                        label: "Blog",
+                        href: "/blog",
+                        is_external: false,
+                      });
+                    } catch {}
+                  }}
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
                   Blog
                 </Link>
                 <a 
                   href="/faq" 
+                  onClick={() => {
+                    try {
+                      capture("footer_link_clicked", {
+                        label: "FAQ",
+                        href: "/faq",
+                        is_external: false,
+                      });
+                    } catch {}
+                  }}
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
                   FAQ
@@ -120,12 +148,35 @@ export default function Footer() {
                   href="https://exec-tech.tools" 
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => {
+                    try {
+                      capture("footer_link_clicked", {
+                        label: "Tools",
+                        href: "https://exec-tech.tools",
+                        is_external: true,
+                      });
+                      capture("external_link_clicked", {
+                        url: "https://exec-tech.tools",
+                        context: "footer",
+                        label: "Tools",
+                      });
+                    } catch {}
+                  }}
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
                   Tools
                 </a>
                 <a 
                   href="/partners" 
+                  onClick={() => {
+                    try {
+                      capture("footer_link_clicked", {
+                        label: "Become a Partner",
+                        href: "/partners",
+                        is_external: false,
+                      });
+                    } catch {}
+                  }}
                   className="text-gray-400 hover:text-[#96442e] transition-colors duration-300"
                 >
                   Become a Partner

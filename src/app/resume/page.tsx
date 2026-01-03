@@ -6,6 +6,8 @@ import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import { Download } from "lucide-react";
 import ChatWidget from "@/components/ChatWidget";
 import posthog from "posthog-js";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function ResumePage() {
   // Register page content for Machine View

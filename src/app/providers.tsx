@@ -6,6 +6,8 @@ import { useEffect } from "react";
 import { ThemeProvider } from "../components/ThemeProvider";
 import { SmoothScrollProvider } from "../components/SmoothScrollProvider";
 import { MachineViewProvider } from "../components/machine/MachineViewProvider";
+import { trackWebVitals } from "@/lib/posthog/performance";
+import { initErrorTracking } from "@/lib/posthog/errors";
 
 const POSTHOG_KEY = process.env.NEXT_PUBLIC_POSTHOG_KEY;
 const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com";
@@ -13,12 +15,35 @@ const POSTHOG_HOST = process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posth
 export default function Providers({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!POSTHOG_KEY) return;
-    // Initialize PostHog on the client
+    
+    // Initialize PostHog on the client with enhanced configuration
     posthog.init(POSTHOG_KEY, {
       api_host: POSTHOG_HOST,
-      capture_pageview: true,
+      capture_pageview: false, // We'll handle pageviews manually with more context
       persistence: "localStorage+cookie",
+      loaded: (posthog) => {
+        // Set up session recording (optional - can be enabled per user consent)
+        // posthog.sessionRecording.startRecording();
+        
+        // Feature flags are automatically loaded by PostHog
+        
+        // Set default properties for all events
+        posthog.register({
+          app_version: process.env.NEXT_PUBLIC_APP_VERSION || "unknown",
+          environment: process.env.NODE_ENV || "development",
+        });
+      },
+      // Enable autocapture for specific elements only (to reduce noise)
+      autocapture: false, // We'll track manually for better control
+      // Capture performance metrics
+      capture_performance: true,
     });
+
+    // Initialize performance tracking
+    trackWebVitals();
+    
+    // Initialize error tracking
+    initErrorTracking();
   }, []);
 
   // Persist UTM params and initial referrer as super properties

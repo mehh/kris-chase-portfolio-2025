@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useMachineSlice } from "./machine/MachineViewProvider";
+import { capture } from "@/lib/posthog/client";
 
 export default function SiteHeader() {
   const desktopLinks = [
@@ -31,25 +32,52 @@ export default function SiteHeader() {
           <div className="inner" data-v-6b95401f>
             <nav className="nav | font-nav" data-v-6b95401f>
               <ul data-v-6b95401f>
-                {desktopLinks.map((item) => (
-                  <li key={item.href} data-v-6b95401f>
-                    {item.external ? (
-                      <a 
-                        href={item.href} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className={item.label === 'Get in Touch' ? 'cta-link' : ''} 
-                        data-v-6b95401f
-                      >
-                        {item.label}
-                      </a>
-                    ) : (
-                      <Link href={item.href} className={item.label === 'Get in Touch' ? 'cta-link' : ''} data-v-6b95401f>
-                        {item.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
+                {desktopLinks.map((item) => {
+                  const isCTA = item.label === 'Get in Touch';
+                  const handleClick = () => {
+                    try {
+                      if (isCTA) {
+                        capture("nav_cta_clicked", {
+                          label: item.label,
+                          href: item.href,
+                          is_external: item.external || false,
+                        });
+                      } else {
+                        capture("nav_link_clicked", {
+                          label: item.label,
+                          href: item.href,
+                          is_external: item.external || false,
+                        });
+                      }
+                    } catch {}
+                  };
+                  
+                  return (
+                    <li key={item.href} data-v-6b95401f>
+                      {item.external ? (
+                        <a 
+                          href={item.href} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          onClick={handleClick}
+                          className={isCTA ? 'cta-link' : ''} 
+                          data-v-6b95401f
+                        >
+                          {item.label}
+                        </a>
+                      ) : (
+                        <Link 
+                          href={item.href} 
+                          onClick={handleClick}
+                          className={isCTA ? 'cta-link' : ''} 
+                          data-v-6b95401f
+                        >
+                          {item.label}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </nav>
           </div>

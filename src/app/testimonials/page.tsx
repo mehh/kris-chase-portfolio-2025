@@ -6,6 +6,8 @@ import SimpleHoverEffect from "../../components/SimpleHoverEffect";
 import { SectionTransition } from "../../components/SmoothScrollProvider";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import Image from "next/image";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function TestimonialsPage() {
   // Register page content for Machine View
@@ -29,10 +31,14 @@ export default function TestimonialsPage() {
     ].join("\n"),
   }, []);
 
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
+
   return (
     <>
       {/* Global Components */}
       <SimpleHoverEffect />
+      <PageViewEvent pageName="testimonials" additionalProperties={{ testimonial_count: testimonials.length }} />
       
       {/* Page Content with site structure */}
       <div className="min-h-[100dvh] bg-white dark:bg-black relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-16">

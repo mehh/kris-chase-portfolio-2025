@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function DrupalCandidatePage() {
   const [status, setStatus] = useState<string | null>(null);
@@ -12,6 +14,9 @@ export default function DrupalCandidatePage() {
   const [skills, setSkills] = useState<string[]>([]);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [resumeError, setResumeError] = useState<string | null>(null);
+
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
 
   // Register Drupal Candidate page for Machine View
   useMachineSlice({
@@ -128,7 +133,9 @@ export default function DrupalCandidatePage() {
   };
 
   return (
-    <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
+    <>
+      <PageViewEvent pageName="drupal_candidate" />
+      <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
       {/* Hero */}
       <section className="mb-10 sm:mb-12 md:mb-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -492,6 +499,7 @@ export default function DrupalCandidatePage() {
         </div>
       </section>
     </main>
+    </>
   );
 }
 

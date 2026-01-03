@@ -3,6 +3,8 @@
 import { useEffect } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import posthog from "posthog-js";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function ConnectPage() {
   useMachineSlice({
@@ -19,12 +21,17 @@ export default function ConnectPage() {
     ].join("\n"),
   });
 
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
+
   useEffect(() => {
     try { posthog.capture("connect_viewed"); } catch {}
   }, []);
 
   return (
-    <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
+    <>
+      <PageViewEvent pageName="connect" />
+      <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
       <section className="mb-8">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">Book a Time</h1>
         <p className="mt-4 max-w-3xl text-base sm:text-lg leading-relaxed text-muted-foreground">
@@ -54,5 +61,6 @@ export default function ConnectPage() {
         </div>
       </section>
     </main>
+    </>
   );
 }

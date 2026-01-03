@@ -2,6 +2,8 @@ import { Metadata } from 'next';
 import { getBlogPosts } from '@/data/blog-posts';
 import { BlogCard } from '@/components/blog/BlogCard';
 import { SectionTransition } from '@/components/SmoothScrollProvider';
+import BlogPageClient from './BlogPageClient';
+import BlogToolsLink from './BlogToolsLink';
 
 export const metadata: Metadata = {
   title: 'Blog | Engineering Leadership, Platform Modernization & Technical Strategy',
@@ -66,6 +68,7 @@ export default function BlogIndexPage() {
 
   return (
     <div className="min-h-screen relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-12 xl:pl-16">
+      <BlogPageClient postCount={allPosts.length} featuredCount={featuredPosts.length} />
       {/* Hero Section */}
       <SectionTransition id="blog-hero">
         <section className="py-12 md:py-16 lg:py-20">
@@ -77,23 +80,7 @@ export default function BlogIndexPage() {
               Insights on platform modernization, CI/CD, team scaling, technical architecture, and building products that last.
             </p>
             <div className="mb-8">
-              <a
-                href="https://exec-tech.tools"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-muted/60 hover:bg-muted border border-border/50 hover:border-primary/50 transition-all text-foreground hover:text-primary group"
-              >
-                <span>Executive Tools & Resources</span>
-                <svg
-                  className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-                <span className="text-xs text-muted-foreground">exec-tech.tools</span>
-              </a>
+              <BlogToolsLink />
             </div>
           </div>
         </section>

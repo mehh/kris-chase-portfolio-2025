@@ -18,6 +18,7 @@ import Script from "next/script";
 // import SplashScreen from "../components/SplashScreen"; // Temporarily disabled
 import PageTransition from "../components/PageTransition";
 import InitialKCSplash from "../components/InitialKCSplash";
+import PageViewTracker from "../components/PageViewTracker";
 
 // Geist fonts are configured and ready to use
 
@@ -112,6 +113,7 @@ export default function RootLayout({
         <GridScrollBackground />
         <div id="__app-root">
           <Providers>
+            <PageViewTracker />
             <SiteHeader />
             <LeftSidebar />
             {/* <ThemeToggle /> */}

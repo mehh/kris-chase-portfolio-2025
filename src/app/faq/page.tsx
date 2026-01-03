@@ -4,6 +4,8 @@ import React from "react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import { INTERVIEW_FAQ, FAQ_CATEGORIES } from "@/data/interview-faq";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function FAQPage() {
   // Register page content for Machine View
@@ -28,6 +30,9 @@ export default function FAQPage() {
     const ids = FAQ_CATEGORIES.map((c) => c.id).filter((id) => tags.includes(`${CATEGORY_PREFIX}${id}`));
     return Array.from(new Set(ids));
   };
+
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
 
   const catCounts = new Map<CategoryId, number>(); // id -> count
   for (const f of INTERVIEW_FAQ) {
@@ -61,7 +66,9 @@ export default function FAQPage() {
   const clearAll = () => setSelected([]);
 
   return (
-    <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-20">
+    <>
+      <PageViewEvent pageName="faq" additionalProperties={{ faq_count: INTERVIEW_FAQ.length }} />
+      <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-20">
       {/* Header */}
       <section className="mb-8 sm:mb-10">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">Interview FAQ</h1>
@@ -163,5 +170,6 @@ export default function FAQPage() {
         })}
       </div>
     </main>
+    </>
   );
 }

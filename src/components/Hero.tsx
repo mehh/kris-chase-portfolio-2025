@@ -5,6 +5,7 @@ import VerticalCutReveal from '../fancy/components/text/vertical-cut-reveal';
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import CountUp from "./CountUp";
 import GradientText from "./GradientText";
+import { capture } from "@/lib/posthog/client";
 
 const PERSONAS = [
   {
@@ -109,6 +110,13 @@ export default function Hero() {
     hoverTimer.current = setTimeout(() => {
       setIdx(i);
       setPaused(true);          // stop auto-cycle once user interacts
+      // Track persona selection
+      try {
+        capture("hero_persona_selected", {
+          persona_id: PERSONAS[i].id,
+          persona_label: PERSONAS[i].label,
+        });
+      } catch {}
     }, HOVER_DELAY);
   };
   const cancel = () => {
@@ -253,7 +261,18 @@ export default function Hero() {
                 onMouseLeave={cancel}
                 onFocus={() => schedule(i)}     // keyboard
                 onBlur={cancel}
-                onClick={() => { setIdx(i); setPaused(true); }}
+                onClick={() => { 
+                  setIdx(i); 
+                  setPaused(true);
+                  // Track persona click
+                  try {
+                    capture("hero_persona_selected", {
+                      persona_id: x.id,
+                      persona_label: x.label,
+                      interaction_type: "click",
+                    });
+                  } catch {}
+                }}
                 data-selected={i === idx ? 'true' : undefined}
                 data-label={x.label}
                 style={{ '--cycle': `${CYCLE_MS}ms` } as CSSVars}
@@ -313,8 +332,19 @@ export default function Hero() {
 
           {/* CTAs */}
           <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4 sm:px-0">
-            <a href={p.primary.href}
-               className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-2.5 sm:py-2.5 rounded-lg font-medium text-white bg-gradient-to-r from-[#96442e] to-[#b8553a] shadow-[0_0_15px_rgba(150,68,46,.2)] hover:shadow-[0_0_25px_rgba(150,68,46,.35)] transition-all min-h-[44px] text-sm sm:text-sm">
+            <a 
+              href={p.primary.href}
+              onClick={() => {
+                try {
+                  capture("hero_cta_clicked", {
+                    persona_id: p.id,
+                    persona_label: p.label,
+                    cta_label: p.primary.label,
+                    cta_destination: p.primary.href,
+                  });
+                } catch {}
+              }}
+              className="w-full sm:w-auto inline-flex items-center justify-center px-5 py-2.5 sm:py-2.5 rounded-lg font-medium text-white bg-gradient-to-r from-[#96442e] to-[#b8553a] shadow-[0_0_15px_rgba(150,68,46,.2)] hover:shadow-[0_0_25px_rgba(150,68,46,.35)] transition-all min-h-[44px] text-sm sm:text-sm">
               {p.primary.label}
             </a>
             {/* <a href="#work" className="inline-flex items-center px-6 py-3 rounded-lg border border-amber-400/50 text-amber-200 hover:bg-amber-400/10">
@@ -325,7 +355,21 @@ export default function Hero() {
           {/* proof strip: 2x2 grid on mobile, flex row on larger screens - made more compact and subtle */}
           <div className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2.5 sm:gap-5 lg:gap-6 px-2 sm:px-0 max-w-xl mx-auto mt-6 sm:mt-8 opacity-90">
             {proofs.map((m) => (
-              <div key={m.id} className="flex flex-col items-center text-center">
+              <div 
+                key={m.id} 
+                className="flex flex-col items-center text-center"
+                onMouseEnter={() => {
+                  try {
+                    capture("hero_stats_viewed", {
+                      stat_id: m.id,
+                      stat_label: m.label,
+                      stat_value: m.to,
+                      stat_suffix: m.suffix,
+                      persona_id: p.id,
+                    });
+                  } catch {}
+                }}
+              >
                 <GradientText
                   colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
                   animationSpeed={3}

@@ -5,10 +5,14 @@ import { BlogPostContent } from '@/components/blog/BlogPostContent';
 import { ScrollProgress } from '@/components/blog/ScrollProgress';
 import { TableOfContents } from '@/components/blog/TableOfContents';
 import { formatBlogDate } from '@/lib/blog-utils';
-import { Calendar, Clock, Tag, Share2, ArrowLeft, ArrowRight, User } from 'lucide-react';
+import { Calendar, Clock, Tag, Share2, ArrowLeft, User } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { BlogStructuredData } from '@/components/blog/BlogStructuredData';
+import BlogPostClient from './BlogPostClient';
+import BlogPostLinks from './BlogPostLinks';
+import BlogBackLink from './BlogBackLink';
+import BlogToolsLink from './BlogToolsLink';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -104,19 +108,14 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <>
       <BlogStructuredData post={post} />
+      <BlogPostClient post={post} />
       <ScrollProgress />
       <article className="min-h-screen relative z-10 w-full">
         {/* Full-width header section with gradient background */}
         <header className="w-full bg-gradient-to-b from-background via-background to-muted/20 border-b border-border/50">
           <div className="w-full max-w-[1600px] mx-auto px-6 sm:px-8 md:px-12 lg:px-16 xl:px-20 py-12 md:py-16 lg:py-20">
             {/* Back to blog */}
-              <Link
-                href="/blog"
-                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-all mb-8 group"
-              >
-              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-              <span>Back to Blog</span>
-            </Link>
+            <BlogBackLink post={post} />
 
             {/* Category & Tags */}
             <div className="flex flex-wrap items-center gap-3 mb-6">
@@ -249,59 +248,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                           </a>
                         </div>
                       </div>
-                      <a
-                        href="https://exec-tech.tools"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-primary/10 hover:bg-primary/20 border border-primary/30 hover:border-primary/50 transition-all text-primary hover:text-primary/90 group"
-                      >
-                        <span>Executive Tools</span>
-                        <svg
-                          className="w-4 h-4 group-hover:translate-x-0.5 transition-transform"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
+                      <BlogToolsLink post={post} context="blog_post" />
                     </div>
                   </div>
                 </div>
 
                 {/* Enhanced Navigation */}
-                <nav className="mt-16 pt-12 border-t-2 border-border/50">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {prevPost && (
-                      <Link
-                        href={`/blog/${prevPost.slug}`}
-                        className="group p-6 rounded-xl border-2 border-border/50 hover:border-primary/50 hover:bg-muted/30 transition-all"
-                      >
-                        <div className="flex items-center gap-2 text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
-                          <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
-                          Previous Post
-                        </div>
-                        <div className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                          {prevPost.title}
-                        </div>
-                      </Link>
-                    )}
-                    {nextPost && (
-                      <Link
-                        href={`/blog/${nextPost.slug}`}
-                        className="group p-6 rounded-xl border-2 border-border/50 hover:border-primary/50 hover:bg-muted/30 transition-all md:text-right"
-                      >
-                        <div className="flex items-center justify-end gap-2 text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
-                          Next Post
-                          <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-                        </div>
-                        <div className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2">
-                          {nextPost.title}
-                        </div>
-                      </Link>
-                    )}
-                  </div>
-                </nav>
+                <BlogPostLinks post={post} prevPost={prevPost} nextPost={nextPost} />
               </div>
             </div>
 

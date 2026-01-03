@@ -3,6 +3,8 @@
 import React, { useEffect, useState } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
 import posthog from "posthog-js";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 import Link from "next/link";
 import TextReveal from "@/components/TextReveal";
 import { CheckCircle2 } from "lucide-react";
@@ -26,6 +28,8 @@ export default function ContactPage() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [formStartTime] = useState<number>(Date.now());
+  const [stepsTaken, setStepsTaken] = useState<number[]>([]);
 
   // Register Contact page for Machine View
   useMachineSlice({
@@ -54,11 +58,34 @@ export default function ContactPage() {
     ].join("\n"),
   }, []);
 
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
+
   useEffect(() => {
     try {
       posthog.capture("contact_viewed");
     } catch {}
   }, []);
+
+  // Track step viewed
+  useEffect(() => {
+    try {
+      posthog.capture("contact_step_viewed", { 
+        step,
+        total_steps: maxSteps,
+        persona: persona || null,
+        qualifier: qualifier || null,
+      });
+      // Track unique steps visited
+      setStepsTaken(prev => {
+        if (!prev.includes(step)) {
+          return [...prev, step];
+        }
+        return prev;
+      });
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   // Track success view
   useEffect(() => {
@@ -186,6 +213,24 @@ function SuccessView({ persona }: { persona: string }) {
 
   const maxSteps = qualifier === "yes" ? 4 : (qualifier === "no" ? 3 : 4);
 
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
+
+  useEffect(() => {
+    try {
+      posthog.capture("contact_viewed");
+    } catch {}
+  }, []);
+
+  // Track success view
+  useEffect(() => {
+    if (showSuccess) {
+      try {
+        posthog.capture("contact_success_shown");
+      } catch {}
+    }
+  }, [showSuccess]);
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement; // capture before await (React pools events)
@@ -228,7 +273,23 @@ function SuccessView({ persona }: { persona: string }) {
         if (distinctId) {
           posthog.identify(distinctId, { $email: email, name });
         }
-        posthog.capture("contact_submit_succeeded", { reason: data.reason, persona: personaField });
+        const timeToComplete = Math.floor((Date.now() - formStartTime) / 1000);
+        posthog.capture("contact_submit_succeeded", { 
+          reason: data.reason, 
+          persona: personaField,
+          time_to_complete_seconds: timeToComplete,
+          steps_taken: stepsTaken.length,
+          unique_steps: stepsTaken,
+          form_completed: true,
+        });
+        // Track funnel completion
+        posthog.capture("contact_form_completed", {
+          reason: data.reason,
+          persona: personaField,
+          time_to_complete_seconds: timeToComplete,
+          steps_taken: stepsTaken.length,
+          qualifier: qualifier,
+        });
       } catch {}
       // small delay lets the fade-out animate before showing success
       setTimeout(() => setShowSuccess(true), 500);
@@ -247,16 +308,30 @@ function SuccessView({ persona }: { persona: string }) {
   const goNext = () => {
     const next = Math.min(step + 1, maxSteps);
     setStep(next);
-    try { posthog.capture('contact_step_next', { step: next }); } catch {}
+    try { 
+      posthog.capture('contact_step_next', { 
+        from_step: step,
+        to_step: next,
+        total_steps: maxSteps,
+      }); 
+    } catch {}
   };
   const goBack = () => {
     const prev = Math.max(step - 1, 1);
     setStep(prev);
-    try { posthog.capture('contact_step_back', { step: prev }); } catch {}
+    try { 
+      posthog.capture('contact_step_back', { 
+        from_step: step,
+        to_step: prev,
+        total_steps: maxSteps,
+      }); 
+    } catch {}
   };
 
   return (
-    <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
+    <>
+      <PageViewEvent pageName="contact" />
+      <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
       {/* Hero */}
       <section className="mb-10 sm:mb-12 md:mb-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -539,6 +614,7 @@ function SuccessView({ persona }: { persona: string }) {
         </aside>
       </section>
     </main>
+    </>
   );
 }
 

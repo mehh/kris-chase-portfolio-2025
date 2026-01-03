@@ -2,6 +2,8 @@
 
 import React from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function Page() {
   // Register Listen page for Machine View
@@ -22,8 +24,14 @@ export default function Page() {
       "- Refresh if the player doesn’t load",
     ].join("\n"),
   }, []);
+
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
+
   return (
-    <main className="relative mx-auto w-full max-w-5xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
+    <>
+      <PageViewEvent pageName="listen" />
+      <main className="relative mx-auto w-full max-w-5xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
       {/* Hero */}
       <section className="mb-10 sm:mb-12 md:mb-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -58,5 +66,6 @@ export default function Page() {
         </p>
       </section>
     </main>
+    </>
   );
 }

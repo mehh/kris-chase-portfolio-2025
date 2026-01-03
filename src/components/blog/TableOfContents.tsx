@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+import { capture } from '@/lib/posthog/client';
 
 interface Heading {
   id: string;
@@ -69,7 +70,7 @@ export function TableOfContents() {
 
   if (headings.length === 0) return null;
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string, headingText: string) => {
     e.preventDefault();
     const element = document.getElementById(id);
     if (element) {
@@ -81,6 +82,14 @@ export function TableOfContents() {
         top: offsetPosition,
         behavior: 'smooth',
       });
+
+      // Track TOC click
+      try {
+        capture("blog_toc_clicked", {
+          section_id: id,
+          section_text: headingText,
+        });
+      } catch {}
     }
   };
 
@@ -106,7 +115,7 @@ export function TableOfContents() {
               >
                 <a
                   href={`#${heading.id}`}
-                  onClick={(e) => handleClick(e, heading.id)}
+                  onClick={(e) => handleClick(e, heading.id, heading.text)}
                   className={`group flex items-start gap-2.5 text-sm transition-all duration-200 rounded-lg px-2 py-1.5 -ml-2 ${
                     isActive
                       ? 'text-primary font-semibold bg-primary/10 border-l-2 border-primary'

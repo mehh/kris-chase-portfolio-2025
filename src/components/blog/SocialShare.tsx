@@ -5,6 +5,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { BlogPost } from '@/data/blog-posts';
 import { useState, useEffect } from 'react';
 import { getPostUrl } from '@/lib/blog-utils';
+import { capture } from '@/lib/posthog/client';
 
 interface SocialShareProps {
   post: BlogPost;
@@ -52,6 +53,15 @@ export function SocialShare({ post }: SocialShareProps) {
           href={shareLinks.x}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            try {
+              capture("blog_shared", {
+                platform: "x",
+                post_slug: post.slug,
+                post_title: post.title,
+              });
+            } catch {}
+          }}
           className="p-2 rounded-lg hover:bg-muted transition-colors"
           aria-label="Share on X"
         >
@@ -61,13 +71,31 @@ export function SocialShare({ post }: SocialShareProps) {
           href={shareLinks.linkedin}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() => {
+            try {
+              capture("blog_shared", {
+                platform: "linkedin",
+                post_slug: post.slug,
+                post_title: post.title,
+              });
+            } catch {}
+          }}
           className="p-2 rounded-lg hover:bg-muted transition-colors"
           aria-label="Share on LinkedIn"
         >
           <Linkedin className="h-4 w-4 text-muted-foreground hover:text-[#0077B5] transition-colors" />
         </a>
         <button
-          onClick={copyToClipboard}
+          onClick={() => {
+            copyToClipboard();
+            try {
+              capture("blog_shared", {
+                platform: "copy_link",
+                post_slug: post.slug,
+                post_title: post.title,
+              });
+            } catch {}
+          }}
           className="p-2 rounded-lg hover:bg-muted transition-colors"
           aria-label="Copy link"
         >

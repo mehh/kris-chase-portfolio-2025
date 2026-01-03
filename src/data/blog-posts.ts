@@ -64,13 +64,239 @@ export const blogPosts: BlogPost[] = [
     url: 'https://krischase.com/blog/leadership-os-understand-your-leadership-style',
     title: 'Leadership OS: Understand Your Operating System for Better Leadership',
     description: 'Discover your leadership operating system—how you make decisions, communicate, handle conflict, and work with teams. Understand your style to lead more effectively.',
-    content: `# Leadership OS: Understand Your Operating System for Better Leadership
+    content: `import { AssessmentCalculator, InteractiveChart } from '@/components/blog/MDXComponents';
+
+# Leadership OS: Understand Your Operating System for Better Leadership
 
 Every leader has an operating system—how you make decisions, communicate, handle conflict, delegate, and work with teams. Understanding your leadership OS helps you lead more effectively, work better with others, and build stronger teams.
 
 Most leaders don't understand their own operating system. They lead based on instinct, defaulting to patterns that may or may not work. They don't know why certain approaches work for them and others don't.
 
 The [Leadership OS](https://exec-tech.tools/leadership-os) assessment helps you understand your leadership style. It identifies your type, strengths, growth areas, and how to work effectively with different team members.
+
+## Assess Your Leadership Style
+
+Use the interactive assessment below to understand your leadership operating system across key dimensions.
+
+<AssessmentCalculator
+  title="Leadership OS Assessment"
+  description="Evaluate your leadership style across seven key dimensions"
+  fields={[
+    {
+      id: 'decisionMaking',
+      label: 'Decision-Making Style',
+      type: 'select',
+      defaultValue: 'collaborative',
+      options: [
+        { value: 'data_driven', label: 'Data-driven' },
+        { value: 'intuitive', label: 'Intuitive' },
+        { value: 'collaborative', label: 'Collaborative' },
+        { value: 'autocratic', label: 'Autocratic' },
+      ],
+      helpText: 'How do you typically make decisions?',
+    },
+    {
+      id: 'communication',
+      label: 'Communication Preference',
+      type: 'select',
+      defaultValue: 'direct',
+      options: [
+        { value: 'direct', label: 'Direct and brief' },
+        { value: 'written', label: 'Written and detailed' },
+        { value: 'verbal', label: 'Verbal and interactive' },
+        { value: 'visual', label: 'Visual and structured' },
+      ],
+      helpText: 'How do you prefer to communicate?',
+    },
+    {
+      id: 'riskTolerance',
+      label: 'Risk Tolerance',
+      type: 'select',
+      defaultValue: 'calculated',
+      options: [
+        { value: 'conservative', label: 'Conservative' },
+        { value: 'calculated', label: 'Calculated' },
+        { value: 'bold', label: 'Bold' },
+      ],
+      helpText: 'What is your approach to risk?',
+    },
+    {
+      id: 'teamBuilding',
+      label: 'Team Building Approach',
+      type: 'select',
+      defaultValue: 'complementary',
+      options: [
+        { value: 'complementary', label: 'Complementary' },
+        { value: 'similar', label: 'Similar' },
+        { value: 'expert', label: 'Expert-driven' },
+        { value: 'culture', label: 'Culture-first' },
+      ],
+      helpText: 'How do you build teams?',
+    },
+    {
+      id: 'delegation',
+      label: 'Delegation Style',
+      type: 'select',
+      defaultValue: 'clear',
+      options: [
+        { value: 'clear', label: 'Clear ownership' },
+        { value: 'collaborative', label: 'Collaborative' },
+        { value: 'hands_off', label: 'Hands-off' },
+        { value: 'detailed', label: 'Detailed guidance' },
+      ],
+      helpText: 'How do you delegate work?',
+    },
+    {
+      id: 'conflict',
+      label: 'Conflict Handling',
+      type: 'select',
+      defaultValue: 'direct',
+      options: [
+        { value: 'avoid', label: 'Avoid' },
+        { value: 'accommodate', label: 'Accommodate' },
+        { value: 'compromise', label: 'Compromise' },
+        { value: 'direct', label: 'Direct address' },
+      ],
+      helpText: 'How do you handle conflict?',
+    },
+    {
+      id: 'processing',
+      label: 'Information Processing',
+      type: 'select',
+      defaultValue: 'analytical',
+      options: [
+        { value: 'big_picture', label: 'Big picture' },
+        { value: 'analytical', label: 'Analytical' },
+        { value: 'creative', label: 'Creative' },
+        { value: 'practical', label: 'Practical' },
+      ],
+      helpText: 'How do you process information?',
+    },
+  ]}
+  calculate={(values) => {
+    // Determine leadership type based on patterns
+    const decision = String(values.decisionMaking || '');
+    const processing = String(values.processing || '');
+    const risk = String(values.riskTolerance || '');
+    
+    let leadershipType = 'Navigator';
+    if (processing === 'analytical' && decision === 'data_driven') {
+      leadershipType = 'Architect';
+    } else if (risk === 'bold' && processing === 'creative') {
+      leadershipType = 'Catalyst';
+    } else if (processing === 'big_picture' && decision === 'intuitive') {
+      leadershipType = 'Visionary';
+    } else if (processing === 'practical' && decision === 'autocratic') {
+      leadershipType = 'Operator';
+    } else if (values.teamBuilding === 'culture' && values.communication === 'verbal') {
+      leadershipType = 'Connector';
+    }
+    
+    // Calculate dimension scores
+    const dimensions = [
+      {
+        id: 'decision',
+        label: 'Decision-Making',
+        score: decision === 'data_driven' ? 85 : decision === 'collaborative' ? 75 : decision === 'intuitive' ? 70 : 65,
+        description: 'Your approach to making decisions',
+      },
+      {
+        id: 'communication',
+        label: 'Communication',
+        score: values.communication === 'direct' ? 80 : values.communication === 'written' ? 75 : values.communication === 'verbal' ? 70 : 65,
+        description: 'Your communication preferences',
+      },
+      {
+        id: 'risk',
+        label: 'Risk Tolerance',
+        score: risk === 'bold' ? 90 : risk === 'calculated' ? 70 : 50,
+        description: 'Your approach to risk',
+      },
+      {
+        id: 'team',
+        label: 'Team Building',
+        score: values.teamBuilding === 'complementary' ? 85 : values.teamBuilding === 'expert' ? 75 : 65,
+        description: 'How you build teams',
+      },
+      {
+        id: 'delegation',
+        label: 'Delegation',
+        score: values.delegation === 'clear' ? 85 : values.delegation === 'collaborative' ? 75 : 65,
+        description: 'Your delegation style',
+      },
+      {
+        id: 'conflict',
+        label: 'Conflict Handling',
+        score: values.conflict === 'direct' ? 80 : values.conflict === 'compromise' ? 75 : 65,
+        description: 'How you handle conflict',
+      },
+      {
+        id: 'processing',
+        label: 'Information Processing',
+        score: processing === 'analytical' ? 85 : processing === 'big_picture' ? 80 : 70,
+        description: 'How you process information',
+      },
+    ];
+    
+    const overallScore = Math.round(dimensions.reduce((sum, d) => sum + d.score, 0) / dimensions.length);
+    
+    let level;
+    if (overallScore >= 80) level = 'Low';
+    else if (overallScore >= 60) level = 'Medium';
+    else if (overallScore >= 40) level = 'High';
+    else level = 'Critical';
+    
+    const recommendations = [
+      'Your leadership type is ' + leadershipType,
+      'Leverage your strengths in decision-making and communication',
+      'Develop areas where you score lower',
+      'Adapt your style to different team members',
+    ];
+    
+    return {
+      overallScore,
+      level,
+      categories: dimensions,
+      recommendations,
+    };
+  }}
+  showBreakdown={true}
+/>
+
+## Leadership Dimensions Visualization
+
+See how different leadership types score across dimensions:
+
+<InteractiveChart
+  type="radar"
+  data={[
+    { dimension: 'Decision-Making', architect: 85, catalyst: 70, navigator: 80, visionary: 75, operator: 75, connector: 70 },
+    { dimension: 'Communication', architect: 70, catalyst: 85, navigator: 75, visionary: 80, operator: 70, connector: 85 },
+    { dimension: 'Risk Tolerance', architect: 50, catalyst: 90, navigator: 70, visionary: 85, operator: 60, connector: 65 },
+    { dimension: 'Team Building', architect: 75, catalyst: 80, navigator: 85, visionary: 70, operator: 70, connector: 90 },
+    { dimension: 'Delegation', architect: 85, catalyst: 65, navigator: 80, visionary: 70, operator: 90, connector: 75 },
+    { dimension: 'Conflict Handling', architect: 70, catalyst: 75, navigator: 80, visionary: 70, operator: 85, connector: 80 },
+    { dimension: 'Information Processing', architect: 90, catalyst: 75, navigator: 85, visionary: 90, operator: 80, connector: 70 },
+  ]}
+  height={400}
+/>
+
+## Leadership Type Distribution
+
+Here's how leadership types are typically distributed:
+
+<InteractiveChart
+  type="pie"
+  data={[
+    { id: 'Navigator', label: 'Navigator', value: 22 },
+    { id: 'Architect', label: 'Architect', value: 18 },
+    { id: 'Catalyst', label: 'Catalyst', value: 16 },
+    { id: 'Visionary', label: 'Visionary', value: 15 },
+    { id: 'Operator', label: 'Operator', value: 15 },
+    { id: 'Connector', label: 'Connector', value: 14 },
+  ]}
+  height={400}
+/>
 
 ## Why Leadership OS Matters
 
@@ -632,13 +858,212 @@ Know your readiness. Address gaps. Achieve compliance. The framework helps you d
     url: 'https://krischase.com/blog/team-scaling-decision-hire-contractors-outsource',
     title: 'Team Scaling Decision: When to Hire Full-Time, Use Contractors, or Outsource',
     description: 'When should you hire full-time, use contractors, outsource, or wait? Get clarity on the right team scaling strategy for your situation.',
-    content: `# Team Scaling Decision: When to Hire Full-Time, Use Contractors, or Outsource
+    content: `import { DecisionCalculator, CostComparisonCalculator, TimelineComparison } from '@/components/blog/MDXComponents';
+
+# Team Scaling Decision: When to Hire Full-Time, Use Contractors, or Outsource
 
 Your team needs more capacity. You have options: hire full-time employees, engage contractors, outsource to an agency, or wait. The right choice depends on skills needed, duration, budget, and growth trajectory.
 
 Get it wrong, and you're either over-hiring (paying for capacity you don't need) or under-hiring (missing opportunities). You might hire full-time when contractors would work, or use contractors when full-time is needed.
 
 The [Team Scaling Decision](https://exec-tech.tools/team-scaling) tool helps you evaluate your situation and choose the right scaling strategy.
+
+## Make Your Team Scaling Decision
+
+Use the interactive calculator below to evaluate your team scaling options. Adjust the inputs to see how different factors impact the recommendation.
+
+<DecisionCalculator
+  title="Team Scaling Decision Framework"
+  description="Evaluate your team size, growth rate, skills needed, duration, and budget to get a recommendation."
+  fields={[
+    {
+      id: 'currentTeamSize',
+      label: 'Current Team Size',
+      type: 'slider',
+      defaultValue: 10,
+      min: 1,
+      max: 100,
+      step: 1,
+      helpText: 'How many engineers do you currently have?',
+    },
+    {
+      id: 'growthRate',
+      label: 'Growth Rate',
+      type: 'select',
+      defaultValue: 'moderate',
+      options: [
+        { value: 'stable', label: 'Stable - no significant growth' },
+        { value: 'moderate', label: 'Moderate - steady growth' },
+        { value: 'rapid', label: 'Rapid - fast growth' },
+        { value: 'uncertain', label: 'Uncertain - unclear trajectory' },
+      ],
+      helpText: 'What is your growth trajectory?',
+    },
+    {
+      id: 'skillsNeeded',
+      label: 'Skills Type',
+      type: 'select',
+      defaultValue: 'core',
+      options: [
+        { value: 'core', label: 'Core - central to business' },
+        { value: 'specialized', label: 'Specialized - occasional need' },
+        { value: 'common', label: 'Common - widely available' },
+        { value: 'rare', label: 'Rare - hard to find' },
+      ],
+      helpText: 'What type of skills do you need?',
+    },
+    {
+      id: 'duration',
+      label: 'Duration (months)',
+      type: 'slider',
+      defaultValue: 6,
+      min: 1,
+      max: 24,
+      step: 1,
+      helpText: 'How long will you need these skills?',
+    },
+    {
+      id: 'budget',
+      label: 'Budget Level',
+      type: 'select',
+      defaultValue: 'medium',
+      options: [
+        { value: 'low', label: 'Low - very constrained' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'high', label: 'High' },
+        { value: 'unlimited', label: 'Unlimited' },
+      ],
+      helpText: 'What is your budget for scaling?',
+    },
+    {
+      id: 'currentCapacity',
+      label: 'Current Capacity',
+      type: 'select',
+      defaultValue: 'at_capacity',
+      options: [
+        { value: 'overloaded', label: 'Overloaded - struggling' },
+        { value: 'at_capacity', label: 'At capacity - busy but managing' },
+        { value: 'some', label: 'Some capacity - can handle more' },
+        { value: 'underutilized', label: 'Underutilized - has capacity' },
+      ],
+      helpText: 'What is your current team capacity?',
+    },
+    {
+      id: 'hiringDifficulty',
+      label: 'Hiring Difficulty',
+      type: 'select',
+      defaultValue: 'moderate',
+      options: [
+        { value: 'easy', label: 'Easy - readily available' },
+        { value: 'moderate', label: 'Moderate - some challenges' },
+        { value: 'difficult', label: 'Difficult - hard to find' },
+        { value: 'very_difficult', label: 'Very difficult - nearly impossible' },
+      ],
+      helpText: 'How difficult is it to hire these skills?',
+    },
+  ]}
+  calculate={(values) => {
+    let fulltimeScore = 0;
+    let contractorScore = 0;
+    let outsourceScore = 0;
+    let waitScore = 0;
+    
+    const duration = Number(values.duration) || 6;
+    const teamSize = Number(values.currentTeamSize) || 10;
+    
+    // Duration (0-30 points)
+    if (duration >= 12) {
+      fulltimeScore += 30;
+    } else if (duration >= 6) {
+      fulltimeScore += 15;
+      contractorScore += 15;
+    } else {
+      contractorScore += 20;
+      outsourceScore += 10;
+    }
+    
+    // Growth rate (0-20 points)
+    const growthScores = { stable: 0, moderate: 10, rapid: 20, uncertain: 0 };
+    const growth = growthScores[String(values.growthRate || '')] || 5;
+    fulltimeScore += growth;
+    waitScore += (20 - growth) * 0.5;
+    
+    // Skills type (0-15 points)
+    const skillsScores = { core: 15, specialized: 5, common: 5, rare: 0 };
+    const skills = skillsScores[String(values.skillsNeeded || '')] || 5;
+    fulltimeScore += skills;
+    contractorScore += (15 - skills) * 0.7;
+    outsourceScore += (15 - skills) * 0.5;
+    
+    // Team size (0-10 points)
+    if (teamSize >= 50) {
+      fulltimeScore += 10;
+    } else if (teamSize >= 20) {
+      fulltimeScore += 7;
+      contractorScore += 3;
+    } else if (teamSize >= 10) {
+      fulltimeScore += 4;
+      contractorScore += 6;
+    } else {
+      contractorScore += 8;
+      outsourceScore += 2;
+    }
+    
+    // Budget (0-15 points)
+    const budgetScores = { low: 0, medium: 5, high: 12, unlimited: 15 };
+    const budget = budgetScores[String(values.budget || '')] || 5;
+    fulltimeScore += budget;
+    contractorScore += budget * 0.6;
+    outsourceScore += budget * 0.4;
+    waitScore += (15 - budget) * 0.3;
+    
+    // Current capacity (0-10 points)
+    const capacityScores = { overloaded: 10, at_capacity: 7, some: 3, underutilized: 0 };
+    const capacity = capacityScores[String(values.currentCapacity || '')] || 5;
+    fulltimeScore += capacity * 0.5;
+    contractorScore += capacity * 0.7;
+    outsourceScore += capacity * 0.5;
+    waitScore += (10 - capacity);
+    
+    // Hiring difficulty (0-10 points)
+    const hiringScores = { easy: 10, moderate: 5, difficult: 2, very_difficult: 0 };
+    const hiring = hiringScores[String(values.hiringDifficulty || '')] || 5;
+    fulltimeScore += hiring;
+    contractorScore += (10 - hiring) * 0.8;
+    outsourceScore += (10 - hiring) * 0.6;
+    
+    // Normalize scores
+    const maxScore = 120;
+    fulltimeScore = Math.round((fulltimeScore / maxScore) * 100);
+    contractorScore = Math.round((contractorScore / maxScore) * 100);
+    outsourceScore = Math.round((outsourceScore / maxScore) * 100);
+    waitScore = Math.round((waitScore / maxScore) * 100);
+    
+    // Determine recommendation
+    const scores = [
+      { id: 'fulltime', label: 'Hire Full-Time', score: fulltimeScore },
+      { id: 'contractor', label: 'Use Contractors', score: contractorScore },
+      { id: 'outsource', label: 'Outsource', score: outsourceScore },
+      { id: 'wait', label: 'Wait', score: waitScore },
+    ];
+    const topOption = scores.reduce((max, opt) => opt.score > max.score ? opt : max);
+    
+    return {
+      recommendation: topOption.label,
+      confidence: Math.min(Math.abs(topOption.score - Math.max(...scores.filter(s => s.id !== topOption.id).map(s => s.score))) + 40, 90),
+      options: scores.map(opt => ({
+        id: opt.id,
+        label: opt.label,
+        score: opt.score,
+        reasoning: opt.id === 'fulltime' ? 'Full-time hiring makes sense for long-term needs and core skills.'
+          : opt.id === 'contractor' ? 'Contractors work well for short-term or specialized needs.'
+          : opt.id === 'outsource' ? 'Outsourcing fits well-defined scope and cost constraints.'
+          : 'Waiting makes sense when capacity is available or needs are unclear.',
+      })),
+      reasoning: 'Based on your inputs, ' + topOption.label.toLowerCase() + ' is recommended. ' + (topOption.id === 'fulltime' ? 'Long-term need, core skills, and growth trajectory favor full-time hiring.' : topOption.id === 'contractor' ? 'Short-term need, specialized skills, or flexibility requirements favor contractors.' : topOption.id === 'outsource' ? 'Well-defined scope and cost constraints favor outsourcing.' : 'Current capacity and uncertain needs suggest waiting is appropriate.'),
+    };
+  }}
+/>
 
 ## The Team Scaling Challenge
 
@@ -659,6 +1084,78 @@ The framework helps you navigate these complexities.
 ## The Four Options
 
 Most companies consider four scaling strategies:
+
+## Cost Comparison Over Time
+
+Compare the total cost of different scaling strategies:
+
+<CostComparisonCalculator
+  title="Team Scaling Cost Comparison"
+  description="Compare the total cost of hiring full-time, using contractors, or outsourcing over different timeframes"
+  options={[
+    {
+      id: 'fulltime',
+      label: 'Hire Full-Time',
+      upfrontCost: 15000,
+      monthlyCost: 12000,
+      annualCost: 159000,
+      description: 'Salary, benefits, and overhead',
+    },
+    {
+      id: 'contractor',
+      label: 'Use Contractors',
+      upfrontCost: 0,
+      monthlyCost: 15000,
+      annualCost: 180000,
+      description: 'Hourly rate, no benefits or overhead',
+    },
+    {
+      id: 'outsource',
+      label: 'Outsource',
+      upfrontCost: 5000,
+      monthlyCost: 8000,
+      annualCost: 101000,
+      description: 'Fixed project cost or monthly retainer',
+    },
+  ]}
+  timeframe={12}
+  showTimeframeSlider={true}
+/>
+
+## Timeline Comparison
+
+Compare how quickly each option can be implemented:
+
+<TimelineComparison
+  title="Implementation Timeline Comparison"
+  description="See how long each scaling option takes to implement"
+  options={[
+    {
+      id: 'fulltime',
+      label: 'Hire Full-Time',
+      timeline: 3,
+      description: 'Recruiting, interviewing, onboarding',
+      phases: [
+        { name: 'Recruiting', duration: 1 },
+        { name: 'Interviewing', duration: 0.5 },
+        { name: 'Onboarding', duration: 1.5 },
+      ],
+    },
+    {
+      id: 'contractor',
+      label: 'Use Contractors',
+      timeline: 1,
+      description: 'Quick engagement, minimal onboarding',
+    },
+    {
+      id: 'outsource',
+      label: 'Outsource',
+      timeline: 2,
+      description: 'Vendor selection and setup',
+    },
+  ]}
+  showPhases={true}
+/>
 
 ### Hire Full-Time
 
@@ -1179,7 +1676,9 @@ Too many vendors, too little time—but with the right framework, you can make g
     url: 'https://krischase.com/blog/technical-debt-assessment-prioritize-pay-down-plan',
     title: 'Technical Debt Assessment: Know Your Debt Level Before It Becomes a Crisis',
     description: 'Assess your technical debt level and get a prioritized plan to pay it down before it becomes a crisis. Understand the true cost of your codebase.',
-    content: `# Technical Debt Assessment: Know Your Debt Level Before It Becomes a Crisis
+    content: `import { AssessmentCalculator, InteractiveChart, ScoreVisualization, DebtReductionVisualization } from '@/components/blog/MDXComponents';
+
+# Technical Debt Assessment: Know Your Debt Level Before It Becomes a Crisis
 
 Every codebase has technical debt. The question isn't whether you have it—it's how much, where it is, and when it becomes a problem. Most executives don't know until it's too late.
 
@@ -1188,6 +1687,211 @@ Technical debt compounds silently. Code that works today slows development tomor
 By the time you notice, it's expensive to fix. Engineering velocity has slowed. Bugs are increasing. Hiring is harder because onboarding takes months. The cost of paying down debt feels impossible.
 
 The [Technical Debt Assessment](https://exec-tech.tools/technical-debt) helps you assess your debt level before it becomes a crisis. It evaluates codebase health, team productivity, and maintenance burden to give you a debt score and prioritized pay-down plan.
+
+## Assess Your Technical Debt
+
+Use the interactive calculator below to assess your technical debt level. Adjust the inputs to see how different factors impact your overall debt score.
+
+<AssessmentCalculator
+  title="Technical Debt Assessment"
+  description="Evaluate your codebase health, team productivity, and maintenance burden to get a debt score and prioritized pay-down plan."
+  fields={[
+    {
+      id: 'codebaseAge',
+      label: 'Codebase Age (years)',
+      type: 'slider',
+      defaultValue: 3,
+      min: 0,
+      max: 20,
+      step: 1,
+      helpText: 'Older codebases typically have more accumulated debt',
+    },
+    {
+      id: 'deploymentFrequency',
+      label: 'Deployment Frequency',
+      type: 'select',
+      defaultValue: 'weekly',
+      options: [
+        { value: 'daily', label: 'Daily' },
+        { value: 'weekly', label: 'Weekly' },
+        { value: 'monthly', label: 'Monthly' },
+        { value: 'quarterly', label: 'Quarterly' },
+        { value: 'rarely', label: 'Rarely' },
+      ],
+      helpText: 'Frequent deployments indicate healthier development practices',
+    },
+    {
+      id: 'onboardingTime',
+      label: 'Onboarding Time (months)',
+      type: 'slider',
+      defaultValue: 2,
+      min: 0,
+      max: 12,
+      step: 0.5,
+      helpText: 'How long for new engineers to be productive?',
+    },
+    {
+      id: 'teamSize',
+      label: 'Engineering Team Size',
+      type: 'slider',
+      defaultValue: 10,
+      min: 1,
+      max: 100,
+      step: 1,
+      helpText: 'Larger teams face more coordination challenges',
+    },
+    {
+      id: 'velocityTrend',
+      label: 'Engineering Velocity Trend',
+      type: 'select',
+      defaultValue: 'stable',
+      options: [
+        { value: 'increasing', label: 'Increasing' },
+        { value: 'stable', label: 'Stable' },
+        { value: 'decreasing', label: 'Decreasing' },
+        { value: 'severely_decreasing', label: 'Severely Decreasing' },
+      ],
+      helpText: 'Is your team shipping faster, slower, or the same?',
+    },
+    {
+      id: 'maintenanceBurden',
+      label: 'Maintenance Time (%)',
+      type: 'slider',
+      defaultValue: 30,
+      min: 0,
+      max: 100,
+      step: 5,
+      formatValue: (val) => String(val) + '%',
+      helpText: 'Percentage of time spent on maintenance vs. new features',
+    },
+    {
+      id: 'bugFrequency',
+      label: 'Production Bug Frequency',
+      type: 'select',
+      defaultValue: 'occasional',
+      options: [
+        { value: 'rare', label: 'Rare (few per month)' },
+        { value: 'occasional', label: 'Occasional (weekly)' },
+        { value: 'frequent', label: 'Frequent (multiple per week)' },
+        { value: 'constant', label: 'Constant (daily)' },
+      ],
+      helpText: 'How often do bugs reach production?',
+    },
+    {
+      id: 'refactoringNeeds',
+      label: 'Refactoring Needs',
+      type: 'select',
+      defaultValue: 'some',
+      options: [
+        { value: 'minimal', label: 'Minimal' },
+        { value: 'some', label: 'Some' },
+        { value: 'significant', label: 'Significant' },
+        { value: 'constant', label: 'Constant' },
+      ],
+      helpText: 'How often does the team identify code needing refactoring?',
+    },
+  ]}
+  calculate={(values) => {
+    // Calculate debt score based on inputs
+    let score = 0;
+    
+    // Codebase age (0-15 points)
+    const age = Number(values.codebaseAge) || 0;
+    score += Math.min(age * 1.5, 15);
+    
+    // Deployment frequency (0-10 points)
+    const deploymentScores = { daily: 0, weekly: 2, monthly: 5, quarterly: 8, rarely: 10 };
+    score += deploymentScores[String(values.deploymentFrequency || '')] || 5;
+    
+    // Onboarding time (0-20 points)
+    const onboarding = Number(values.onboardingTime) || 0;
+    score += Math.min(onboarding * 4, 20);
+    
+    // Team size impact (0-5 points)
+    const teamSize = Number(values.teamSize) || 0;
+    score += teamSize > 50 ? 5 : teamSize > 20 ? 3 : teamSize > 10 ? 1 : 0;
+    
+    // Velocity trend (0-15 points)
+    const velocityScores = { increasing: 0, stable: 5, decreasing: 10, severely_decreasing: 15 };
+    score += velocityScores[String(values.velocityTrend || '')] || 5;
+    
+    // Maintenance burden (0-20 points)
+    const maintenance = Number(values.maintenanceBurden) || 0;
+    score += (maintenance / 100) * 20;
+    
+    // Bug frequency (0-10 points)
+    const bugScores = { rare: 0, occasional: 3, frequent: 7, constant: 10 };
+    score += bugScores[String(values.bugFrequency || '')] || 3;
+    
+    // Refactoring needs (0-10 points)
+    const refactorScores = { minimal: 0, some: 3, significant: 7, constant: 10 };
+    score += refactorScores[String(values.refactoringNeeds || '')] || 3;
+    
+    const overallScore = Math.min(Math.round(score), 100);
+    
+    // Determine level
+    let level;
+    if (overallScore <= 30) level = 'Low';
+    else if (overallScore <= 60) level = 'Medium';
+    else if (overallScore <= 80) level = 'High';
+    else level = 'Critical';
+    
+    // Calculate category scores
+    const categories = [
+      {
+        id: 'codebase',
+        label: 'Codebase Health',
+        score: Math.min(Math.round((age * 1.5 + (deploymentScores[String(values.deploymentFrequency || '')] || 5) + onboarding * 2) / 3), 100),
+        weight: 1,
+        description: 'Age, deployment frequency, and onboarding complexity',
+      },
+      {
+        id: 'productivity',
+        label: 'Team Productivity',
+        score: Math.min(Math.round((velocityScores[String(values.velocityTrend || '')] || 5) + (maintenance / 100) * 15 + (teamSize > 50 ? 5 : 0)), 100),
+        weight: 1,
+        description: 'Velocity trends, maintenance burden, and team coordination',
+      },
+      {
+        id: 'quality',
+        label: 'Quality Indicators',
+        score: Math.min(Math.round((bugScores[String(values.bugFrequency || '')] || 3) * 3 + (refactorScores[String(values.refactoringNeeds || '')] || 3) * 2), 100),
+        weight: 1,
+        description: 'Bug frequency and refactoring needs',
+      },
+    ];
+    
+    // Generate recommendations
+    const recommendations = [];
+    if (overallScore >= 60) {
+      recommendations.push('Allocate 30-50% of engineering time to debt reduction');
+      recommendations.push('Create dedicated debt reduction sprints or teams');
+    } else if (overallScore >= 30) {
+      recommendations.push('Allocate 20-30% of engineering time to paying down debt');
+      recommendations.push('Prioritize high-impact debt areas');
+    } else {
+      recommendations.push('Maintain current practices and monitor debt indicators');
+      recommendations.push('Address issues as they arise');
+    }
+    
+    if (onboarding > 3) {
+      recommendations.push('Improve documentation and onboarding processes');
+    }
+    if (maintenance > 50) {
+      recommendations.push('Reduce maintenance burden through automation and refactoring');
+    }
+    if (values.bugFrequency === 'frequent' || values.bugFrequency === 'constant') {
+      recommendations.push('Increase test coverage and improve quality processes');
+    }
+    
+    return {
+      overallScore,
+      level,
+      categories,
+      recommendations,
+    };
+  }}
+/>
 
 ## Why Technical Debt Matters
 
@@ -1223,6 +1927,25 @@ Technical debt comes in several forms:
 
 The assessment evaluates all these dimensions.
 
+## Debt Breakdown by Category
+
+Here's how technical debt typically breaks down across different categories:
+
+<InteractiveChart
+  type="bar"
+  data={[
+    { category: 'Code Quality', score: 35 },
+    { category: 'Architecture', score: 28 },
+    { category: 'Dependencies', score: 18 },
+    { category: 'Documentation', score: 12 },
+    { category: 'Test Coverage', score: 15 },
+    { category: 'Infrastructure', score: 22 },
+  ]}
+  height={400}
+  axisBottom={{ legend: 'Category' }}
+  axisLeft={{ legend: 'Debt Score' }}
+/>
+
 ## The Assessment Framework
 
 The [Technical Debt Assessment](https://exec-tech.tools/technical-debt) evaluates your codebase across multiple dimensions:
@@ -1252,6 +1975,39 @@ The [Technical Debt Assessment](https://exec-tech.tools/technical-debt) evaluate
 **Technical Blockers:** What technical issues block feature development? Frequent blockers indicate debt.
 
 The tool synthesizes these inputs into a debt score (0-100) and categorized debt level: Low, Medium, High, or Critical.
+
+## Debt Trends Over Time
+
+Technical debt typically accumulates over time. Here's how debt levels typically progress:
+
+<InteractiveChart
+  type="line"
+  data={[
+    {
+      id: 'Typical Debt Progression',
+      data: [
+        { x: 'Year 1', y: 15 },
+        { x: 'Year 2', y: 28 },
+        { x: 'Year 3', y: 42 },
+        { x: 'Year 4', y: 58 },
+        { x: 'Year 5', y: 72 },
+      ],
+    },
+    {
+      id: 'With Debt Management',
+      data: [
+        { x: 'Year 1', y: 15 },
+        { x: 'Year 2', y: 22 },
+        { x: 'Year 3', y: 28 },
+        { x: 'Year 4', y: 32 },
+        { x: 'Year 5', y: 35 },
+      ],
+    },
+  ]}
+  height={400}
+  axisBottom={{ legend: 'Time' }}
+  axisLeft={{ legend: 'Debt Score' }}
+/>
 
 ## Debt Level Categories
 
@@ -1299,7 +2055,22 @@ High-impact areas that block features or slow development:
 
 The tool identifies priority areas and recommends where to start.
 
-### Pay-Down Strategies
+### Pay-Down Strategies Comparison
+
+Different strategies work better for different debt levels. Compare the approaches:
+
+<InteractiveChart
+  type="bar"
+  data={[
+    { strategy: 'Incremental', low: 8, medium: 6, high: 4, critical: 2 },
+    { strategy: 'Dedicated Sprints', low: 4, medium: 8, high: 7, critical: 5 },
+    { strategy: 'Dedicated Teams', low: 2, medium: 5, high: 8, critical: 9 },
+    { strategy: 'Architectural Changes', low: 1, medium: 2, high: 5, critical: 10 },
+  ]}
+  height={400}
+  axisBottom={{ legend: 'Strategy' }}
+  axisLeft={{ legend: 'Effectiveness Score' }}
+/>
 
 **Incremental:** Address debt as part of feature work (better for low-medium debt)
 
@@ -1320,6 +2091,13 @@ The tool recommends strategies based on your debt level.
 **ROI:** What's the return on paying down debt? (Faster velocity, fewer bugs, easier hiring)
 
 The tool provides estimates to help you plan and budget.
+
+Adjust the time allocation slider below to see how different investment levels impact debt reduction:
+
+<DebtReductionVisualization
+  initialAllocation={30}
+  initialDebtScore={65}
+/>
 
 ## Real-World Examples
 
@@ -1423,13 +2201,218 @@ Know your debt. Plan your pay-down. Avoid the crisis.`,
     url: 'https://krischase.com/blog/ai-adoption-decision-framework-build-buy-wait-hybrid',
     title: 'AI Adoption Decision Framework: Build, Buy, Wait, or Hybrid?',
     description: 'Should you build AI features internally, buy AI tools, wait and observe, or take a hybrid approach? Get an executive-level assessment for your AI strategy.',
-    content: `# AI Adoption Decision Framework: Build, Buy, Wait, or Hybrid?
+    content: `import { DecisionCalculator, InteractiveChart, CostComparisonChart } from '@/components/blog/MDXComponents';
+
+# AI Adoption Decision Framework: Build, Buy, Wait, or Hybrid?
 
 Every executive is asking the same question in 2025: "Should we build AI features, buy AI tools, or wait?" The answer isn't obvious. AI is moving fast. Vendor capabilities are evolving. Your needs might not be clear yet.
 
 Get it wrong, and you're either behind competitors or wasting resources on AI that doesn't deliver value. Get it right, and you gain competitive advantage or avoid expensive mistakes.
 
 The [AI Adoption Decision Framework](https://exec-tech.tools/ai-adoption) helps you evaluate your situation and make the right call. It analyzes your use case, team capabilities, timeline, budget, and risk tolerance to recommend: Build, Buy, Wait, or Hybrid.
+
+## Make Your AI Adoption Decision
+
+Use the interactive calculator below to evaluate your AI adoption strategy. Adjust the inputs to see how different factors impact the recommendation.
+
+<DecisionCalculator
+  title="AI Adoption Decision Framework"
+  description="Evaluate your use case, team capabilities, timeline, and risk tolerance to get a recommendation: Build, Buy, Wait, or Hybrid."
+  fields={[
+    {
+      id: 'useCaseClarity',
+      label: 'Use Case Clarity',
+      type: 'select',
+      defaultValue: 'somewhat',
+      options: [
+        { value: 'clear', label: 'Clear - know exactly what we need' },
+        { value: 'somewhat', label: 'Somewhat clear - general idea' },
+        { value: 'unclear', label: 'Unclear - exploring possibilities' },
+      ],
+      helpText: 'How clear is your AI use case?',
+    },
+    {
+      id: 'aiExperience',
+      label: 'Current AI Experience',
+      type: 'select',
+      defaultValue: 'experimenting',
+      options: [
+        { value: 'none', label: 'None - no AI in production' },
+        { value: 'experimenting', label: 'Experimenting - some pilots' },
+        { value: 'some', label: 'Some - limited production AI' },
+        { value: 'extensive', label: 'Extensive - significant AI capabilities' },
+      ],
+      helpText: 'What is your current AI experience level?',
+    },
+    {
+      id: 'teamSize',
+      label: 'Engineering Team Size',
+      type: 'slider',
+      defaultValue: 10,
+      min: 1,
+      max: 100,
+      step: 1,
+      helpText: 'How many engineers do you have?',
+    },
+    {
+      id: 'aiExpertise',
+      label: 'AI Expertise Level',
+      type: 'select',
+      defaultValue: 'junior',
+      options: [
+        { value: 'none', label: 'None' },
+        { value: 'junior', label: 'Junior' },
+        { value: 'mid', label: 'Mid-level' },
+        { value: 'senior', label: 'Senior' },
+      ],
+      helpText: 'What level of AI expertise does your team have?',
+    },
+    {
+      id: 'timeline',
+      label: 'Timeline Pressure',
+      type: 'select',
+      defaultValue: 'medium',
+      options: [
+        { value: 'immediate', label: 'Immediate (1-3 months)' },
+        { value: 'short', label: 'Short-term (3-6 months)' },
+        { value: 'medium', label: 'Medium-term (6-12 months)' },
+        { value: 'long', label: 'Long-term (12+ months)' },
+      ],
+      helpText: 'How urgent is your timeline?',
+    },
+    {
+      id: 'budget',
+      label: 'Budget Level',
+      type: 'select',
+      defaultValue: 'medium',
+      options: [
+        { value: 'low', label: 'Low - constrained' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'high', label: 'High' },
+        { value: 'unlimited', label: 'Unlimited' },
+      ],
+      helpText: 'What is your budget for AI?',
+    },
+    {
+      id: 'dataSituation',
+      label: 'Data Situation',
+      type: 'select',
+      defaultValue: 'some',
+      options: [
+        { value: 'none', label: 'None - no relevant data' },
+        { value: 'some', label: 'Some - some data available' },
+        { value: 'extensive', label: 'Extensive - large datasets' },
+        { value: 'proprietary', label: 'Proprietary - unique competitive advantage' },
+      ],
+      helpText: 'What data do you have for AI?',
+    },
+    {
+      id: 'riskTolerance',
+      label: 'Risk Tolerance',
+      type: 'select',
+      defaultValue: 'medium',
+      options: [
+        { value: 'low', label: 'Low - risk-averse' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'high', label: 'High - willing to take risks' },
+      ],
+      helpText: 'What is your risk tolerance?',
+    },
+  ]}
+  calculate={(values) => {
+    let buildScore = 0;
+    let buyScore = 0;
+    let waitScore = 0;
+    let hybridScore = 0;
+    
+    // Use case clarity
+    const clarityScores = { clear: 20, somewhat: 10, unclear: 0 };
+    const clarity = clarityScores[String(values.useCaseClarity || '')] || 10;
+    buildScore += clarity;
+    buyScore += clarity;
+    waitScore += (20 - clarity);
+    hybridScore += clarity * 0.7;
+    
+    // AI experience
+    const expScores = { none: 0, experimenting: 5, some: 15, extensive: 25 };
+    const exp = expScores[String(values.aiExperience || '')] || 5;
+    buildScore += exp;
+    buyScore += exp * 0.5;
+    waitScore += (25 - exp) * 0.3;
+    hybridScore += exp * 0.8;
+    
+    // Team size and expertise
+    const teamSize = Number(values.teamSize) || 10;
+    const expertiseScores = { none: 0, junior: 5, mid: 15, senior: 25 };
+    const expertise = expertiseScores[String(values.aiExpertise || '')] || 5;
+    const teamScore = (teamSize >= 50 ? 15 : teamSize >= 20 ? 10 : teamSize >= 10 ? 5 : 0) + expertise;
+    buildScore += teamScore;
+    buyScore += teamScore * 0.3;
+    hybridScore += teamScore * 0.7;
+    
+    // Timeline
+    const timelineScores = { immediate: 0, short: 5, medium: 15, long: 25 };
+    const timeline = timelineScores[String(values.timeline || '')] || 10;
+    buyScore += (25 - timeline);
+    buildScore += timeline;
+    waitScore += (25 - timeline) * 0.5;
+    hybridScore += timeline * 0.6;
+    
+    // Budget
+    const budgetScores = { low: 0, medium: 5, high: 15, unlimited: 25 };
+    const budget = budgetScores[String(values.budget || '')] || 5;
+    buildScore += budget;
+    buyScore += budget * 0.7;
+    waitScore += (25 - budget) * 0.3;
+    hybridScore += budget * 0.8;
+    
+    // Data situation
+    const dataScores = { none: 0, some: 5, extensive: 15, proprietary: 25 };
+    const data = dataScores[String(values.dataSituation || '')] || 5;
+    buildScore += data;
+    buyScore += data * 0.3;
+    hybridScore += data * 0.7;
+    
+    // Risk tolerance
+    const riskScores = { low: 0, medium: 10, high: 20 };
+    const risk = riskScores[String(values.riskTolerance || '')] || 10;
+    buildScore += risk;
+    buyScore += risk * 0.5;
+    waitScore += (20 - risk);
+    hybridScore += risk * 0.6;
+    
+    // Normalize scores
+    const maxScore = 200;
+    buildScore = Math.round((buildScore / maxScore) * 100);
+    buyScore = Math.round((buyScore / maxScore) * 100);
+    waitScore = Math.round((waitScore / maxScore) * 100);
+    hybridScore = Math.round((hybridScore / maxScore) * 100);
+    
+    // Determine recommendation
+    const scores = [
+      { id: 'build', label: 'Build', score: buildScore },
+      { id: 'buy', label: 'Buy', score: buyScore },
+      { id: 'wait', label: 'Wait', score: waitScore },
+      { id: 'hybrid', label: 'Hybrid', score: hybridScore },
+    ];
+    const topOption = scores.reduce((max, opt) => opt.score > max.score ? opt : max);
+    
+    return {
+      recommendation: topOption.label,
+      confidence: Math.min(Math.abs(topOption.score - Math.max(...scores.filter(s => s.id !== topOption.id).map(s => s.score))) + 40, 90),
+      options: scores.map(opt => ({
+        id: opt.id,
+        label: opt.label,
+        score: opt.score,
+        reasoning: opt.id === 'build' ? 'Building makes sense given your expertise, data, and differentiation needs.'
+          : opt.id === 'buy' ? 'Buying makes sense given timeline pressure and existing solutions.'
+          : opt.id === 'wait' ? 'Waiting makes sense while use cases clarify and market matures.'
+          : 'Hybrid approach balances building strategic capabilities with buying standard tools.',
+      })),
+      reasoning: 'Based on your inputs, ' + topOption.label.toLowerCase() + ' is recommended. ' + (topOption.id === 'build' ? 'You have the expertise, data, and timeline to build custom AI capabilities.' : topOption.id === 'buy' ? 'Timeline pressure and available solutions favor buying.' : topOption.id === 'wait' ? 'Use cases need clarification and the market needs time to mature.' : 'A hybrid approach balances strategic building with tactical buying.'),
+    };
+  }}
+/>
 
 ## The AI Adoption Challenge
 
@@ -1452,6 +2435,23 @@ The framework helps you navigate these uncertainties.
 ## The Four Options
 
 Most companies consider four paths for AI adoption:
+
+## Option Comparison
+
+Compare how each option scores across key dimensions:
+
+<InteractiveChart
+  type="radar"
+  data={[
+    { dimension: 'Time to Market', build: 30, buy: 80, wait: 20, hybrid: 60 },
+    { dimension: 'Customization', build: 90, buy: 40, wait: 10, hybrid: 70 },
+    { dimension: 'Cost Control', build: 70, buy: 50, wait: 90, hybrid: 60 },
+    { dimension: 'Expertise Required', build: 20, buy: 80, wait: 90, hybrid: 50 },
+    { dimension: 'Competitive Edge', build: 90, buy: 50, wait: 30, hybrid: 75 },
+    { dimension: 'Risk Level', build: 40, buy: 60, wait: 80, hybrid: 55 },
+  ]}
+  height={400}
+/>
 
 ### Build AI Internally
 
@@ -1504,6 +2504,45 @@ Use existing AI platforms, SaaS tools, or APIs to add AI capabilities. You integ
 - Data might leave your systems
 - Ongoing subscription costs
 - Might not fit unique needs
+
+## Cost Comparison: Build vs Buy vs Wait
+
+Here's how costs typically compare across different AI adoption strategies:
+
+<CostComparisonChart
+  title="AI Adoption Cost Comparison"
+  description="Compare total cost of ownership for different AI adoption strategies"
+  data={[
+    {
+      option: 'Build',
+      upfront: 200000,
+      monthly: 15000,
+      annual: 380000,
+      total3Months: 245000,
+      total6Months: 290000,
+      total12Months: 380000,
+    },
+    {
+      option: 'Buy',
+      upfront: 10000,
+      monthly: 5000,
+      annual: 70000,
+      total3Months: 25000,
+      total6Months: 40000,
+      total12Months: 70000,
+    },
+    {
+      option: 'Wait',
+      upfront: 0,
+      monthly: 0,
+      annual: 0,
+      total3Months: 0,
+      total6Months: 0,
+      total12Months: 0,
+    },
+  ]}
+  timeframe="all"
+/>
 
 ### Wait and Observe
 
@@ -1705,13 +2744,152 @@ AI is moving fast. Don't let analysis paralysis delay decisions, but don't rush 
     url: 'https://krischase.com/blog/eos-goal-cascade-analyzer-align-company-goals',
     title: 'EOS Goal Cascade Analyzer: Align Company Goals with Departmental Execution',
     description: 'Cascade company goals into departmental rocks (top-down) or analyze if existing rocks align with your company goal (bottom-up). Based on EOS framework.',
-    content: `# EOS Goal Cascade Analyzer: Align Company Goals with Departmental Execution
+    content: `import { AssessmentCalculator, InteractiveChart, ScoreVisualization } from '@/components/blog/MDXComponents';
+
+# EOS Goal Cascade Analyzer: Align Company Goals with Departmental Execution
 
 Your company has a goal. Each department has rocks (quarterly priorities). But do departmental rocks actually support the company goal? Too often, departments work on important things that don't move the company forward.
 
 This misalignment is invisible but expensive. Engineering ships features. Sales hits quotas. Marketing generates leads. But if their work doesn't connect to company goals, you're busy but not effective.
 
 The [EOS Goal Cascade Analyzer](https://exec-tech.tools/eos-cascade) helps you cascade company goals into departmental rocks (top-down) or analyze whether existing rocks align with company goals (bottom-up). Based on the Entrepreneurial Operating System (EOS) framework.
+
+## Assess Your Goal Alignment
+
+Use the interactive calculator below to assess how well your departmental rocks align with company goals.
+
+<AssessmentCalculator
+  title="EOS Goal Alignment Assessment"
+  description="Evaluate alignment between company goals and departmental rocks"
+  fields={[
+    {
+      id: 'engineeringAlignment',
+      label: 'Engineering Alignment',
+      type: 'slider',
+      defaultValue: 60,
+      min: 0,
+      max: 100,
+      step: 5,
+      formatValue: (val) => String(val) + '%',
+      helpText: 'How well do engineering rocks support company goals?',
+    },
+    {
+      id: 'salesAlignment',
+      label: 'Sales Alignment',
+      type: 'slider',
+      defaultValue: 70,
+      min: 0,
+      max: 100,
+      step: 5,
+      formatValue: (val) => String(val) + '%',
+      helpText: 'How well do sales rocks support company goals?',
+    },
+    {
+      id: 'marketingAlignment',
+      label: 'Marketing Alignment',
+      type: 'slider',
+      defaultValue: 65,
+      min: 0,
+      max: 100,
+      step: 5,
+      formatValue: (val) => String(val) + '%',
+      helpText: 'How well do marketing rocks support company goals?',
+    },
+    {
+      id: 'productAlignment',
+      label: 'Product Alignment',
+      type: 'slider',
+      defaultValue: 75,
+      min: 0,
+      max: 100,
+      step: 5,
+      formatValue: (val) => String(val) + '%',
+      helpText: 'How well do product rocks support company goals?',
+    },
+  ]}
+  calculate={(values) => {
+    const eng = Number(values.engineeringAlignment) || 0;
+    const sales = Number(values.salesAlignment) || 0;
+    const marketing = Number(values.marketingAlignment) || 0;
+    const product = Number(values.productAlignment) || 0;
+    
+    const overallScore = Math.round((eng + sales + marketing + product) / 4);
+    
+    let level;
+    if (overallScore >= 80) level = 'Low';
+    else if (overallScore >= 60) level = 'Medium';
+    else if (overallScore >= 40) level = 'High';
+    else level = 'Critical';
+    
+    const categories = [
+      {
+        id: 'engineering',
+        label: 'Engineering',
+        score: eng,
+        description: 'Engineering rocks alignment with company goals',
+      },
+      {
+        id: 'sales',
+        label: 'Sales',
+        score: sales,
+        description: 'Sales rocks alignment with company goals',
+      },
+      {
+        id: 'marketing',
+        label: 'Marketing',
+        score: marketing,
+        description: 'Marketing rocks alignment with company goals',
+      },
+      {
+        id: 'product',
+        label: 'Product',
+        score: product,
+        description: 'Product rocks alignment with company goals',
+      },
+    ];
+    
+    const recommendations = [];
+    if (overallScore < 60) {
+      recommendations.push('Review and realign departmental rocks with company goals');
+      recommendations.push('Ensure each department has at least one rock directly supporting company goals');
+    }
+    if (eng < 60) {
+      recommendations.push('Engineering: Align feature work with company metrics');
+    }
+    if (sales < 60) {
+      recommendations.push('Sales: Connect quotas to strategic objectives');
+    }
+    if (marketing < 60) {
+      recommendations.push('Marketing: Focus on leads that convert to target customers');
+    }
+    
+    return {
+      overallScore,
+      level,
+      categories,
+      recommendations,
+    };
+  }}
+  showBreakdown={true}
+/>
+
+## Alignment by Department
+
+Here's a typical alignment breakdown across departments:
+
+<InteractiveChart
+  type="bar"
+  data={[
+    { department: 'Engineering', alignment: 65 },
+    { department: 'Sales', alignment: 75 },
+    { department: 'Marketing', alignment: 70 },
+    { department: 'Product', alignment: 80 },
+    { department: 'Operations', alignment: 60 },
+  ]}
+  height={400}
+  axisBottom={{ legend: 'Department' }}
+  axisLeft={{ legend: 'Alignment Score' }}
+/>
 
 ## The Alignment Problem
 
@@ -3210,13 +4388,208 @@ Use the [MVP vs Overbuild Checker](https://exec-tech.tools/mvp-checker) for your
     url: 'https://krischase.com/blog/build-vs-buy-solver-executive-decision-framework',
     title: 'Build vs Buy: The Executive Decision Framework That Saves Millions',
     description: 'Stop guessing whether to build or buy. This proven framework helps CTOs and executives make data-driven decisions that save time, money, and engineering resources.',
-    content: `# Build vs Buy: The Executive Decision Framework That Saves Millions
+    content: `import { DecisionCalculator, CostComparisonChart, InteractiveChart } from '@/components/blog/MDXComponents';
+
+# Build vs Buy: The Executive Decision Framework That Saves Millions
 
 Every executive faces the same question dozens of times per year: should we build this internally or buy a solution? It's a decision that can make or break budgets, timelines, and engineering velocity. Yet most companies approach it with gut instinct and incomplete information.
 
 I've watched companies waste millions building custom solutions when off-the-shelf tools would work perfectly. I've also seen teams buy expensive platforms when a simple internal solution would be faster and cheaper. The problem isn't the decision itself—it's the lack of a structured framework to evaluate it.
 
 That's why I built the [Build vs Buy Solver](https://exec-tech.tools/build-vs-buy), an executive-level assessment tool that helps you make the right call based on your team, timeline, and risk profile.
+
+## Make Your Build vs Buy Decision
+
+Use the interactive calculator below to evaluate your specific situation. Adjust the inputs to see how different factors impact the recommendation.
+
+<DecisionCalculator
+  title="Build vs Buy Decision Framework"
+  description="Evaluate your situation across seven critical dimensions to get a data-driven recommendation."
+  fields={[
+    {
+      id: 'differentiation',
+      label: 'Differentiation Level',
+      type: 'select',
+      defaultValue: 'moderate',
+      options: [
+        { value: 'core', label: 'Core to competitive advantage' },
+        { value: 'important', label: 'Important but not core' },
+        { value: 'moderate', label: 'Moderate differentiation' },
+        { value: 'table_stakes', label: 'Table stakes (everyone has it)' },
+      ],
+      helpText: 'Is this capability core to your competitive advantage?',
+    },
+    {
+      id: 'timeline',
+      label: 'Timeline (months)',
+      type: 'slider',
+      defaultValue: 6,
+      min: 1,
+      max: 24,
+      step: 1,
+      helpText: 'How long do you have to deliver this capability?',
+    },
+    {
+      id: 'teamSize',
+      label: 'Engineering Team Size',
+      type: 'slider',
+      defaultValue: 10,
+      min: 1,
+      max: 100,
+      step: 1,
+      helpText: 'Larger teams can better maintain custom solutions',
+    },
+    {
+      id: 'expertise',
+      label: 'Internal Expertise',
+      type: 'select',
+      defaultValue: 'some',
+      options: [
+        { value: 'strong', label: 'Strong expertise in-house' },
+        { value: 'some', label: 'Some expertise' },
+        { value: 'limited', label: 'Limited expertise' },
+        { value: 'none', label: 'No expertise' },
+      ],
+      helpText: 'Do you have the expertise to build and maintain this?',
+    },
+    {
+      id: 'budget',
+      label: 'Budget Level',
+      type: 'select',
+      defaultValue: 'medium',
+      options: [
+        { value: 'low', label: 'Low (constrained)' },
+        { value: 'medium', label: 'Medium' },
+        { value: 'high', label: 'High' },
+        { value: 'unlimited', label: 'Unlimited' },
+      ],
+      helpText: 'What's your budget for this capability?',
+    },
+    {
+      id: 'maintenanceCapacity',
+      label: 'Maintenance Capacity',
+      type: 'select',
+      defaultValue: 'moderate',
+      options: [
+        { value: 'high', label: 'High (can maintain long-term)' },
+        { value: 'moderate', label: 'Moderate' },
+        { value: 'low', label: 'Low (limited capacity)' },
+        { value: 'none', label: 'No capacity for maintenance' },
+      ],
+      helpText: 'Can you maintain a custom solution long-term?',
+    },
+    {
+      id: 'existingSolutions',
+      label: 'Existing Solutions Quality',
+      type: 'select',
+      defaultValue: 'good',
+      options: [
+        { value: 'excellent', label: 'Excellent (mature, well-supported)' },
+        { value: 'good', label: 'Good (meets 80%+ of needs)' },
+        { value: 'fair', label: 'Fair (meets 50-80% of needs)' },
+        { value: 'poor', label: 'Poor (limited options)' },
+      ],
+      helpText: 'How well do existing solutions meet your needs?',
+    },
+  ]}
+  calculate={(values) => {
+    let buildScore = 0;
+    let buyScore = 0;
+    
+    // Differentiation (0-30 points)
+    const diffScores = { core: 30, important: 20, moderate: 10, table_stakes: 0 };
+    const diffValue = diffScores[String(values.differentiation || '')] || 10;
+    buildScore += diffValue;
+    buyScore += 30 - diffValue;
+    
+    // Timeline (0-20 points)
+    const timeline = Number(values.timeline) || 6;
+    if (timeline <= 3) {
+      buyScore += 20;
+    } else if (timeline <= 6) {
+      buyScore += 12;
+      buildScore += 8;
+    } else if (timeline <= 12) {
+      buildScore += 15;
+      buyScore += 5;
+    } else {
+      buildScore += 20;
+    }
+    
+    // Team Size (0-10 points)
+    const teamSize = Number(values.teamSize) || 10;
+    if (teamSize >= 50) {
+      buildScore += 10;
+    } else if (teamSize >= 20) {
+      buildScore += 7;
+      buyScore += 3;
+    } else if (teamSize >= 10) {
+      buildScore += 4;
+      buyScore += 6;
+    } else {
+      buyScore += 10;
+    }
+    
+    // Expertise (0-15 points)
+    const expertiseScores = { strong: 15, some: 8, limited: 3, none: 0 };
+    const expertiseValue = expertiseScores[String(values.expertise || '')] || 5;
+    buildScore += expertiseValue;
+    buyScore += 15 - expertiseValue;
+    
+    // Budget (0-10 points)
+    const budgetScores = { low: 0, medium: 3, high: 7, unlimited: 10 };
+    const budgetValue = budgetScores[String(values.budget || '')] || 3;
+    buildScore += budgetValue;
+    buyScore += 10 - budgetValue;
+    
+    // Maintenance Capacity (0-10 points)
+    const maintScores = { high: 10, moderate: 6, low: 2, none: 0 };
+    const maintValue = maintScores[String(values.maintenanceCapacity || '')] || 5;
+    buildScore += maintValue;
+    buyScore += 10 - maintValue;
+    
+    // Existing Solutions (0-15 points)
+    const solutionScores = { excellent: 15, good: 10, fair: 5, poor: 0 };
+    const solutionValue = solutionScores[String(values.existingSolutions || '')] || 5;
+    buyScore += solutionValue;
+    buildScore += 15 - solutionValue;
+    
+    // Normalize scores to 0-100
+    const maxScore = 120;
+    buildScore = Math.round((buildScore / maxScore) * 100);
+    buyScore = Math.round((buyScore / maxScore) * 100);
+    
+    // Determine recommendation
+    const recommendation = buildScore > buyScore ? 'Build' : 'Buy';
+    const confidence = Math.abs(buildScore - buyScore);
+    
+    return {
+      recommendation,
+      confidence: Math.min(confidence + 50, 95),
+      options: [
+        {
+          id: 'build',
+          label: 'Build',
+          score: buildScore,
+          reasoning: buildScore > buyScore
+            ? 'Building makes sense given your differentiation needs, timeline, and team capacity.'
+            : 'Building is possible but may not be optimal given existing solutions and maintenance capacity.',
+        },
+        {
+          id: 'buy',
+          label: 'Buy',
+          score: buyScore,
+          reasoning: buyScore > buildScore
+            ? 'Buying makes sense given timeline pressure, existing solutions, and maintenance capacity.'
+            : 'Buying is possible but may not leverage your differentiation or team capabilities.',
+        },
+      ],
+      reasoning: recommendation === 'Build'
+        ? 'Based on your inputs, building internally is recommended. Your capability is ' + (values.differentiation === 'core' ? 'core to your competitive advantage' : 'important for differentiation') + ', you have ' + (values.expertise === 'strong' ? 'strong' : 'adequate') + ' expertise, and ' + (values.maintenanceCapacity === 'high' ? 'strong' : 'sufficient') + ' maintenance capacity. The ' + timeline + '-month timeline ' + (timeline >= 6 ? 'allows' : 'may allow') + ' for building.'
+        : 'Based on your inputs, buying is recommended. Your timeline is ' + (timeline <= 6 ? 'tight' : 'moderate') + ', existing solutions are ' + (values.existingSolutions === 'excellent' ? 'excellent' : 'good') + ', and ' + (values.maintenanceCapacity === 'low' || values.maintenanceCapacity === 'none' ? 'maintenance capacity is limited' : 'building would require significant maintenance') + '. This allows your team to focus on core differentiators.',
+    };
+  }}
+/>
 
 ## The Hidden Cost of Getting It Wrong
 
@@ -3257,6 +4630,36 @@ What happens if you're wrong? If the capability is critical and building fails, 
 ### 7. Existing Solutions
 
 The market matters. If there are mature, well-supported solutions that meet 80% of your needs, that changes the equation. The tool considers what's already available and how well it fits.
+
+## Cost Comparison: Build vs Buy
+
+Here's how costs typically compare over time for building vs buying:
+
+<CostComparisonChart
+  title="Total Cost of Ownership Comparison"
+  description="Compare the total cost of building vs buying over different timeframes"
+  data={[
+    {
+      option: 'Build',
+      upfront: 50000,
+      monthly: 10000,
+      annual: 170000,
+      total3Months: 80000,
+      total6Months: 110000,
+      total12Months: 170000,
+    },
+    {
+      option: 'Buy',
+      upfront: 5000,
+      monthly: 2000,
+      annual: 29000,
+      total3Months: 11000,
+      total6Months: 17000,
+      total12Months: 29000,
+    },
+  ]}
+  timeframe="all"
+/>
 
 ## Real-World Impact
 
@@ -3310,6 +4713,24 @@ Over years of using this framework, I've noticed consistent patterns:
 **Depends on Context:** Admin dashboards, reporting, monitoring, CRM, customer support tools
 
 The framework helps you navigate the "depends" category with data instead of debate.
+
+## Decision Matrix Visualization
+
+See how different factors influence the Build vs Buy decision:
+
+<InteractiveChart
+  type="radar"
+  data={[
+    { dimension: 'Differentiation', build: 80, buy: 20 },
+    { dimension: 'Timeline', build: 40, buy: 60 },
+    { dimension: 'Team Size', build: 70, buy: 30 },
+    { dimension: 'Expertise', build: 75, buy: 25 },
+    { dimension: 'Budget', build: 50, buy: 50 },
+    { dimension: 'Maintenance', build: 60, buy: 40 },
+    { dimension: 'Existing Solutions', build: 30, buy: 70 },
+  ]}
+  height={400}
+/>
 
 ## Final Thought
 
@@ -5792,6 +7213,260 @@ function catch_that_image($the_post) {
     metadata: {
       updatedDate: '2014-10-23',
       isUpdated: true,
+    },
+  },
+  {
+    slug: 'interactive-blog-demo-interactive-charts-and-visualizations',
+    url: 'https://krischase.com/blog/interactive-blog-demo-interactive-charts-and-visualizations',
+    title: 'Interactive Blog Demo: Charts, Sliders, and Visualizations',
+    description: 'Explore the power of interactive blog content with dynamic charts, sliders, calculators, and data visualizations that engage readers and make complex information accessible.',
+    content: `import { InteractiveChart, InteractiveSlider, Calculator, ComparisonChart, DataTable } from '@/components/blog/MDXComponents';
+
+# Interactive Blog Demo: Charts, Sliders, and Visualizations
+
+Welcome to the future of blog content! This post demonstrates how interactive elements can transform static articles into engaging, dynamic experiences.
+
+## Why Interactive Content Matters
+
+Interactive content increases engagement, improves understanding, and makes complex data accessible. Instead of just reading about data, readers can explore it themselves.
+
+## Interactive Line Chart
+
+Here's a performance trend over time. Adjust the slider below to see how different time ranges affect the visualization:
+
+<InteractiveChart
+  type="line"
+  data={[
+    {
+      id: 'Performance',
+      data: [
+        { x: 'Jan', y: 65 },
+        { x: 'Feb', y: 72 },
+        { x: 'Mar', y: 68 },
+        { x: 'Apr', y: 85 },
+        { x: 'May', y: 92 },
+        { x: 'Jun', y: 88 },
+      ],
+    },
+    {
+      id: 'Target',
+      data: [
+        { x: 'Jan', y: 70 },
+        { x: 'Feb', y: 70 },
+        { x: 'Mar', y: 75 },
+        { x: 'Apr', y: 80 },
+        { x: 'May', y: 85 },
+        { x: 'Jun', y: 90 },
+      ],
+    },
+  ]}
+  height={400}
+  axisBottom={{ legend: 'Month' }}
+  axisLeft={{ legend: 'Score' }}
+/>
+
+## Interactive Bar Chart
+
+Compare different metrics across categories:
+
+<InteractiveChart
+  type="bar"
+  data={[
+    { category: 'Q1', Revenue: 120000, Expenses: 80000, Profit: 40000 },
+    { category: 'Q2', Revenue: 150000, Expenses: 95000, Profit: 55000 },
+    { category: 'Q3', Revenue: 180000, Expenses: 110000, Profit: 70000 },
+    { category: 'Q4', Revenue: 200000, Expenses: 120000, Profit: 80000 },
+  ]}
+  height={400}
+  axisBottom={{ legend: 'Quarter' }}
+  axisLeft={{ legend: 'Amount ($)' }}
+/>
+
+## Interactive Pie Chart
+
+Visualize distribution of resources:
+
+<InteractiveChart
+  type="pie"
+  data={[
+    { id: 'Development', label: 'Development', value: 35 },
+    { id: 'Design', label: 'Design', value: 25 },
+    { id: 'Marketing', label: 'Marketing', value: 20 },
+    { id: 'Operations', label: 'Operations', value: 15 },
+    { id: 'Other', label: 'Other', value: 5 },
+  ]}
+  height={400}
+/>
+
+## Interactive Calculator
+
+Calculate your project ROI:
+
+<Calculator
+  title="ROI Calculator"
+  description="Adjust the inputs below to calculate your return on investment"
+  fields={[
+    {
+      id: 'investment',
+      label: 'Initial Investment ($)',
+      type: 'number',
+      defaultValue: 10000,
+      min: 0,
+      max: 1000000,
+      step: 1000,
+      formatValue: (val) => '$' + Number(val).toLocaleString(),
+    },
+    {
+      id: 'return',
+      label: 'Expected Return ($)',
+      type: 'number',
+      defaultValue: 15000,
+      min: 0,
+      max: 1000000,
+      step: 1000,
+      formatValue: (val) => '$' + Number(val).toLocaleString(),
+    },
+    {
+      id: 'timeframe',
+      label: 'Timeframe (months)',
+      type: 'slider',
+      defaultValue: 12,
+      min: 1,
+      max: 60,
+      step: 1,
+    },
+  ]}
+  calculate={(values) => {
+    const investment = Number(values.investment) || 0;
+    const returnAmount = Number(values.return) || 0;
+    const timeframe = Number(values.timeframe) || 1;
+    const profit = returnAmount - investment;
+    const roi = investment > 0 ? ((profit / investment) * 100).toFixed(2) : 0;
+    const monthlyReturn = timeframe > 0 ? (profit / timeframe).toFixed(2) : 0;
+    
+    return [
+      {
+        label: 'Total Profit',
+        value: profit,
+        formatValue: (val) => '$' + Number(val).toLocaleString(),
+        highlight: profit > 0,
+      },
+      {
+        label: 'ROI Percentage',
+        value: roi + '%',
+        highlight: Number(roi) > 50,
+      },
+      {
+        label: 'Monthly Return',
+        value: monthlyReturn,
+        formatValue: (val) => '$' + Number(val).toLocaleString(),
+      },
+    ];
+  }}
+/>
+
+## Comparison Chart
+
+Switch between different views to compare data:
+
+<ComparisonChart
+  title="Performance Comparison"
+  description="Select a view to compare different metrics"
+  chartType="bar"
+  options={[
+    {
+      id: 'quarterly',
+      label: 'Quarterly View',
+      data: [
+        { period: 'Q1', Value: 120 },
+        { period: 'Q2', Value: 150 },
+        { period: 'Q3', Value: 180 },
+        { period: 'Q4', Value: 200 },
+      ],
+    },
+    {
+      id: 'monthly',
+      label: 'Monthly View',
+      data: [
+        { period: 'Jan', Value: 40 },
+        { period: 'Feb', Value: 45 },
+        { period: 'Mar', Value: 35 },
+        { period: 'Apr', Value: 50 },
+        { period: 'May', Value: 55 },
+        { period: 'Jun', Value: 60 },
+      ],
+    },
+  ]}
+  height={400}
+/>
+
+## Interactive Data Table
+
+Explore and sort the data:
+
+<DataTable
+  data={[
+    { name: 'Project Alpha', status: 'Active', budget: 50000, completion: 75 },
+    { name: 'Project Beta', status: 'Completed', budget: 75000, completion: 100 },
+    { name: 'Project Gamma', status: 'Planning', budget: 30000, completion: 25 },
+    { name: 'Project Delta', status: 'Active', budget: 60000, completion: 60 },
+    { name: 'Project Epsilon', status: 'On Hold', budget: 40000, completion: 40 },
+  ]}
+  columns={[
+    { key: 'name', label: 'Project Name', sortable: true },
+    { key: 'status', label: 'Status', sortable: true },
+    {
+      key: 'budget',
+      label: 'Budget',
+      sortable: true,
+      render: (value) => \`$\${Number(value).toLocaleString()}\`,
+    },
+    {
+      key: 'completion',
+      label: 'Completion %',
+      sortable: true,
+      render: (value) => \`\${value}%\`,
+    },
+  ]}
+  searchable={true}
+  sortable={true}
+  pagination={true}
+  itemsPerPage={3}
+/>
+
+## Conclusion
+
+Interactive content transforms static articles into dynamic experiences. By incorporating charts, sliders, calculators, and data tables, you can:
+
+- **Increase Engagement**: Readers spend more time exploring content
+- **Improve Understanding**: Visual and interactive elements make complex data accessible
+- **Drive Action**: Interactive tools help readers make decisions
+- **Stand Out**: Differentiate your content with unique interactive experiences
+
+Start creating interactive blog posts today and watch your engagement soar!`,
+    category: 'Interactive Content',
+    tags: ['Interactive', 'Charts', 'Visualization', 'MDX', 'Nivo', 'Data'],
+    publishedDate: '2025-01-15',
+    originalDate: '2025-01-15',
+    featuredImage: undefined,
+    seo: {
+      metaTitle: 'Interactive Blog Demo: Charts, Sliders, and Visualizations - Kris Chase',
+      metaDescription: 'Explore the power of interactive blog content with dynamic charts, sliders, calculators, and data visualizations that engage readers.',
+      ogTitle: 'Interactive Blog Demo: Charts, Sliders, and Visualizations',
+      ogDescription: 'Explore the power of interactive blog content with dynamic charts, sliders, calculators, and data visualizations.',
+      ogImage: undefined,
+      twitterCard: 'summary_large_image',
+    },
+    readingTime: 8,
+    wordCount: 650,
+    author: {
+      name: 'Kris Chase',
+      twitter: '@chasebadkids',
+      email: 'hey@mehh.org',
+    },
+    metadata: {
+      updatedDate: '2025-01-15',
+      isUpdated: false,
     },
   },
 ];

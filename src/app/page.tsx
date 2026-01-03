@@ -8,15 +8,20 @@ import Brands from "../components/Brands";
 import Testimonials from "../components/Testimonials";
 import SimpleHoverEffect from "../components/SimpleHoverEffect";
 import TechStacks from "../components/TechStacks";
+import PageViewEvent from "../components/PageViewEvent";
+import HomeClient from "./HomeClient";
 
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { SectionTransition } from "../components/SmoothScrollProvider";
 
 export default function Home() {
+
   return (
     <>
       {/* Global Components */}
       <SimpleHoverEffect />
+      <PageViewEvent pageName="home" />
+      <HomeClient />
       
       {/* Page Content */}
       <div className="min-h-[100dvh] relative z-10 pl-4 sm:pl-6 md:pl-8 lg:pl-12 xl:pl-16">

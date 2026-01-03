@@ -2,10 +2,15 @@
 
 import React, { useState } from "react";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function PartnersRegistrationPage() {
   const [status, setStatus] = useState<string | null>(null);
   const [types, setTypes] = useState<string[]>([]);
+
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
 
   // Register Partners page for Machine View
   useMachineSlice({
@@ -72,7 +77,9 @@ export default function PartnersRegistrationPage() {
   };
 
   return (
-    <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
+    <>
+      <PageViewEvent pageName="partners" />
+      <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-16 sm:pb-20">
       {/* Hero */}
       <section className="mb-10 sm:mb-12 md:mb-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -187,5 +194,6 @@ export default function PartnersRegistrationPage() {
         </aside>
       </section>
     </main>
+    </>
   );
 }

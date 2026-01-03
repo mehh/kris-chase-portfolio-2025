@@ -5,6 +5,8 @@ import { Box, Lock, Search, Settings, Sparkles, Rocket } from "lucide-react";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
 import { cn } from "@/lib/utils";
 import { useMachineSlice } from "@/components/machine/MachineViewProvider";
+import PageViewEvent from "@/components/PageViewEvent";
+import { useScrollTracking } from "@/hooks/useScrollTracking";
 
 export default function HowIOperatePage() {
   // Register page content for Machine View
@@ -15,8 +17,13 @@ export default function HowIOperatePage() {
     order: 10,
     content: `### Summary\n\nI’m a hands‑on software engineering leader who turns strategy into shipped software. I align product and engineering, build teams and systems that scale, and reduce risk while increasing delivery velocity.\n\n### Process\n\n1. **Assess** — Rapid clarity on goals, constraints, and reality. Map value, risks, and unknowns.\n2. **Align** — Translate strategy into a focused plan: priorities, owners, checkpoints, and metrics.\n3. **Execute** — Ship, measure, and iterate. Build durable mechanisms for reliability and speed.\n\n### Leadership & Management Style\n\n- **Clarity & Accountability** — Write the plan, name the owner, define done. Weekly operating rhythm with visible metrics.\n- **Autonomy with Guardrails** — Small teams with clear interfaces; standards, code review, and SLOs/on‑call keep speed from breaking quality.\n- **Coach & Raise the Bar** — Direct, kind feedback. Grow leaders and make hard calls when needed; incidents become insights.`,
   }, []);
+  // Track scroll depth and time on page
+  useScrollTracking({ trackScrollDepth: true, trackTimeOnPage: true });
+
   return (
-    <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-20">
+    <>
+      <PageViewEvent pageName="how_i_operate" />
+      <main className="relative mx-auto w-full max-w-6xl px-6 sm:px-8 md:px-10 lg:px-12 pt-32 sm:pt-40 md:pt-44 pb-20">
       {/* Hero */}
       <section className="mb-12 md:mb-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-foreground">
@@ -228,6 +235,7 @@ export default function HowIOperatePage() {
         </p>
       </section>
     </main>
+    </>
   );
 }
 
