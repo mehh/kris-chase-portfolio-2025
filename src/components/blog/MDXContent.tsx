@@ -17,6 +17,12 @@ import {
   Calculator,
   ComparisonChart,
   DataTable,
+  DecisionCalculator,
+  AssessmentCalculator,
+  CostComparisonCalculator,
+  CostComparisonChart,
+  TimelineComparison,
+  ScoreVisualization,
   DebtReductionVisualization,
 } from './MDXComponents';
 
@@ -50,6 +56,12 @@ export function MDXContent({ content, className }: MDXContentProps) {
     Calculator,
     ComparisonChart,
     DataTable,
+    DecisionCalculator,
+    AssessmentCalculator,
+    CostComparisonCalculator,
+    CostComparisonChart,
+    TimelineComparison,
+    ScoreVisualization,
     DebtReductionVisualization,
   };
 
