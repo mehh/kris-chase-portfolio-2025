@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import { compile } from '@mdx-js/mdx';
+import { evaluate } from '@mdx-js/mdx';
 import { MDXProvider } from '@mdx-js/react';
 import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
@@ -100,60 +100,16 @@ export function MDXContent({ content, className }: MDXContentProps) {
             ? `file://${process.cwd()}`
             : 'file:///';
 
-        // Compile MDX to get the code string
-        const compiledFile = await compile(transformedContent, {
+        // Use evaluate with useMDXComponents to provide components
+        // This is the proper way to pass components to MDX
+        const { default: MDXComponent } = await evaluate(transformedContent, {
+          ...runtime,
           remarkPlugins: [remarkGfm],
           rehypePlugins: [rehypeHighlight],
           development: isDevelopment,
           baseUrl,
-          outputFormat: 'function-body',
+          useMDXComponents: () => components,
         });
-
-        // Extract the compiled code string from the VFile
-        const compiledCode = String(compiledFile);
-
-        // Get component names and values that need to be available in MDX scope
-        const componentNames = Object.keys(components).filter(
-          key => typeof components[key as keyof typeof components] === 'function'
-        );
-        const componentValues = componentNames.map(name => components[name as keyof typeof components]);
-
-        // Get the appropriate runtime functions based on environment
-        const Fragment = runtime.Fragment;
-        const jsx = 'jsx' in runtime ? (runtime as any).jsx : undefined;
-        const jsxs = 'jsxs' in runtime ? (runtime as any).jsxs : undefined;
-        const jsxDEV = 'jsxDEV' in runtime ? (runtime as any).jsxDEV : undefined;
-
-        // Create parameter names for the Function constructor
-        // Pass components directly with their actual names so they're in scope
-        const functionParams = [
-          'Fragment',
-          'jsx',
-          'jsxs',
-          'jsxDEV',
-          ...componentNames
-        ];
-
-        // Create the function body - components are already in scope as parameters
-        const functionBody = `
-          ${compiledCode}
-          return { default: MDXContent };
-        `;
-
-        // Create the factory function
-        const moduleFactory = new Function(...functionParams, functionBody);
-
-        // Call the factory with runtime functions and component values
-        // The order must match the parameter order
-        const module = moduleFactory(
-          Fragment,
-          jsx || jsxDEV,
-          jsxs || jsxDEV,
-          jsxDEV,
-          ...componentValues
-        );
-
-        const MDXComponent = module.default;
 
         if (isMounted) {
           setComponent(() => MDXComponent);
