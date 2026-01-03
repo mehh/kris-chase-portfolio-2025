@@ -100,31 +100,34 @@ export function MDXContent({ content, className }: MDXContentProps) {
             ? `file://${process.cwd()}`
             : 'file:///';
 
-        // Store components in a closure-accessible location
-        // We'll create a unique ID for this compilation and store components there
-        const componentStoreId = `__MDX_COMPONENTS_${Date.now()}_${Math.random().toString(36).substr(2, 9)}__`;
+        // Store components in a persistent global store
+        // Use a single key that's always available
+        const COMPONENT_STORE_KEY = '__MDX_COMPONENTS__';
+        const globalObj = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : self;
         
-        // Store components in a global store that the compiled MDX can access
-        if (typeof window !== 'undefined') {
-          (window as any)[componentStoreId] = components;
-        } else if (typeof global !== 'undefined') {
-          (global as any)[componentStoreId] = components;
-        }
-
-        // Inject component declarations at the top of the MDX content
-        // These will reference the stored components
+        // Store components in global scope BEFORE compilation
+        // This ensures they're available when the compiled code runs
+        (globalObj as any)[COMPONENT_STORE_KEY] = components;
+        
+        // Get component names that need to be available in MDX scope
         const componentNames = Object.keys(components).filter(
           key => typeof components[key as keyof typeof components] === 'function'
         );
         
+        // Inject component declarations at the very top of the MDX content
+        // Access the global store and declare each component
         const componentDeclarations = componentNames.length > 0
-          ? `const __MDX_COMPONENTS__ = typeof window !== 'undefined' ? window['${componentStoreId}'] : typeof global !== 'undefined' ? global['${componentStoreId}'] : {};\n` +
-            componentNames.map(name => `const ${name} = __MDX_COMPONENTS__?.${name};`).join('\n') +
+          ? `const __MDX_COMPONENTS__ = (typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : self)['${COMPONENT_STORE_KEY}'];\n` +
+            componentNames.map(name => {
+              // Declare each component - throw error if not found to help debug
+              return `const ${name} = __MDX_COMPONENTS__ && __MDX_COMPONENTS__['${name}'];`;
+            }).join('\n') +
             '\n\n'
           : '';
 
         const finalContent = componentDeclarations + transformedContent;
 
+        // Compile the MDX with components available in scope
         const { default: MDXComponent } = await evaluate(finalContent, {
           ...runtime,
           remarkPlugins: [remarkGfm],
@@ -136,16 +139,6 @@ export function MDXContent({ content, className }: MDXContentProps) {
         if (isMounted) {
           setComponent(() => MDXComponent);
           setIsLoading(false);
-          
-          // Clean up the global component store after a delay
-          // (give time for the component to render)
-          setTimeout(() => {
-            if (typeof window !== 'undefined') {
-              delete (window as any)[componentStoreId];
-            } else if (typeof global !== 'undefined') {
-              delete (global as any)[componentStoreId];
-            }
-          }, 1000);
         }
       } catch (err) {
         console.error('Error compiling MDX:', err);
