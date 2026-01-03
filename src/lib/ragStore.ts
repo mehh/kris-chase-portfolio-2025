@@ -79,9 +79,20 @@ export const cosineSim = (a: number[], b: number[]) => {
   return dot / (Math.sqrt(na) * Math.sqrt(nb));
 };
 
-export async function getEmbeddings(texts: string[]): Promise<number[][]> {
+export async function getEmbeddings(
+  texts: string[],
+  options?: {
+    posthogDistinctId?: string;
+    posthogTraceId?: string;
+    posthogProperties?: Record<string, unknown>;
+  }
+): Promise<number[][]> {
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error("OPENAI_API_KEY is not set");
+
+  // Try to use PostHog-wrapped OpenAI client for analytics
+  const { getPostHogOpenAIClient } = await import("@/lib/posthog/openai");
+  const phOpenAI = getPostHogOpenAIClient(apiKey);
 
   // Batch inputs to reduce the chance of hitting context limits when sending arrays
   const batches: string[][] = [];
@@ -102,23 +113,58 @@ export async function getEmbeddings(texts: string[]): Promise<number[][]> {
 
   const out: number[][] = [];
   for (const batch of batches) {
-    const res = await fetch("https://api.openai.com/v1/embeddings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: "text-embedding-3-small",
-        input: batch,
-      }),
-    });
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(`Embedding error: ${res.status} ${err}`);
+    if (phOpenAI) {
+      // Use PostHog-wrapped client for automatic $ai_embedding event capture
+      try {
+        const response = await phOpenAI.embeddings.create({
+          model: "text-embedding-3-small",
+          input: batch,
+          posthogDistinctId: options?.posthogDistinctId,
+          posthogTraceId: options?.posthogTraceId,
+          posthogProperties: options?.posthogProperties,
+        });
+        response.data.forEach((d) => out.push(d.embedding));
+      } catch (error) {
+        // Fallback to direct fetch if PostHog client fails
+        console.warn("PostHog OpenAI client failed, falling back to direct API", error);
+        const res = await fetch("https://api.openai.com/v1/embeddings", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${apiKey}`,
+          },
+          body: JSON.stringify({
+            model: "text-embedding-3-small",
+            input: batch,
+          }),
+        });
+        if (!res.ok) {
+          const err = await res.text();
+          throw new Error(`Embedding error: ${res.status} ${err}`);
+        }
+        const json = (await res.json()) as { data: { embedding: number[] }[] };
+        json.data.forEach((d) => out.push(d.embedding));
+      }
+    } else {
+      // Fallback to direct fetch if PostHog is not configured
+      const res = await fetch("https://api.openai.com/v1/embeddings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          model: "text-embedding-3-small",
+          input: batch,
+        }),
+      });
+      if (!res.ok) {
+        const err = await res.text();
+        throw new Error(`Embedding error: ${res.status} ${err}`);
+      }
+      const json = (await res.json()) as { data: { embedding: number[] }[] };
+      json.data.forEach((d) => out.push(d.embedding));
     }
-    const json = (await res.json()) as { data: { embedding: number[] }[] };
-    json.data.forEach((d) => out.push(d.embedding));
   }
   return out;
 }
@@ -141,9 +187,17 @@ export async function ensureEmbedded() {
   }
 }
 
-export async function retrieve(query: string, k = 4) {
+export async function retrieve(
+  query: string,
+  k = 4,
+  options?: {
+    posthogDistinctId?: string;
+    posthogTraceId?: string;
+    posthogProperties?: Record<string, unknown>;
+  }
+) {
   await ensureEmbedded();
-  const [qEmb] = await getEmbeddings([query]);
+  const [qEmb] = await getEmbeddings([query], options);
   const scored = RAG_DOCUMENTS.map((d) => {
     let score = cosineSim(qEmb, d.embedding || []);
     // Lightly boost FAQ docs to help common interview Q&A surface
